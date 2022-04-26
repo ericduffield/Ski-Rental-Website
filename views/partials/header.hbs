@@ -1,0 +1,59 @@
+<header>
+    <div id="hamburger">
+        <span></span>
+        <span></span>
+        <span></span>
+    </div>
+    <div id="menuToggle">
+        <input onclick="slide(); hamburger()" />
+    </div>
+    <nav role="navigation">
+        <ul id="navbar">
+            <a href="/home" {{#if home}} class="active" {{/if}}>
+                <li>Home</li>
+            </a>
+            <a href="/rent" {{#if rent}} class="active" {{/if}}>
+                <li>Rent</li>
+            </a>
+            <a href="/about" {{#if about}} class="active" {{/if}}>
+                <li>About</li>
+            </a>
+        </ul>
+    </nav>
+    <a href="/home">
+        <p id="title">Ski Store</p>
+    </a>
+    <div id="account">
+        <ul>
+            <li>
+                <a id="dark-mode">
+                    <span id="mode-logo" class="material-icons-sharp">light_mode</span>
+                    <h3 id="mode-text">Light Mode</h3>
+                </a>
+            </li>
+            <li>
+                <a id="login" href="/login">
+            <li>Account</li>
+            </a>
+            </li>
+        </ul>
+    </div>
+</header>
+
+<ul id="menu">
+    <a href="/home">
+        <li>Home</li>
+    </a>
+    <a href="/get">
+        <li>Get</li>
+    </a>
+    <a href="/listSkiEquipment">
+        <li>List</li>
+    </a>
+    <a href="/edit">
+        <li>Edit</li>
+    </a>
+    <a href="/delete">
+        <li>Delete</li>
+    </a>
+</ul>
