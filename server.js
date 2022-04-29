@@ -3,7 +3,7 @@ const port = 1339;
 const model = require('./models/skiEquipmentModelMysql');
 let dbName = process.argv[2];
 if (!dbName) {
-    dbName = 'skiEquipment_db_test';
+    dbName = 'skiEquipment_db';
 }
 
 model.initialize(dbName, false)
