@@ -23,14 +23,66 @@ async function initialize(dbname, reset) {
         });
 
         if (reset) {
-            const dropQuery = "DROP TABLE IF EXISTS skiEquipment";
+            set 
+            const dropQuery = "SET foreign_key_checks = 0; DROP TABLE userTypes; DROP TABLE users; DROP TABLE rentals; DROP TABLE itemTypes; DROP TABLE inventory; DROP TABLE products; DROP TABLE bundles;SET foreign_key_checks = 0;";
             await connection.execute(dropQuery);
-            logger.info("Table skiEquipment dropped");
-        }
-        const sqlQuery = 'CREATE TABLE IF NOT EXISTS skiEquipment(id int AUTO_INCREMENT, name VARCHAR(50), price DECIMAL(5,2), PRIMARY KEY(id))';
+            logger.info("Dropped all tables");
+        }           
 
-        await connection.execute(sqlQuery)
-            .catch((error) => { throw new SystemError("SQL Execution Error"); });
+        const noForeignKeys = 'SET foreign_key_checks = 0';
+
+        await connection.execute(noForeignKeys)
+            .catch((error) => { throw new SystemError("SQL Execution Error - Foreign Key Cancel"); 
+        });
+
+        const userTypes = 'CREATE TABLE IF NOT EXISTS userTypes(id int AUTO_INCREMENT NOT NULL PRIMARY KEY, name varchar(50) NOT NULL)';
+
+        await connection.execute(userTypes)
+            .catch((error) => { throw new SystemError("SQL Execution Error - User Types"); 
+        });        
+
+        const itemTypes = 'CREATE TABLE IF NOT EXISTS itemTypes(id int AUTO_INCREMENT NOT NULL PRIMARY KEY, name varchar(50) NOT NULL)';
+
+        await connection.execute(itemTypes)
+            .catch((error) => { throw new SystemError("SQL Execution Error - Products"); 
+        });
+
+        const inventory = 'CREATE TABLE IF NOT EXISTS inventory(id int AUTO_INCREMENT NOT NULL PRIMARY KEY, name varchar(50) NOT NULL, description varchar(50) NOT NULL, itemCost decimal NOT NULL, itemType int NOT NULL, FOREIGN KEY (itemType) REFERENCES itemTypes(id))';
+
+        await connection.execute(inventory)
+            .catch((error) => { throw new SystemError("SQL Execution Error - Products"); 
+        });
+
+        const users = 'CREATE TABLE IF NOT EXISTS users(id int AUTO_INCREMENT NOT NULL PRIMARY KEY, userType int NOT NULL, username varchar(50) NOT NULL, password varchar(50), firstName varchar(50) NOT NULL, lastName varchar(50) NOT NULL, credit decimal NOT NULL, FOREIGN KEY (userType) REFERENCES userTypes(id))';
+
+        await connection.execute(users)
+            .catch((error) => { throw new SystemError("SQL Execution Error - Products"); 
+        });
+
+        const rentals = 'CREATE TABLE IF NOT EXISTS rentals(id int AUTO_INCREMENT NOT NULL PRIMARY KEY, userId int NOT NULL, productId int NOT NULL, startTime time NOT NULL, endTime time NOT NULL, FOREIGN KEY (userId) REFERENCES Users(id), FOREIGN KEY (productId) REFERENCES products(id))';
+
+        await connection.execute(rentals)
+            .catch((error) => { throw new SystemError("SQL Execution Error - Rentals"); 
+        });
+
+        const products = 'CREATE TABLE IF NOT EXISTS products(id int AUTO_INCREMENT NOT NULL PRIMARY KEY, name varchar(50) NOT NULL, description varchar(50) NOT NULL, rentalCost decimal NOT NULL, productId int, bundleId int, FOREIGN KEY (productId) REFERENCES inventory(id), FOREIGN KEY (bundleId) REFERENCES bundles(id))';
+
+        await connection.execute(products)
+            .catch((error) => { throw new SystemError("SQL Execution Error - Products"); 
+        });
+
+        const bundles = 'CREATE TABLE IF NOT EXISTS bundles(id int AUTO_INCREMENT NOT NULL PRIMARY KEY, productId int NOT NULL, bootId int NOT NULL, poleId int, helmetId int NOT NULL, FOREIGN KEY (productId) REFERENCES products(id), FOREIGN KEY (bootId) REFERENCES products(id), FOREIGN KEY (poleId) REFERENCES products(id), FOREIGN KEY (helmetId) REFERENCES products(id))';
+
+        await connection.execute(bundles)
+            .catch((error) => { throw new SystemError("SQL Execution Error - Products"); 
+        });
+
+        const ForeignKeys = 'SET foreign_key_checks = 1';
+
+        await connection.execute(ForeignKeys)
+            .catch((error) => { throw new SystemError("SQL Execution Error - Foreign Key Back On"); 
+        });
+        
     }
     catch (error) {
         throw new SystemError("SQL Execution Error");
