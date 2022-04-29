@@ -7,6 +7,7 @@ const logger = require('../logger');
 
 
 router.get('/home', home);
+router.get('/', home);
 
 function home(req, res) {
     const homePageData = {

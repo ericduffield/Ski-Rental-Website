@@ -10,7 +10,7 @@ router.all('*', error);
  * @param {*} res 
  */
 function error(req, res) {
-    res.status(404).send('Error 404: Page not found');
+    res.render("home.hbs", { alertMessage: "Error! Page not found.", image: "/images/warning.webp", alertClass: "404", error: true });
 }
 
 module.exports = {
