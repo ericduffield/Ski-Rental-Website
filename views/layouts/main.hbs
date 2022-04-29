@@ -23,6 +23,11 @@
 
         {{#if image}}
         <div id="imageSection">
+            {{#if error}}
+            <a>
+                <img src={{image}} id="errorImage" alt="">
+            </a>
+            {{else}}
             {{#if admin}}
             <a href="/admin">
                 <img src={{image}} id="image" alt="">
@@ -31,6 +36,7 @@
             <a href="/rent">
                 <img src={{image}} id="image" alt="">
             </a>
+            {{/if}}
             {{/if}}
         </div>
         {{/if}}

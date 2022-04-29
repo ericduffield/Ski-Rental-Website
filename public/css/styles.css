@@ -272,6 +272,11 @@ main
 	width: 100%;
 }
 
+#errorImage{
+	margin: 1.5rem;
+	height: 13rem;
+}
+
 /* ===========  FORMS  ========== */
 
 form
