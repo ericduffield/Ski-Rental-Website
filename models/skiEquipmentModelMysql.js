@@ -96,6 +96,127 @@ function getConnection() {
 }
 
 /**
+ * Validates all the new user fields then creates the user in the db
+ * @param {*} userType The type of the new user
+ * @param {*} username The username of the new user
+ * @param {*} password The password of the new user
+ * @param {*} firstName The first name of the new user
+ * @param {*} lastName The last name of the new user
+ * @param {*} credit The credit in the account of the new user
+ * @returns an object of the added user
+ * @throws UserDataError if user sends invalid data
+ * @throws SystemError If there is an error in the database while adding
+ */
+async function createUser(userType, username, password, firstName, lastName, credit){
+    if (!validate.isValidUserType(userType)) {
+        throw new UserDataError("Invalid user type");
+    }
+    if (!validate.isValidUsername(username)) {
+        throw new UserDataError("Invalid username");
+    }
+    if (!validate.isValidPassword(password)) {
+        throw new UserDataError("Invalid password");
+    }
+    if (!validate.isValidFirstName(firstName)) {
+        throw new UserDataError("Invalid first name");
+    }
+    if (!validate.isValidLastName(lastName)) {
+        throw new UserDataError("Invalid last name");
+    }
+    if (!validate.isValidCredit(credit)) {
+        throw new UserDataError("Invalid credit");
+    }    
+
+    const sqlQuery = 'INSERT INTO users (userType, username, password, firstName, lastName, credit) VALUES ('
+        + userType + ',\"' + username + '\",\"' + password + '\",\"' + firstName + '\",\"' + lastName + '\",\"' + credit + '\")';
+    await connection.execute(sqlQuery)
+        .catch((error) => {
+            logger.error(error)
+            throw new SystemError("Error adding user");
+        });
+
+        return { "userType": userType, "username": username, "password": password, "firstName": firstName, "lastName": lastName, "credit": credit };
+}
+/**
+ * Edits all the fields for a user from its id
+ * @param {*} id The id of the user to update
+ * @param {*} userType The new user type of the user
+ * @param {*} username The new username of the user
+ * @param {*} password The new password of the user
+ * @param {*} firstName The new first name of the user
+ * @param {*} lastName The new last name of the user
+ * @param {*} credit The new credit of the user
+ * @returns An object of the user
+ * @throws UserDataError if user sends invalid data
+ * @throws SystemError If there is an error in the database while updating
+ */
+async function editUser(id, userType, username, password, firstName, lastName, credit){
+    if(!isValid.isValidId(id)){
+        throw new UserDataError("Invalid id");
+    }    
+    if (!validate.isValidUserType(userType)) {
+        throw new UserDataError("Invalid user type");
+    }
+    if (!validate.isValidUsername(username)) {
+        throw new UserDataError("Invalid username");
+    }
+    if (!validate.isValidPassword(password)) {
+        throw new UserDataError("Invalid password");
+    }
+    if (!validate.isValidFirstName(firstName)) {
+        throw new UserDataError("Invalid first name");
+    }
+    if (!validate.isValidLastName(lastName)) {
+        throw new UserDataError("Invalid last name");
+    }
+    if (!validate.isValidCredit(credit)) {
+        throw new UserDataError("Invalid credit");
+    } 
+
+    const sqlQuery = 'UPDATE users SET userType = ' + userType + ', username = \'' + username + '\', password = \'' + password + '\', firstName = \'' + firstName + '\', lastName = \'' + lastName + '\', credit = \'' + credit + '\' WHERE id = ' + id;
+    await connection.execute(sqlQuery)
+        .catch((error) => {
+            logger.error(error)
+            throw new SystemError("Error editing user");
+        }
+    );
+    return { "userType": userType, "username": username, "password": password, "firstName": firstName, "lastName": lastName, "credit": credit };
+}
+/**
+ * Deletes a user that has the specified id
+ * @param {*} id The id of the user to delete 
+ * @throws UserDataError if user sends invalid data
+ * @throws SystemError if there is an error in the database while deleting
+ */
+async function deleteUser(id){
+    if(!isValid.isValidId(id)){
+        throw new UserDataError("Invalid id");
+    }
+    const sqlQuery = 'DELETE FROM users WHERE id = ' + id;
+    await connection.execute(sqlQuery)
+        .catch((error) => {
+            logger.error(error)
+            throw new SystemError("Error deleting user");
+        });
+}
+/**
+ * Returns an object with all the user fields from the user with the specified id
+ * @param {*} id The id of the user to get
+ */
+async function getUserById(id){
+    if(!isValid.isValidId(id)){
+        throw new UserDataError("Invalid id");
+    }
+    const sqlQuery = 'SELECT * FROM users WHERE id = ' + id;
+    const result = await connection.execute(sqlQuery)
+        .catch((error) => {
+            logger.error(error)
+            throw new SystemError("Error getting user");
+        });
+    return result[0][0];
+}
+
+/**
  * Adds the given skiEquipment to the db if  valid and returns that skiEquipment as an object
  * @param {*} name name of skiEquipment
  * @param {*} price price of skiEquipment
