@@ -2,8 +2,15 @@
 
 {{{body}}}
 
-{{#if alertMessage}}
-<h1 class={{alertClass}}>{{alertMessage}}</h1>
+{{#if message}}
+<h1>{{message}}</h1>
 {{/if}}
+
+{{#each items}}
+<form action="{{formInput}}" method="post" role="form" enctype="application/x-www-form-urlencoded">
+    <h3>{{name}}</h3>
+    <button type="submit" class="btn btn-primary">Submit</button>
+</form>
+{{/each}}
 
 </html>

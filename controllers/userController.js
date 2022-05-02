@@ -5,13 +5,13 @@ const model = require('../models/skiEquipmentModelMysql');
 
 const logger = require('../logger');
 
+//#region USER PAGES
 
 router.get('/home', home);
 router.get('/', home);
 
 function home(req, res) {
     const homePageData = {
-        formInput: "/skiEquipment",
         image: "/images/hero.jpg",
         home: true
     };
@@ -23,9 +23,14 @@ router.get('/rent', rent);
 
 function rent(req, res) {
     const homePageData = {
-        formInput: "/skiEquipment",
         image: "/images/hero.jpg",
-        rent: true
+        rent: true,
+        items: [
+            {
+                name: "Snowboard",
+                formInput: "/rentSumbit",
+            }
+        ]
     };
 
     res.render("rent.hbs", homePageData);
@@ -35,13 +40,14 @@ router.get('/about', about);
 
 function about(req, res) {
     const homePageData = {
-        formInput: "/skiEquipment",
         image: "/images/hero.jpg",
         about: true
     };
 
     res.render("about.hbs", homePageData);
 }
+
+router.get('/get', getForm);
 
 function getForm(req, res) {
     const homePageData = {
@@ -52,44 +58,43 @@ function getForm(req, res) {
     res.render("getSkiEquipment.hbs", homePageData);
 }
 
-router.get('/get', getForm);
-
-
-
-/**
- * Edit Ski Equipment Endpoint.
- * Has a form that takes in an original name, new name and new price and edits information in the database.
- */
-function editForm(req, res) {
-    const homePageData = {
-        formInput: "/editSkiEquipment",
-        image: "/images/hero.jpg",
-    };
-
-    res.render("editSkiEquipment.hbs", homePageData);
-}
-
-router.get('/edit', editForm);
-
-
-/**
- * Delete Ski Equipment Endpoint.
- * Has a form that takes in a name and deletes it from the database.
- */
-function deleteForm(req, res) {
-    const homePageData = {
-        formInput: "/deleteSkiEquipment",
-        image: "/images/hero.jpg",
-    };
-
-    res.render("deleteSkiEquipment.hbs", homePageData);
-}
-
-router.get('/delete', deleteForm);
-
 //#endregion
 
+//#region USER ACTIONS
 
+router.post('/rentSumbit', rentSumbit);
+
+async function rentSumbit(req, res) {
+    try {
+
+        console.log("Successfully rented ski equipment");
+        rentResponse(res, "/images/hero.jpg", "Successfully rented ski equipment", false);
+    }
+    catch (err) {
+        console.error(err.message);
+        //Renders rent page again with error message
+        rentResponse(res, "/images/warning.webp", err.message, true);
+    }
+}
+
+function rentResponse(res, imageUrl, theMessage, errorStatus) {
+    const pageData = {
+        image: imageUrl,
+        error: errorStatus,
+        message: theMessage,
+        rent: true,
+        items: [
+            {
+                name: "Snowboard",
+                formInput: "/rentSumbit",
+            }
+        ]
+    }
+
+    res.render("rent.hbs", pageData);
+}
+
+//#endregion
 
 module.exports = {
     router,
