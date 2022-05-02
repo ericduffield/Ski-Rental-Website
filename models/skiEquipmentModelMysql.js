@@ -29,54 +29,75 @@ async function initialize(dbname, reset) {
             logger.info("Dropped all tables");
         }           
 
+        // Get rid of foreign key constraints while creating the database
         const noForeignKeys = 'SET foreign_key_checks = 0';
 
         await connection.execute(noForeignKeys)
             .catch((error) => { throw new SystemError("SQL Execution Error - Foreign Key Cancel"); 
         });
 
+        // User Types
         const userTypes = 'CREATE TABLE IF NOT EXISTS userTypes(id int AUTO_INCREMENT NOT NULL PRIMARY KEY, name varchar(50) NOT NULL)';
 
         await connection.execute(userTypes)
             .catch((error) => { throw new SystemError("SQL Execution Error - User Types"); 
         });        
 
+        // Item Types
         const itemTypes = 'CREATE TABLE IF NOT EXISTS itemTypes(id int AUTO_INCREMENT NOT NULL PRIMARY KEY, name varchar(50) NOT NULL)';
 
         await connection.execute(itemTypes)
             .catch((error) => { throw new SystemError("SQL Execution Error - Products"); 
         });
 
-        const inventory = 'CREATE TABLE IF NOT EXISTS inventory(id int AUTO_INCREMENT NOT NULL PRIMARY KEY, name varchar(50) NOT NULL, description varchar(50) NOT NULL, itemCost decimal NOT NULL, itemType int NOT NULL, FOREIGN KEY (itemType) REFERENCES itemTypes(id))';
+        // Inventory
+        const inventory = 'CREATE TABLE IF NOT EXISTS inventory(id int AUTO_INCREMENT NOT NULL PRIMARY KEY, name varchar(50) NOT NULL, description varchar(50) NOT NULL, itemCost decimal NOT NULL, rentalState boolean NOT NULL, itemType int NOT NULL, FOREIGN KEY (itemType) REFERENCES itemTypes(id))';
 
         await connection.execute(inventory)
             .catch((error) => { throw new SystemError("SQL Execution Error - Products"); 
         });
 
+        // Users
         const users = 'CREATE TABLE IF NOT EXISTS users(id int AUTO_INCREMENT NOT NULL PRIMARY KEY, userType int NOT NULL, username varchar(50) NOT NULL, password varchar(50), firstName varchar(50) NOT NULL, lastName varchar(50) NOT NULL, credit decimal NOT NULL, FOREIGN KEY (userType) REFERENCES userTypes(id))';
 
         await connection.execute(users)
             .catch((error) => { throw new SystemError("SQL Execution Error - Products"); 
         });
 
+        // Rentals
         const rentals = 'CREATE TABLE IF NOT EXISTS rentals(id int AUTO_INCREMENT NOT NULL PRIMARY KEY, userId int NOT NULL, productId int NOT NULL, startTime time NOT NULL, endTime time NOT NULL, FOREIGN KEY (userId) REFERENCES Users(id), FOREIGN KEY (productId) REFERENCES products(id))';
 
         await connection.execute(rentals)
             .catch((error) => { throw new SystemError("SQL Execution Error - Rentals"); 
         });
 
+        // Products
         const products = 'CREATE TABLE IF NOT EXISTS products(id int AUTO_INCREMENT NOT NULL PRIMARY KEY, name varchar(50) NOT NULL, description varchar(50) NOT NULL, rentalCost decimal NOT NULL, productId int, bundleId int, FOREIGN KEY (productId) REFERENCES inventory(id), FOREIGN KEY (bundleId) REFERENCES bundles(id))';
 
         await connection.execute(products)
             .catch((error) => { throw new SystemError("SQL Execution Error - Products"); 
         });
 
+        // Bundles
         const bundles = 'CREATE TABLE IF NOT EXISTS bundles(id int AUTO_INCREMENT NOT NULL PRIMARY KEY, productId int NOT NULL, bootId int NOT NULL, poleId int, helmetId int NOT NULL, FOREIGN KEY (productId) REFERENCES products(id), FOREIGN KEY (bootId) REFERENCES products(id), FOREIGN KEY (poleId) REFERENCES products(id), FOREIGN KEY (helmetId) REFERENCES products(id))';
 
         await connection.execute(bundles)
             .catch((error) => { throw new SystemError("SQL Execution Error - Products"); 
         });
 
+        // Add both user types
+        const userTypeQuery = 'INSERT INTO userTypes (name) VALUES ("Admin"), ("User")';
+        await connection.execute(userTypeQuery)
+            .catch((error) => { throw new SystemError("SQL Execution Error - Adding User Types");
+        });
+
+        // Add all item types
+        const itemTypeQuery = 'INSERT INTO itemTypes (name) VALUES ("Boots"), ("Poles"), ("Helmets"), ("Skis"), ("Snowboards"), ("Bundles")';
+        await connection.execute(itemTypeQuery)
+            .catch((error) => { throw new SystemError("SQL Execution Error - Adding Item Types");
+        });
+
+        // Set back foreign key constraints
         const ForeignKeys = 'SET foreign_key_checks = 1';
 
         await connection.execute(ForeignKeys)
@@ -94,6 +115,8 @@ async function initialize(dbname, reset) {
 function getConnection() {
     return connection;
 }
+
+// ----------------------- Users -----------------------
 
 /**
  * Validates all the new user fields then creates the user in the db
@@ -202,6 +225,8 @@ async function deleteUser(id){
 /**
  * Returns an object with all the user fields from the user with the specified id
  * @param {*} id The id of the user to get
+ * @throws UserDataError if user sends invalid data
+ * @throws SystemError if there is an error in the database while deleting
  */
 async function getUserById(id){
     if(!isValid.isValidId(id)){
@@ -216,133 +241,149 @@ async function getUserById(id){
     return result[0][0];
 }
 
+// ----------------------- Inventory -----------------------
 /**
- * Adds the given skiEquipment to the db if  valid and returns that skiEquipment as an object
- * @param {*} name name of skiEquipment
- * @param {*} price price of skiEquipment
- * @returns object that represents the ski equipment
- * @throws UserDataError if user sends invalid data or SystemError if database error
+ * Adds an item to the inventory
+ * @param {*} name The name of the item to add
+ * @param {*} description The description of the item to add
+ * @param {*} cost The cost of the item to add
+ * @param {*} isRented Whether or not the item is being rented
+ * @param {*} itemType The type of the item to add
+ * @throws UserDataError if user sends invalid data
+ * @throws SystemError if there is an error in the database while deleting
  */
-async function addSkiEquipment(name, price) {
-    if (!validate.isValid(name, price)) {
-        throw new UserDataError("Invalid name or price");
+async function addItem(name, description, itemCost, itemType){
+    if (!validate.isValidName(name)) {
+        throw new UserDataError("Invalid name");
+    }
+    if (!validate.isValidDescription(description)) {
+        throw new UserDataError("Invalid description");
+    }
+    if (!validate.isValidCost(itemCost)) {
+        throw new UserDataError("Invalid cost");
+    }
+    if (!validate.isValidItemType(itemType)) {
+        throw new UserDataError("Invalid item type");
     }
 
-    const sqlQuery = 'INSERT INTO skiEquipment (name, price) VALUES (\"'
-        + name + '\",\"' + price + '\")';
+    const sqlQuery = 'INSERT INTO inventory (name, description, itemCost, isRented, itemType) VALUES (\"' + name + '\",\"' + description + '\",\"' + itemCost + '\", false,(SELECT id FROM itemType where name = \"' + itemType + '\"))';
     await connection.execute(sqlQuery)
         .catch((error) => {
             logger.error(error)
-            throw new SystemError("Error adding ski equipment");
-        });
-
-    return { "name": name, "price": price };
+            throw new SystemError("Error adding item");
+    });
 }
-
-
 /**
- * Lists all the ski equipment in the database.
- * @returns object that represents the ski equipment if it exists
- * @throws UserDataError if user sends invalid data or SystemError if database error
+ * Edits an item from the given id
+ * @param {*} id The id of the item to edit
+ * @param {*} name The updated name of the item
+ * @param {*} description The updated description of the item
+ * @param {*} itemCost The updated cost of the item
+ * @param {*} rentalState The updated rental state of the item
+ * @param {*} itemType The updated type of the item
  */
-async function listSkiEquipment() {
-    const sqlQuery = 'SELECT name, price FROM skiEquipment';
-    let [rows, fields] = await connection.execute(sqlQuery)
+async function editItem(id, name, description, itemCost, rentalState, itemType){
+    if(!isValid.isValidId(id)){
+        throw new UserDataError("Invalid id");
+    }    
+    if (!validate.isValidName(name)) {
+        throw new UserDataError("Invalid name");
+    }
+    if (!validate.isValidDescription(description)) {
+        throw new UserDataError("Invalid description");
+    }
+    if (!validate.isValidCost(itemCost)) {
+        throw new UserDataError("Invalid cost");
+    }
+    if (!validate.isValidItemType(itemType)) {
+        throw new UserDataError("Invalid item type");
+    }
+    if (!validate.isValidRentalState(rentalState)) {
+        throw new UserDataError("Invalid rental state");
+    }
+
+    const sqlQuery = 'UPDATE inventory SET name = \'' + name + '\', description = \'' + description + '\', itemCost = \'' + itemCost + '\', isRented = ' + rentalState + ', itemType = (SELECT id FROM itemType where name = \'' + itemType + '\') WHERE id = ' + id;
+    await connection.execute(sqlQuery)
         .catch((error) => {
             logger.error(error)
-            throw new SystemError("Error getting ski equipment");
-        });
-
-    if (rows.length == 0) {
-        throw new UserDataError("Error. No ski equipment in database");
-    }
-    return rows;
-}
-
-/**
- * Checks if the ski equipment with the specified name exists in the database.
- * @param {*} name name of the ski equipment
- * @returns arrays that represents all ski equipment in the database
- * @throws UserDataError if user sends invalid data or SystemError if database error
- */
-async function findByName(name) {
-    if (!validate.isValidName(name))
-        throw new SystemError("Error invalid name");
-
-    const sqlQuery = 'SELECT name, price FROM skiEquipment WHERE name = ?';
-    let [rows, fields] = await connection.execute(sqlQuery, [name])
-        .catch((error) => {
-            logger.error(error)
-            throw new SystemError("Error finding ski equipment");
-        });
-    //If empty rows then not found
-    if (rows.length == 0) {
-        throw new UserDataError("Error. Ski equipment not found in database");
-    }
-    return {
-        "name": rows[0].name,
-        "price": Number(rows[0].price)
-    }
+            throw new SystemError("Error editing item");
+        }
+    );
 }
 
 /**
- * Replaces the ski equipment with the specified name with the new name and price.
- * @param {*} originalName original name of the ski equipment
- * @param {*} newName new name of the ski equipment
- * @param {*} newPrice new price of the ski equipment
- * @returns object that represents the new ski equipment
- * @throws UserDataError if user sends invalid data or SystemError if database error
+ * Updated the rental status of an item
+ * @param {*} id The id of the item to update
+ * @param {*} rentalState The updated rental state
  */
-async function replaceSkiEquipment(originalName, newName, newPrice) {
-    if (!validate.isValidName(originalName))
-        throw new UserDataError("Error invalid original name");
-
-    if (!validate.isValid(newName, newPrice))
-        throw new UserDataError("Error invalid new name or new price");
-
-    try {
-        await findByName(originalName);
-    }
-    catch (err) {
-        throw new SystemError("Error ski equipment not found");
+async function editItemRentalState(id, rentalState){
+    if(!isValid.isValidId(id)){
+        throw new UserDataError("Invalid id");
+    }    
+    if (!validate.isValidRentalState(rentalState)) {
+        throw new UserDataError("Invalid rental state");
     }
 
-    const sqlQuery = 'UPDATE skiEquipment SET name = ?, price = ? WHERE name = ?';
-    await connection.execute(sqlQuery, [newName, newPrice, originalName])
+    const sqlQuery = 'UPDATE inventory SET isRented = ' + rentalState + ' WHERE id = ' + id;
+    await connection.execute(sqlQuery)
         .catch((error) => {
             logger.error(error)
-            throw new SystemError("Error updating ski equipment");
-        });
-    return {
-        "name": newName,
-        "price": newPrice
-    }
+            throw new SystemError("Error editing item");
+        }
+    );
 }
 
 /**
- * Deletes the ski equipment with the specified name.
- * @param {*} name name of the ski equipment
- * @throws UserDataError if user sends invalid data or SystemError if database error
+ * Deletes an item from the inventory.
+ * @param {*} id The id of the item to be deleted
  */
-async function deleteSkiEquipment(name) {
-    if (!validate.isValidName(name))
-        throw new SystemError("Error invalid name");
-
-    try {
-        await findByName(name);
+async function deleteItem(id){
+    if(!isValid.isValidId(id)){
+        throw new UserDataError("Invalid id");
     }
-    catch (err) {
-        throw new SystemError("Error ski equipment not found");
-    }
-
-    const sqlQuery = 'DELETE FROM skiEquipment WHERE name = ?';
-    await connection.execute(sqlQuery, [name])
+    const sqlQuery = 'DELETE FROM inventory WHERE id = ' + id;
+    await connection.execute(sqlQuery)
         .catch((error) => {
             logger.error(error)
-            throw new SystemError("Error deleting ski equipment");
+            throw new SystemError("Error deleting item");
         });
 }
 
+/**
+ * Returns an item from the inventory
+ * @param {*} id The id of the item to be returned
+ * @returns the item being returned
+ */
+async function getItemById(id){
+    if(!isValid.isValidId(id)){
+        throw new UserDataError("Invalid id");
+    }
+    const sqlQuery = 'SELECT * FROM inventory WHERE id = ' + id;
+    const result = await connection.execute(sqlQuery)
+        .catch((error) => {
+            logger.error(error)
+            throw new SystemError("Error getting item");
+        });
+    return result[0][0];
+}
+
+/**
+ * Returns an array of all the items in the inventory
+ * @returns an array of all the items in the inventory
+ */
+async function getAllItems(){
+    const sqlQuery = 'SELECT * FROM inventory';
+    const result = await connection.execute(sqlQuery)
+        .catch((error) => {
+            logger.error(error)
+            throw new SystemError("Error getting item");
+        });
+    return result[0];
+}
+
+// ----------------------- Rentals -----------------------
+
+// ----------------------- Error Classes -----------------------
 //Error if user gives invalid name or price
 class UserDataError extends Error {
     constructor(message) {
