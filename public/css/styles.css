@@ -302,7 +302,7 @@ form label {
 	background-color: var(--secondary);
 }
 
-/* ===========  FOOTER  ========== */
+/* =========== 						 FOOTER  			 ========== */
 footer{
     background: var(--white);
     color: var(--black);
@@ -314,6 +314,8 @@ footer{
     position: absolute;
   	bottom: 0;
     border-top: 1px solid var(--black);
+	margin-top: 50px;
+	height: 5%;
 }
 
 .footer-content{
@@ -390,7 +392,32 @@ footer{
      opacity: .4;
      font-weight: 200;
 }
-
+.formEdit
+{
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+	justify-content: center;
+	margin-right: 250px;
+}
+.formEdit textarea
+{
+	width: 100%;
+	height: 100px;
+	border: 1px solid var(--black);
+	border-radius: 5px;
+	padding: 10px;
+	margin-bottom: 10px;
+}
+.formEdit input
+{
+	width: 100%;
+	height: 40px;
+	border: 1px solid var(--black);
+	border-radius: 5px;
+	padding: 10px;
+	margin-bottom: 10px;
+}
 /* ===========  MEDIA QUERY  ========== */
 
 @media only screen and (max-width: 760px) {
@@ -470,4 +497,112 @@ footer{
 	width: 100%;
 	height: 20vh;
 	background-color: var(--white);
+}
+
+.rectangleHome
+{
+	display: inline-block;
+	border-radius: 5%;
+	height: 300px;
+	width: 300px;
+	background-color: var(--primary);
+	margin: 50px;
+	
+}
+.containerRectangle
+{
+	display: flex;
+}
+.buttonRent
+{
+	border-radius: 5%;
+	background-color: var(--primary);
+	border: none;
+	color: white;
+	padding: 15px 32px;
+	text-align: center;
+	text-decoration: none;
+	display: inline-block;
+	font-size: 16px;
+	margin: 4px 2px;
+	cursor: pointer;
+	transition-duration: 0.4s;
+	margin: 50px;
+}
+.buttonRent:hover {
+	box-shadow: 0 12px 16px 0 rgba(0,0,0,0.24),0 17px 50px 0 rgba(0,0,0,0.19);
+}
+
+.containerCircle
+{
+	display: flex;
+	flex-direction: row;
+	align-items: center;
+	justify-content: center;
+	margin: 50px;
+}
+.circleHome
+{
+	display: inline-block;
+	border-radius: 50%;
+	height: 300px;
+	width: 300px;
+	background-color: var(--primary);
+	margin: 25px;
+}
+
+.buttonAboutUs
+{
+	border-radius: 5%;
+	background-color: var(--primary);
+	border: none;
+	color: white;
+	padding: 15px 32px;
+	text-align: center;
+	text-decoration: none;
+	display: inline-block;
+	font-size: 16px;
+	margin: 4px 2px;
+	cursor: pointer;
+	transition-duration: 0.4s;
+	margin: 50px;
+}
+.buttonAboutUs:hover {
+	box-shadow: 0 12px 16px 0 rgba(0,0,0,0.24),0 17px 50px 0 rgba(0,0,0,0.19);
+}
+
+/*									About Us Page Starter							*/
+.aboutContainer
+{
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+	justify-content: center;
+	margin: 50px;
+	width: 700px;
+}
+
+.personInfo
+{
+	margin-top: 50px;
+}
+
+.personInfo p
+{
+	font-size: 28px;
+	color: var(--black);
+}
+.personInfo i
+{
+	margin-left: 50px;
+}
+.customFont
+{
+	font-family: "Trirong", serif;
+}
+
+.personInfo i 
+{
+	font-size: 50px;
+	color: var(--primary);
 }
