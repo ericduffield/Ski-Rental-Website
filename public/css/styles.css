@@ -293,6 +293,7 @@ footer{
     background-position: 0% 0%;
     position: absolute;
   	bottom: 0;
+	  height: 5%;
     border-top: 1px solid var(--black);
 }
 
@@ -403,7 +404,17 @@ footer{
 #signup{
 	margin-top: 0.5rem;
 }
-
+.fixFoot
+{
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	flex-direction: row;
+}
+.fixFoot input
+{
+	margin-right: 0.5rem;
+}
 /* ===========  MEDIA QUERY  ========== */
 
 @media only screen and (max-width: 760px) {
