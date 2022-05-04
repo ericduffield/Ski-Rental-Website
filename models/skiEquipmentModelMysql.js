@@ -65,7 +65,7 @@ async function initialize(dbname, reset) {
         });
 
         // Rentals
-        const rentals = 'CREATE TABLE IF NOT EXISTS rentals(id int AUTO_INCREMENT NOT NULL PRIMARY KEY, userId int NOT NULL, productId int NOT NULL, startTime time NOT NULL, endTime time NOT NULL, FOREIGN KEY (userId) REFERENCES Users(id), FOREIGN KEY (productId) REFERENCES products(id))';
+        const rentals = 'CREATE TABLE IF NOT EXISTS rentals(id int AUTO_INCREMENT NOT NULL PRIMARY KEY, userId int NOT NULL, productId int NOT NULL, startTime time NOT NULL, endTime time NOT NULL, rentalPrice decimal NOT NULL, FOREIGN KEY (userId) REFERENCES Users(id), FOREIGN KEY (productId) REFERENCES products(id))';
 
         await connection.execute(rentals)
             .catch((error) => { throw new SystemError("SQL Execution Error - Rentals"); 
@@ -95,6 +95,12 @@ async function initialize(dbname, reset) {
         const itemTypeQuery = 'INSERT INTO itemTypes (name) VALUES ("Boots"), ("Poles"), ("Helmets"), ("Skis"), ("Snowboards"), ("Bundles")';
         await connection.execute(itemTypeQuery)
             .catch((error) => { throw new SystemError("SQL Execution Error - Adding Item Types");
+        });
+
+        // Add all the products
+        const productsQuery = 'INSERT INTO products (name, description, rentalCost) VALUES ("Boots", "A pair of boots for either skis or snowboard.", 20), ("Poles", "A pair of poles", "7"), ("Helmet", "A helmet", "10"), ("Skis", "A pair of skis", 30), ("Snowboard", "A snowboard", "30"), ("Ski Bundle", "Contains boots, skis, a helmet and poles", "50"), ("Snowboard Bundle", "Contains boots, a snowboard and a helmet")';
+        await connection.execute(productsQuery)
+            .catch((error) => { throw new SystemError("SQL Execution Error - Adding Products");
         });
 
         // Set back foreign key constraints
@@ -382,6 +388,10 @@ async function getAllItems(){
 }
 
 // ----------------------- Rentals -----------------------
+
+
+
+
 
 // ----------------------- Error Classes -----------------------
 //Error if user gives invalid name or price
