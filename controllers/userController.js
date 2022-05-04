@@ -1,7 +1,8 @@
 const express = require('express');
 const router = express.Router();
 const routeRoot = '/';
-const model = require('../models/skiEquipmentModelMysql');
+//require user model
+//const model = require('../models/skiEquipmentModelMysql');
 
 const logger = require('../logger');
 
@@ -11,18 +12,18 @@ router.get('/home', home);
 router.get('/', home);
 
 function home(req, res) {
-    const homePageData = {
+    const pageData = {
         image: "/images/hero.jpg",
         home: true
     };
 
-    res.render("home.hbs", homePageData);
+    res.render("home.hbs", pageData);
 }
 
 router.get('/rent', rent);
 
 function rent(req, res) {
-    const homePageData = {
+    const pageData = {
         image: "/images/hero.jpg",
         rent: true,
         items: [
@@ -33,29 +34,29 @@ function rent(req, res) {
         ]
     };
 
-    res.render("rent.hbs", homePageData);
+    res.render("rent.hbs", pageData);
 }
 
 router.get('/about', about);
 
 function about(req, res) {
-    const homePageData = {
+    const pageData = {
         image: "/images/hero.jpg",
         about: true
     };
 
-    res.render("about.hbs", homePageData);
+    res.render("about.hbs", pageData);
 }
 
 router.get('/get', getForm);
 
 function getForm(req, res) {
-    const homePageData = {
+    const pageData = {
         formInput: "/getSkiEquipment",
         image: "/images/hero.jpg"
     };
 
-    res.render("getSkiEquipment.hbs", homePageData);
+    res.render("getSkiEquipment.hbs", pageData);
 }
 
 //#endregion
@@ -77,10 +78,9 @@ async function rentSumbit(req, res) {
     }
 }
 
-function rentResponse(res, imageUrl, theMessage, errorStatus) {
+function rentResponse(res, imageUrl, theMessage) {
     const pageData = {
         image: imageUrl,
-        error: errorStatus,
         message: theMessage,
         rent: true,
         items: [

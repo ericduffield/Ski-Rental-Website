@@ -1,6 +1,9 @@
 const express = require('express');
 const router = express.Router();
 const routeRoot = '/';
+//require admin model
+
+const logger = require('../logger');
 
 //#region ADMIN PAGES
 
@@ -64,12 +67,11 @@ async function addItem(req, res) {
 
 //router.post('/deleteItem', deleteItem);
 
-function itemResponse(res, imageUrl, theMessage, errorStatus) {
+function itemResponse(res, imageUrl, theMessage) {
     const pageData = {
         image: imageUrl,
         admin: true,
         items: true,
-        error: errorStatus,
         message: theMessage,
         forms: [{
             formName: 'Add Item',
@@ -162,12 +164,11 @@ router.post('/editItemType', editItemType);
 router.post('/deleteItemType', deleteItemType);
 */
 
-function itemTypesResponse(res, imageUrl, theMessage, errorStatus) {
+function itemTypesResponse(res, imageUrl, theMessage) {
     const pageData = {
         image: imageUrl,
         admin: true,
         itemTypes: true,
-        error: errorStatus,
         message: theMessage,
         forms: [{
             formName: 'Add Item Type',
@@ -233,12 +234,11 @@ router.post('/deleteUser', deleteUser);
 
 */
 
-function usersResponse(res, imageUrl, theMessage, errorStatus) {
+function usersResponse(res, imageUrl, theMessage) {
     const pageData = {
         image: imageUrl,
         admin: true,
         users: true,
-        error: errorStatus,
         message: theMessage,
         forms: [{
             formName: 'Edit User',
@@ -393,7 +393,6 @@ async function deleteSki(req, res) {
         res.render("deleteSkiEquipment.hbs", { message: err.message, image: "/images/warning.webp" });
     }
 }
-
 
 
 module.exports = {
