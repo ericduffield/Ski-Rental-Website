@@ -223,6 +223,29 @@ ul, p{
 	margin: 0;
 }
 
+#dark-mode{
+	flex-direction: column;
+	color: var(--black);
+	transition: all 300ms ease;
+	cursor: pointer;
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	user-select: none;
+}
+
+#dark-mode span {
+	font-size: 1.6rem;
+}
+
+#dark-mode h3 {
+	font-size: 0.8rem;
+}
+
+#dark-mode:hover{
+	color: var(--grey);
+}
+
 
 /* ===========  BODY  ========== */
 
@@ -230,10 +253,6 @@ main
 {
 	position: relative;
   	min-height: 100vh;
-}
-
-.title{
-	margin: 1rem 0 1rem 0;
 }
 
 #mainContent{
@@ -255,7 +274,7 @@ main
 }
 
 #errorImage{
-	margin: 1rem;
+	margin: 1.5rem;
 	height: 13rem;
 }
 
@@ -263,6 +282,7 @@ main
 
 form
 {
+	margin-top: 1rem;
 	display: flex;
 	flex-direction: column;
 }
@@ -274,7 +294,7 @@ form label {
 
 .btn {
 	background-color: var(--primary);
-	margin-top: 1rem;
+	margin-top: 2rem;
 	margin-bottom: 2rem;
 }
 
@@ -282,7 +302,7 @@ form label {
 	background-color: var(--secondary);
 }
 
-/* ===========  FOOTER  ========== */
+/* =========== 						 FOOTER  			 ========== */
 footer{
     background: var(--white);
     color: var(--black);
@@ -294,6 +314,8 @@ footer{
     position: absolute;
   	bottom: 0;
     border-top: 1px solid var(--black);
+	margin-top: 50px;
+	height: 5%;
 }
 
 .footer-content{
@@ -370,40 +392,32 @@ footer{
      opacity: .4;
      font-weight: 200;
 }
-
-#middleFooter{
+.formEdit
+{
 	display: flex;
-	justify-content: space-around;
-}
-
-#dark-mode{
 	flex-direction: column;
-	color: var(--black);
-	transition: all 300ms ease;
-	cursor: pointer;
-	display: flex;
 	align-items: center;
 	justify-content: center;
-	user-select: none;
+	margin-right: 250px;
 }
-
-#dark-mode span {
-	font-size: 1.6rem;
+.formEdit textarea
+{
+	width: 100%;
+	height: 100px;
+	border: 1px solid var(--black);
+	border-radius: 5px;
+	padding: 10px;
+	margin-bottom: 10px;
 }
-
-#dark-mode h3 {
-	font-size: 0.8rem;
+.formEdit input
+{
+	width: 100%;
+	height: 40px;
+	border: 1px solid var(--black);
+	border-radius: 5px;
+	padding: 10px;
+	margin-bottom: 10px;
 }
-
-#dark-mode:hover{
-	color: var(--grey);
-}
-
-
-#signup{
-	margin-top: 0.5rem;
-}
-
 /* ===========  MEDIA QUERY  ========== */
 
 @media only screen and (max-width: 760px) {
@@ -483,4 +497,112 @@ footer{
 	width: 100%;
 	height: 20vh;
 	background-color: var(--white);
+}
+
+.rectangleHome
+{
+	display: inline-block;
+	border-radius: 5%;
+	height: 300px;
+	width: 300px;
+	background-color: var(--primary);
+	margin: 50px;
+	
+}
+.containerRectangle
+{
+	display: flex;
+}
+.buttonRent
+{
+	border-radius: 5%;
+	background-color: var(--primary);
+	border: none;
+	color: white;
+	padding: 15px 32px;
+	text-align: center;
+	text-decoration: none;
+	display: inline-block;
+	font-size: 16px;
+	margin: 4px 2px;
+	cursor: pointer;
+	transition-duration: 0.4s;
+	margin: 50px;
+}
+.buttonRent:hover {
+	box-shadow: 0 12px 16px 0 rgba(0,0,0,0.24),0 17px 50px 0 rgba(0,0,0,0.19);
+}
+
+.containerCircle
+{
+	display: flex;
+	flex-direction: row;
+	align-items: center;
+	justify-content: center;
+	margin: 50px;
+}
+.circleHome
+{
+	display: inline-block;
+	border-radius: 50%;
+	height: 300px;
+	width: 300px;
+	background-color: var(--primary);
+	margin: 25px;
+}
+
+.buttonAboutUs
+{
+	border-radius: 5%;
+	background-color: var(--primary);
+	border: none;
+	color: white;
+	padding: 15px 32px;
+	text-align: center;
+	text-decoration: none;
+	display: inline-block;
+	font-size: 16px;
+	margin: 4px 2px;
+	cursor: pointer;
+	transition-duration: 0.4s;
+	margin: 50px;
+}
+.buttonAboutUs:hover {
+	box-shadow: 0 12px 16px 0 rgba(0,0,0,0.24),0 17px 50px 0 rgba(0,0,0,0.19);
+}
+
+/*									About Us Page Starter							*/
+.aboutContainer
+{
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+	justify-content: center;
+	margin: 50px;
+	width: 700px;
+}
+
+.personInfo
+{
+	margin-top: 50px;
+}
+
+.personInfo p
+{
+	font-size: 28px;
+	color: var(--black);
+}
+.personInfo i
+{
+	margin-left: 50px;
+}
+.customFont
+{
+	font-family: "Trirong", serif;
+}
+
+.personInfo i 
+{
+	font-size: 50px;
+	color: var(--primary);
 }
