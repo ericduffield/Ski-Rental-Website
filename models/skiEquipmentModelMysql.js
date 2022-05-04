@@ -65,7 +65,7 @@ async function initialize(dbname, reset) {
         });
 
         // Rentals
-        const rentals = 'CREATE TABLE IF NOT EXISTS rentals(id int AUTO_INCREMENT NOT NULL PRIMARY KEY, userId int NOT NULL, productId int NOT NULL, startTime time NOT NULL, endTime time NOT NULL, rentalPrice decimal NOT NULL, FOREIGN KEY (userId) REFERENCES Users(id), FOREIGN KEY (productId) REFERENCES products(id))';
+        const rentals = 'CREATE TABLE IF NOT EXISTS rentals(id int AUTO_INCREMENT NOT NULL PRIMARY KEY, userId int NOT NULL, productId int NOT NULL, startTime time NOT NULL, endTime time NOT NULL, rentalPrice decimal NOT NULL, duration int NOT NULL, FOREIGN KEY (userId) REFERENCES Users(id), FOREIGN KEY (productId) REFERENCES products(id))';
 
         await connection.execute(rentals)
             .catch((error) => { throw new SystemError("SQL Execution Error - Rentals"); 
@@ -180,7 +180,10 @@ async function createUser(userType, username, password, firstName, lastName, cre
  * @throws SystemError If there is an error in the database while updating
  */
 async function editUser(id, userType, username, password, firstName, lastName, credit){
-    if(!isValid.isValidId(id)){
+    if(!validate.isValidInteger(id)){
+        throw new UserDataError("Invalid id");
+    }
+    if(getUserById(id).length == 0){
         throw new UserDataError("Invalid id");
     }    
     if (!validate.isValidUserType(userType)) {
@@ -189,16 +192,19 @@ async function editUser(id, userType, username, password, firstName, lastName, c
     if (!validate.isValidUsername(username)) {
         throw new UserDataError("Invalid username");
     }
-    if (!validate.isValidPassword(password)) {
-        throw new UserDataError("Invalid password");
+    else if(checkIfUsernameIsTaken(username)){
+        throw new UserDataError("Username already taken");
     }
-    if (!validate.isValidFirstName(firstName)) {
+    if (!validate.isValidPassword(password)) {
+        throw new UserDataError("Invalid password, password must contain one Uppercase, one lowercase, one number and one special character");
+    }
+    if (!validate.isValidName(firstName)) {
         throw new UserDataError("Invalid first name");
     }
-    if (!validate.isValidLastName(lastName)) {
+    if (!validate.isValidName(lastName)) {
         throw new UserDataError("Invalid last name");
     }
-    if (!validate.isValidCredit(credit)) {
+    if (!validate.isValidDecimal(credit)) {
         throw new UserDataError("Invalid credit");
     } 
 
@@ -218,9 +224,12 @@ async function editUser(id, userType, username, password, firstName, lastName, c
  * @throws SystemError if there is an error in the database while deleting
  */
 async function deleteUser(id){
-    if(!isValid.isValidId(id)){
+    if(!validate.isValidInteger(id)){
         throw new UserDataError("Invalid id");
     }
+    else if(getUserById(id).length == 0){
+        throw new UserDataError("Invalid id");
+    } 
     const sqlQuery = 'DELETE FROM users WHERE id = ' + id;
     await connection.execute(sqlQuery)
         .catch((error) => {
@@ -235,7 +244,7 @@ async function deleteUser(id){
  * @throws SystemError if there is an error in the database while deleting
  */
 async function getUserById(id){
-    if(!isValid.isValidId(id)){
+    if(!validate.isValidInteger(id)){
         throw new UserDataError("Invalid id");
     }
     const sqlQuery = 'SELECT * FROM users WHERE id = ' + id;
@@ -245,6 +254,23 @@ async function getUserById(id){
             throw new SystemError("Error getting user");
         });
     return result[0][0];
+}
+/**
+ * Checks if a username is taken
+ * @param {*} username The username to check
+ * @returns False if the username is unique, true if it is taken
+ */
+async function checkIfUsernameIsTaken(username){
+    if (!validate.isValidUsername(username)) {
+        throw new UserDataError("Invalid username");
+    }
+    const sqlQuery = 'SELECT * FROM users WHERE username = \'' + username + '\'';
+    const result = await connection.execute(sqlQuery)
+        .catch((error) => {
+            logger.error(error)
+            throw new SystemError("Error getting user");
+        });
+    return result[0].length > 0;
 }
 
 // ----------------------- Inventory -----------------------
@@ -289,7 +315,7 @@ async function addItem(name, description, itemCost, itemType){
  * @param {*} itemType The updated type of the item
  */
 async function editItem(id, name, description, itemCost, rentalState, itemType){
-    if(!isValid.isValidId(id)){
+    if(!validate.isValidId(id)){
         throw new UserDataError("Invalid id");
     }    
     if (!validate.isValidName(name)) {
@@ -323,7 +349,7 @@ async function editItem(id, name, description, itemCost, rentalState, itemType){
  * @param {*} rentalState The updated rental state
  */
 async function editItemRentalState(id, rentalState){
-    if(!isValid.isValidId(id)){
+    if(!validate.isValidId(id)){
         throw new UserDataError("Invalid id");
     }    
     if (!validate.isValidRentalState(rentalState)) {
@@ -344,7 +370,7 @@ async function editItemRentalState(id, rentalState){
  * @param {*} id The id of the item to be deleted
  */
 async function deleteItem(id){
-    if(!isValid.isValidId(id)){
+    if(!validate.isValidId(id)){
         throw new UserDataError("Invalid id");
     }
     const sqlQuery = 'DELETE FROM inventory WHERE id = ' + id;
@@ -361,7 +387,7 @@ async function deleteItem(id){
  * @returns the item being returned
  */
 async function getItemById(id){
-    if(!isValid.isValidId(id)){
+    if(!validate.isValidId(id)){
         throw new UserDataError("Invalid id");
     }
     const sqlQuery = 'SELECT * FROM inventory WHERE id = ' + id;
@@ -389,7 +415,24 @@ async function getAllItems(){
 
 // ----------------------- Rentals -----------------------
 
-
+async function createRental(StartTime, EndTime, Duration){
+    if(!validate.isValidStartTime(StartTime)){
+        throw new UserDataError("Invalid start time");
+    }
+    if(!validate.isValidEndTime(EndTime)){
+        throw new UserDataError("Invalid end time");
+    }
+    if(!validate.isValidDuration(Duration)){
+        throw new UserDataError("Invalid duration");
+    }
+    const sqlQuery = 'INSERT INTO rentals (userId, productId, startTime, endTime, rentalPrice, duration) VALUES ( ' +
+        '(Select id from users where username = \'' + sessionStorage.getItem("username") + '\'), (Select id from inventory where name = \'' + sessionStorage.getItem("itemName") + '\'), \'' + StartTime + '\', \'' + EndTime + '\', \'' + sessionStorage.getItem("itemCost") + '\', \'' + Duration + '\')';
+    await connection.execute(sqlQuery)
+        .catch((error) => {
+            logger.error(error)
+            throw new SystemError("Error creating rental");
+        });
+}
 
 
 
