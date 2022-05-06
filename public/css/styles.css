@@ -339,6 +339,7 @@ footer{
 
 .socialsTags a i{
     font-size: 35px;
+	margin-right: 20px;
     width: 20px;
 }
 
@@ -411,9 +412,40 @@ footer{
 	align-items: center;
 	flex-direction: row;
 }
-.fixFoot input
+.formContainer
 {
-	margin-right: 0.5rem;
+	display: flex;
+	flex-direction: column;
+}
+
+
+.locationAdd
+{
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	flex-direction: column;
+}
+#locationTag
+{
+	display: flex;
+	justify-content: center;
+}
+#linkTag
+{
+	display: flex;
+	justify-content: center;
+}
+.SomeLink
+{
+	display: flex;
+	justify-content: center;
+	align-items: center;
+}
+.SomeLink a
+{
+	color: var(--black);
+	text-decoration: none;
 }
 /* ===========  MEDIA QUERY  ========== */
 
@@ -520,6 +552,10 @@ footer{
 	border-radius: 5px;
 	padding: 10px;
 	margin-bottom: 10px;
+}
+.formEdit h3
+{
+	margin-bottom: 5px;
 }
 /* ===========  MEDIA QUERY  ========== */
 
