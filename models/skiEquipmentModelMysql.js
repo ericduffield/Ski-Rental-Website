@@ -431,11 +431,12 @@ async function getAllItems() {
  * Adds an item type to the database
  * @param {*} name The name of the item type to add
  */
-async function addItemType(name) {
+
+async function addItemType(name){
     if (!validate.isValidName(name)) {
         throw new UserDataError("Invalid name");
     }
-    if (getItemTypeByName(name) != null) {
+    if(getItemTypeByName(name) != null){
         throw new UserDataError("Name already taken");
     }
 
@@ -452,14 +453,14 @@ async function addItemType(name) {
  * @param {*} id The id of the item type to edit
  * @param {*} name The updated name of the item type
  */
-async function editItemType(id, name) {
-    if (!validate.isValidInteger(id)) {
+async function editItemType(id, name){
+    if(!validate.isValidInteger(id)){
         throw new UserDataError("Invalid id");
-    }
+    }    
     if (!validate.isValidName(name)) {
         throw new UserDataError("Invalid name");
     }
-    if (getItemTypeByName(name) != null) {
+    if(getItemTypeByName(name) != null){
         throw new UserDataError("Name already taken");
     }
 
@@ -469,15 +470,15 @@ async function editItemType(id, name) {
             logger.error(error)
             throw new SystemError("Error editing item type");
         }
-        );
+    );
 }
 
 /**
  * Deletes an item type from the database
  * @param {*} id The id of the item type to be deleted
  */
-async function deleteItemType(id) {
-    if (!validate.isValidInteger(id)) {
+async function deleteItemType(id){
+    if(!validate.isValidInteger(id)){
         throw new UserDataError("Invalid id");
     }
     const sqlQuery = 'DELETE FROM itemType WHERE id = ' + id;
@@ -492,7 +493,7 @@ async function deleteItemType(id) {
  * Returns an item type from the database
  * Used to check if an item type name already exists
  */
-async function getItemTypeByName(name) {
+async function getItemTypeByName(name){
     if (!validate.isValidName(name)) {
         throw new UserDataError("Invalid name");
     }
@@ -510,7 +511,7 @@ async function getItemTypeByName(name) {
  * Gets all the item types from the database
  * @returns an array of all the item types in the database
  */
-async function getAllItemTypes() {
+async function getAllItemTypes(){
     const sqlQuery = 'SELECT * FROM itemType';
     const result = await connection.execute(sqlQuery)
         .catch((error) => {
