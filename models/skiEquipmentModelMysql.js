@@ -425,6 +425,20 @@ async function getAllItems() {
     return result[0];
 }
 
+/**
+ * Returns an array of all the item types in the inventory
+ * @returns an array of all the items types in the inventory
+ */
+async function getAllItemTypes() {
+    const sqlQuery = 'SELECT * FROM itemTypes';
+    const result = await connection.execute(sqlQuery)
+        .catch((error) => {
+            logger.error(error)
+            throw new SystemError("Error getting item types");
+        });
+    return result[0];
+}
+
 // ----------------------- Rentals -----------------------
 
 async function createRental(StartTime, EndTime, Duration) {
