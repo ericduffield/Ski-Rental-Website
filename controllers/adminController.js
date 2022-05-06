@@ -1,7 +1,7 @@
 const express = require('express');
 const router = express.Router();
 const routeRoot = '/';
-//require admin model
+const model = require('../models/skiEquipmentModelMysql');
 
 const logger = require('../logger');
 
@@ -49,9 +49,10 @@ async function addItem(req, res) {
 
     try {
         //Tries to add ski equipment to the database and if successful, renders the form with success message
-        //const added = await model.addItem(req.body.name, req.body.price);
-
-        console.log("Successfully added ski equipment");
+        for (let i = 0; i < req.body.quantity; i++) {
+            await model.addItem(req.body.name, req.body.description, req.body.cost, req.body.itemType.selectedIndex);
+        }
+        console.log("Successfully added " + req.body.name);
         itemResponse(res, "/images/hero.jpg", "Successfully added ski equipment", false);
     }
     catch (err) {
@@ -68,6 +69,8 @@ async function addItem(req, res) {
 //router.post('/deleteItem', deleteItem);
 
 function itemResponse(res, imageUrl, theMessage) {
+    let itemTypes = model.getAllItemTypes();
+    console.log(itemTypes);
     const pageData = {
         image: imageUrl,
         admin: true,
@@ -76,27 +79,28 @@ function itemResponse(res, imageUrl, theMessage) {
         forms: [{
             formName: 'Add Item',
             formInput: "/addItem",
-            fields: [{
-                fieldId: 'id',
-                fieldName: 'Id',
-            },
-            {
-                fieldId: 'quantity',
-                fieldName: 'Quantity',
-            },
-            {
-                fieldId: 'name',
-                fieldName: 'Name',
-            },
-            {
-                fieldId: 'description',
-                fieldName: 'Description',
-            },
-            {
-                combobox: true,
-                fieldId: 'itemType',
-                fieldName: 'Item Type',
-            }]
+            fields: [
+                {
+                    fieldId: 'name',
+                    fieldName: 'Name',
+                },
+                {
+                    fieldId: 'description',
+                    fieldName: 'Description',
+                },
+                {
+                    combobox: true,
+                    fieldId: 'itemType',
+                    fieldName: 'Item Type',
+                },
+                {
+                    fieldId: 'cost',
+                    fieldName: 'Cost',
+                },
+                {
+                    fieldId: 'quantity',
+                    fieldName: 'Quantity',
+                },]
         },
         {
             formName: 'Edit Item',
