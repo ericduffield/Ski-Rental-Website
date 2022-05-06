@@ -50,7 +50,7 @@ async function addItem(req, res) {
     try {
         //Tries to add ski equipment to the database and if successful, renders the form with success message
         for (let i = 0; i < req.body.quantity; i++) {
-            await model.addItem(req.body.name, req.body.description, req.body.cost, req.body.itemType.selectedIndex);
+            await model.addItem(req.body.name, req.body.description, req.body.cost, req.body.itemType);
         }
         console.log("Successfully added " + req.body.name);
         itemResponse(res, "/images/hero.jpg", "Successfully added ski equipment", false);
@@ -68,8 +68,8 @@ async function addItem(req, res) {
 
 //router.post('/deleteItem', deleteItem);
 
-function itemResponse(res, imageUrl, theMessage) {
-    let itemTypes = model.getAllItemTypes();
+async function itemResponse(res, imageUrl, theMessage) {
+    let itemTypes = await model.getAllItemTypes();
     console.log(itemTypes);
     const pageData = {
         image: imageUrl,
@@ -90,6 +90,7 @@ function itemResponse(res, imageUrl, theMessage) {
                 },
                 {
                     combobox: true,
+                    options: itemTypes,
                     fieldId: 'itemType',
                     fieldName: 'Item Type',
                 },

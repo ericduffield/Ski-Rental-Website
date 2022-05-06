@@ -9,8 +9,9 @@
     {{#if combobox}}
     <label for="{{fieldId}}">{{fieldName}}:</label>
     <select id="{{fieldId}}" name="{{fieldId}}" required="required">
+        <option value="-1" disabled="true" selected="selected">Select an option</option>
         {{#each options}}
-        <option value="{{optionValue}}">{{optionName}}</option>
+        <option value="{{id}}">{{name}}</option>
         {{/each}}
     </select>
     {{else}}

@@ -303,7 +303,7 @@ async function addItem(name, description, itemCost, itemType) {
     if (!validate.isValidDescription(description)) {
         throw new UserDataError("Invalid description");
     }
-    if (!validate.isValidCost(itemCost)) {
+    if (!validate.isValidDecimal(itemCost)) {
         throw new UserDataError("Invalid cost");
     }
     if (!validate.isValidItemType(itemType)) {
@@ -336,7 +336,7 @@ async function editItem(id, name, description, itemCost, rentalState, itemType) 
     if (!validate.isValidDescription(description)) {
         throw new UserDataError("Invalid description");
     }
-    if (!validate.isValidCost(itemCost)) {
+    if (!validate.isValidDecimal(itemCost)) {
         throw new UserDataError("Invalid cost");
     }
     if (!validate.isValidItemType(itemType)) {
@@ -482,5 +482,9 @@ class SystemError extends Error {
 }
 
 module.exports = {
-    initialize
+    initialize,
+    addItem,
+    editItem,
+    deleteItem,
+    getAllItemTypes
 }
