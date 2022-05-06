@@ -6,9 +6,7 @@ if (!dbName) {
     dbName = 'skiEquipment_db';
 }
 
-// model.initialize(dbName, false)
-//     .then(
-//         app.listen(port) // Run the server
-//     );
-
-app.listen(port); //temp delete this
+model.initialize(dbName, false)
+    .then(
+        app.listen(port) // Run the server
+    );
