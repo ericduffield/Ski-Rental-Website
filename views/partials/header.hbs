@@ -26,15 +26,15 @@
     <div id="account">
         <ul>
             <li>
-                <a id="dark-mode">
-                    <span id="mode-logo" class="material-icons-sharp">light_mode</span>
-                    <h3 id="mode-text">Light Mode</h3>
+                {{#if loggedIn}}
+                <a id="account" href="/account">
+                    <p>Account</p>
                 </a>
-            </li>
-            <li>
+                {{else}}
                 <a id="login" href="/login">
-            <li>Account</li>
-            </a>
+                    <p>Login</p>
+                </a>
+                {{/if}}
             </li>
         </ul>
     </div>

@@ -3,7 +3,7 @@ const app = express();
 
 const expressListRoutes = require('express-list-routes');
 
-const controllers = ['userController', 'adminController', 'errorController']
+const controllers = ['userController', 'adminController', 'accountController', 'errorController']
 
 app.use(express.json());
 
