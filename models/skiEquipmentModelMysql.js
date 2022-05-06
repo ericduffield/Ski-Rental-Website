@@ -98,7 +98,7 @@ async function initialize(dbname, reset) {
         });
 
         // Add all the products
-        const productsQuery = 'INSERT INTO products (name, description, rentalCost) VALUES ("Boots", "A pair of boots for either skis or snowboard.", 20), ("Poles", "A pair of poles", "7"), ("Helmet", "A helmet", "10"), ("Skis", "A pair of skis", 30), ("Snowboard", "A snowboard", "30"), ("Ski Bundle", "Contains boots, skis, a helmet and poles", "50"), ("Snowboard Bundle", "Contains boots, a snowboard and a helmet")';
+        const productsQuery = 'INSERT INTO products (name, description, rentalCost) VALUES ("Boots", "A pair of boots for either skis or snowboard.", "20"), ("Poles", "A pair of poles", "7"), ("Helmet", "A helmet", "10"), ("Skis", "A pair of skis", "30"), ("Snowboard", "A snowboard", "30"), ("Ski Bundle", "Contains boots, skis, a helmet and poles", "50"), ("Snowboard Bundle", "Contains boots, a snowboard and a helmet", "50")';
         await connection.execute(productsQuery)
             .catch((error) => { throw new SystemError("SQL Execution Error - Adding Products");
         });
@@ -112,7 +112,7 @@ async function initialize(dbname, reset) {
         
     }
     catch (error) {
-        throw new SystemError("SQL Execution Error");
+        throw new SystemError(error.message);
     }
 }
 
@@ -456,11 +456,5 @@ class SystemError extends Error {
 }
 
 module.exports = {
-    initialize,
-    addSkiEquipment,
-    getConnection,
-    listSkiEquipment,
-    findByName,
-    replaceSkiEquipment,
-    deleteSkiEquipment
+    initialize
 }
