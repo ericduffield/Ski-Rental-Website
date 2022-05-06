@@ -413,6 +413,102 @@ async function getAllItems(){
     return result[0];
 }
 
+// ---------------------- Item Types ---------------------
+
+/**
+ * Adds an item type to the database
+ * @param {*} name The name of the item type to add
+ */
+async function addItemType(name){
+    if (!validate.isValidName(name)) {
+        throw new UserDataError("Invalid name");
+    }
+    if(getItemTypeByName(name) != null){
+        throw new UserDataError("Name already taken");
+    }
+
+    const sqlQuery = 'INSERT INTO itemType (name) VALUES (\"' + name + '\")';
+    await connection.execute(sqlQuery)
+        .catch((error) => {
+            logger.error(error)
+            throw new SystemError("Error adding item type");
+        });
+}
+
+/**
+ * Edits an item type from the given id
+ * @param {*} id The id of the item type to edit
+ * @param {*} name The updated name of the item type
+ */
+async function editItemType(id, name){
+    if(!validate.isValidInteger(id)){
+        throw new UserDataError("Invalid id");
+    }    
+    if (!validate.isValidName(name)) {
+        throw new UserDataError("Invalid name");
+    }
+    if(getItemTypeByName(name) != null){
+        throw new UserDataError("Name already taken");
+    }
+
+    const sqlQuery = 'UPDATE itemType SET name = \'' + name + '\' WHERE id = ' + id;
+    await connection.execute(sqlQuery)
+        .catch((error) => {
+            logger.error(error)
+            throw new SystemError("Error editing item type");
+        }
+    );
+}
+
+/**
+ * Deletes an item type from the database
+ * @param {*} id The id of the item type to be deleted
+ */
+async function deleteItemType(id){
+    if(!validate.isValidInteger(id)){
+        throw new UserDataError("Invalid id");
+    }
+    const sqlQuery = 'DELETE FROM itemType WHERE id = ' + id;
+    await connection.execute(sqlQuery)
+        .catch((error) => {
+            logger.error(error);
+            throw new SystemError("Error deleting item type");
+        });
+}
+
+/**
+ * Returns an item type from the database
+ * Used to check if an item type name already exists
+ */
+async function getItemTypeByName(name){
+    if (!validate.isValidName(name)) {
+        throw new UserDataError("Invalid name");
+    }
+
+    const sqlQuery = 'SELECT * FROM itemType WHERE name = \'' + name + '\'';
+    const result = await connection.execute(sqlQuery)
+        .catch((error) => {
+            logger.error(error)
+            throw new SystemError("Error getting item type");
+        });
+    return result[0][0];
+}
+
+/**
+ * Gets all the item types from the database
+ * @returns an array of all the item types in the database
+ */
+async function getAllItemTypes(){
+    const sqlQuery = 'SELECT * FROM itemType';
+    const result = await connection.execute(sqlQuery)
+        .catch((error) => {
+            logger.error(error)
+            throw new SystemError("Error getting item type");
+        });
+    return result[0];
+}
+
+
 // ----------------------- Rentals -----------------------
 
 async function createRental(StartTime, EndTime, Duration){
@@ -425,6 +521,7 @@ async function createRental(StartTime, EndTime, Duration){
     if(!validate.isValidDuration(Duration)){
         throw new UserDataError("Invalid duration");
     }
+
     const sqlQuery = 'INSERT INTO rentals (userId, productId, startTime, endTime, rentalPrice, duration) VALUES ( ' +
         '(Select id from users where username = \'' + sessionStorage.getItem("username") + '\'), (Select id from inventory where name = \'' + sessionStorage.getItem("itemName") + '\'), \'' + StartTime + '\', \'' + EndTime + '\', \'' + sessionStorage.getItem("itemCost") + '\', \'' + Duration + '\')';
     await connection.execute(sqlQuery)
@@ -456,5 +553,21 @@ class SystemError extends Error {
 }
 
 module.exports = {
-    initialize
+    initialize,
+    createUser,
+    editUser,
+    deleteUser,
+    getUserById,
+    checkIfUsernameIsTaken,
+    addItem,
+    editItem,
+    deleteItem,
+    editItemRentalState,
+    getItemById,
+    getAllItems,
+    addItemType,
+    editItemType,
+    deleteItemType,
+    getItemTypeByName,
+    getAllItemTypes
 }
