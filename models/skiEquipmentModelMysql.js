@@ -152,13 +152,13 @@ async function createUser(userType, username, password, firstName, lastName, cre
     if (!validate.isValidUserType(userType)) {
         throw new UserDataError("Invalid user type");
     }
-    if (!validate.isValidUsername(username)) {
+    if (!validate.isValidAlphanumeric(username)) {
         throw new UserDataError("Invalid username");
     }
     if (!validate.isValidPassword(password)) {
         throw new UserDataError("Invalid password");
     }
-    if (!validate.isValidFirstName(firstName)) {
+    if (!validate.isValidAlphanumeric(firstName)) {
         throw new UserDataError("Invalid first name");
     }
     if (!validate.isValidLastName(lastName)) {
@@ -201,7 +201,7 @@ async function editUser(id, userType, username, password, firstName, lastName, c
     if (!validate.isValidUserType(userType)) {
         throw new UserDataError("Invalid user type");
     }
-    if (!validate.isValidUsername(username)) {
+    if (!validate.isValidAlphanumeric(username)) {
         throw new UserDataError("Invalid username");
     }
     else if (checkIfUsernameIsTaken(username)) {
@@ -210,10 +210,10 @@ async function editUser(id, userType, username, password, firstName, lastName, c
     if (!validate.isValidPassword(password)) {
         throw new UserDataError("Invalid password, password must contain one Uppercase, one lowercase, one number and one special character");
     }
-    if (!validate.isValidName(firstName)) {
+    if (!validate.isValidAlphanumeric(firstName)) {
         throw new UserDataError("Invalid first name");
     }
-    if (!validate.isValidName(lastName)) {
+    if (!validate.isValidAlphanumeric(lastName)) {
         throw new UserDataError("Invalid last name");
     }
     if (!validate.isValidDecimal(credit)) {
@@ -273,7 +273,7 @@ async function getUserById(id) {
  * @returns False if the username is unique, true if it is taken
  */
 async function checkIfUsernameIsTaken(username) {
-    if (!validate.isValidUsername(username)) {
+    if (!validate.isValidAlphanumeric(username)) {
         throw new UserDataError("Invalid username");
     }
     const sqlQuery = 'SELECT * FROM users WHERE username = \'' + username + '\'';
@@ -297,13 +297,13 @@ async function checkIfUsernameIsTaken(username) {
  * @throws SystemError if there is an error in the database while deleting
  */
 async function addItem(name, description, itemCost, itemType) {
-    if (!validate.isValidName(name)) {
+    if (!validate.isValidAlphanumeric(name)) {
         throw new UserDataError("Invalid name");
     }
-    if (!validate.isValidDescription(description)) {
+    if (!validate.isValidAlphanumeric(description)) {
         throw new UserDataError("Invalid description");
     }
-    if (!validate.isValidCost(itemCost)) {
+    if (!validate.isValidDecimal(itemCost)) {
         throw new UserDataError("Invalid cost");
     }
     if (!validate.isValidItemType(itemType)) {
@@ -327,16 +327,16 @@ async function addItem(name, description, itemCost, itemType) {
  * @param {*} itemType The updated type of the item
  */
 async function editItem(id, name, description, itemCost, rentalState, itemType) {
-    if (!validate.isValidId(id)) {
+    if (!validate.isValidInteger(id)) {
         throw new UserDataError("Invalid id");
     }
-    if (!validate.isValidName(name)) {
+    if (!validate.isValidAlphanumeric(name)) {
         throw new UserDataError("Invalid name");
     }
-    if (!validate.isValidDescription(description)) {
+    if (!validate.isValidAlphanumeric(description)) {
         throw new UserDataError("Invalid description");
     }
-    if (!validate.isValidCost(itemCost)) {
+    if (!validate.isValidDecimal(itemCost)) {
         throw new UserDataError("Invalid cost");
     }
     if (!validate.isValidItemType(itemType)) {
@@ -361,7 +361,7 @@ async function editItem(id, name, description, itemCost, rentalState, itemType) 
  * @param {*} rentalState The updated rental state
  */
 async function editItemRentalState(id, rentalState) {
-    if (!validate.isValidId(id)) {
+    if (!validate.isValidInteger(id)) {
         throw new UserDataError("Invalid id");
     }
     if (!validate.isValidRentalState(rentalState)) {
@@ -382,7 +382,7 @@ async function editItemRentalState(id, rentalState) {
  * @param {*} id The id of the item to be deleted
  */
 async function deleteItem(id) {
-    if (!validate.isValidId(id)) {
+    if (!validate.isValidInteger(id)) {
         throw new UserDataError("Invalid id");
     }
     const sqlQuery = 'DELETE FROM inventory WHERE id = ' + id;
@@ -399,7 +399,7 @@ async function deleteItem(id) {
  * @returns the item being returned
  */
 async function getItemById(id) {
-    if (!validate.isValidId(id)) {
+    if (!validate.isValidInteger(id)) {
         throw new UserDataError("Invalid id");
     }
     const sqlQuery = 'SELECT * FROM inventory WHERE id = ' + id;
@@ -433,7 +433,7 @@ async function getAllItems() {
  */
 
 async function addItemType(name) {
-    if (!validate.isValidName(name)) {
+    if (!validate.isValidAlphanumeric(name)) {
         throw new UserDataError("Invalid name");
     }
     if (getItemTypeByName(name) != null) {
@@ -457,7 +457,7 @@ async function editItemType(id, name) {
     if (!validate.isValidInteger(id)) {
         throw new UserDataError("Invalid id");
     }
-    if (!validate.isValidName(name)) {
+    if (!validate.isValidAlphanumeric(name)) {
         throw new UserDataError("Invalid name");
     }
     if (getItemTypeByName(name) != null) {
@@ -494,7 +494,7 @@ async function deleteItemType(id) {
  * Used to check if an item type name already exists
  */
 async function getItemTypeByName(name) {
-    if (!validate.isValidName(name)) {
+    if (!validate.isValidAlphanumeric(name)) {
         throw new UserDataError("Invalid name");
     }
 
