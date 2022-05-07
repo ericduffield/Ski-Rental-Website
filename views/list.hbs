@@ -1,0 +1,18 @@
+{{#if message}}
+<h1>{{message}}</h1>
+{{/if}}
+
+{{#each item}}
+<h3>Name: {{name}}</h3>
+<p>Id: {{id}}</p>
+<p>Description: {{description}}</p>
+<p>Cost: {{itemCost}}</p>
+<p>Rental State: {{#if rentalState}}
+    Rented
+    {{else}}
+    Available
+    {{/if}}
+</p>
+<p>Item Type: {{itemType}}</p>
+<br>
+{{/each}}

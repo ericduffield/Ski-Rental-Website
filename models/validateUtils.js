@@ -7,7 +7,7 @@ function isValidUserType(userType) {
     return false;
 }
 function isValidAlphanumeric(string) {
-    if (validator.isAlphanumeric(string)) {
+    if (validator.isAlphanumeric(validator.blacklist(string, ' '))) {
         return true;
     }
     return false;

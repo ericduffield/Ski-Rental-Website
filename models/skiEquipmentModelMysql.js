@@ -310,10 +310,10 @@ async function addItem(name, description, itemCost, itemType) {
         throw new UserDataError("Invalid item type");
     }
 
-    const sqlQuery = 'INSERT INTO inventory (name, description, itemCost, isRented, itemType) VALUES (\"' + name + '\",\"' + description + '\",\"' + itemCost + '\", false,(SELECT id FROM itemType where name = \"' + itemType + '\"))';
+    const sqlQuery = 'INSERT INTO inventory (name, description, itemCost, rentalState, itemType) VALUES (\"' + name + '\",\"' + description + '\",\"' + itemCost + '\", false, \"' + itemType + '\")';
     await connection.execute(sqlQuery)
         .catch((error) => {
-            logger.error(error)
+            console.error(error)
             throw new SystemError("Error adding item");
         });
 }
@@ -346,10 +346,10 @@ async function editItem(id, name, description, itemCost, rentalState, itemType) 
         throw new UserDataError("Invalid rental state");
     }
 
-    const sqlQuery = 'UPDATE inventory SET name = \'' + name + '\', description = \'' + description + '\', itemCost = \'' + itemCost + '\', isRented = ' + rentalState + ', itemType = (SELECT id FROM itemType where name = \'' + itemType + '\') WHERE id = ' + id;
+    const sqlQuery = 'UPDATE inventory SET name = \'' + name + '\', description = \'' + description + '\', itemCost = \'' + itemCost + '\', rentalState = ' + rentalState + ', itemType = \'' + itemType + '\' WHERE id = ' + id;
     await connection.execute(sqlQuery)
         .catch((error) => {
-            logger.error(error)
+            console.error(error)
             throw new SystemError("Error editing item");
         }
         );
@@ -368,7 +368,7 @@ async function editItemRentalState(id, rentalState) {
         throw new UserDataError("Invalid rental state");
     }
 
-    const sqlQuery = 'UPDATE inventory SET isRented = ' + rentalState + ' WHERE id = ' + id;
+    const sqlQuery = 'UPDATE inventory SET rentalState = ' + rentalState + ' WHERE id = ' + id;
     await connection.execute(sqlQuery)
         .catch((error) => {
             logger.error(error)
@@ -547,7 +547,7 @@ async function createRental(StartTime, EndTime, Duration) {
 
 
 // ----------------------- Error Classes -----------------------
-//Error if user gives invalid name or price
+//Error if user gives invalid input
 class UserDataError extends Error {
     constructor(message) {
         super(message);

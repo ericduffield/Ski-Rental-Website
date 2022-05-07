@@ -4,19 +4,15 @@ const routeRoot = '/';
 const model = require('../models/skiEquipmentModelMysql');
 
 const logger = require('../logger');
+const validate = require('../models/validateUtils');
+
 
 //#region ADMIN PAGES
 
-router.get('/admin', adminRent);
+router.get('/admin', list);
 
-function adminRent(req, res) {
-    const pageData = {
-        image: "/images/hero.jpg",
-        admin: true,
-        rent: true
-    };
-
-    res.render("adminRent.hbs", pageData);
+function list(req, res) {
+    listResponse(res, "/images/hero.jpg", false, false);
 }
 
 router.get('/items', items);
@@ -46,14 +42,16 @@ function users(req, res) {
 router.post('/addItem', addItem);
 
 async function addItem(req, res) {
-
     try {
         //Tries to add ski equipment to the database and if successful, renders the form with success message
+        if (!validate.isValidInteger(req.body.quantity))
+            throw new Error("Quantity must be an integer");
+
         for (let i = 0; i < req.body.quantity; i++) {
             await model.addItem(req.body.name, req.body.description, req.body.cost, req.body.itemType);
         }
         console.log("Successfully added " + req.body.name);
-        itemResponse(res, "/images/hero.jpg", "Successfully added ski equipment", false);
+        itemResponse(res, "/images/hero.jpg", "Successfully added ski equipment", false, false);
     }
     catch (err) {
         console.error(err.message);
@@ -64,18 +62,103 @@ async function addItem(req, res) {
 }
 
 
-//router.post('/editItem', editItem);
+router.post('/editItem', editItem);
 
-//router.post('/deleteItem', deleteItem);
+async function editItem(req, res) {
+    try {
+        //Tries to edit ski equipment in the database and if successful, renders the form with success message
+        let state = req.body.rentalState == 0 ? true : false;
+        await model.editItem(req.body.id, req.body.name, req.body.description, req.body.cost, state, req.body.itemType);
 
-async function itemResponse(res, imageUrl, theMessage) {
-    let itemTypes = await model.getAllItemTypes();
-    console.log(itemTypes);
+        console.log("Successfully edited " + req.body.name);
+        itemResponse(res, "/images/hero.jpg", "Successfully edited " + req.body.name, false, false);
+    }
+    catch (err) {
+        console.error(err.message);
+        //Renders the form again with error message and alert image
+
+        itemResponse(res, "/images/warning.webp", err.message, true);
+    }
+}
+
+router.post('/editItemRentalState', editItemRentalState);
+
+async function editItemRentalState(req, res) {
+    try {
+        //Tries to edit item rental state in the database and if successful, renders the form with success message
+        let state = req.body.rentalState == 0 ? false : true;
+        await model.editItemRentalState(req.body.id, state);
+
+        console.log("Successfully edited item rental state");
+        itemResponse(res, "/images/hero.jpg", "Successfully edited item rental state", false, false);
+    }
+    catch (err) {
+        console.error(err.message);
+        //Renders the form again with error message and alert image
+        itemResponse(res, "/images/warning.webp", err.message, true);
+    }
+}
+
+router.post('/deleteItem', deleteItem);
+
+async function deleteItem(req, res) {
+    try {
+        //Tries to delete ski equipment to the database and if successful, renders the form with success message
+        await model.deleteItem(req.body.id);
+
+        console.log("Successfully deleted item");
+        itemResponse(res, "/images/hero.jpg", "Successfully deleted item", false, false);
+    }
+    catch (err) {
+        console.error(err.message);
+        //Renders the form again with error message and alert image
+        itemResponse(res, "/images/warning.webp", err.message, true);
+    }
+}
+
+async function listResponse(res, imageUrl, theMessage) {
+    try {
+        //Tries get ski equipment from the database and if successful, renders the listSkiEquipment with results
+        let rows = await model.getAllItems();
+
+        logger.info("Ski Equipment fetched successfully");
+        const pageData = {
+            image: imageUrl,
+            admin: true,
+            list: true,
+            message: theMessage,
+            item: rows
+        }
+        res.render("list.hbs", pageData);
+    }
+    catch (err) {
+        logger.error(err.message);
+
+        const pageData = {
+            image: "/images/warning.webp",
+            admin: true,
+            list: true,
+            error: true,
+            message: err.message,
+        }
+        res.render("list.hbs", pageData);
+    }
+}
+
+async function itemResponse(res, imageUrl, theMessage, isError) {
+    let itemTypes;
+    try {
+        itemTypes = await model.getAllItemTypes();
+    }
+    catch (err) {
+        logger.error(err.message);
+    }
     const pageData = {
         image: imageUrl,
         admin: true,
         items: true,
         message: theMessage,
+        error: isError,
         forms: [{
             formName: 'Add Item',
             formInput: "/addItem",
@@ -111,10 +194,6 @@ async function itemResponse(res, imageUrl, theMessage) {
                 fieldName: 'Id',
             },
             {
-                fieldId: 'quantity',
-                fieldName: 'Quantity',
-            },
-            {
                 fieldId: 'name',
                 fieldName: 'Name',
             },
@@ -123,9 +202,48 @@ async function itemResponse(res, imageUrl, theMessage) {
                 fieldName: 'Description',
             },
             {
+                fieldId: 'cost',
+                fieldName: 'Cost',
+            },
+            {
                 combobox: true,
+                fieldId: 'rentalState',
+                fieldName: 'Rental State',
+                options: [{
+                    id: 0,
+                    name: 'Available'
+                },
+                {
+                    id: 1,
+                    name: 'Rented'
+                }]
+            },
+            {
+                combobox: true,
+                options: itemTypes,
                 fieldId: 'itemType',
                 fieldName: 'Item Type',
+            }]
+        },
+        {
+            formName: 'Edit Item Rental State',
+            formInput: "/editItemRentalState",
+            fields: [{
+                fieldId: 'id',
+                fieldName: 'Id',
+            },
+            {
+                combobox: true,
+                fieldId: 'rentalState',
+                fieldName: 'Rental State',
+                options: [{
+                    id: 0,
+                    name: 'Available'
+                },
+                {
+                    id: 1,
+                    name: 'Rented'
+                }]
             }]
         },
         {
@@ -159,7 +277,7 @@ async function addItemType(req, res) {
         console.error(err.message);
         //Renders the form again with error message and alert image
 
-        itemTypesResponse(res, "/images/warning.webp", err.message, true);
+        itemTypesResponse(res, "/images/warning.webp", err.message);
     }
 }
 
@@ -169,12 +287,13 @@ router.post('/editItemType', editItemType);
 router.post('/deleteItemType', deleteItemType);
 */
 
-function itemTypesResponse(res, imageUrl, theMessage) {
+function itemTypesResponse(res, imageUrl, theMessage, isError) {
     const pageData = {
         image: imageUrl,
         admin: true,
         itemTypes: true,
         message: theMessage,
+        error: isError,
         forms: [{
             formName: 'Add Item Type',
             formInput: "/addItemType",
@@ -230,7 +349,7 @@ async function editUser(req, res) {
         console.error(err.message);
         //Renders the form again with error message and alert image
 
-        usersResponse(res, "/images/warning.webp", err.message, true);
+        usersResponse(res, "/images/warning.webp", err.message);
     }
 }
 
@@ -239,12 +358,13 @@ router.post('/deleteUser', deleteUser);
 
 */
 
-function usersResponse(res, imageUrl, theMessage) {
+function usersResponse(res, imageUrl, theMessage, isError) {
     const pageData = {
         image: imageUrl,
         admin: true,
         users: true,
         message: theMessage,
+        error: isError,
         forms: [{
             formName: 'Edit User',
             formInput: "/editUser",
@@ -319,23 +439,6 @@ async function add(req, res) {
 
 
 
-router.get('/listSkiEquipment', list);
-
-async function list(req, res) {
-    try {
-        //Tries get ski equipment from the database and if successful, renders the listSkiEquipment with results
-        let rows = await model.listSkiEquipment();
-        res.render("listSkiEquipment.hbs", { rows: rows, image: "/images/hero.jpg", });
-        logger.info("Ski Equipment found successfully");
-    }
-    catch (err) {
-        logger.error(err.message);
-        //Renders the form again with error message and alert image
-        res.render("error.hbs", { message: err.message });
-    }
-}
-
-
 
 
 
@@ -399,6 +502,14 @@ async function deleteSki(req, res) {
     }
 }
 
+//Error if user gives invalid input
+class UserDataError extends Error {
+    constructor(message) {
+        super(message);
+        this.name = "UserDataError";
+        this.status = 400;
+    }
+}
 
 module.exports = {
     router,
