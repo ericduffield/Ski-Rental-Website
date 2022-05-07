@@ -1,3 +1,5 @@
+/*#region =========== GLOBAL =========== */
+
 * {
 	margin: 0;
 	padding: 0;
@@ -9,8 +11,6 @@ body{
 	background: var(--white);
     color: var(--black);
 }
-
-/* ===========  Color Variables  ========== */
 
 :root {
 	--black: #EEF5FC;
@@ -25,8 +25,9 @@ body{
 	--black: #2a2a2a;
 }
 
+/*#endregion Global*/
 
-/* ===========  Header  ========== */
+/*#region =========== HEADER ========== */
 
 header {
 	width : 100%;
@@ -181,9 +182,8 @@ a {
 	display: inline-block;
 }
 
-#title {
+#title p{
 	text-align: center;
-	flex: 5;
 	font-size: 1.1rem;
 	font-weight: 500;
 	color: var(--black);
@@ -202,7 +202,6 @@ a {
 }
 
 #account ul li {
-	margin-left: 1rem;
 	display: flex;
 	align-items: center;
 }
@@ -223,66 +222,10 @@ ul, p{
 	margin: 0;
 }
 
+/*#endregion HEADER*/
 
-/* ===========  BODY  ========== */
+/*#region =========== FOOTER ========== */
 
-main
-{
-	position: relative;
-  	min-height: 100vh;
-}
-
-.title{
-	margin: 1rem 0 1rem 0;
-}
-
-#mainContent{
-	display: flex;
-	align-items: center;
-	justify-content: center;
-	flex-direction: column;
-	padding-bottom: 5rem;
-}
-
-#imageSection{
-	width: 100%;
-	text-align: center;
-}
-
-#image{
-	width: 100%;
-	margin-bottom: 2rem;
-}
-
-#errorImage{
-	margin: 1rem;
-	height: 12rem;
-}
-
-/* ===========  FORMS  ========== */
-
-form
-{
-	display: flex;
-	flex-direction: column;
-}
-
-form label {
-	margin-top: 1rem;
-	margin-bottom: 0.2rem;
-}
-
-.btn {
-	background-color: var(--primary);
-	margin-top: 1rem;
-	margin-bottom: 2rem;
-}
-
-.btn:hover{
-	background-color: var(--secondary);
-}
-
-/* ===========  FOOTER  ========== */
 footer{
     background: var(--white);
     color: var(--black);
@@ -447,76 +390,83 @@ footer{
 	color: var(--black);
 	text-decoration: none;
 }
-/* ===========  MEDIA QUERY  ========== */
 
-@media only screen and (max-width: 760px) {
-	header {
-		padding-left: 3rem;
-		padding-right: 3rem;
-	}
+/*#endregion FORMS*/
 
-	#hamburger {
-		display: block;
-	}
+/*#region =========== BODY ========== */
 
-	#menuToggle {
-		display: flex;
-		justify-content: flex-start;
-	}
-
-	#menuToggle div {
-		height: 1rem;
-		display: flex;
-		flex-direction: column;
-		justify-content: space-between;
-	}
-
-	#menuToggle a {
-		text-decoration: none;
-		color: var(--black);
-	}
-
-	#menuToggle a:hover {
-		color: var(--hover);
-	}
-
-	#menuToggle input {
-		display: block;
-		position: absolute;
-		width: 32px;
-		height: 28px;
-		top: 29px;
-		left: 44px;
-		cursor: pointer;
-		opacity: 0; /* hide this */
-		z-index: 2; /* and place it over the hamburger */
-		-webkit-touch-callout: none;
-	}
-
-	#menuToggle input:checked ~ ul {
-		transform: translate(100%, 0);
-	}
-
-	nav {
-		display: none;
-	}
-
-	#socials {
-		display: none;
-	}
-
-	#menu {
-		display: block;
-	}
-
-	.footer-menu ul{
-      display: flex;
-      margin-top: 10px;
-      margin-bottom: 20px;
-    }
+main
+{
+	position: relative;
+  	min-height: 100vh;
 }
 
-/*								START OF THE HOME PAGE EDITS						*/
+.title{
+	margin: 1rem 0 1rem 0;
+}
+
+#mainContent{
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	flex-direction: column;
+	padding-bottom: 5rem;
+}
+
+#imageSection{
+	width: 100%;
+	text-align: center;
+}
+
+#image{
+	width: 100%;
+	margin-bottom: 2rem;
+}
+
+#errorImage{
+	margin: 1rem;
+	height: 12rem;
+}
+
+/*#endregion BODY*/
+
+/*#region =========== FORMS ========== */
+
+form
+{
+	display: flex;
+	flex-direction: column;
+}
+
+form label {
+	margin-top: 1rem;
+	margin-bottom: 0.2rem;
+}
+
+.btn {
+	background-color: var(--primary);
+	margin-top: 1rem;
+	margin-bottom: 2rem;
+}
+
+.btn:hover{
+	background-color: var(--secondary);
+}
+
+.grid{
+	display: grid;
+	grid-template-columns: 1fr 1fr 1fr;
+	gap: 5rem;
+}
+
+.title{
+	text-align: center;
+}
+
+/*#endregion FORMS*/
+
+/*#region =========== HOME PAGE ========== */
+
 .container
 {
 	display: flex;
@@ -527,6 +477,7 @@ footer{
 	height: 20vh;
 	background-color: var(--white);
 }
+
 .formEdit
 {
 	display: flex;
@@ -535,6 +486,7 @@ footer{
 	justify-content: center;
 	margin-right: 250px;
 }
+
 .formEdit textarea
 {
 	width: 100%;
@@ -544,6 +496,7 @@ footer{
 	padding: 10px;
 	margin-bottom: 10px;
 }
+
 .formEdit input
 {
 	width: 100%;
@@ -553,19 +506,39 @@ footer{
 	padding: 10px;
 	margin-bottom: 10px;
 }
+
 .formEdit h3
 {
 	margin-bottom: 5px;
 }
-/* ===========  MEDIA QUERY  ========== */
+
+/*#endregion HOME PAGE*/
+
+/*#region =========== MEDIA QUERY ========== */
+
+@media only screen and (max-width: 1050px) {
+	.grid{
+		grid-template-columns: 1fr 1fr;
+	}
+	
+}
 
 @media only screen and (max-width: 760px) {
+	.grid{
+		grid-template-columns: 1fr;
+	}
+
+	#account {
+		flex: 1;
+	}
+
 	header {
 		padding-left: 3rem;
 		padding-right: 3rem;
 	}
 
 	#hamburger {
+		flex: 1;
 		display: block;
 	}
 
@@ -626,122 +599,4 @@ footer{
     }
 }
 
-/*								START OF THE HOME PAGE EDITS						*/
-.container
-{
-	display: flex;
-	flex-direction: column;
-	align-items: center;
-	justify-content: center;
-	width: 100%;
-	height: 20vh;
-	background-color: var(--white);
-}
-
-.rectangleHome
-{
-	display: inline-block;
-	border-radius: 5%;
-	height: 300px;
-	width: 300px;
-	background-color: var(--primary);
-	margin: 50px;
-	
-}
-.containerRectangle
-{
-	display: flex;
-}
-.buttonRent
-{
-	border-radius: 5%;
-	background-color: var(--primary);
-	border: none;
-	color: white;
-	padding: 15px 32px;
-	text-align: center;
-	text-decoration: none;
-	display: inline-block;
-	font-size: 16px;
-	margin: 4px 2px;
-	cursor: pointer;
-	transition-duration: 0.4s;
-	margin: 50px;
-}
-.buttonRent:hover {
-	box-shadow: 0 12px 16px 0 rgba(0,0,0,0.24),0 17px 50px 0 rgba(0,0,0,0.19);
-}
-
-.containerCircle
-{
-	display: flex;
-	flex-direction: row;
-	align-items: center;
-	justify-content: center;
-	margin: 50px;
-}
-.circleHome
-{
-	display: inline-block;
-	border-radius: 50%;
-	height: 300px;
-	width: 300px;
-	background-color: var(--primary);
-	margin: 25px;
-}
-
-.buttonAboutUs
-{
-	border-radius: 5%;
-	background-color: var(--primary);
-	border: none;
-	color: white;
-	padding: 15px 32px;
-	text-align: center;
-	text-decoration: none;
-	display: inline-block;
-	font-size: 16px;
-	margin: 4px 2px;
-	cursor: pointer;
-	transition-duration: 0.4s;
-	margin: 50px;
-}
-.buttonAboutUs:hover {
-	box-shadow: 0 12px 16px 0 rgba(0,0,0,0.24),0 17px 50px 0 rgba(0,0,0,0.19);
-}
-
-/*									About Us Page Starter							*/
-.aboutContainer
-{
-	display: flex;
-	flex-direction: column;
-	align-items: center;
-	justify-content: center;
-	margin: 50px;
-	width: 700px;
-}
-
-.personInfo
-{
-	margin-top: 50px;
-}
-
-.personInfo p
-{
-	font-size: 28px;
-	color: var(--black);
-}
-.personInfo i
-{
-	margin-left: 50px;
-}
-.customFont
-{
-	font-family: "Trirong", serif;
-}
-
-.personInfo i 
-{
-	font-size: 50px;
-	color: var(--primary);
-}
+/*#endregion MEDIA QUERY*/

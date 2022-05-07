@@ -116,7 +116,6 @@ async function initialize(dbname, reset) {
 
         // Set back foreign key constraints
         const ForeignKeys = 'SET foreign_key_checks = 1';
-
         await connection.execute(ForeignKeys)
             .catch((error) => {
                 throw new SystemError("SQL Execution Error - Foreign Key Back On");
@@ -178,6 +177,7 @@ async function createUser(userType, username, password, firstName, lastName, cre
 
     return { "userType": userType, "username": username, "password": password, "firstName": firstName, "lastName": lastName, "credit": credit };
 }
+
 /**
  * Edits all the fields for a user from its id
  * @param {*} id The id of the user to update
@@ -229,6 +229,7 @@ async function editUser(id, userType, username, password, firstName, lastName, c
         );
     return { "userType": userType, "username": username, "password": password, "firstName": firstName, "lastName": lastName, "credit": credit };
 }
+
 /**
  * Deletes a user that has the specified id
  * @param {*} id The id of the user to delete 
@@ -249,6 +250,7 @@ async function deleteUser(id) {
             throw new SystemError("Error deleting user");
         });
 }
+
 /**
  * Returns an object with all the user fields from the user with the specified id
  * @param {*} id The id of the user to get
@@ -267,6 +269,22 @@ async function getUserById(id) {
         });
     return result[0][0];
 }
+
+/**
+ * Returns an object with all the user fields for every user
+ * @throws SystemError if there is an error in the database while deleting
+ * @returns An array of objects with all the user
+ */
+async function getAllUsers() {
+    const sqlQuery = 'SELECT * FROM users';
+    const result = await connection.execute(sqlQuery)
+        .catch((error) => {
+            logger.error(error)
+            throw new SystemError("Error getting user");
+        });
+    return result[0];
+}
+
 /**
  * Checks if a username is taken
  * @param {*} username The username to check
@@ -296,7 +314,7 @@ async function checkIfUsernameIsTaken(username) {
  * @throws UserDataError if user sends invalid data
  * @throws SystemError if there is an error in the database while deleting
  */
-async function addItem(name, description, itemCost, itemType) {
+async function addItem(name, description, itemCost, itemType, rentalState) {
     if (!validate.isValidAlphanumeric(name)) {
         throw new UserDataError("Invalid name");
     }
@@ -310,7 +328,7 @@ async function addItem(name, description, itemCost, itemType) {
         throw new UserDataError("Invalid item type");
     }
 
-    const sqlQuery = 'INSERT INTO inventory (name, description, itemCost, rentalState, itemType) VALUES (\"' + name + '\",\"' + description + '\",\"' + itemCost + '\", false, \"' + itemType + '\")';
+    const sqlQuery = 'INSERT INTO inventory (name, description, itemCost, rentalState, itemType) VALUES (\"' + name + '\",\"' + description + '\",\"' + itemCost + '\",\"' + rentalState + '\",\"' + itemType + '"\"' + itemType + '\")';
     await connection.execute(sqlQuery)
         .catch((error) => {
             console.error(error)
@@ -571,6 +589,7 @@ module.exports = {
     editUser,
     deleteUser,
     getUserById,
+    getAllUsers,
     checkIfUsernameIsTaken,
     addItem,
     editItem,

@@ -2,17 +2,35 @@
 <h1>{{message}}</h1>
 {{/if}}
 
-{{#each item}}
-<h3>Name: {{name}}</h3>
-<p>Id: {{id}}</p>
-<p>Description: {{description}}</p>
-<p>Cost: {{itemCost}}</p>
-<p>Rental State: {{#if rentalState}}
-    Rented
-    {{else}}
-    Available
-    {{/if}}
-</p>
-<p>Item Type: {{itemType}}</p>
+<h1>Items</h1>
 <br>
-{{/each}}
+<div class="grid">
+    {{#each allItems}}
+    <div>
+        <h3>Name: {{name}}</h3>
+        <p>Id: {{id}}</p>
+        <p>Description: {{description}}</p>
+        <p>Cost: {{itemCost}}</p>
+        <p>Rental State: {{#if rentalState}}
+            Rented
+            {{else}}
+            Available
+            {{/if}}
+        </p>
+        <p>Item Type: {{itemTypes}}</p>
+        <br>
+    </div>
+    {{/each}}
+</div>
+
+<h1>Item Types</h1>
+<br>
+<div class="grid">
+    {{#each allItemTypes}}
+    <div>
+        <h3>Name: {{name}}</h3>
+        <p>Id: {{id}}</p>
+        <br>
+    </div>
+    {{/each}}
+</div>

@@ -48,7 +48,7 @@ async function addItem(req, res) {
             throw new Error("Quantity must be an integer");
 
         for (let i = 0; i < req.body.quantity; i++) {
-            await model.addItem(req.body.name, req.body.description, req.body.cost, req.body.itemType);
+            await model.addItem(req.body.name, req.body.description, req.body.cost, req.body.itemType, req.body.rentalState);
         }
         console.log("Successfully added " + req.body.name);
         itemResponse(res, "/images/hero.jpg", "Successfully added ski equipment", false, false);
@@ -81,6 +81,7 @@ async function editItem(req, res) {
     }
 }
 
+
 router.post('/editItemRentalState', editItemRentalState);
 
 async function editItemRentalState(req, res) {
@@ -98,6 +99,7 @@ async function editItemRentalState(req, res) {
         itemResponse(res, "/images/warning.webp", err.message, true);
     }
 }
+
 
 router.post('/deleteItem', deleteItem);
 
@@ -119,7 +121,10 @@ async function deleteItem(req, res) {
 async function listResponse(res, imageUrl, theMessage) {
     try {
         //Tries get ski equipment from the database and if successful, renders the listSkiEquipment with results
-        let rows = await model.getAllItems();
+        let items = await model.getAllItems();
+        let itemTypes = await model.getAllItemTypes();
+        let users = await model.getAllUsers();
+        console.log(users);
 
         logger.info("Ski Equipment fetched successfully");
         const pageData = {
@@ -127,7 +132,8 @@ async function listResponse(res, imageUrl, theMessage) {
             admin: true,
             list: true,
             message: theMessage,
-            item: rows
+            allItems: items,
+            allItemTypes: itemTypes
         }
         res.render("list.hbs", pageData);
     }
@@ -172,19 +178,32 @@ async function itemResponse(res, imageUrl, theMessage, isError) {
                     fieldName: 'Description',
                 },
                 {
+                    fieldId: 'cost',
+                    fieldName: 'Cost',
+                },
+                {
+                    combobox: true,
+                    fieldId: 'rentalState',
+                    fieldName: 'Rental State',
+                    options: [{
+                        id: 0,
+                        name: 'Available'
+                    },
+                    {
+                        id: 1,
+                        name: 'Rented'
+                    }]
+                },
+                {
                     combobox: true,
                     options: itemTypes,
                     fieldId: 'itemType',
                     fieldName: 'Item Type',
                 },
                 {
-                    fieldId: 'cost',
-                    fieldName: 'Cost',
-                },
-                {
                     fieldId: 'quantity',
                     fieldName: 'Quantity',
-                },]
+                }]
         },
         {
             formName: 'Edit Item',
@@ -332,6 +351,7 @@ function itemTypesResponse(res, imageUrl, theMessage, isError) {
     res.render("form.hbs", pageData);
 }
 
+
 //===================USERS FORMS=====================
 
 router.post('/editUser', editUser);
@@ -366,6 +386,43 @@ function usersResponse(res, imageUrl, theMessage, isError) {
         message: theMessage,
         error: isError,
         forms: [{
+            formName: 'Create User',
+            formInput: "/createUser",
+            fields: [{
+                fieldId: 'username',
+                fieldName: 'Username',
+            },
+            {
+                fieldId: 'firstName',
+                fieldName: 'First Name',
+            },
+            {
+                fieldId: 'lastName',
+                fieldName: 'Last Name',
+            },
+            {
+                fieldId: 'phoneNumber',
+                fieldName: 'Phone Number',
+            },
+            {
+                fieldId: 'password',
+                fieldName: 'Password',
+            },
+            {
+                combobox: true,
+                fieldId: 'userType',
+                fieldName: 'User Type',
+                options: [{
+                    id: 0,
+                    name: 'Regular'
+                },
+                {
+                    id: 1,
+                    name: 'Admin'
+                }]
+            }]
+        },
+        {
             formName: 'Edit User',
             formInput: "/editUser",
             fields: [{
@@ -392,6 +449,19 @@ function usersResponse(res, imageUrl, theMessage, isError) {
             {
                 fieldId: 'password',
                 fieldName: 'Password',
+            },
+            {
+                combobox: true,
+                fieldId: 'userType',
+                fieldName: 'User Type',
+                options: [{
+                    id: 0,
+                    name: 'Regular'
+                },
+                {
+                    id: 1,
+                    name: 'Admin'
+                }]
             }]
         },
         {
@@ -408,99 +478,7 @@ function usersResponse(res, imageUrl, theMessage, isError) {
     res.render("form.hbs", pageData);
 }
 
-
-
-
-
-
-
-//CODE FROM OLD ASSIGNMENT TO LOOK AT
-
-
-router.post('/skiEquipment', add);
-
-async function add(req, res) {
-
-    try {
-        //Tries to add ski equipment to the database and if successful, renders the showSkiEquipment with success message
-        const added = await model.addSkiEquipment(req.body.name, req.body.price);
-        res.render("showSkiEquipment.hbs", {
-            message: "Successfully added ski equipment", name: added.name, price: added.price, image: req.body.image,
-        });
-        logger.info("Ski Equipment added successfully");
-    }
-    catch (err) {
-        logger.error(err.message);
-        //Renders the form again with error message and alert image
-        res.render("home.hbs", { message: err.message, image: "/images/warning.webp" });
-    }
-}
-
-
-
-
-
-
-
-router.post('/getSkiEquipment', get);
-
-async function get(req, res) {
-    try {
-        //Tries to get ski equipment from the database and if successful, renders the showSkiEquipment with success message
-        const result = await model.findByName(req.body.name);
-        res.render("showSkiEquipment.hbs", {
-            message: "Ski Equipment found successfully", name: "Name: " + result.name, price: "Price: " + result.price
-        });
-        logger.info("Ski Equipment found successfully");
-    }
-    catch (err) {
-        logger.error(err.message);
-        //Renders the form again with error message and alert image
-        res.render("getSkiEquipment.hbs", { message: err.message, image: "/images/warning.webp" });
-    }
-}
-
-
-
-
-
-router.post('/editSkiEquipment', edit);
-
-async function edit(req, res) {
-    try {
-        //Tries to edit ski equipment in the database and if successful, renders the showSkiEquipment with success message
-        let result = await model.replaceSkiEquipment(req.body.name, req.body.newName, req.body.newPrice);
-        res.render("showSkiEquipment.hbs", {
-            message: "Ski Equipment edited successfully", name: "Name: " + result.name, price: "Price: " + result.price
-        });
-        logger.info("Ski Equipment edited successfully");
-    }
-    catch (err) {
-        logger.error(err.message);
-        //Renders the form again with error message and alert image
-        res.render("editSkiEquipment.hbs", { message: err.message, image: "/images/warning.webp" });
-    }
-}
-
-
-
-router.post('/deleteSkiEquipment', deleteSki);
-
-async function deleteSki(req, res) {
-    try {
-        //Tries to delete ski equipment from the database and if successful, renders the showSkiEquipment with success message
-        await model.deleteSkiEquipment(req.body.name);
-        res.render("showSkiEquipment.hbs", {
-            message: "Ski Equipment deleted successfully"
-        });
-        logger.info("Ski Equipment deleted successfully");
-    }
-    catch (err) {
-        logger.error(err.message);
-        //Renders the form again with error message and alert image
-        res.render("deleteSkiEquipment.hbs", { message: err.message, image: "/images/warning.webp" });
-    }
-}
+//#endregion
 
 //Error if user gives invalid input
 class UserDataError extends Error {
