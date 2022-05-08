@@ -47,6 +47,7 @@ async function addItem(req, res) {
         if (!validate.isValidInteger(req.body.quantity))
             throw new Error("Quantity must be an integer");
 
+        console.log(req.body.itemType)
         for (let i = 0; i < req.body.quantity; i++) {
             await model.addItem(req.body.name, req.body.description, req.body.cost, req.body.itemType, req.body.rentalState);
         }
@@ -123,8 +124,6 @@ async function listResponse(res, imageUrl, theMessage) {
         //Tries get ski equipment from the database and if successful, renders the listSkiEquipment with results
         let items = await model.getAllItems();
         let itemTypes = await model.getAllItemTypes();
-        let users = await model.getAllUsers();
-        console.log(users);
 
         logger.info("Ski Equipment fetched successfully");
         const pageData = {

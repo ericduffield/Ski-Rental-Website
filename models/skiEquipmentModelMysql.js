@@ -54,7 +54,7 @@ async function initialize(dbname, reset) {
             });
 
         // Inventory
-        const inventory = 'CREATE TABLE IF NOT EXISTS inventory(id int AUTO_INCREMENT NOT NULL PRIMARY KEY, name varchar(50) NOT NULL, description varchar(50) NOT NULL, itemCost decimal NOT NULL, rentalState boolean NOT NULL, itemType int NOT NULL, FOREIGN KEY (itemType) REFERENCES itemTypes(id))';
+        const inventory = 'CREATE TABLE IF NOT EXISTS inventory(id int AUTO_INCREMENT NOT NULL PRIMARY KEY, name varchar(50) NOT NULL, description TEXT NOT NULL, itemCost decimal NOT NULL, rentalState boolean NOT NULL, itemType int NOT NULL, FOREIGN KEY (itemType) REFERENCES itemTypes(id))';
 
         await connection.execute(inventory)
             .catch((error) => {
@@ -77,8 +77,14 @@ async function initialize(dbname, reset) {
                 throw new SystemError("SQL Execution Error - Rentals");
             });
 
+        const productsa = 'DROP TABLE IF EXISTS products';
+        await connection.execute(productsa)
+            .catch((error) => {
+                throw new SystemError("SQL Execution Error - Products");
+            });
+
         // Products
-        const products = 'CREATE TABLE IF NOT EXISTS products(id int AUTO_INCREMENT NOT NULL PRIMARY KEY, name varchar(50) NOT NULL, description varchar(50) NOT NULL, rentalCost decimal NOT NULL, productId int, bundleId int, FOREIGN KEY (productId) REFERENCES inventory(id), FOREIGN KEY (bundleId) REFERENCES bundles(id))';
+        const products = 'CREATE TABLE IF NOT EXISTS products(id int AUTO_INCREMENT NOT NULL PRIMARY KEY, name varchar(50) NOT NULL, description TEXT NOT NULL, rentalCost decimal NOT NULL, productId int, bundleId int, FOREIGN KEY (productId) REFERENCES inventory(id), FOREIGN KEY (bundleId) REFERENCES bundles(id))';
 
         await connection.execute(products)
             .catch((error) => {
@@ -318,17 +324,17 @@ async function addItem(name, description, itemCost, itemType, rentalState) {
     if (!validate.isValidAlphanumeric(name)) {
         throw new UserDataError("Invalid name");
     }
-    if (!validate.isValidAlphanumeric(description)) {
-        throw new UserDataError("Invalid description");
-    }
     if (!validate.isValidDecimal(itemCost)) {
         throw new UserDataError("Invalid cost");
     }
     if (!validate.isValidItemType(itemType)) {
         throw new UserDataError("Invalid item type");
     }
+    if (rentalState != 0 && rentalState != 1) {
+        throw new UserDataError("Invalid rental state");
+    }
 
-    const sqlQuery = 'INSERT INTO inventory (name, description, itemCost, rentalState, itemType) VALUES (\"' + name + '\",\"' + description + '\",\"' + itemCost + '\",\"' + rentalState + '\",\"' + itemType + '"\"' + itemType + '\")';
+    const sqlQuery = 'INSERT INTO inventory (name, description, itemCost, rentalState, itemType) VALUES (\"' + name + '\",\"' + description + '\",\"' + itemCost + '\",\"' + rentalState + '\",\"' + itemType + '\")';
     await connection.execute(sqlQuery)
         .catch((error) => {
             console.error(error)

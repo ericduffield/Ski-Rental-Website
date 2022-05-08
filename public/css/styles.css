@@ -454,9 +454,24 @@ form label {
 }
 
 .grid{
+	width: 80%;
 	display: grid;
 	grid-template-columns: 1fr 1fr 1fr;
 	gap: 5rem;
+}
+
+.grid .name{
+	font-size: 1.3rem;
+	text-align: center;
+	margin-bottom: 0.3rem;
+}
+
+.grid .fields{
+	align-items: center;
+}
+
+.grid p{
+	width: 80%;
 }
 
 .title{

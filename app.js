@@ -42,6 +42,16 @@ controllers.forEach((controllerName) => {
     }
 })
 
+
+
+var handlebars = require('handlebars');
+handlebars.registerHelper("decrement", function (varName, varValue, options) {
+    options.data.root[varName] = varValue - 1;
+});
+
+
+
+
 // List out all created routes 
 expressListRoutes(app, { prefix: '/' });
 
