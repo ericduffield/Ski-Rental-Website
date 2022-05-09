@@ -23,10 +23,61 @@ async function initialize(dbname, reset) {
         });
 
         if (reset) {
-            set
-            const dropQuery = "SET foreign_key_checks = 0; DROP TABLE userTypes; DROP TABLE users; DROP TABLE rentals; DROP TABLE itemTypes; DROP TABLE inventory; DROP TABLE products; DROP TABLE bundles;SET foreign_key_checks = 0;";
-            await connection.execute(dropQuery);
-            logger.info("Dropped all tables");
+
+            // Get rid of foreign keys
+            const noForeignKeys = 'SET foreign_key_checks = 0';
+            await connection.execute(noForeignKeys)
+                .catch((error) => {
+                    throw new SystemError("SQL Execution Error - Foreign Key Cancel");
+                });
+
+            const drop1 = 'DROP TABLE IF EXISTS users';
+            await connection.execute(drop1)
+                .catch((error) => {
+                    throw new SystemError("SQL Execution Error - Foreign Key Cancel");
+                });
+
+            const drop2 = 'DROP TABLE IF EXISTS rentals';
+            await connection.execute(drop2)
+                .catch((error) => {
+                    throw new SystemError("SQL Execution Error - Foreign Key Cancel");
+                });
+
+            const drop3 = 'DROP TABLE IF EXISTS products';
+            await connection.execute(drop3)
+                .catch((error) => {
+                    throw new SystemError("SQL Execution Error - Foreign Key Cancel");
+                });
+
+            const drop4 = 'DROP TABLE IF EXISTS inventory';
+            await connection.execute(drop4)
+                .catch((error) => {
+                    throw new SystemError("SQL Execution Error - Foreign Key Cancel");
+                });
+
+            const drop5 = 'DROP TABLE IF EXISTS bundles';
+            await connection.execute(drop5)
+                .catch((error) => {
+                    throw new SystemError("SQL Execution Error - Foreign Key Cancel");
+                });
+
+            const drop6 = 'DROP TABLE IF EXISTS itemTypes';
+            await connection.execute(drop6)
+                .catch((error) => {
+                    throw new SystemError("SQL Execution Error - Foreign Key Cancel");
+                });
+
+            const drop7 = 'DROP TABLE IF EXISTS userTypes';
+            await connection.execute(drop7)
+                .catch((error) => {
+                    throw new SystemError("SQL Execution Error - Foreign Key Cancel");
+                });
+
+            const drop8 = 'SET foreign_key_checks = 0';
+            await connection.execute(drop8)
+                .catch((error) => {
+                    throw new SystemError("SQL Execution Error - Foreign Key Cancel");
+                });
         }
 
         // Get rid of foreign key constraints while creating the database
@@ -77,12 +128,6 @@ async function initialize(dbname, reset) {
                 throw new SystemError("SQL Execution Error - Rentals");
             });
 
-        const productsa = 'DROP TABLE IF EXISTS products';
-        await connection.execute(productsa)
-            .catch((error) => {
-                throw new SystemError("SQL Execution Error - Products");
-            });
-
         // Products
         const products = 'CREATE TABLE IF NOT EXISTS products(id int AUTO_INCREMENT NOT NULL PRIMARY KEY, name varchar(50) NOT NULL, description TEXT NOT NULL, rentalCost decimal NOT NULL, productId int, bundleId int, FOREIGN KEY (productId) REFERENCES inventory(id), FOREIGN KEY (bundleId) REFERENCES bundles(id))';
 
@@ -99,33 +144,35 @@ async function initialize(dbname, reset) {
                 throw new SystemError("SQL Execution Error - Products");
             });
 
-        // Add both user types
-        const userTypeQuery = 'INSERT INTO userTypes (name) VALUES ("Admin"), ("User")';
-        await connection.execute(userTypeQuery)
-            .catch((error) => {
-                throw new SystemError("SQL Execution Error - Adding User Types");
-            });
+        if (reset) {
+            // Add both user types
+            const userTypeQuery = 'INSERT INTO userTypes (name) VALUES ("Admin"), ("User")';
+            await connection.execute(userTypeQuery)
+                .catch((error) => {
+                    throw new SystemError("SQL Execution Error - Adding User Types");
+                });
 
-        // Add all item types
-        const itemTypeQuery = 'INSERT INTO itemTypes (name) VALUES ("Boots"), ("Poles"), ("Helmets"), ("Skis"), ("Snowboards"), ("Bundles")';
-        await connection.execute(itemTypeQuery)
-            .catch((error) => {
-                throw new SystemError("SQL Execution Error - Adding Item Types");
-            });
+            // Add all item types
+            const itemTypeQuery = 'INSERT INTO itemTypes (name) VALUES ("Boots"), ("Poles"), ("Helmets"), ("Skis"), ("Snowboards"), ("Bundles")';
+            await connection.execute(itemTypeQuery)
+                .catch((error) => {
+                    throw new SystemError("SQL Execution Error - Adding Item Types");
+                });
 
-        // Add all the products
-        const productsQuery = 'INSERT INTO products (name, description, rentalCost) VALUES ("Boots", "A pair of boots for either skis or snowboard.", "20"), ("Poles", "A pair of poles", "7"), ("Helmet", "A helmet", "10"), ("Skis", "A pair of skis", "30"), ("Snowboard", "A snowboard", "30"), ("Ski Bundle", "Contains boots, skis, a helmet and poles", "50"), ("Snowboard Bundle", "Contains boots, a snowboard and a helmet", "50")';
-        await connection.execute(productsQuery)
-            .catch((error) => {
-                throw new SystemError("SQL Execution Error - Adding Products");
-            });
+            // Add all the products
+            const productsQuery = 'INSERT INTO products (name, description, rentalCost) VALUES ("Boots", "A pair of boots for either skis or snowboard.", "20"), ("Poles", "A pair of poles", "7"), ("Helmet", "A helmet", "10"), ("Skis", "A pair of skis", "30"), ("Snowboard", "A snowboard", "30"), ("Ski Bundle", "Contains boots, skis, a helmet and poles", "50"), ("Snowboard Bundle", "Contains boots, a snowboard and a helmet", "50")';
+            await connection.execute(productsQuery)
+                .catch((error) => {
+                    throw new SystemError("SQL Execution Error - Adding Products");
+                });
 
-        // Set back foreign key constraints
-        const ForeignKeys = 'SET foreign_key_checks = 1';
-        await connection.execute(ForeignKeys)
-            .catch((error) => {
-                throw new SystemError("SQL Execution Error - Foreign Key Back On");
-            });
+            // Set back foreign key constraints
+            const ForeignKeys = 'SET foreign_key_checks = 1';
+            await connection.execute(ForeignKeys)
+                .catch((error) => {
+                    throw new SystemError("SQL Execution Error - Foreign Key Back On");
+                });
+        }
 
     }
     catch (error) {
