@@ -447,6 +447,28 @@ footer{
 	color: var(--black);
 	text-decoration: none;
 }
+#locationLink
+{
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	margin-bottom: 11%;
+}
+.linkContainer
+{
+	display: flex;
+	justify-content: center;
+}
+.linkContainer a
+{
+	color: var(--black);
+	text-decoration: none;
+}
+.linkContainer ul
+{
+	text-decoration: none;
+}
+
 /* ===========  MEDIA QUERY  ========== */
 
 @media only screen and (max-width: 760px) {
