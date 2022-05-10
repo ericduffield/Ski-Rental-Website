@@ -14,6 +14,9 @@ router.get('/', home);
 function home(req, res) {
     const pageData = {
         image: "/images/hero.jpg",
+        ericImage: "/images/eric.jpg",
+        liamImage: "/images/liam.jpg",
+        pleasureImage: "/images/pleasure.jpg",
         home: true
     };
 

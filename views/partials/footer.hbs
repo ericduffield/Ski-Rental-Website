@@ -21,13 +21,13 @@
         <div class="formContainer">
             <div class="formEdit">
                 <h3>Contact Us</h3>
-                <form action="" class="formEmail">
+                <form class="formEmail" id="messageForm" method="get" enctype="text/plain">
                     <div class="fixFoot">
-                        <input type="text" placeholder="Name">
-                        <input type="email" placeholder="Email">
+                        <input type="text" name="from_name" placeholder="Name">
+                        <input type="email" id="email" name="user_email" placeholder="Email">
                     </div>
-                    <textarea name="" id="" cols="30" rows="10" placeholder="Message"></textarea>
-                    <button type="sumbit" class="btn btn-primary">Send</button>
+                    <textarea name="message" id="formMessage" cols="30" rows="10" placeholder="Message"></textarea>
+                    <button type="submit" id="formSubmit" class="btn btn-primary">Send</button>
                 </form>
             </div>
         </div>
@@ -43,8 +43,19 @@
             
         </div>
 
-       
+        <div class="linkForm">
+            <h3 id="locationTag">Our Pages</h3> 
+            <div class="linkContainer">                       
+                <ul>
+                    <li><a href="/home" id="spaceTag">Home</a></li>
+                    <li><a href="/about">About Us</a></li>
+                    <li><a href="/rent">Rent</a></li>
+                    <li><a href="/login">Login</a></li>
+                </ul>
+            </div>
+        </div>
 
         </div>
     </div>
+
 </footer>
