@@ -283,10 +283,9 @@ async function itemResponse(res, imageUrl, theMessage, isError) {
 router.post('/addItemType', addItemType);
 
 async function addItemType(req, res) {
-
     try {
         //Tries to add item type to the database and if successful, renders the form with success message
-
+        await model.addItemType(req.body.name);
 
         console.log("Successfully added item type");
         itemTypesResponse(res, "/images/hero.jpg", "Successfully added item type", false);
@@ -299,11 +298,42 @@ async function addItemType(req, res) {
     }
 }
 
-/*
+
 router.post('/editItemType', editItemType);
 
+async function editItemType(req, res) {
+    try {
+        //Tries to edit item type in the database and if successful, renders the form with success message
+        await model.editItemType(req.body.id, req.body.name);
+
+        console.log("Successfully edited item type");
+        itemTypesResponse(res, "/images/hero.jpg", "Successfully edited item type", false);
+    }
+    catch (err) {
+        console.error(err.message);
+        //Renders the form again with error message and alert image
+
+        itemTypesResponse(res, "/images/warning.webp", err.message);
+    }
+}
+
 router.post('/deleteItemType', deleteItemType);
-*/
+
+async function deleteItemType(req, res) {
+    try {
+        //Tries to delete item type from the database and if successful, renders the form with success message
+        await model.deleteItemType(req.body.id);
+
+        console.log("Successfully deleted item type");
+        itemTypesResponse(res, "/images/hero.jpg", "Successfully deleted item type", false);
+    }
+    catch (err) {
+        console.error(err.message);
+        //Renders the form again with error message and alert image
+
+        itemTypesResponse(res, "/images/warning.webp", err.message);
+    }
+}
 
 function itemTypesResponse(res, imageUrl, theMessage, isError) {
     const pageData = {
@@ -315,14 +345,11 @@ function itemTypesResponse(res, imageUrl, theMessage, isError) {
         forms: [{
             formName: 'Add Item Type',
             formInput: "/addItemType",
-            fields: [{
-                fieldId: 'id',
-                fieldName: 'Id',
-            },
-            {
-                fieldId: 'name',
-                fieldName: 'Name',
-            }]
+            fields: [
+                {
+                    fieldId: 'name',
+                    fieldName: 'Name',
+                }]
         },
         {
             formName: 'Edit Item Type',

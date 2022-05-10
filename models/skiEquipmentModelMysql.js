@@ -507,11 +507,11 @@ async function addItemType(name) {
     if (!validate.isValidAlphanumeric(name)) {
         throw new UserDataError("Invalid name");
     }
-    if (getItemTypeByName(name) != null) {
+    if (await getItemTypeByName(name) != null) {
         throw new UserDataError("Name already taken");
     }
 
-    const sqlQuery = 'INSERT INTO itemType (name) VALUES (\"' + name + '\")';
+    const sqlQuery = 'INSERT INTO itemTypes (name) VALUES (\"' + name + '\")';
     await connection.execute(sqlQuery)
         .catch((error) => {
             logger.error(error)
@@ -535,7 +535,7 @@ async function editItemType(id, name) {
         throw new UserDataError("Name already taken");
     }
 
-    const sqlQuery = 'UPDATE itemType SET name = \'' + name + '\' WHERE id = ' + id;
+    const sqlQuery = 'UPDATE itemTypes SET name = \'' + name + '\' WHERE id = ' + id;
     await connection.execute(sqlQuery)
         .catch((error) => {
             logger.error(error)
@@ -552,7 +552,7 @@ async function deleteItemType(id) {
     if (!validate.isValidInteger(id)) {
         throw new UserDataError("Invalid id");
     }
-    const sqlQuery = 'DELETE FROM itemType WHERE id = ' + id;
+    const sqlQuery = 'DELETE FROM itemTypes WHERE id = ' + id;
     await connection.execute(sqlQuery)
         .catch((error) => {
             logger.error(error);
@@ -569,7 +569,7 @@ async function getItemTypeByName(name) {
         throw new UserDataError("Invalid name");
     }
 
-    const sqlQuery = 'SELECT * FROM itemType WHERE name = \'' + name + '\'';
+    const sqlQuery = 'SELECT * FROM itemTypes WHERE name = \'' + name + '\'';
     const result = await connection.execute(sqlQuery)
         .catch((error) => {
             logger.error(error)
