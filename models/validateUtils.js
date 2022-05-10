@@ -6,20 +6,14 @@ function isValidUserType(userType) {
     }
     return false;
 }
-function isValidUsername(username) {
-    if (validator.isAlphanumeric(username)) {
+function isValidAlphanumeric(string) {
+    if (validator.isAlphanumeric(validator.blacklist(string, ' '))) {
         return true;
     }
     return false;
 }
-function isValidDescription(description) {
-    if (validator.isAlphanumeric(description)) {
-        return true;
-    }
-    return false;
-}
-function isValidPassword(passsword) {
-    if (validator.isStrongPassword(passsword)) {
+function isValidPassword(password) {
+    if (validator.isStrongPassword(password)) {
         return true;
     }
     return false;
@@ -42,20 +36,43 @@ function isValidBoolean(boolean) {
     }
     return false;
 }
-function isValidName(name) {
-    if (validator.isAlpha(name)) {
-        return true;
-    }
-    return false;
+
+
+function isValidItemType(itemType) {
+    //TODO
+    return true;
+}
+function isValidRentalState(rentalState) {
+    //TODO
+    return true;
+}
+function isValidStartTime(startTime) {
+    //TODO
+    return true;
+}
+function isValidEndTime(endTime) {
+    //TODO
+    return true;
+}
+function isValidDuration(duration) {
+    //TODO
+    return true;
+}
+function isValidCredit(credit) {
+    //TODO
+    return true;
 }
 
 module.exports = {
     isValidUserType,
-    isValidUsername,
-    isValidDescription,
+    isValidAlphanumeric,
     isValidPassword,
     isValidDecimal,
     isValidInteger,
     isValidBoolean,
-    isValidName
+    isValidItemType,
+    isValidRentalState,
+    isValidStartTime,
+    isValidEndTime,
+    isValidDuration
 }

@@ -2,24 +2,28 @@
 <h1>{{message}}</h1>
 {{/if}}
 
-{{#each forms}}
-<h3>{{formName}}</h3>
-<form action="{{formInput}}" method="post" role="form" enctype="application/x-www-form-urlencoded">
-    {{#each fields}}
-    {{#if combobox}}
-    <label for="{{fieldId}}">{{fieldName}}:</label>
-    <select id="{{fieldId}}" name="{{fieldId}}" required="required">
-        <option value="-1" disabled="true" selected="selected">Select an option</option>
-        {{#each options}}
-        <option value="{{id}}">{{name}}</option>
-        {{/each}}
-    </select>
-    {{else}}
-    <label for="{{fieldId}}">{{fieldName}}:</label>
-    <input type="text" id="{{fieldId}}" name="{{fieldId}}" required="required">
-    {{/if}}
+<div class="grid">
+    {{#each forms}}
+    <div>
+        <h3 class="title">{{formName}}</h3>
+        <form action="{{formInput}}" method="post" role="form" enctype="application/x-www-form-urlencoded">
+            {{#each fields}}
+            {{#if combobox}}
+            <label for="{{fieldId}}">{{fieldName}}:</label>
+            <select id="{{fieldId}}" name="{{fieldId}}" required="required">
+                <option value disabled="true" selected="selected" hidden="true">Select an option</option>
+                {{#each options}}
+                <option value="{{id}}">{{name}}</option>
+                {{/each}}
+            </select>
+            {{else}}
+            <label for="{{fieldId}}">{{fieldName}}:</label>
+            <input type="text" id="{{fieldId}}" name="{{fieldId}}" required="required">
+            {{/if}}
 
+            {{/each}}
+            <button type="submit" class="btn btn-primary">Submit</button>
+        </form>
+    </div>
     {{/each}}
-    <button type="submit" class="btn btn-primary">Submit</button>
-</form>
-{{/each}}
+</div>
