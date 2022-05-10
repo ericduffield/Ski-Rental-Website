@@ -5,7 +5,6 @@ const logger = require('../logger');
 
 var connection;
 
-
 /**
  * Inject database name so we can use this model for both testing and main program without overwriting our main database.
  * @param {*} dbname name of database
@@ -133,6 +132,8 @@ async function initialize(dbname, reset) {
 function getConnection() {
     return connection;
 }
+
+
 
 // ----------------------- Users -----------------------
 
@@ -582,5 +583,5 @@ module.exports = {
     editItemType,
     deleteItemType,
     getItemTypeByName,
-    getAllItemTypes
+    getAllItemTypes,
 }
