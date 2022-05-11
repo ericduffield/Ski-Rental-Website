@@ -383,12 +383,23 @@ async function verifyLogin(username, password){
     }
     return false;
 }
+/**
+ * Gets the user type string from its id counterpart
+ * @param {*} userType The id of the user type
+ * @returns The string version of the id counterpart
+ */
 async function getUserTypeFromTypeId(userType){
-    if(userType == 1)
-        return "user";
-    else if(userType == 2)
-        return "admin";
-    return null;
+    if (!validate.isValidInteger(userType)) {
+        throw new UserDataError("Invalid user type");
+    }
+    const sqlQuery = 'SELECT name FROM userTypes WHERE id = ' + userType;
+    const result = await connection.execute(sqlQuery)
+        .catch((error) => {
+            logger.error(error)
+            throw new SystemError("Error getting user");
+        }
+        );
+    return result[0][0].name;
 }
 
 // ----------------------- Inventory -----------------------

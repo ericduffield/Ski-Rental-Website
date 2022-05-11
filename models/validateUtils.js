@@ -1,7 +1,7 @@
 const validator = require('validator');
 
 function isValidUserType(userType){
-    if(userType === '0' || userType === '1'){
+    if(userType.toLowerCase() == 'user' || userType.toLowerCase() == 'admin'){
         return true;
     }
     return false;
@@ -12,8 +12,8 @@ function isValidUsername(username){
     }
     return false;
 }
-function isValidPassword(passsword){
-    if(validator.isStrongPassword(passsword)){
+function isValidPassword(password){
+    if(validator.isStrongPassword(password)){
         return true;
     }
     return false;
@@ -25,6 +25,7 @@ function isValidDecimal(decimal){
     return false;
 }
 function isValidInteger(integer){
+    integer = integer.toString();
     if(validator.isInt(integer)){
         return true;
     }
@@ -42,7 +43,12 @@ function isValidName(name){
     }
     return false;
 }
-
+function isValidTime(time){
+    if(validator.isISO8601(time)){
+        return true;
+    }
+    return false;
+}
 module.exports = {
     isValidUserType,
     isValidUsername,

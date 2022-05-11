@@ -1,6 +1,7 @@
 const express = require('express');
 const router = express.Router();
 const routeRoot = '/';
+const server = require('../server');
 //require admin model
 
 const logger = require('../logger');
@@ -15,6 +16,14 @@ function adminRent(req, res) {
         admin: true,
         rent: true
     };
+    const authenticatedSession = server.authenticateUser(req);
+    if (!authenticatedSession) {
+        res.render("error.hbs", {alertMessage: "Please log in to an Admin account to use this feature"}); // Unauthorized access
+    }
+    const isAdmin = server.authenticatedAdmin(authenticatedSession);
+    if (!isAdmin) {
+        res.render("error.hbs", {alertMessage: "Unauthorized Access - Please log in to an Admin account to use this feature"}); // Unauthorized access
+    }
 
     res.render("adminRent.hbs", pageData);
 }
