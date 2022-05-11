@@ -22,20 +22,65 @@ async function initialize(dbname, reset) {
             database: dbname
         });
 
-        if (reset) {
-            set
-            const dropQuery = "SET foreign_key_checks = 0; DROP TABLE userTypes; DROP TABLE users; DROP TABLE rentals; DROP TABLE itemTypes; DROP TABLE inventory; DROP TABLE products; DROP TABLE bundles;SET foreign_key_checks = 0;";
-            await connection.execute(dropQuery);
-            logger.info("Dropped all tables");
-        }
+    
 
-        // Get rid of foreign key constraints while creating the database
+        // Get rid of foreign keys
         const noForeignKeys = 'SET foreign_key_checks = 0';
-
         await connection.execute(noForeignKeys)
             .catch((error) => {
                 throw new SystemError("SQL Execution Error - Foreign Key Cancel");
-            });
+        });
+
+        if (reset) {
+
+        const dropUsers = 'DROP TABLE IF EXISTS users';
+        await connection.execute(dropUsers)
+            .catch((error) => {
+                throw new SystemError("SQL Execution Error - Drop users");
+        });
+
+        const dropRentals = 'DROP TABLE IF EXISTS rentals';
+        await connection.execute(dropRentals)
+            .catch((error) => {
+                throw new SystemError("SQL Execution Error - DROP TABLE rentals");
+        });
+
+        const dropProducts = 'DROP TABLE IF EXISTS products';
+        await connection.execute(dropProducts)
+            .catch((error) => {
+                throw new SystemError("SQL Execution Error - DROP TABLE products");
+        });
+
+        const dropInventory = 'DROP TABLE IF EXISTS inventory';
+        await connection.execute(dropInventory)
+            .catch((error) => {
+                throw new SystemError("SQL Execution Error - DROP TABLE inventory");
+        });
+
+        const dropBundles = 'DROP TABLE IF EXISTS bundles';
+        await connection.execute(dropBundles)
+            .catch((error) => {
+                throw new SystemError("SQL Execution Error - DROP TABLE bundles");
+        });
+
+        const dropItemTypes = 'DROP TABLE IF EXISTS itemTypes';
+        await connection.execute(dropItemTypes)
+            .catch((error) => {
+                throw new SystemError("SQL Execution Error - DROP TABLE itemTypes");
+        });
+
+        const dropUserTypes = 'DROP TABLE IF EXISTS userTypes';
+        await connection.execute(dropUserTypes)
+            .catch((error) => {
+                throw new SystemError("SQL Execution Error - DROP TABLE userTypes");
+        });
+
+        const dropSessions = 'DROP TABLE IF EXISTS sessions';
+        await connection.execute(dropSessions)
+            .catch((error) => {
+                throw new SystemError("SQL Execution Error - DROP TABLE sessions");
+        });
+        }
 
         // User Types
         const userTypes = 'CREATE TABLE IF NOT EXISTS userTypes(id int AUTO_INCREMENT NOT NULL PRIMARY KEY, name varchar(50) NOT NULL)';
@@ -62,11 +107,11 @@ async function initialize(dbname, reset) {
             });
 
         // Users
-        const users = 'CREATE TABLE IF NOT EXISTS users(id int AUTO_INCREMENT NOT NULL PRIMARY KEY, userType int NOT NULL, username varchar(50) NOT NULL, password varchar(50), firstName varchar(50) NOT NULL, lastName varchar(50) NOT NULL, credit decimal NOT NULL, FOREIGN KEY (userType) REFERENCES userTypes(id))';
+        const users = 'CREATE TABLE IF NOT EXISTS users(id int AUTO_INCREMENT NOT NULL PRIMARY KEY, userType int NOT NULL DEFAULT 0, username varchar(50) NOT NULL, password varchar(50), firstName varchar(50) NOT NULL, lastName varchar(50) NOT NULL, credit decimal NOT NULL, FOREIGN KEY (userType) REFERENCES userTypes(id))';
 
         await connection.execute(users)
             .catch((error) => {
-                throw new SystemError("SQL Execution Error - Products");
+                throw new SystemError("SQL Execution Error - Users");
             });
 
         // Rentals
@@ -90,11 +135,28 @@ async function initialize(dbname, reset) {
 
         await connection.execute(bundles)
             .catch((error) => {
-                throw new SystemError("SQL Execution Error - Products");
+                throw new SystemError("SQL Execution Error - Bundles");
             });
 
-        // Add both user types
-        const userTypeQuery = 'INSERT INTO userTypes (name) VALUES ("Admin"), ("User")';
+        // Sessions.
+        const sessions = 'CREATE TABLE IF NOT EXISTS sessions(id varchar(50) NOT NULL PRIMARY KEY, userId int NOT NULL, userType varchar(10) NOT NULL, expiresAt varchar(100) NOT NULL, FOREIGN KEY (userId) REFERENCES users(id))';
+        await connection.execute(sessions)
+            .catch((error) => {
+                throw new SystemError("SQL Execution Error - Sessions");
+        });
+
+        // Set back foreign key constraints
+        const ForeignKeys = 'SET foreign_key_checks = 1';
+
+        await connection.execute(ForeignKeys)
+            .catch((error) => {
+                throw new SystemError("SQL Execution Error - Foreign Key Back On");
+            });
+
+        if(reset){           
+
+            // Add both user types
+        const userTypeQuery = 'INSERT INTO userTypes (name) VALUES ("User"), ("Admin")';
         await connection.execute(userTypeQuery)
             .catch((error) => {
                 throw new SystemError("SQL Execution Error - Adding User Types");
@@ -113,14 +175,7 @@ async function initialize(dbname, reset) {
             .catch((error) => {
                 throw new SystemError("SQL Execution Error - Adding Products");
             });
-
-        // Set back foreign key constraints
-        const ForeignKeys = 'SET foreign_key_checks = 1';
-
-        await connection.execute(ForeignKeys)
-            .catch((error) => {
-                throw new SystemError("SQL Execution Error - Foreign Key Back On");
-            });
+        }
 
     }
     catch (error) {
@@ -155,27 +210,31 @@ async function createUser(userType, username, password, firstName, lastName, cre
     if (!validate.isValidUsername(username)) {
         throw new UserDataError("Invalid username");
     }
-    if (!validate.isValidPassword(password)) {
-        throw new UserDataError("Invalid password");
+    if(await checkIfUsernameIsTaken(username)){
+        throw new UserDataError("Username is already taken");
     }
-    if (!validate.isValidFirstName(firstName)) {
+    if (!validate.isValidPassword(password)) {
+        throw new UserDataError("Invalid password, password must contain an Uppercase letter, a lowercase letter, a number and a special character");
+    }
+    if (!validate.isValidName(firstName)) {
         throw new UserDataError("Invalid first name");
     }
-    if (!validate.isValidLastName(lastName)) {
+    if (!validate.isValidName(lastName)) {
         throw new UserDataError("Invalid last name");
     }
-    if (!validate.isValidCredit(credit)) {
+    credit = credit.toString();
+    if (!validate.isValidDecimal(credit)) {
         throw new UserDataError("Invalid credit");
     }
 
-    const sqlQuery = 'INSERT INTO users (userType, username, password, firstName, lastName, credit) VALUES ('
-        + userType + ',\"' + username + '\",\"' + password + '\",\"' + firstName + '\",\"' + lastName + '\",\"' + credit + '\")';
+    const sqlQuery = 'INSERT INTO users (username, password, firstName, lastName, credit, userType) VALUES (\"' + username + '\",\"' + password + '\",\"' + firstName + '\",\"' + lastName + '\",\"' + credit + '\", (Select id from userTypes where name = \"' + userType + '\"))';
+    try{
     await connection.execute(sqlQuery)
-        .catch((error) => {
+    }
+    catch(error){
             logger.error(error)
             throw new SystemError("Error adding user");
-        });
-
+    };
     return { "userType": userType, "username": username, "password": password, "firstName": firstName, "lastName": lastName, "credit": credit };
 }
 /**
@@ -268,6 +327,23 @@ async function getUserById(id) {
     return result[0][0];
 }
 /**
+ * Gets all user fields from the unique username
+ * @param {*} username The username of the user
+ * @returns All the fields for the given user
+ */
+async function getUserByUsername(username) {
+    if (!validate.isValidUsername(username)) {
+        throw new UserDataError("Invalid username");
+    }
+    const sqlQuery = 'SELECT * FROM users WHERE username = \'' + username + '\'';
+    const result = await connection.execute(sqlQuery)
+        .catch((error) => {
+            logger.error(error)
+            throw new SystemError("Error getting user");
+        });
+    return result[0][0];
+}
+/**
  * Checks if a username is taken
  * @param {*} username The username to check
  * @returns False if the username is unique, true if it is taken
@@ -283,6 +359,36 @@ async function checkIfUsernameIsTaken(username) {
             throw new SystemError("Error getting user");
         });
     return result[0].length > 0;
+}
+/**
+ * Verifies login information
+ * @param {*} username The username to verify
+ * @param {*} password The password to verify
+ * @returns true if login information corresponds to a valid user, false otherwise
+ */
+async function verifyLogin(username, password){
+    if (username && password){
+        const sqlQuery = 'SELECT * FROM users WHERE username = \'' + username + '\' AND password = \'' + password + '\'';
+        const result = await connection.execute(sqlQuery)
+            .catch((error) => {
+                logger.error(error)
+                throw new SystemError("Error getting user");
+            });
+        if (result[0].length > 0){
+            return true;
+        }
+        else{
+            return false;;
+        }
+    }
+    return false;
+}
+async function getUserTypeFromTypeId(userType){
+    if(userType == 1)
+        return "user";
+    else if(userType == 2)
+        return "admin";
+    return null;
 }
 
 // ----------------------- Inventory -----------------------
@@ -300,10 +406,7 @@ async function addItem(name, description, itemCost, itemType) {
     if (!validate.isValidName(name)) {
         throw new UserDataError("Invalid name");
     }
-    if (!validate.isValidDescription(description)) {
-        throw new UserDataError("Invalid description");
-    }
-    if (!validate.isValidCost(itemCost)) {
+    if (!validate.isValidDecimal(itemCost)) {
         throw new UserDataError("Invalid cost");
     }
     if (!validate.isValidItemType(itemType)) {
@@ -327,22 +430,19 @@ async function addItem(name, description, itemCost, itemType) {
  * @param {*} itemType The updated type of the item
  */
 async function editItem(id, name, description, itemCost, rentalState, itemType) {
-    if (!validate.isValidId(id)) {
+    if (!validate.isValidInteger(id)) {
         throw new UserDataError("Invalid id");
     }
     if (!validate.isValidName(name)) {
         throw new UserDataError("Invalid name");
     }
-    if (!validate.isValidDescription(description)) {
-        throw new UserDataError("Invalid description");
-    }
-    if (!validate.isValidCost(itemCost)) {
+    if (!validate.isValidDecimal(itemCost)) {
         throw new UserDataError("Invalid cost");
     }
     if (!validate.isValidItemType(itemType)) {
         throw new UserDataError("Invalid item type");
     }
-    if (!validate.isValidRentalState(rentalState)) {
+    if (!validate.isValidBoolean(rentalState)) {
         throw new UserDataError("Invalid rental state");
     }
 
@@ -361,10 +461,10 @@ async function editItem(id, name, description, itemCost, rentalState, itemType) 
  * @param {*} rentalState The updated rental state
  */
 async function editItemRentalState(id, rentalState) {
-    if (!validate.isValidId(id)) {
+    if (!validate.isValidInteger(id)) {
         throw new UserDataError("Invalid id");
     }
-    if (!validate.isValidRentalState(rentalState)) {
+    if (!validate.isValidBoolean(rentalState)) {
         throw new UserDataError("Invalid rental state");
     }
 
@@ -382,7 +482,7 @@ async function editItemRentalState(id, rentalState) {
  * @param {*} id The id of the item to be deleted
  */
 async function deleteItem(id) {
-    if (!validate.isValidId(id)) {
+    if (!validate.isValidInteger(id)) {
         throw new UserDataError("Invalid id");
     }
     const sqlQuery = 'DELETE FROM inventory WHERE id = ' + id;
@@ -399,7 +499,7 @@ async function deleteItem(id) {
  * @returns the item being returned
  */
 async function getItemById(id) {
-    if (!validate.isValidId(id)) {
+    if (!validate.isValidInteger(id)) {
         throw new UserDataError("Invalid id");
     }
     const sqlQuery = 'SELECT * FROM inventory WHERE id = ' + id;
@@ -543,6 +643,34 @@ async function createRental(StartTime, EndTime, Duration) {
         });
 }
 
+// ----------------------- Session -----------------------
+async function getCurrentSession(sessionId) {
+    const sqlQuery = 'SELECT * FROM sessions WHERE id = \'' + sessionId + '\'';
+    const result = await connection.execute(sqlQuery)
+        .catch((error) => {
+            logger.error(error)
+            throw new SystemError("Error getting session");
+    });
+    return result[0][0];
+}
+
+async function addSession(session){
+    const sqlQuery = 'INSERT INTO sessions (id, userId, userType, expiresAt) VALUES (\'' + session.sessionId + '\',\'' + session.userId + '\',\'' + session.userType + '\',\'' + session.expiresAt + '\')';
+    await connection.execute(sqlQuery)
+        .catch((error) => {
+            logger.error(error)
+            throw new SystemError("Error adding session");
+        });
+}
+
+async function deleteSessionById(sessionId){
+    const sqlQuery = 'DELETE FROM sessions WHERE id = ' + sessionId;
+    await connection.execute(sqlQuery)
+        .catch((error) => {
+            logger.error(error)
+            throw new SystemError("Error deleting session");
+        });
+}
 
 
 // ----------------------- Error Classes -----------------------
@@ -581,5 +709,11 @@ module.exports = {
     editItemType,
     deleteItemType,
     getItemTypeByName,
-    getAllItemTypes
+    getAllItemTypes,
+    verifyLogin,
+    getUserByUsername,
+    getUserTypeFromTypeId,
+    getCurrentSession,
+    addSession,
+    deleteSessionById
 }
