@@ -17,6 +17,8 @@ function home(req, res) {
         ericImage: "/images/eric.jpg",
         liamImage: "/images/liam.jpg",
         pleasureImage: "/images/pleasure.jpg",
+        snowboardImage: "/images/snowboardMain.jpg",
+        skiImage: "/images/skiMain.png",
         home: true
     };
 
