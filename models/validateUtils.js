@@ -1,7 +1,7 @@
 const validator = require('validator');
 
 function isValidUserType(userType) {
-    if (userType === '0' || userType === '1') {
+    if (userType == '0' || userType == '1') {
         return true;
     }
     return false;

@@ -33,6 +33,41 @@ function users(req, res) {
     usersResponse(res, "/images/hero.jpg", false, false);
 }
 
+async function listResponse(res, imageUrl, theMessage) {
+    try {
+        //Tries get ski equipment from the database and if successful, renders the listSkiEquipment with results
+        let items = await model.getAllItems();
+        let itemTypes = await model.getAllItemTypes();
+        let users = await model.getAllUsers();
+
+        logger.info("Ski Equipment fetched successfully");
+        const pageData = {
+            image: imageUrl,
+            admin: true,
+            list: true,
+            message: theMessage,
+            allItems: items,
+            allItemTypes: itemTypes,
+            allUsers: users,
+            userTypes: ["Regular", "Admin"]
+        }
+        res.render("list.hbs", pageData);
+    }
+    catch (err) {
+        logger.error(err.message);
+
+        const pageData = {
+            image: "/images/warning.webp",
+            admin: true,
+            list: true,
+            error: true,
+            message: err.message,
+        }
+        res.render("list.hbs", pageData);
+    }
+}
+
+
 //#endregion
 
 //#region ADMIN ACTIONS
@@ -116,37 +151,6 @@ async function deleteItem(req, res) {
         console.error(err.message);
         //Renders the form again with error message and alert image
         itemResponse(res, "/images/warning.webp", err.message, true);
-    }
-}
-
-async function listResponse(res, imageUrl, theMessage) {
-    try {
-        //Tries get ski equipment from the database and if successful, renders the listSkiEquipment with results
-        let items = await model.getAllItems();
-        let itemTypes = await model.getAllItemTypes();
-
-        logger.info("Ski Equipment fetched successfully");
-        const pageData = {
-            image: imageUrl,
-            admin: true,
-            list: true,
-            message: theMessage,
-            allItems: items,
-            allItemTypes: itemTypes
-        }
-        res.render("list.hbs", pageData);
-    }
-    catch (err) {
-        logger.error(err.message);
-
-        const pageData = {
-            image: "/images/warning.webp",
-            admin: true,
-            list: true,
-            error: true,
-            message: err.message,
-        }
-        res.render("list.hbs", pageData);
     }
 }
 
@@ -379,14 +383,32 @@ function itemTypesResponse(res, imageUrl, theMessage, isError) {
 
 
 //===================USERS FORMS=====================
+router.post('/createUser', createUser);
+
+async function createUser(req, res) {
+    try {
+        //Tries to created a user in the database and if successful, renders the form with success message
+        await model.createUser(req.body.userType, req.body.username, req.body.password, req.body.firstName, req.body.lastName, req.body.credit);
+
+        console.log("Successfully created user");
+        usersResponse(res, "/images/hero.jpg", "Successfully created user", false);
+    }
+    catch (err) {
+        console.error(err.message);
+        //Renders the form again with error message and alert image
+
+        usersResponse(res, "/images/warning.webp", err.message);
+    }
+}
+
+
 
 router.post('/editUser', editUser);
 
 async function editUser(req, res) {
-
     try {
-        //Tries to add item type to the database and if successful, renders the form with success message
-
+        //Tries to edit user in the database and if successful, renders the form with success message
+        await model.editUser(req.body.id, req.body.userType, req.body.username, req.body.password, req.body.firstName, req.body.lastName, req.body.credit);
 
         console.log("Successfully edited user information");
         usersResponse(res, "/images/hero.jpg", "Successfully edited user information", false);
@@ -399,10 +421,25 @@ async function editUser(req, res) {
     }
 }
 
-/*
+
 router.post('/deleteUser', deleteUser);
 
-*/
+async function deleteUser(req, res) {
+    try {
+        //Tries to delete user in the database and if successful, renders the form with success message
+        await model.deleteUser(req.body.id);
+
+        console.log("Successfully deleted user");
+        usersResponse(res, "/images/hero.jpg", "Successfully deleted user", false);
+    }
+    catch (err) {
+        console.error(err.message);
+        //Renders the form again with error message and alert image
+
+        usersResponse(res, "/images/warning.webp", err.message);
+    }
+}
+
 
 function usersResponse(res, imageUrl, theMessage, isError) {
     const pageData = {
@@ -427,8 +464,8 @@ function usersResponse(res, imageUrl, theMessage, isError) {
                 fieldName: 'Last Name',
             },
             {
-                fieldId: 'phoneNumber',
-                fieldName: 'Phone Number',
+                fieldId: 'credit',
+                fieldName: 'Credit',
             },
             {
                 fieldId: 'password',
@@ -469,12 +506,12 @@ function usersResponse(res, imageUrl, theMessage, isError) {
                 fieldName: 'Last Name',
             },
             {
-                fieldId: 'phoneNumber',
-                fieldName: 'Phone Number',
-            },
-            {
                 fieldId: 'password',
                 fieldName: 'Password',
+            },
+            {
+                fieldId: 'credit',
+                fieldName: 'Credit',
             },
             {
                 combobox: true,

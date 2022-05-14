@@ -214,10 +214,10 @@ async function createUser(userType, username, password, firstName, lastName, cre
     if (!validate.isValidAlphanumeric(firstName)) {
         throw new UserDataError("Invalid first name");
     }
-    if (!validate.isValidLastName(lastName)) {
+    if (!validate.isValidAlphanumeric(lastName)) {
         throw new UserDataError("Invalid last name");
     }
-    if (!validate.isValidCredit(credit)) {
+    if (!validate.isValidDecimal(credit)) {
         throw new UserDataError("Invalid credit");
     }
 
@@ -258,7 +258,7 @@ async function editUser(id, userType, username, password, firstName, lastName, c
     if (!validate.isValidAlphanumeric(username)) {
         throw new UserDataError("Invalid username");
     }
-    else if (checkIfUsernameIsTaken(username)) {
+    else if (await checkIfUsernameIsTaken(username)) {
         throw new UserDataError("Username already taken");
     }
     if (!validate.isValidPassword(password)) {
@@ -532,7 +532,7 @@ async function editItemType(id, name) {
     if (!validate.isValidAlphanumeric(name)) {
         throw new UserDataError("Invalid name");
     }
-    if (getItemTypeByName(name) != null) {
+    if (await getItemTypeByName(name) != null) {
         throw new UserDataError("Name already taken");
     }
 
