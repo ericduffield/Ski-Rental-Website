@@ -11,41 +11,30 @@
             </div>
 
             <ul class="socialsTags">
-                <li><a href="#"><i class="fa fa-facebook"></i></a></li>
-                <li><a href="#"><i class="fa fa-twitter"></i></a></li>
-                <li><a href="#"><i class="fa fa-google-plus"></i></a></li>
-                <li><a href="#"><i class="fa fa-youtube"></i></a></li>
-                <li><a href="#"><i class="fa fa-linkedin-square"></i></a></li>
+                <li><a href="https://www.youtube.com/watch?v=-705T4FioZE&ab_channel=Gunna"><i class="fa fa-facebook"></i></a></li>
+                <li><a href="https://www.youtube.com/watch?v=-705T4FioZE&ab_channel=Gunna"><i class="fa fa-twitter"></i></a></li>
+                <li><a href="https://www.youtube.com/watch?v=-705T4FioZE&ab_channel=Gunna"><i class="fa fa-google-plus"></i></a></li>
+                <li><a href="https://www.youtube.com/watch?v=-705T4FioZE&ab_channel=Gunna"><i class="fa fa-youtube"></i></a></li>
+                <li><a href="https://www.youtube.com/watch?v=-705T4FioZE&ab_channel=Gunna"><i class="fa fa-linkedin-square"></i></a></li>
             </ul>
         
-
 
 
         <div class="formContainer">
             <div class="formEdit">
                 <h3>Contact Us</h3>
-                <form class="formEmail" method="get" enctype="text/plain">
+                <form id="contact-form">
                     <div class="fixFoot">
-                        <input type="text" name="from_name" placeholder="Name">
-                        <input type="email" id="email" name="user_email" placeholder="Email">
+                        <input type="hidden" name="contact_number">
+                        <input type="text" name="to_name" placeholder="Name">
+                        <input type="text" name="from_name" placeholder="Last Name">
                     </div>
-                    <textarea name="message" id="formMessage" cols="30" rows="10" placeholder="Message"></textarea>
+                    <textarea name="message" placeholder="Message"></textarea>
                     <input type="submit" value="Send">
-                    <!--<button type="submit" id="formSubmit" class="btn btn-primary">Send</button>-->
                 </form>
             </div>
         </div>
-    <form id="contact-form">
-        <input type="hidden" name="contact_number">
-        <label>Name</label>
-        <input type="text" name="to_name">
-        <label>from name</label>
-        <input type="text" name="from_name">
-        <label>Message</label>
-        <textarea name="message"></textarea>
-        <input type="submit" value="Send">
-    </form>
-        
+            
 
         <div class="locationFooter">
             <h3 id="locationTag">Our Location</h3>

@@ -564,14 +564,13 @@ form label {
 
 .formEdit input
 {
-	width: 100%;
+	width: 98%;
 	height: 40px;
 	border: 1px solid var(--black);
 	border-radius: 5px;
 	padding: 10px;
 	margin-bottom: 10px;
 }
-
 .formEdit h3
 {
 	margin-bottom: 5px;
