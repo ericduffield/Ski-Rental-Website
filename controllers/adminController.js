@@ -8,6 +8,9 @@ const validate = require('../models/validateUtils');
 
 
 //#region ADMIN PAGES
+/**
+ * These function load the views for the 4 main admin pages: list, items, itemTypes, and users
+ */
 
 router.get('/admin', list);
 
@@ -33,6 +36,15 @@ function users(req, res) {
     usersResponse(res, "/images/hero.jpg", false, false);
 }
 
+/**
+ * This function renders the list view.
+ * It displays all important information in the database so admins can see what they are working with.
+ * It takes in an image url which will either be the default hero image or the alert image.
+ * It takes in a message which will either be a success message or an error message.
+ * @param {*} res response object
+ * @param {*} imageUrl image url
+ * @param {*} theMessage message to be displayed to screen
+ */
 async function listResponse(res, imageUrl, theMessage) {
     try {
         //Tries get ski equipment from the database and if successful, renders the listSkiEquipment with results
@@ -76,6 +88,13 @@ async function listResponse(res, imageUrl, theMessage) {
 
 router.post('/addItem', addItem);
 
+/**
+ * This function adds an item to the database.
+ * If it is successfully added it renders the form again with a success message.
+ * If it is not successful it renders the form with a specific error message that explains what went wrong.
+ * @param {*} req request object
+ * @param {*} res response object
+ */
 async function addItem(req, res) {
     try {
         //Tries to add ski equipment to the database and if successful, renders the form with success message
@@ -100,6 +119,13 @@ async function addItem(req, res) {
 
 router.post('/editItem', editItem);
 
+/**
+ * This function edits an item in the database.
+ * If it is successfully edited it renders the form again with a success message.
+ * If it is not successful it renders the form with a specific error message that explains what went wrong.
+ * @param {*} req request object
+ * @param {*} res response object
+ */
 async function editItem(req, res) {
     try {
         //Tries to edit ski equipment in the database and if successful, renders the form with success message
@@ -120,6 +146,13 @@ async function editItem(req, res) {
 
 router.post('/editItemRentalState', editItemRentalState);
 
+/**
+ * This function edits rental state of an item in the database.
+ * If it is successfully edited it renders the form again with a success message.
+ * If it is not successful it renders the form with a specific error message that explains what went wrong.
+ * @param {*} req request object
+ * @param {*} res response object
+ */
 async function editItemRentalState(req, res) {
     try {
         //Tries to edit item rental state in the database and if successful, renders the form with success message
@@ -139,6 +172,13 @@ async function editItemRentalState(req, res) {
 
 router.post('/deleteItem', deleteItem);
 
+/**
+ * This function deleted an item from the database.
+ * If it is successfully deleted it renders the form again with a success message.
+ * If it is not successful it renders the form with a specific error message that explains what went wrong.
+ * @param {*} req request object
+ * @param {*} res response object
+ */
 async function deleteItem(req, res) {
     try {
         //Tries to delete ski equipment to the database and if successful, renders the form with success message
@@ -154,6 +194,16 @@ async function deleteItem(req, res) {
     }
 }
 
+/**
+ * This function renders the item view.
+ * It has 4 forms: add, edit, delete and edit rental state
+ * It takes in an image url which will either be the default hero image or the alert image.
+ * It takes in a message which will either be a success message or an error message.
+ * @param {*} res response object
+ * @param {*} imageUrl image url
+ * @param {*} theMessage message to be displayed to screen
+ * @param {*} isError boolean to determine if an error has occurred
+ */
 async function itemResponse(res, imageUrl, theMessage, isError) {
     let itemTypes;
     try {
@@ -286,6 +336,13 @@ async function itemResponse(res, imageUrl, theMessage, isError) {
 
 router.post('/addItemType', addItemType);
 
+/**
+ * This function adds an item type to the database.
+ * If it is successfully added it renders the form again with a success message.
+ * If it is not successful it renders the form with a specific error message that explains what went wrong.
+ * @param {*} req request object
+ * @param {*} res response object
+ */
 async function addItemType(req, res) {
     try {
         //Tries to add item type to the database and if successful, renders the form with success message
@@ -305,6 +362,13 @@ async function addItemType(req, res) {
 
 router.post('/editItemType', editItemType);
 
+/**
+ * This function edits an item type in the database.
+ * If it is successfully edited it renders the form again with a success message.
+ * If it is not successful it renders the form with a specific error message that explains what went wrong.
+ * @param {*} req request object
+ * @param {*} res response object
+ */
 async function editItemType(req, res) {
     try {
         //Tries to edit item type in the database and if successful, renders the form with success message
@@ -323,6 +387,13 @@ async function editItemType(req, res) {
 
 router.post('/deleteItemType', deleteItemType);
 
+/**
+ * This function deleted an item type from the database.
+ * If it is successfully deleted it renders the form again with a success message.
+ * If it is not successful it renders the form with a specific error message that explains what went wrong.
+ * @param {*} req request object
+ * @param {*} res response object
+ */
 async function deleteItemType(req, res) {
     try {
         //Tries to delete item type from the database and if successful, renders the form with success message
@@ -339,6 +410,16 @@ async function deleteItemType(req, res) {
     }
 }
 
+/**
+ * This function renders the item type view.
+ * It has 4 forms: add, edit, and delete.
+ * It takes in an image url which will either be the default hero image or the alert image.
+ * It takes in a message which will either be a success message or an error message.
+ * @param {*} res response object
+ * @param {*} imageUrl image url
+ * @param {*} theMessage message to be displayed to screen
+ * @param {*} isError boolean to determine if an error has occurred
+ */
 function itemTypesResponse(res, imageUrl, theMessage, isError) {
     const pageData = {
         image: imageUrl,
@@ -385,6 +466,13 @@ function itemTypesResponse(res, imageUrl, theMessage, isError) {
 //===================USERS FORMS=====================
 router.post('/createUser', createUser);
 
+/**
+ * This function creates a user in the database.
+ * If it is successfully created it renders the form again with a success message.
+ * If it is not successful it renders the form with a specific error message that explains what went wrong.
+ * @param {*} req request object
+ * @param {*} res response object
+ */
 async function createUser(req, res) {
     try {
         //Tries to created a user in the database and if successful, renders the form with success message
@@ -402,9 +490,15 @@ async function createUser(req, res) {
 }
 
 
-
 router.post('/editUser', editUser);
 
+/**
+ * This function edits a user in the database.
+ * If it is successfully edited it renders the form again with a success message.
+ * If it is not successful it renders the form with a specific error message that explains what went wrong.
+ * @param {*} req request object
+ * @param {*} res response object
+ */
 async function editUser(req, res) {
     try {
         //Tries to edit user in the database and if successful, renders the form with success message
@@ -424,6 +518,13 @@ async function editUser(req, res) {
 
 router.post('/deleteUser', deleteUser);
 
+/**
+ * This function deleted a user from the database.
+ * If it is successfully deleted it renders the form again with a success message.
+ * If it is not successful it renders the form with a specific error message that explains what went wrong.
+ * @param {*} req request object
+ * @param {*} res response object
+ */
 async function deleteUser(req, res) {
     try {
         //Tries to delete user in the database and if successful, renders the form with success message
@@ -441,6 +542,16 @@ async function deleteUser(req, res) {
 }
 
 
+/**
+ * This function renders the users view.
+ * It has 3 forms: create, edit and delete.
+ * It takes in an image url which will either be the default hero image or the alert image.
+ * It takes in a message which will either be a success message or an error message.
+ * @param {*} res response object
+ * @param {*} imageUrl image url
+ * @param {*} theMessage message to be displayed to screen
+ * @param {*} isError boolean to determine if an error has occurred
+ */
 function usersResponse(res, imageUrl, theMessage, isError) {
     const pageData = {
         image: imageUrl,
