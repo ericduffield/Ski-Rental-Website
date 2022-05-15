@@ -23,13 +23,13 @@
         <div class="formContainer">
             <div class="formEdit">
                 <h3>Contact Us</h3>
-                <form id="contact-form">
+                <form id="contact-form" name="contactForm" enctype="application/x-www-form-urlencoded">
                     <div class="fixFoot">
                         <input type="hidden" name="contact_number">
-                        <input type="text" name="to_name" placeholder="Name">
-                        <input type="text" name="from_name" placeholder="Last Name">
+                        <input type="text" name="to_name" placeholder="Name" id="nameCon">
+                        <input type="text" name="from_name" placeholder="Last Name" id="fromNameCon">
                     </div>
-                    <textarea name="message" placeholder="Message"></textarea>
+                    <textarea name="message" placeholder="Message" id="messageCon"></textarea>
                     <input type="submit" value="Send">
                 </form>
             </div>
@@ -39,9 +39,9 @@
         <div class="locationFooter">
             <h3 id="locationTag">Our Location</h3>
             <div class="locationAdd">
-                <p><i class="fa fa-map-marker"></i <span>618 Old Spallumcheen Rd, Quebec, H9H 5T9</span></p>
+                <p><i class="fa fa-map-marker"></i> <span>618 Old Spallumcheen Rd, Quebec, H9H 5T9</span></p>
                 <p><i class="fa fa-phone"></i><span>+1 (514) 456-7890</span></p>
-                <p><i class="fa fa-envelope"></i><span><a href=""></a></span></p>
+                <p><a href="mailto:pleasuregt01@gmail.com"><i class="fa fa-envelope"></i></a></p>
             </div>
             
         </div>

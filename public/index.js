@@ -64,15 +64,33 @@ if (getCookie("isDark") == "true") {
 window.onload = function() {
     document.getElementById('contact-form').addEventListener('submit', function(event) {
         event.preventDefault();
+        const name = document.getElementById('nameCon').value;
+        const fromName = document.getElementById('fromNameCon').value;
+        const message = document.getElementById('messageCon').value;
+        if(name == "" || fromName == "" || message == "" 
+        || name == null || fromName == null || message == null)
+        {
+            alert("Please fill all the fields");
+            return false;
+        }
+        else
+        {
+
         // generate a five digit number for the contact_number variable
         this.contact_number.value = Math.random() * 100000 | 0;
         // these IDs from the previous steps
         emailjs.sendForm('service_mksrijc', 'template_y5kbr8g', this)
             .then(function() {
                 console.log('SUCCESS!');
-            }, function(error) {
+                name.innerHTML = "";
+                fromName.innerHTML = "";
+                message.innerHTML = "";
+            },
+            function(error)
+            {
                 console.log('FAILED...', error);
-            });
+        });
+        }
         
     });
 }

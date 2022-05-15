@@ -564,7 +564,7 @@ form label {
 
 .formEdit input
 {
-	width: 98%;
+	width: 98.5%;
 	height: 40px;
 	border: 1px solid var(--black);
 	border-radius: 5px;
@@ -577,94 +577,6 @@ form label {
 }
 
 /*#endregion HOME PAGE*/
-
-/*#region =========== MEDIA QUERY ========== */
-
-@media only screen and (max-width: 1050px) {
-	.grid{
-		grid-template-columns: 1fr 1fr;
-	}
-	
-}
-
-@media only screen and (max-width: 760px) {
-	.grid{
-		grid-template-columns: 1fr;
-	}
-
-	#account {
-		flex: 1;
-	}
-
-	header {
-		padding-left: 3rem;
-		padding-right: 3rem;
-	}
-
-	#hamburger {
-		flex: 1;
-		display: block;
-	}
-
-	#menuToggle {
-		display: flex;
-		justify-content: flex-start;
-	}
-
-	#menuToggle div {
-		height: 1rem;
-		display: flex;
-		flex-direction: column;
-		justify-content: space-between;
-	}
-
-	#menuToggle a {
-		text-decoration: none;
-		color: var(--black);
-	}
-
-	#menuToggle a:hover {
-		color: var(--hover);
-	}
-
-	#menuToggle input {
-		display: block;
-		position: absolute;
-		width: 32px;
-		height: 28px;
-		top: 29px;
-		left: 44px;
-		cursor: pointer;
-		opacity: 0; /* hide this */
-		z-index: 2; /* and place it over the hamburger */
-		-webkit-touch-callout: none;
-	}
-
-	#menuToggle input:checked ~ ul {
-		transform: translate(100%, 0);
-	}
-
-	nav {
-		display: none;
-	}
-
-	#socials {
-		display: none;
-	}
-
-	#menu {
-		display: block;
-	}
-
-	.footer-menu ul{
-      display: flex;
-      margin-top: 10px;
-      margin-bottom: 20px;
-    }
-}
-
-/*#endregion MEDIA QUERY*/
-
 
 /*								START OF THE HOME PAGE EDITS						*/
 .container
@@ -847,3 +759,133 @@ form label {
 	font-size: 50px;
 	color: var(--primary);
 }
+
+/* 									SIGN UP PAGE */
+
+.signUpForm input
+{
+	width: 100%;
+	height: 40px;
+	border: 1px solid var(--black);
+	border-radius: 5px;
+	padding: 10px;
+	margin-bottom: 10px;
+}
+
+/* 									SIGN IN PAGE */
+.signInForm input
+{
+	width: 100%;
+	height: 40px;
+	border: 1px solid var(--black);
+	border-radius: 5px;
+	padding: 10px;
+	margin-bottom: 10px;
+}
+
+/*#region =========== MEDIA QUERY ========== */
+
+@media only screen and (max-width: 1050px) {
+	.grid{
+		grid-template-columns: 1fr 1fr;
+	}
+	
+}
+
+@media only screen and (max-width: 760px) {
+	.grid{
+		grid-template-columns: 1fr;
+	}
+
+	#account {
+		flex: 1;
+	}
+
+	header {
+		padding-left: 3rem;
+		padding-right: 3rem;
+	}
+
+	#hamburger {
+		flex: 1;
+		display: block;
+	}
+
+	#menuToggle {
+		display: flex;
+		justify-content: flex-start;
+	}
+
+	#menuToggle div {
+		height: 1rem;
+		display: flex;
+		flex-direction: column;
+		justify-content: space-between;
+	}
+
+	#menuToggle a {
+		text-decoration: none;
+		color: var(--black);
+	}
+
+	#menuToggle a:hover {
+		color: var(--hover);
+	}
+
+	#menuToggle input {
+		display: block;
+		position: absolute;
+		width: 32px;
+		height: 28px;
+		top: 29px;
+		left: 44px;
+		cursor: pointer;
+		opacity: 0; /* hide this */
+		z-index: 2; /* and place it over the hamburger */
+		-webkit-touch-callout: none;
+	}
+
+	#menuToggle input:checked ~ ul {
+		transform: translate(100%, 0);
+	}
+
+	nav {
+		display: none;
+	}
+
+	#socials {
+		display: none;
+	}
+
+	#menu {
+		display: block;
+	}
+
+	.footer-menu ul{
+      display: flex;
+      margin-top: 10px;
+      margin-bottom: 20px;
+    }
+
+	.containerCircle
+	{
+		width: 100%;
+		height: 100%;
+		display: flex;
+		flex-direction: column;
+		justify-content: center;
+		align-items: center;
+	}
+	.circleHome
+	{
+		width: 100%;
+		height: 100%;
+		display: flex;
+		flex-direction: column;
+		justify-content: center;
+		align-items: center;
+	}
+}
+
+/*#endregion MEDIA QUERY*/
+
