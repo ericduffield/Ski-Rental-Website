@@ -45,22 +45,10 @@ async function initialize(dbname, reset) {
                 throw new SystemError("SQL Execution Error - DROP TABLE rentals");
         });
 
-        const dropProducts = 'DROP TABLE IF EXISTS products';
-        await connection.execute(dropProducts)
-            .catch((error) => {
-                throw new SystemError("SQL Execution Error - DROP TABLE products");
-        });
-
         const dropInventory = 'DROP TABLE IF EXISTS inventory';
         await connection.execute(dropInventory)
             .catch((error) => {
                 throw new SystemError("SQL Execution Error - DROP TABLE inventory");
-        });
-
-        const dropBundles = 'DROP TABLE IF EXISTS bundles';
-        await connection.execute(dropBundles)
-            .catch((error) => {
-                throw new SystemError("SQL Execution Error - DROP TABLE bundles");
         });
 
         const dropItemTypes = 'DROP TABLE IF EXISTS itemTypes';
@@ -95,15 +83,15 @@ async function initialize(dbname, reset) {
 
         await connection.execute(itemTypes)
             .catch((error) => {
-                throw new SystemError("SQL Execution Error - Products");
+                throw new SystemError("SQL Execution Error - item Types");
             });
 
         // Inventory
-        const inventory = 'CREATE TABLE IF NOT EXISTS inventory(id int AUTO_INCREMENT NOT NULL PRIMARY KEY, name varchar(50) NOT NULL, description varchar(50) NOT NULL, itemCost decimal NOT NULL, rentalState boolean NOT NULL, itemType int NOT NULL, FOREIGN KEY (itemType) REFERENCES itemTypes(id))';
+        const inventory = 'CREATE TABLE IF NOT EXISTS inventory(id int AUTO_INCREMENT NOT NULL PRIMARY KEY, name varchar(50) NOT NULL, description varchar(50) NOT NULL, itemCost decimal NOT NULL, itemType int NOT NULL, FOREIGN KEY (itemType) REFERENCES itemTypes(id))';
 
         await connection.execute(inventory)
             .catch((error) => {
-                throw new SystemError("SQL Execution Error - Products");
+                throw new SystemError("SQL Execution Error - inventory");
             });
 
         // Users
@@ -115,27 +103,11 @@ async function initialize(dbname, reset) {
             });
 
         // Rentals
-        const rentals = 'CREATE TABLE IF NOT EXISTS rentals(id int AUTO_INCREMENT NOT NULL PRIMARY KEY, userId int NOT NULL, productId int NOT NULL, startTime time NOT NULL, endTime time NOT NULL, rentalPrice decimal NOT NULL, duration int NOT NULL, FOREIGN KEY (userId) REFERENCES Users(id), FOREIGN KEY (productId) REFERENCES products(id))';
+        const rentals = 'CREATE TABLE IF NOT EXISTS rentals(id int AUTO_INCREMENT NOT NULL PRIMARY KEY, userId int NOT NULL, itemId int NOT NULL, startTime time NOT NULL, endTime time NOT NULL, rentalPrice decimal NOT NULL, duration int NOT NULL, FOREIGN KEY (userId) REFERENCES Users(id), FOREIGN KEY (itemId) REFERENCES inventory(id))';
 
         await connection.execute(rentals)
             .catch((error) => {
                 throw new SystemError("SQL Execution Error - Rentals");
-            });
-
-        // Products
-        const products = 'CREATE TABLE IF NOT EXISTS products(id int AUTO_INCREMENT NOT NULL PRIMARY KEY, name varchar(50) NOT NULL, description varchar(50) NOT NULL, rentalCost decimal NOT NULL, productId int, bundleId int, FOREIGN KEY (productId) REFERENCES inventory(id), FOREIGN KEY (bundleId) REFERENCES bundles(id))';
-
-        await connection.execute(products)
-            .catch((error) => {
-                throw new SystemError("SQL Execution Error - Products");
-            });
-
-        // Bundles
-        const bundles = 'CREATE TABLE IF NOT EXISTS bundles(id int AUTO_INCREMENT NOT NULL PRIMARY KEY, productId int NOT NULL, bootId int NOT NULL, poleId int, helmetId int NOT NULL, FOREIGN KEY (productId) REFERENCES products(id), FOREIGN KEY (bootId) REFERENCES products(id), FOREIGN KEY (poleId) REFERENCES products(id), FOREIGN KEY (helmetId) REFERENCES products(id))';
-
-        await connection.execute(bundles)
-            .catch((error) => {
-                throw new SystemError("SQL Execution Error - Bundles");
             });
 
         // Sessions.
@@ -167,13 +139,6 @@ async function initialize(dbname, reset) {
         await connection.execute(itemTypeQuery)
             .catch((error) => {
                 throw new SystemError("SQL Execution Error - Adding Item Types");
-            });
-
-        // Add all the products
-        const productsQuery = 'INSERT INTO products (name, description, rentalCost) VALUES ("Boots", "A pair of boots for either skis or snowboard.", "20"), ("Poles", "A pair of poles", "7"), ("Helmet", "A helmet", "10"), ("Skis", "A pair of skis", "30"), ("Snowboard", "A snowboard", "30"), ("Ski Bundle", "Contains boots, skis, a helmet and poles", "50"), ("Snowboard Bundle", "Contains boots, a snowboard and a helmet", "50")';
-        await connection.execute(productsQuery)
-            .catch((error) => {
-                throw new SystemError("SQL Execution Error - Adding Products");
             });
         }
 
@@ -408,7 +373,6 @@ async function getUserTypeFromTypeId(userType){
  * @param {*} name The name of the item to add
  * @param {*} description The description of the item to add
  * @param {*} cost The cost of the item to add
- * @param {*} isRented Whether or not the item is being rented
  * @param {*} itemType The type of the item to add
  * @throws UserDataError if user sends invalid data
  * @throws SystemError if there is an error in the database while deleting
@@ -424,7 +388,7 @@ async function addItem(name, description, itemCost, itemType) {
         throw new UserDataError("Invalid item type");
     }
 
-    const sqlQuery = 'INSERT INTO inventory (name, description, itemCost, isRented, itemType) VALUES (\"' + name + '\",\"' + description + '\",\"' + itemCost + '\", false,(SELECT id FROM itemType where name = \"' + itemType + '\"))';
+    const sqlQuery = 'INSERT INTO inventory (name, description, itemCost, itemType) VALUES (\"' + name + '\",\"' + description + '\",\"' + itemCost + '\", (SELECT id FROM itemType where name = \"' + itemType + '\"))';
     await connection.execute(sqlQuery)
         .catch((error) => {
             logger.error(error)
@@ -440,7 +404,7 @@ async function addItem(name, description, itemCost, itemType) {
  * @param {*} rentalState The updated rental state of the item
  * @param {*} itemType The updated type of the item
  */
-async function editItem(id, name, description, itemCost, rentalState, itemType) {
+async function editItem(id, name, description, itemCost, itemType) {
     if (!validate.isValidInteger(id)) {
         throw new UserDataError("Invalid id");
     }
@@ -453,33 +417,8 @@ async function editItem(id, name, description, itemCost, rentalState, itemType) 
     if (!validate.isValidItemType(itemType)) {
         throw new UserDataError("Invalid item type");
     }
-    if (!validate.isValidBoolean(rentalState)) {
-        throw new UserDataError("Invalid rental state");
-    }
 
-    const sqlQuery = 'UPDATE inventory SET name = \'' + name + '\', description = \'' + description + '\', itemCost = \'' + itemCost + '\', isRented = ' + rentalState + ', itemType = (SELECT id FROM itemType where name = \'' + itemType + '\') WHERE id = ' + id;
-    await connection.execute(sqlQuery)
-        .catch((error) => {
-            logger.error(error)
-            throw new SystemError("Error editing item");
-        }
-        );
-}
-
-/**
- * Updated the rental status of an item
- * @param {*} id The id of the item to update
- * @param {*} rentalState The updated rental state
- */
-async function editItemRentalState(id, rentalState) {
-    if (!validate.isValidInteger(id)) {
-        throw new UserDataError("Invalid id");
-    }
-    if (!validate.isValidBoolean(rentalState)) {
-        throw new UserDataError("Invalid rental state");
-    }
-
-    const sqlQuery = 'UPDATE inventory SET isRented = ' + rentalState + ' WHERE id = ' + id;
+    const sqlQuery = 'UPDATE inventory SET name = \'' + name + '\', description = \'' + description + '\', itemCost = \'' + itemCost + '\', itemType = (SELECT id FROM itemType where name = \'' + itemType + '\') WHERE id = ' + id;
     await connection.execute(sqlQuery)
         .catch((error) => {
             logger.error(error)
@@ -634,24 +573,232 @@ async function getAllItemTypes(){
 
 // ----------------------- Rentals -----------------------
 
-async function createRental(StartTime, EndTime, Duration) {
-    if (!validate.isValidStartTime(StartTime)) {
+/**
+ * Creates a rental from the given information
+ * Checks that an item of the correct type is available at that times
+ * If there is one, creates a rental, if not, throws an error
+ * @param {*} userId The id of the user renting the item
+ * @param {*} startTime The start time of the rental
+ * @param {*} endTime The end time of the rental
+ * @param {*} Duration The duration of the rental
+ * @param {*} itemType The type of item being rented
+ * @throws UserDataError if there are no available items at that time
+ */
+async function createRental(userId, startTime, endTime, Duration, itemType) {
+    if (!validate.isValidInteger(userId)) {
+        throw new UserDataError("Invalid user id");
+    }
+    if (!validate.isValidDate(startTime)) {
         throw new UserDataError("Invalid start time");
     }
-    if (!validate.isValidEndTime(EndTime)) {
+    if (!validate.isValidDate(endTime)) {
         throw new UserDataError("Invalid end time");
+    }    
+    if(endTime > startTime){
+        throw new UserDataError("End time must be before start time");
     }
-    if (!validate.isValidDuration(Duration)) {
+    if (!validate.isValidInteger(Duration)) {
         throw new UserDataError("Invalid duration");
     }
+    if (!validate.isValidItemType(itemType)) {
+        throw new UserDataError("Invalid item type");
+    }
 
-    const sqlQuery = 'INSERT INTO rentals (userId, productId, startTime, endTime, rentalPrice, duration) VALUES ( ' +
-        '(Select id from users where username = \'' + sessionStorage.getItem("username") + '\'), (Select id from inventory where name = \'' + sessionStorage.getItem("itemName") + '\'), \'' + StartTime + '\', \'' + EndTime + '\', \'' + sessionStorage.getItem("itemCost") + '\', \'' + Duration + '\')';
-    await connection.execute(sqlQuery)
+    // Check that the user exists in the database
+    const userQuery = 'SELECT * FROM user WHERE id = ' + userId;
+    const userResult = await connection.execute(userQuery)
         .catch((error) => {
             logger.error(error)
-            throw new SystemError("Error creating rental");
+            throw new SystemError("Error getting user");
         });
+    if (userResult[0].length == 0) {
+        throw new UserDataError("User does not exist");
+    }
+
+    // Get all the items from inventory that have the right item Type
+    // Check that there is one of that item available at that given time by getting all the rentals and checking that no item of that type is being rented in given time period between start and end times
+    const sqlQuery = 'SELECT * FROM inventory WHERE itemType = (SELECT id FROM itemType WHERE name = \'' + itemType + '\')';
+    const result = await connection.execute(sqlQuery)
+        .catch((error) => {
+            logger.error(error)
+            throw new SystemError("Error getting items");
+        }
+    );
+    // This is all of the items
+    const items = result[0];
+    let itemId = null;
+    // Loops over each item
+    for (let i = 0; i < items.length; i++) {
+        // Checks if the item is available at that time frame
+        const sqlQuery = 'SELECT * FROM rental WHERE item = ' + items[i].id + ' AND startTime <= \'' + startTime + '\' AND endTime >= \'' + endTime + '\'';
+        const result = await connection.execute(sqlQuery)
+            .catch((error) => {
+                logger.error(error)
+                throw new SystemError("Error getting rentals");
+            }
+        );
+        // If there are no rentals at that time, set the itemId to the item id
+        // Break the loop because that item can be rented
+        if (result[0].length == 0) {
+            itemId = items[i].id;
+            break;
+        }
+    }
+    // If there is no possible rental, throw an error
+    if (itemId == null) {
+        throw new UserDataError("No items available");
+    }
+
+    // Otherwise insert it into the rentals Table
+    const addRental = 'INSERT INTO rental (user, item, startTime, endTime, duration) VALUES (' + userId + ', ' + itemId + ', \'' + startTime + '\', \'' + endTime + '\', ' + Duration + ')';
+    await connection.execute(addRental)
+        .catch((error) => {
+            logger.error(error)
+            throw new SystemError("Error adding rental");
+        }
+    );
+}
+
+/**
+ * Edits the rental that has the given id
+ * First checks if the new rental can be added, if not throws an error
+ * If it is possible, updates the rental
+ * Also checks that the user is valid
+ * @param {*} rentalId The id of the rental to update
+ * @param {*} userId The id of the user doing the rental
+ * @param {*} startTime The updated start time of the rental
+ * @param {*} endTime The updated end time of the rental
+ * @param {*} duration The updated duration of the rental
+ * @param {*} itemType The updated itemType of the rental
+ */
+async function editRental(rentalId, userId, startTime, endTime, duration, itemType){
+    if (!validate.isValidInteger(rentalId)) {
+        throw new UserDataError("Invalid rental id");
+    }
+    if (!validate.isValidInteger(userId)) {
+        throw new UserDataError("Invalid user id");
+    }
+    if (!validate.isValidDate(startTime)) {
+        throw new UserDataError("Invalid start time");
+    }
+    if (!validate.isValidDate(endTime)) {
+        throw new UserDataError("Invalid end time");
+    }
+    if(endTime > startTime){
+        throw new UserDataError("End time must be before start time");
+    }
+    if (!validate.isValidInteger(duration)) {
+        throw new UserDataError("Invalid duration");
+    }
+    if (!validate.isValidItemType(itemType)) {
+        throw new UserDataError("Invalid item type");
+    }
+
+    // Check that the user exists in the database
+    const userQuery = 'SELECT * FROM user WHERE id = ' + userId;
+    const userResult = await connection.execute(userQuery)
+        .catch((error) => {
+            logger.error(error)
+            throw new SystemError("Error getting user");
+        });
+    if (userResult[0].length == 0) {
+        throw new UserDataError("User does not exist");
+    }
+
+    // Get the rental via its isValidDate
+
+    // Check that the new rental with the updated fields can be added
+    // If it can be added, update the rental
+    // If it can't be added, throw an error
+    const sqlQuery = 'SELECT * FROM inventory WHERE itemType = (SELECT id FROM itemType WHERE name = \'' + itemType + '\')';
+    const result = await connection.execute(sqlQuery)
+        .catch((error) => {
+            logger.error(error)
+            throw new SystemError("Error getting items");
+        }
+    );
+    // This is all of the items
+    const items = result[0];
+    let itemId = null;
+    // Loops over each item
+    for (let i = 0; i < items.length; i++) {
+        // Checks if the item is available at that time frame
+        const sqlQuery = 'SELECT * FROM rental WHERE item = ' + items[i].id + ' AND startTime <= \'' + startTime + '\' AND endTime >= \'' + endTime + '\'';
+        const result = await connection.execute(sqlQuery)
+            .catch((error) => {
+                logger.error(error)
+                throw new SystemError("Error getting rentals");
+            }
+        );
+        // If there are no rentals at that time, set the itemId to the item id
+        // Break the loop because that item can be rented
+        if (result[0].length == 0) {
+            itemId = items[i].id;
+            break;
+        }
+    }
+    // If there is no possible rental, throw an error
+    if (itemId == null) {
+        throw new UserDataError("No items available");
+    }
+    // Now that the rental is possible, update the rental with the new fields
+    const updateRental = 'UPDATE rental SET user = ' + userId + ', item = ' + itemId + ', startTime = \'' + startTime + '\', endTime = \'' + endTime + '\', duration = ' + duration + ' WHERE id = ' + rentalId;
+    await connection.execute(updateRental)
+        .catch((error) => {
+            logger.error(error)
+            throw new SystemError("Error updating rental");
+        }
+    );
+    // If this works, cry happy tears; else, cry sad tears    
+}
+
+/**
+ * Deletes a rental with the given id
+ * @param {*} rentalId The id of the rental to delete
+ */
+async function deleteRental(rentalId){
+    if (!validate.isValidInteger(rentalId)) {
+        throw new UserDataError("Invalid rental id");
+    }
+    // Delete the rental
+    const deleteRental = 'DELETE FROM rental WHERE id = ' + rentalId;
+    await connection.execute(deleteRental)
+        .catch((error) => {
+            logger.error(error)
+            throw new SystemError("Error deleting rental");
+        }
+    );
+}
+
+/**
+ * Gets all the fields from a rental with the given id
+ * @param {*} rentalId The id of the rental to get the fields
+ * @returns an array of all the fields of the rental 
+ */
+async function getRentalById(rentalId){
+    const sqlQuery = 'SELECT * FROM rental WHERE id = ' + rentalId;
+    const result = await connection.execute(sqlQuery)
+        .catch((error) => {
+            logger.error(error)
+            throw new SystemError("Error getting rentals");
+        }
+    );
+    return result[0][0];
+}
+
+/**
+ * Gets all the rentals
+ * @returns all of the rentals
+ */
+async function getAllRentals(){
+    const sqlQuery = 'SELECT * FROM rental';
+    const result = await connection.execute(sqlQuery)
+        .catch((error) => {
+            logger.error(error)
+            throw new SystemError("Error getting rentals");
+        }
+    );
+    return result[0];
 }
 
 // ----------------------- Session -----------------------
@@ -705,26 +852,40 @@ class SystemError extends Error {
 
 module.exports = {
     initialize,
+
+    // Users
     createUser,
     editUser,
     deleteUser,
     getUserById,
-    checkIfUsernameIsTaken,
+    checkIfUsernameIsTaken,    
+    getUserByUsername,
+
+    // Items
     addItem,
     editItem,
     deleteItem,
-    editItemRentalState,
     getItemById,
     getAllItems,
+
+    // Item Types
     addItemType,
     editItemType,
     deleteItemType,
     getItemTypeByName,
     getAllItemTypes,
+
+    // Login / Sessions
     verifyLogin,
-    getUserByUsername,
     getUserTypeFromTypeId,
     getCurrentSession,
     addSession,
-    deleteSessionById
+    deleteSessionById,
+
+    // Rentals
+    createRental,
+    editRental,
+    deleteRental,
+    getRentalById,
+    getAllRentals
 }
