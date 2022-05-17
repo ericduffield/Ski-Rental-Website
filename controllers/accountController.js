@@ -60,7 +60,7 @@ async function loginSubmit(req, res) {
 
         // Save cookie that will expire.
         res.cookie("sessionId", sessionId, { expires: expiresAt });
-        res.cookie("userId", user.userId, { expires: expiresAt });
+        res.cookie("userId", user.id, { expires: expiresAt });
         res.cookie("userType", userType, { expires: expiresAt });
         res.render("home.hbs", {admin: userType === 'Admin'});
     }

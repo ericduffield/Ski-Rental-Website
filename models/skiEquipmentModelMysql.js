@@ -827,6 +827,11 @@ async function getAllRentals(){
 }
 
 // ----------------------- Session -----------------------
+/**
+ * Gets a session from its id
+ * @param {*} sessionId The id of the session to retrieve
+ * @returns The session
+ */
 async function getCurrentSession(sessionId) {
     const sqlQuery = 'SELECT * FROM sessions WHERE id = \'' + sessionId + '\'';
     const result = await connection.execute(sqlQuery)
@@ -837,6 +842,10 @@ async function getCurrentSession(sessionId) {
     return result[0][0];
 }
 
+/**
+ * Adds a session to the database from a session object
+ * @param {*} session The session object to add to the database
+ */
 async function addSession(session){
     const sqlQuery = 'INSERT INTO sessions (id, userId, userType, expiresAt) VALUES (\'' + session.sessionId + '\',\'' + session.userId + '\',\'' + session.userType + '\',\'' + session.expiresAt + '\')';
     await connection.execute(sqlQuery)
@@ -846,8 +855,12 @@ async function addSession(session){
         });
 }
 
+/**
+ * deletes a session from the database
+ * @param {*} sessionId The id of the session to be deleted
+ */
 async function deleteSessionById(sessionId){
-    const sqlQuery = 'DELETE FROM sessions WHERE id = ' + sessionId;
+    const sqlQuery = 'DELETE FROM sessions WHERE id = \'' + sessionId + '\'';
     await connection.execute(sqlQuery)
         .catch((error) => {
             logger.error(error)
@@ -855,6 +868,9 @@ async function deleteSessionById(sessionId){
         });
 }
 
+/**
+ * The session class to transfer session items more easily
+ */
 class Session{
     constructor(sessionId, userId, userType, expiresAt){
         this.sessionId = sessionId;
@@ -867,6 +883,13 @@ class Session{
     }
 }
 
+/**
+ * Creates a session from the given fields
+ * @param {*} userId The id of the user
+ * @param {*} userType The type of the user
+ * @param {*} numMinutes The number of minutes the session will last
+ * @returns the session id
+ */
 async function createSession(userId, userType, numMinutes) {
     // Generate a random UUID as the sessionId
     const sessionId = uuid.v4()
@@ -881,6 +904,12 @@ async function createSession(userId, userType, numMinutes) {
 
     return sessionId;
 }
+
+/**
+ * Authenticates if a user has an active session
+ * @param {*} request The request object
+ * @returns null if there is no active session, the session object if there is an active session
+ */
 async function authenticateUser(request) {
     // If this request doesn't have any cookies, that means it isn't authenticated. Return null.
     if (!request.cookies) {
@@ -904,6 +933,11 @@ async function authenticateUser(request) {
     return {sessionId, userSession}; // Successfully validated.
 }
 
+/**
+ * Checks if a session is an admin session
+ * @param {*} session The session to check
+ * @returns true if the session is an admin session, false if it is not
+ */
 function authenticatedAdmin(session){
     if(session.userSession.userType.toLowerCase() == 'admin'){
         return true;
@@ -911,14 +945,20 @@ function authenticatedAdmin(session){
     return false;
 }
 
+/**
+ * Refreshes a session
+ * @param {*} request The request object
+ * @param {*} response The response object
+ * @returns the new session id
+ */
 async function refreshSession(request, response) {
-    const authenticatedSession = authenticateUser(request);
+    const authenticatedSession = await authenticateUser(request);
       if (!authenticatedSession) {
         res.render("error.hbs", {alertMessage: "Unauthorized access"});
       return;
     }
-    // Create and store a new Session object that will expire in 2 minutes.
-    const newSessionId = createSession(authenticatedSession.userSession.userId, authenticatedSession.userSession.username, authenticatedSession.userSession.userType, 5);
+    // Create and store a new Session object that will expire in 5 minutes.
+    const newSessionId = await createSession(authenticatedSession.userSession.userId, authenticatedSession.userSession.userType, 5);
     // Delete the old entry in the session map 
     await deleteSessionById(authenticatedSession.sessionId);
     
@@ -926,12 +966,8 @@ async function refreshSession(request, response) {
     const newSession = await getCurrentSession(newSessionId);
     // Set the session cookie to the new id we generated, with a
     // renewed expiration time
-    response.cookie("sessionId", newSessionId, { expires: newSession.expiresAt })
-    response.cookie("userId", authenticatedSession.userSession.userId, { expires: newSession.expiresAt })
-    response.cookie("username", authenticatedSession.userSession.username, { expires: newSession.expiresAt })
-    response.cookie("userType", authenticatedSession.userSession.userType, { expires: newSession.expiresAt })
     
-    return newSessionId;
+    return newSession;
 }
 
 

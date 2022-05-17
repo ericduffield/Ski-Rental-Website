@@ -12,11 +12,12 @@ const logger = require('../logger');
  * @returns true if they have access and false otherwise
  */
 async function AdminAuth(request){
-    const c = request.cookies;
+    // Gets the current authed session
     const authenticatedSession = await model.authenticateUser(request);
     if (!authenticatedSession) {
         return false;
     }
+    // Gets if the user is admin
     const isAdmin = await model.authenticatedAdmin(authenticatedSession);
     if (!isAdmin) {
         return false;
@@ -35,6 +36,11 @@ router.get('/admin', async function (request, response) {
             response.render("error.hbs", {alertMessage: "Unauthorized Access - Please log in to an Admin account to use this feature"}); // Unauthorized access
         }
         else{
+            const session = await model.refreshSession(request, response);
+            const expiresAt = new Date(session.expiresAt);
+            response.cookie("sessionId", session.id, { expires: expiresAt });
+            response.cookie("userId", session.userId, { expires: expiresAt });
+            response.cookie("userType", session.userType, { expires: expiresAt });
             response.render("adminRent.hbs", pageData);
         }   
     }
