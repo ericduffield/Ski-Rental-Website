@@ -58,10 +58,6 @@ function isValidDuration(duration) {
     //TODO
     return true;
 }
-function isValidCredit(credit) {
-    //TODO
-    return true;
-}
 
 module.exports = {
     isValidUserType,

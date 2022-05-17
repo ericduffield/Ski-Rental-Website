@@ -179,14 +179,6 @@ async function initialize(dbname, reset) {
     }
 }
 
-
-//Get for connection
-function getConnection() {
-    return connection;
-}
-
-
-
 // ----------------------- Users -----------------------
 
 /**
@@ -321,7 +313,7 @@ async function getUserById(id) {
             logger.error(error)
             throw new SystemError("Error getting user");
         });
-    return result[0][0];
+    return result[0][0] ? result[0][0] : null;
 }
 
 /**
@@ -405,9 +397,6 @@ async function editItem(id, name, description, itemCost, rentalState, itemType) 
     if (!validate.isValidAlphanumeric(name)) {
         throw new UserDataError("Invalid name");
     }
-    if (!validate.isValidAlphanumeric(description)) {
-        throw new UserDataError("Invalid description");
-    }
     if (!validate.isValidDecimal(itemCost)) {
         throw new UserDataError("Invalid cost");
     }
@@ -480,7 +469,7 @@ async function getItemById(id) {
             logger.error(error)
             throw new SystemError("Error getting item");
         });
-    return result[0][0];
+    return result[0][0] ? result[0][0] : null;
 }
 
 /**
@@ -576,7 +565,7 @@ async function getItemTypeByName(name) {
             logger.error(error)
             throw new SystemError("Error getting item type");
         });
-    return result[0][0];
+    return result[0][0] ? result[0][0] : null;
 }
 
 /**
@@ -637,6 +626,11 @@ class SystemError extends Error {
     }
 }
 
+//Get for connection
+function getConnection() {
+    return connection;
+}
+
 module.exports = {
     initialize,
     createUser,
@@ -656,4 +650,5 @@ module.exports = {
     deleteItemType,
     getItemTypeByName,
     getAllItemTypes,
+    getConnection
 }
