@@ -140,7 +140,7 @@ function deleteCookie(cname) {
  * @param {*} cname 
  * @returns nothing
  */
-function getCookie(cname) {
+function getCookiePl(cname) {
     let name = cname + "=";
     let decodedCookie = decodeURIComponent(document.cookie);
     let ca = decodedCookie.split(';');
@@ -164,16 +164,40 @@ function acceptCookieConsent(){
     document.getElementById("cookieNotice").style.display = "none";
 }
 
-let cookie_consent = getCookie("user_cookie_consent");
+let cookie_consent = getCookiePl("user_cookie_consent");
 if(cookie_consent != ""){
     document.getElementById("cookieNotice").style.display = "none";
 }else{
     document.getElementById("cookieNotice").style.display = "block";
 }
 
-
-function userTrack()
+function gettingTheValue(cookieName)
 {
-    click ++;
-    setCookie('user_tracking', click, 30);
+    var re = new RegExp(cookieName + "=([^;]+)"); 
+    var value = re.exec(document.cookie); 
+    if(value != null)
+    {
+        return value[1];
+    }
+    else
+    {
+        return null;
+    }
 }
+function userTrack(){
+
+    click ++; 
+    let getValue = gettingTheValue('user_track'); 
+    // get the value and add the click to it
+    if(getValue != null)
+    {
+        let newValue = parseInt(getValue) + click;
+        setCookie('user_track', newValue, 30);
+    }
+    else
+    {
+        setCookie('user_track', click, 30);
+    }
+
+}
+
