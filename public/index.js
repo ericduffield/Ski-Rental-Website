@@ -169,3 +169,9 @@ if(cookie_consent != ""){
 }else{
     document.getElementById("cookieNotice").style.display = "block";
 }
+
+
+function userTrack()
+{
+    setCookie('user_tracking', 1, 30);
+}
