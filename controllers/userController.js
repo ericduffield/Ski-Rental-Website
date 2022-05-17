@@ -1,6 +1,7 @@
 const express = require('express');
 const router = express.Router();
 const routeRoot = '/';
+const model = require("../models/skiEquipmentModelMysql");
 //require user model
 //const model = require('../models/skiEquipmentModelMysql');
 
@@ -11,18 +12,18 @@ const logger = require('../logger');
 router.get('/home', home);
 router.get('/', home);
 
-function home(req, res) {
+function home(request, response) {
     const pageData = {
         image: "/images/hero.jpg",
         home: true
     };
 
-    res.render("home.hbs", pageData);
+    response.render("home.hbs", pageData);
 }
 
 router.get('/rent', rent);
 
-function rent(req, res) {
+function rent(request, response) {
     const pageData = {
         image: "/images/hero.jpg",
         rent: true,
@@ -34,29 +35,39 @@ function rent(req, res) {
         ]
     };
 
-    res.render("rent.hbs", pageData);
+    if(!await model.authenticateUser(request)){
+        response.render("login.hbs", {message: "Unauthorized Access - Please log in to an account to use this feature"}); 
+    }
+    else{
+        const session = await model.refreshSession(request, response);
+        const expiresAt = new Date(session.expiresAt);
+        response.cookie("sessionId", session.id, { expires: expiresAt });
+        response.cookie("userId", session.userId, { expires: expiresAt });
+        response.cookie("userType", session.userType, { expires: expiresAt });        
+        response.render("rent.hbs", pageData);
+    }
 }
 
 router.get('/about', about);
 
-function about(req, res) {
+function about(request, response) {
     const pageData = {
         image: "/images/hero.jpg",
         about: true
     };
 
-    res.render("about.hbs", pageData);
+    response.render("about.hbs", pageData);
 }
 
 router.get('/get', getForm);
 
-function getForm(req, res) {
+function getForm(request, response) {
     const pageData = {
         formInput: "/getSkiEquipment",
         image: "/images/hero.jpg"
     };
 
-    res.render("getSkiEquipment.hbs", pageData);
+    response.render("getSkiEquipment.hbs", pageData);
 }
 
 //#endregion
@@ -65,20 +76,30 @@ function getForm(req, res) {
 
 router.post('/rentSumbit', rentSumbit);
 
-async function rentSumbit(req, res) {
-    try {
-
-        console.log("Successfully rented ski equipment");
-        rentResponse(res, "/images/hero.jpg", "Successfully rented ski equipment", false);
+async function rentSumbit(request, response) {
+    if(!await model.authenticateUser(request)){
+        response.render("login.hbs", {message: "Unauthorized Access - Please log in to an account to use this feature"}); 
     }
-    catch (err) {
-        console.error(err.message);
-        //Renders rent page again with error message
-        rentResponse(res, "/images/warning.webp", err.message, true);
+    else{
+        const session = await model.refreshSession(request, response);
+        const expiresAt = new Date(session.expiresAt);
+        response.cookie("sessionId", session.id, { expires: expiresAt });
+        response.cookie("userId", session.userId, { expires: expiresAt });
+        response.cookie("userType", session.userType, { expires: expiresAt });       
+        
+        try {
+            console.log("Successfully rented ski equipment");
+            rentResponse(response, "/images/hero.jpg", "Successfully rented ski equipment", false);
+        }
+        catch (err) {
+            console.error(err.message);
+            //Renders rent page again with error message
+            rentResponse(response, "/images/warning.webp", err.message, true);
+        }
     }
 }
 
-function rentResponse(res, imageUrl, theMessage) {
+function rentResponse(response, imageUrl, theMessage) {
     const pageData = {
         image: imageUrl,
         message: theMessage,
@@ -91,7 +112,7 @@ function rentResponse(res, imageUrl, theMessage) {
         ]
     }
 
-    res.render("rent.hbs", pageData);
+    response.render("rent.hbs", pageData);
 }
 
 //#endregion
