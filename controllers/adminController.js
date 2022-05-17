@@ -1,32 +1,44 @@
 const express = require('express');
 const router = express.Router();
 const routeRoot = '/';
-const server = require('../server');
+const model = require("../models/skiEquipmentModelMysql");
 //require admin model
 
 const logger = require('../logger');
 
-//#region ADMIN PAGES
-
-router.get('/admin', adminRent);
-
-function adminRent(req, res) {
-    const pageData = {
-        image: "/images/hero.jpg",
-        admin: true,
-        rent: true
-    };
-    const authenticatedSession = server.authenticateUser(req);
+/**
+ * Method to validate if someone had access to an admin page
+ * @param {*} request The request object
+ * @returns true if they have access and false otherwise
+ */
+async function AdminAuth(request){
+    const c = request.cookies;
+    const authenticatedSession = await model.authenticateUser(request);
     if (!authenticatedSession) {
-        res.render("error.hbs", {alertMessage: "Please log in to an Admin account to use this feature"}); // Unauthorized access
+        return false;
     }
-    const isAdmin = server.authenticatedAdmin(authenticatedSession);
+    const isAdmin = await model.authenticatedAdmin(authenticatedSession);
     if (!isAdmin) {
-        res.render("error.hbs", {alertMessage: "Unauthorized Access - Please log in to an Admin account to use this feature"}); // Unauthorized access
+        return false;
     }
-
-    res.render("adminRent.hbs", pageData);
+    return true;
 }
+
+//#region ADMIN PAGES
+router.get('/admin', async function (request, response) {
+        const pageData = {
+            image: "/images/hero.jpg",
+            admin: true,
+            rent: true
+        };
+        if(!await AdminAuth(request)){
+            response.render("error.hbs", {alertMessage: "Unauthorized Access - Please log in to an Admin account to use this feature"}); // Unauthorized access
+        }
+        else{
+            response.render("adminRent.hbs", pageData);
+        }   
+    }
+);
 
 router.get('/items', items);
 

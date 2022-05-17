@@ -5,7 +5,6 @@ const model = require("../models/skiEquipmentModelMysql");
 const logger = require('../logger');
 
 router.get('/login', login);
-router.post('/logout', logout);
 router.get('/signup', signup);
 router.get('/account', account);
 
@@ -52,10 +51,9 @@ async function loginSubmit(req, res) {
 
     //Check if user exists
     if(await model.verifyLogin(username, password)){
-        const s = require('../server');
         // Create a session object that will expire in 2 minutes
         const userType = await model.getUserTypeFromTypeId(user.userType);
-        const sessionId = await s.createSession(user.id, userType, 5);
+        const sessionId = await model.createSession(user.id, userType, 5);
         
         const currentSession = await model.getCurrentSession(sessionId);
         const expiresAt = new Date(currentSession.expiresAt);
@@ -64,7 +62,7 @@ async function loginSubmit(req, res) {
         res.cookie("sessionId", sessionId, { expires: expiresAt });
         res.cookie("userId", user.userId, { expires: expiresAt });
         res.cookie("userType", userType, { expires: expiresAt });
-        res.render("home.hbs");
+        res.render("home.hbs", {admin: userType === 'Admin'});
     }
     else{
         res.render("login.hbs", {message: "Invalid username or password", username: username, password: password});
