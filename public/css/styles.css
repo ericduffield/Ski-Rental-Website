@@ -904,3 +904,36 @@ form label {
 	justify-content: center;
 	align-items: center;
 }
+
+/*					Allow cookies Cookie Edits			*/
+#cookieNotice {
+	box-sizing: border-box;
+	position: fixed;
+	padding: 20px;
+	border-radius: 10px;
+	box-shadow: 0 6px 6px rgb(0 0 0 / 25%);
+	font-family: inherit;
+	z-index: 999997;
+}
+#cookieNotice.light {
+	background-color: #fff;
+	background-color: var(--grey);
+	color: #393d4d;
+	color: var(--black);
+}
+#cookieNotice.display-right {
+	right: 30px;
+	bottom: 30px;
+	max-width: 395px;
+}
+#acceptCookie
+{
+	background-color: var(--primary);
+	color: white;
+	border: none;
+	padding: 10px;
+	border-radius: 5px;
+	margin-top: 10px;
+	cursor: pointer;
+	transition-duration: 0.4s;
+}
