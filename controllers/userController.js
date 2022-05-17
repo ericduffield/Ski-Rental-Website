@@ -30,6 +30,8 @@ router.get('/rent', rent);
 function rent(req, res) {
     const pageData = {
         image: "/images/hero.jpg",
+        snowboardImage: "/images/snowboardMain.jpg",
+        skiImage: "/images/skiMain.png",
         rent: true,
         items: [
             {
