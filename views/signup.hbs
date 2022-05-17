@@ -1,20 +1,47 @@
-<h3 class="title">Signup</h3>
+<div id="signup">
+    <h3 class="title">Signup</h3>
 
-{{#if message}}
-<h1>{{message}}</h1>
-{{/if}}
+    {{#if message}}
+    <h1>{{message}}</h1>
+    {{/if}}
 
-<form action="/signupSubmit" method="post" role="form" enctype="application/x-www-form-urlencoded">
-    <label for="username">Username:</label>
-    <input type="text" id="username" name="username" required="required" placeholder="Username">
-    <label for="firstName">First Name:</label>
-    <input type="text" id="firstName" name="firstName" required="required" placeholder="First Name">
-    <label for="lastName">Last Name:</label>
-    <input type="text" id="lastName" name="lastName" required="required" placeholder="Last Name">
-    <label for="password">Password:</label>
-    <input type="password" id="password" name="password" required="required" placeholder="Password" minlength="8">
-    <label for="confirmPassword">Confirm Password:</label>
-    <input type="password" id="confirmPassword" name="confirmPassword" required="required" placeholder="Password"
-        minlength="8">
-    <button type="submit" class="btn btn-primary">Create Account</button>
-</form>
+    <div class="container">
+        <form class="Form" action="/signupSubmit" method="post" role="form" enctype="application/x-www-form-urlencoded">
+            <label for="username">Username:</label>
+            <input class="uInput" type="text" id="username" name="username" required="required" placeholder="Username" value="{{username}}" required>
+            <label for="firstName">First Name:</label>
+            <input class="fnInput" type="text" id="firstName" name="firstName" required="required" placeholder="First Name" value="{{firstName}}" required>
+            <label for="lastName">Last Name:</label>
+            <input class="lnInput" type="text" id="lastName" name="lastName" required="required" placeholder="Last Name" value="{{lastName}}" required>
+            <label for="password">Password:</label>
+            <input class="Password pInput" type="password" id="password" name="password" required="required" placeholder="Password" minlength="8" value="{{password}}" required>
+            <label for="confirmPassword">Confirm Password:</label>
+            <input class="cpInput" type="password" id="confirmPassword" name="confirmPassword" required="required" placeholder="Password" minlength="8" value="{{password}}">
+            <button type="submit" class="btn btn-primary">Create Account</button>
+        </form>
+    <div class="username">
+        <div class="un">❗</div>
+        <div class="uname">Username must be alphanumeric</div>
+    </div>
+    <div class="Names">
+        <div class="fn">❗</div>
+        <div class="ln">❗</div>
+        <div class="first-name">First Name can only contain letters</div>
+        <div class="last-name">Last Name can only contain letters</div>
+    </div>
+    <div class="password">
+        <div class="min8">❗</div>
+        <div class="num">❗</div>
+        <div class="up">❗</div>
+        <div class="down">❗</div>
+        <div class="sym">❗</div>
+        <div class="match">❗</div>
+        <div class="minimum8">Min 8 characters</div>
+        <div class="number">Must contain at least one number</div>
+        <div class="uppercase">Must contain at least one lowercase letter</div>
+        <div class="lowercase">Must contain at least one lowercase letter</div>
+        <div class="symbol">Must contain at least one special character</div>
+        <div class="matching">Passwords must match</div>
+    </div>
+    </div>
+</div>

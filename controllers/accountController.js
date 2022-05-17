@@ -9,26 +9,27 @@ router.post('/logout', logout);
 router.get('/signup', signup);
 router.get('/account', account);
 
-
+/**
+ * renders the login page
+ * @param {*} req The request of the method
+ * @param {*} res The response of the method
+ */
 function login(req, res) {
     res.render("login.hbs");
 }
-function logout(req, res){
-    const authenticatedSession = authenticateUser(req);
-    if (!authenticatedSession) {
-        res.sendStatus(401); // Unauthorized access
-        return;
-    }
-    delete sessions[authenticatedSession.sessionId]
-    console.log("Logged out user " + authenticatedSession.userSession.username);
-    
-    res.cookie("sessionId", "", { expires: new Date() }); // "erase" cookie by forcing it to expire.
-    res.redirect('/');
-
-}
+/**
+ * Renders the signup page
+ * @param {*} req The request of the method
+ * @param {*} res The response of the method
+ */
 function signup(req, res) {
     res.render("signup.hbs");
 }
+/**
+ * Renders the account page
+ * @param {*} req The request of the method
+ * @param {*} res The response of the method
+ */
 function account(req, res) {
     res.render("account.hbs");
 }
@@ -39,6 +40,11 @@ function account(req, res) {
 router.post('/loginSubmit', loginSubmit);
 router.post('/signupSubmit', signupSubmit);
 
+/**
+ * Function that runs on login submission, calls the model method and handles any errors
+ * @param {*} req The request of the method
+ * @param {*} res The response of the method
+ */
 async function loginSubmit(req, res) {
     const username = req.body.username;
     const password = req.body.password;
@@ -55,16 +61,21 @@ async function loginSubmit(req, res) {
         const expiresAt = new Date(currentSession.expiresAt);
 
         // Save cookie that will expire.
-        res.cookie("sessionId", sessionId, { expires: expiresAt }); 
+        res.cookie("sessionId", sessionId, { expires: expiresAt });
         res.cookie("userId", user.userId, { expires: expiresAt });
         res.cookie("userType", userType, { expires: expiresAt });
         res.render("home.hbs");
     }
     else{
-        res.render("login.hbs", {message: "Invalid username or password"});
+        res.render("login.hbs", {message: "Invalid username or password", username: username, password: password});
     }
 }
 
+/**
+ * Function that runs on signup submission, calls the model method and handles any errors
+ * @param {*} req The request of the method
+ * @param {*} res The response of the method
+ */
 async function signupSubmit(req, res) {    
     try{
     if(req.body.password === req.body.confirmPassword){
@@ -80,7 +91,7 @@ async function signupSubmit(req, res) {
     catch(err){
         console.error(err.message);
         //Renders signup page again with error message
-        res.render("signup.hbs", { message: err.message });
+        res.render("signup.hbs", { message: err.message, username: req.body.username, firstName: req.body.firstName, lastName: req.body.lastName, password: req.body.password, conformPassword: req.body.confirmPassword});
     }
 }
 

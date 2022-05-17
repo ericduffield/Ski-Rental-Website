@@ -709,3 +709,120 @@ footer{
 	font-size: 50px;
 	color: var(--primary);
 }
+
+
+
+
+/* ------------------------------- Signup ------------------------------- */
+
+
+#signup{
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+}
+
+.container { 
+	height: 80%;
+	margin: 10; 
+	display: grid;
+	grid-template-columns: 2.5fr 1.7fr;
+	grid-template-rows: 1.3fr 1fr 2.5fr;
+	gap: 0px 20px;
+	grid-auto-flow: row;
+	grid-template-areas:
+	  "Form username"
+	  "Form Names"
+	  "Form password";
+  }
+  
+  .Form { grid-area: Form; }
+  
+  .password { 
+	padding: 10px;
+    border-radius: 25px;
+    background: var(--grey); 
+	display: grid;
+	grid-template-columns: 0.3fr 3fr;
+	grid-template-rows: 1fr 1fr 1fr 1fr 1fr 1fr;
+	gap: 0px 0px;
+	grid-auto-flow: row;
+	grid-template-areas:
+	  "min8 minimum8"
+	  "num number"
+	  "up uppercase"
+	  "down lowercase"
+	  "sym symbol"
+	  "match matching";
+	grid-area: password;
+  }
+  
+  .min8 { grid-area: min8; }
+  
+  .num { grid-area: num; }
+  
+  .up { grid-area: up; }
+  
+  .down { grid-area: down; }
+  
+  .sym { grid-area: sym; }
+
+  .match { grid-area: match; }
+  
+  .minimum8 { grid-area: minimum8; }
+  
+  .number { grid-area: number; }
+  
+  .uppercase { grid-area: uppercase; }
+  
+  .lowercase { grid-area: lowercase; }
+  
+  .symbol { grid-area: symbol; }
+
+  .matching { grid-area: matching; }
+
+  .Names { 
+	  
+	padding: 10px;
+	border-radius: 25px;
+	background: var(--grey); 
+	display: grid;
+	grid-template-columns: 0.3fr 3fr;
+	grid-template-rows: 1fr 1fr;
+	gap: 0px 0px;
+	grid-auto-flow: row;
+	grid-template-areas:
+	  "fn first-name"
+	  "ln last-name";
+	grid-area: Names;
+  }
+  
+  .fn { grid-area: fn; }
+  
+  .ln { grid-area: ln; }
+  
+  .first-name { grid-area: first-name; }
+  
+  .last-name { grid-area: last-name; }
+  
+  .username {  
+	  
+	padding: 10px;
+	border-radius: 25px;
+	background: var(--grey); 
+	display: grid;	
+	grid-template-columns: 0.3fr 3fr;
+	grid-template-rows: 1fr;
+	gap: 0px 0px;
+	grid-auto-flow: row;
+	grid-template-areas:
+	  "un uname";
+	grid-area: username;
+  }
+  
+  .un { grid-area: un; }
+  
+  .uname { grid-area: uname; }
+  
+
+  
