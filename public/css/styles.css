@@ -937,3 +937,52 @@ form label {
 	cursor: pointer;
 	transition-duration: 0.4s;
 }
+
+/*						RENT PAGE EDITS				**/
+.rentContainer
+{
+	display: flex;
+	justify-content: center;
+	margin-left: 450px;
+}
+.sbSplit
+{
+	flex:1;
+	flex-direction: column;
+	align-items: center;
+	justify-content: center;
+	margin: 50px;
+	width: 700px;
+}
+.skiSplit
+{
+	flex-direction: column;
+	align-items: center;
+	justify-content: center;
+	margin: 50px;
+	width: 700px;
+}
+.rentContainer button{
+	width: 30%;
+	height: 40px;
+	border: 1px solid var(--primary);
+	border-radius: 5px;
+	padding: 10px;
+	margin-bottom: 10px;
+
+}
+.rentContainer h3
+{
+	font-size: 28px;
+	color: var(--black);
+}
+#datePicker
+{
+	width: 30%;
+	height: 40px;
+	margin-top: 10px;
+	border: 1px solid var(--black);
+	border-radius: 5px;
+	padding: 10px;
+	margin-bottom: 10px;
+}

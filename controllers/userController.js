@@ -32,6 +32,11 @@ function rent(req, res) {
         image: "/images/hero.jpg",
         snowboardImage: "/images/snowboardMain.jpg",
         skiImage: "/images/skiMain.png",
+        helmet: "/images/helmet.png",
+        skiBoots: "/images/skiBoots.png",
+        goggles: "/images/goggles.png",
+        poles: "/images/poles.png",
+        snowboardBoots: "/images/snowbardBoots.png",
         rent: true,
         items: [
             {
