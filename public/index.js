@@ -5,6 +5,7 @@ const cookieStyle = document.querySelector(".simple-cookie-consent");
 const cookieModel = document.querySelector(".cookie-consent-container")
 const cancelButton = document.querySelector(".cookie-consent-deny")
 const acceptButton = document.querySelector(".cookie-consent-allow");
+var click = 0;
 
 function slide() {
     let menu = document.getElementById("menu");
@@ -173,5 +174,6 @@ if(cookie_consent != ""){
 
 function userTrack()
 {
-    setCookie('user_tracking', 1, 30);
+    click ++;
+    setCookie('user_tracking', click, 30);
 }
