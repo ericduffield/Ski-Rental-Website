@@ -188,7 +188,6 @@ function userTrack(){
 
     click ++; 
     let getValue = gettingTheValue('user_track'); 
-    // get the value and add the click to it
     if(getValue != null)
     {
         let newValue = parseInt(getValue) + click;
