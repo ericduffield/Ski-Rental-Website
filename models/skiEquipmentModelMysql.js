@@ -250,7 +250,7 @@ async function editUser(id, userType, username, password, firstName, lastName, c
     if (!validate.isValidUserType(userType)) {
         throw new UserDataError("Invalid user type");
     }
-    if (!validate.isValidUsername(username)) {
+    if (!validate.isValidAlphanumeric(username)) {
         throw new UserDataError("Invalid username");
     }
     else if (checkIfUsernameIsTaken(username)) {
@@ -340,7 +340,7 @@ async function getAllUsers() {
  * @returns All the fields for the given user
  */
 async function getUserByUsername(username) {
-    if (!validate.isValidUsername(username)) {
+    if (!validate.isValidAlphanumeric(username)) {
         throw new UserDataError("Invalid username");
     }
     const sqlQuery = 'SELECT * FROM users WHERE username = \'' + username + '\'';

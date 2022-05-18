@@ -27,19 +27,6 @@ function home(request, response) {
 }
 
 router.get('/rent', async function (request, response) {
-        const pageData = {
-            image: "/images/hero.jpg",
-            rent: true,
-            items: [
-                {
-                    name: "Snowboard",
-                    formInput: "/rentSubmit",
-                }
-            ]
-        };
-router.get('/rent', rent);
-
-function rent(req, res) {
     const pageData = {
         image: "/images/hero.jpg",
         snowboardImage: "/images/snowboardMain.jpg",
@@ -58,19 +45,18 @@ function rent(req, res) {
         ]
     };
 
-        if(!await model.authenticateUser(request)){
-            response.render("login.hbs", {message: "Unauthorized Access - Please log in to an account to use this feature"}); 
-        }
-        else{
-            const session = await model.refreshSession(request, response);
-            const expiresAt = new Date(session.expiresAt);
-            response.cookie("sessionId", session.id, { expires: expiresAt });
-            response.cookie("userId", session.userId, { expires: expiresAt });
-            response.cookie("userType", session.userType, { expires: expiresAt });        
-            response.render("rent.hbs", pageData);
-        }
+    if(!await model.authenticateUser(request)){
+        response.render("login.hbs", {message: "Unauthorized Access - Please log in to an account to use this feature"}); 
     }
-);
+    else{
+        const session = await model.refreshSession(request, response);
+        const expiresAt = new Date(session.expiresAt);
+        response.cookie("sessionId", session.id, { expires: expiresAt });
+        response.cookie("userId", session.userId, { expires: expiresAt });
+        response.cookie("userType", session.userType, { expires: expiresAt });        
+        response.render("rent.hbs", pageData);
+    }
+});
 
 router.post('/rentSubmit', async function (request, response) {
         let startTime = request.body.startTime;
