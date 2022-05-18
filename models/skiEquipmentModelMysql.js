@@ -211,7 +211,7 @@ async function createUser(userType, username, password, firstName, lastName, cre
         throw new UserDataError("Invalid credit");
     }
 
-    const sqlQuery = 'INSERT INTO users (username, password, firstName, lastName, credit, userType) VALUES (\"' + username + '\",\"' + await bcrypt.hash(password, saltRounds) + '\",\"' + firstName + '\",\"' + lastName + '\",\"' + credit + '\", (Select id from userTypes where name = \"' + userType + '\"))';
+    const sqlQuery = 'INSERT INTO users (username, password, firstName, lastName, credit, userType) VALUES (\"' + username + '\",\"' + await bcrypt.hash(password, saltRounds) + '\",\"' + firstName + '\",\"' + lastName + '\",\"' + credit + '\",\"' + userType + '\")';
     try {
         await connection.execute(sqlQuery)
     }

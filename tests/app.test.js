@@ -7,7 +7,9 @@ const dbName = "skiEquipment_db_test";
 const model = require('../models/skiEquipmentModelMysql');
 const res = require("express/lib/response");
 
+//There will always be an admin with id 1 so the first user added user will have id 2
 const DEFAULT_ID = '1';
+const DEFAULT_USER_ID = '2';
 
 beforeEach(async () => {
     await model.initialize(dbName, true);
@@ -87,7 +89,7 @@ test("createUser success case", async () => {
     await model.createUser(userType, username, password, firstName, lastName, credit);
 
     //Assert
-    let result = await model.getUserById(DEFAULT_ID);
+    let result = await model.getUserById(DEFAULT_USER_ID);
     expect(result.userType.toString()).toBe(userType);
     expect(result.username).toBe(username);
     expect(result.password).toBe(password);
@@ -103,13 +105,12 @@ test("editUser success case", async () => {
     await model.createUser(userType, username, password, firstName, lastName, credit);
 
     //Act
-    await model.editUser(DEFAULT_ID, userType2, username2, password2, firstName2, lastName2, credit2);
+    await model.editUser(DEFAULT_USER_ID, userType2, username2, password2, firstName2, lastName2, credit2);
 
     //Assert
-    let result = await model.getUserById(DEFAULT_ID);
+    let result = await model.getUserById(DEFAULT_USER_ID);
     expect(result.userType.toString()).toBe(userType2);
     expect(result.username).toBe(username2);
-    expect(result.password).toBe(password2);
     expect(result.firstName).toBe(firstName2);
     expect(result.lastName).toBe(lastName2);
     expect(result.credit).toBe(credit2);
@@ -121,10 +122,10 @@ test("deleteUser success case", async () => {
     await model.createUser(userType, username, password, firstName, lastName, credit);
 
     //Act
-    await model.deleteUser(DEFAULT_ID);
+    await model.deleteUser(DEFAULT_USER_ID);
 
     //Assert
-    let result = await model.getUserById(DEFAULT_ID);
+    let result = await model.getUserById(DEFAULT_USER_ID);
     expect(result).toBe(null);
 });
 
@@ -134,12 +135,11 @@ test("getUserById success case", async () => {
     await model.createUser(userType, username, password, firstName, lastName, credit);
 
     //Act
-    let result = await model.getUserById(DEFAULT_ID);
+    let result = await model.getUserById(DEFAULT_USER_ID);
 
     //Assert
     expect(result.userType.toString()).toBe(userType);
     expect(result.username).toBe(username);
-    expect(result.password).toBe(password);
     expect(result.firstName).toBe(firstName);
     expect(result.lastName).toBe(lastName);
     expect(result.credit).toBe(credit);
@@ -613,7 +613,7 @@ test("editUser empty type ", async () => {
 
     //Act
     try {
-        await model.editUser(DEFAULT_ID, '', username2, password2, firstName2, lastName2, credit2);
+        await model.editUser(DEFAULT_USER_ID, '', username2, password2, firstName2, lastName2, credit2);
     }
     catch {
         fail = true;
@@ -632,7 +632,7 @@ test("editUser invalid type ", async () => {
 
     //Act
     try {
-        await model.editUser(DEFAULT_ID, '!', username2, password2, firstName2, lastName2, credit2);
+        await model.editUser(DEFAULT_USER_ID, '!', username2, password2, firstName2, lastName2, credit2);
     }
     catch {
         fail = true;
@@ -651,7 +651,7 @@ test("editUser empty username ", async () => {
 
     //Act
     try {
-        await model.editUser(DEFAULT_ID, userType2, '', password2, firstName2, lastName2, credit2);
+        await model.editUser(DEFAULT_USER_ID, userType2, '', password2, firstName2, lastName2, credit2);
     }
     catch {
         fail = true;
@@ -670,7 +670,7 @@ test("editUser invalid username ", async () => {
 
     //Act
     try {
-        await model.editUser(DEFAULT_ID, userType2, '!', password2, firstName2, lastName2, credit2);
+        await model.editUser(DEFAULT_USER_ID, userType2, '!', password2, firstName2, lastName2, credit2);
     }
     catch {
         fail = true;
@@ -689,7 +689,7 @@ test("editUser empty password ", async () => {
 
     //Act
     try {
-        await model.editUser(DEFAULT_ID, userType2, username2, '', firstName2, lastName2, credit2);
+        await model.editUser(DEFAULT_USER_ID, userType2, username2, '', firstName2, lastName2, credit2);
     }
     catch {
         fail = true;
@@ -708,7 +708,7 @@ test("editUser short password ", async () => {
 
     //Act
     try {
-        await model.editUser(DEFAULT_ID, userType2, username2, 'Abc!', firstName2, lastName2, credit2);
+        await model.editUser(DEFAULT_USER_ID, userType2, username2, 'Abc!', firstName2, lastName2, credit2);
     }
     catch {
         fail = true;
@@ -727,7 +727,7 @@ test("editUser only lowercase password ", async () => {
 
     //Act
     try {
-        await model.editUser(DEFAULT_ID, userType2, username2, 'abcdefg!', firstName2, lastName2, credit2);
+        await model.editUser(DEFAULT_USER_ID, userType2, username2, 'abcdefg!', firstName2, lastName2, credit2);
     }
     catch {
         fail = true;
@@ -746,7 +746,7 @@ test("editUser no symbol password ", async () => {
 
     //Act
     try {
-        await model.editUser(DEFAULT_ID, userType2, username2, 'Abcdefgh', firstName2, lastName2, credit2);
+        await model.editUser(DEFAULT_USER_ID, userType2, username2, 'Abcdefgh', firstName2, lastName2, credit2);
     }
     catch {
         fail = true;
@@ -765,7 +765,7 @@ test("editUser empty first name", async () => {
 
     //Act
     try {
-        await model.editUser(DEFAULT_ID, userType2, username2, password2, '', lastName2, credit2);
+        await model.editUser(DEFAULT_USER_ID, userType2, username2, password2, '', lastName2, credit2);
     }
     catch {
         fail = true;
@@ -784,7 +784,7 @@ test("editUser empty last name", async () => {
 
     //Act
     try {
-        await model.editUser(DEFAULT_ID, userType2, username2, password2, firstName2, '', credit2);
+        await model.editUser(DEFAULT_USER_ID, userType2, username2, password2, firstName2, '', credit2);
     }
     catch {
         fail = true;
@@ -803,7 +803,7 @@ test("editUser empty credit", async () => {
 
     //Act
     try {
-        await model.editUser(DEFAULT_ID, userType2, username2, password2, firstName2, lastName2, '');
+        await model.editUser(DEFAULT_USER_ID, userType2, username2, password2, firstName2, lastName2, '');
     }
     catch {
         fail = true;
@@ -818,7 +818,7 @@ test("deleteUser not in database", async () => {
     fail = false;
 
     //Act
-    let result = await model.deleteUser(DEFAULT_ID);
+    let result = await model.deleteUser(DEFAULT_USER_ID);
 
     //Assert
     expect(result).toBe(null);
@@ -829,7 +829,7 @@ test("getUserById not in database", async () => {
     fail = false;
 
     //Act
-    let result = await model.getUserById(DEFAULT_ID);
+    let result = await model.getUserById(DEFAULT_USER_ID);
 
     //Assert
     expect(result).toBe(null);

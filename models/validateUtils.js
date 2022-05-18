@@ -2,7 +2,7 @@ const validator = require('validator');
 var format = /^[!@#$%^&*()_+\-=\[\]{};':"\\|,.<>\/?]*$/;
 
 function isValidUserType(userType) {
-    if (userType.toLowerCase() === 'user' || userType.toLowerCase() == 'admin') {
+    if (userType == '0' || userType == '1') {
         return true;
     }
     return false;
