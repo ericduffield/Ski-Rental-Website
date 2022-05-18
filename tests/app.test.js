@@ -75,7 +75,7 @@ const generateItemTypes = (usedIndex) => {
 
 //#endregion
 
-//#region MODEL SUCCESS TESTS
+//#region =============== MODEL SUCCESS TESTS ===============
 
 //#region USERS
 
@@ -347,6 +347,19 @@ test("deleteItemType success case", async () => {
     expect(result).toBe(null);
 });
 
+test("getItemTypeById success case", async () => {
+    //Arrange
+    let { name } = generateItemTypes();
+    await model.addItemType(name);
+    let idResult = await model.getItemTypeByName(name);
+
+    //Act
+    let result = await model.getItemTypeById(idResult.id);
+
+    //Assert
+    expect(result.name).toBe(name);
+});
+
 test("getItemTypeByName success case", async () => {
     //Arrange
     let { name } = generateItemTypes();
@@ -387,10 +400,967 @@ test("getAllItemTypes success case", async () => {
 
 //#endregion
 
+//#endregion
+
+//#region =============== MODEL FAILURE TESTS ===============
+
+//#region USERS
+
+test("createUser empty type ", async () => {
+    //Arrange
+    let { userType, username, password, firstName, lastName, credit, index } = generateUser();
+    await model.createUser(userType, username, password, firstName, lastName, credit);
+    fail = false;
+
+    //Act
+    try {
+        await model.createUser('', username, password, firstName, lastName, credit);
+    }
+    catch {
+        fail = true;
+    }
+
+    //Assert
+    expect(fail).toBe(true);
+});
+
+test("createUser invalid type ", async () => {
+    //Arrange
+    let { userType, username, password, firstName, lastName, credit } = generateUser();
+    await model.createUser(userType, username, password, firstName, lastName, credit);
+    fail = false;
+
+    //Act
+    try {
+        await model.createUser('-1', username, password, firstName, lastName, credit);
+    }
+    catch {
+        fail = true;
+    }
+
+    //Assert
+    expect(fail).toBe(true);
+});
+
+test("createUser empty username ", async () => {
+    //Arrange
+    let { userType, username, password, firstName, lastName, credit } = generateUser();
+    await model.createUser(userType, username, password, firstName, lastName, credit);
+    fail = false;
+
+    //Act
+    try {
+        await model.createUser(userType, '', password, firstName, lastName, credit);
+    }
+    catch {
+        fail = true;
+    }
+
+    //Assert
+    expect(fail).toBe(true);
+});
+
+test("createUser invalid username ", async () => {
+    //Arrange
+    let { userType, username, password, firstName, lastName, credit } = generateUser();
+    await model.createUser(userType, username, password, firstName, lastName, credit);
+    fail = false;
+
+    //Act
+    try {
+        await model.createUser(userType, '!', password, firstName, lastName, credit);
+    }
+    catch {
+        fail = true;
+    }
+
+    //Assert
+    expect(fail).toBe(true);
+});
+
+test("createUser empty password ", async () => {
+    //Arrange
+    let { userType, username, password, firstName, lastName, credit } = generateUser();
+    await model.createUser(userType, username, password, firstName, lastName, credit);
+    fail = false;
+
+    //Act
+    try {
+        await model.createUser(userType, username, '', firstName, lastName, credit);
+    }
+    catch {
+        fail = true;
+    }
+
+    //Assert
+    expect(fail).toBe(true);
+});
+
+test("createUser short password ", async () => {
+    //Arrange
+    let { userType, username, password, firstName, lastName, credit } = generateUser();
+    await model.createUser(userType, username, password, firstName, lastName, credit);
+    fail = false;
+
+    //Act
+    try {
+        await model.createUser(userType, username, 'Abc!', firstName, lastName, credit);
+    }
+    catch {
+        fail = true;
+    }
+
+    //Assert
+    expect(fail).toBe(true);
+});
+
+test("createUser only lowercase password ", async () => {
+    //Arrange
+    let { userType, username, password, firstName, lastName, credit } = generateUser();
+    await model.createUser(userType, username, password, firstName, lastName, credit);
+    fail = false;
+
+    //Act
+    try {
+        await model.createUser(userType, username, 'abcdefg!', firstName, lastName, credit);
+    }
+    catch {
+        fail = true;
+    }
+
+    //Assert
+    expect(fail).toBe(true);
+});
+
+test("createUser no symbol password ", async () => {
+    //Arrange
+    let { userType, username, password, firstName, lastName, credit } = generateUser();
+    await model.createUser(userType, username, password, firstName, lastName, credit);
+    fail = false;
+
+    //Act
+    try {
+        await model.createUser(userType, username, 'Abcdefgh', firstName, lastName, credit);
+    }
+    catch {
+        fail = true;
+    }
+
+    //Assert
+    expect(fail).toBe(true);
+});
+
+test("createUser empty first name", async () => {
+    //Arrange
+    let { userType, username, password, firstName, lastName, credit } = generateUser();
+    await model.createUser(userType, username, password, firstName, lastName, credit);
+    fail = false;
+
+    //Act
+    try {
+        await model.createUser(userType, username, password, '', lastName, credit);
+    }
+    catch {
+        fail = true;
+    }
+
+    //Assert
+    expect(fail).toBe(true);
+});
+
+test("createUser empty last name", async () => {
+    //Arrange
+    let { userType, username, password, firstName, lastName, credit } = generateUser();
+    await model.createUser(userType, username, password, firstName, lastName, credit);
+    fail = false;
+
+    //Act
+    try {
+        await model.createUser(userType, username, password, firstName, '', credit);
+    }
+    catch {
+        fail = true;
+    }
+
+    //Assert
+    expect(fail).toBe(true);
+});
+
+test("createUser empty credit", async () => {
+    //Arrange
+    let { userType, username, password, firstName, lastName, credit } = generateUser();
+    await model.createUser(userType, username, password, firstName, lastName, credit);
+    fail = false;
+
+    //Act
+    try {
+        await model.createUser(userType, username, password, firstName, lastName, '');
+    }
+    catch {
+        fail = true;
+    }
+
+    //Assert
+    expect(fail).toBe(true);
+});
+
+test("editUser empty type ", async () => {
+    //Arrange
+    let { userType, username, password, firstName, lastName, credit, index } = generateUser();
+    let { userType: userType2, username: username2, password: password2, firstName: firstName2, lastName: lastName2, credit: credit2 } = generateUser(index);
+    await model.createUser(userType, username, password, firstName, lastName, credit);
+    fail = false;
+
+    //Act
+    try {
+        await model.editUser(DEFAULT_ID, '', username2, password2, firstName2, lastName2, credit2);
+    }
+    catch {
+        fail = true;
+    }
+
+    //Assert
+    expect(fail).toBe(true);
+});
+
+test("editUser invalid type ", async () => {
+    //Arrange
+    let { userType, username, password, firstName, lastName, credit, index } = generateUser();
+    let { userType: userType2, username: username2, password: password2, firstName: firstName2, lastName: lastName2, credit: credit2 } = generateUser(index);
+    await model.createUser(userType, username, password, firstName, lastName, credit);
+    fail = false;
+
+    //Act
+    try {
+        await model.editUser(DEFAULT_ID, '!', username2, password2, firstName2, lastName2, credit2);
+    }
+    catch {
+        fail = true;
+    }
+
+    //Assert
+    expect(fail).toBe(true);
+});
+
+test("editUser empty username ", async () => {
+    //Arrange
+    let { userType, username, password, firstName, lastName, credit, index } = generateUser();
+    let { userType: userType2, username: username2, password: password2, firstName: firstName2, lastName: lastName2, credit: credit2 } = generateUser(index);
+    await model.createUser(userType, username, password, firstName, lastName, credit);
+    fail = false;
+
+    //Act
+    try {
+        await model.editUser(DEFAULT_ID, userType2, '', password2, firstName2, lastName2, credit2);
+    }
+    catch {
+        fail = true;
+    }
+
+    //Assert
+    expect(fail).toBe(true);
+});
+
+test("editUser invalid username ", async () => {
+    //Arrange
+    let { userType, username, password, firstName, lastName, credit, index } = generateUser();
+    let { userType: userType2, username: username2, password: password2, firstName: firstName2, lastName: lastName2, credit: credit2 } = generateUser(index);
+    await model.createUser(userType, username, password, firstName, lastName, credit);
+    fail = false;
+
+    //Act
+    try {
+        await model.editUser(DEFAULT_ID, userType2, '!', password2, firstName2, lastName2, credit2);
+    }
+    catch {
+        fail = true;
+    }
+
+    //Assert
+    expect(fail).toBe(true);
+});
+
+test("editUser empty password ", async () => {
+    //Arrange
+    let { userType, username, password, firstName, lastName, credit, index } = generateUser();
+    let { userType: userType2, username: username2, password: password2, firstName: firstName2, lastName: lastName2, credit: credit2 } = generateUser(index);
+    await model.createUser(userType, username, password, firstName, lastName, credit);
+    fail = false;
+
+    //Act
+    try {
+        await model.editUser(DEFAULT_ID, userType2, username2, '', firstName2, lastName2, credit2);
+    }
+    catch {
+        fail = true;
+    }
+
+    //Assert
+    expect(fail).toBe(true);
+});
+
+test("editUser short password ", async () => {
+    //Arrange
+    let { userType, username, password, firstName, lastName, credit, index } = generateUser();
+    let { userType: userType2, username: username2, password: password2, firstName: firstName2, lastName: lastName2, credit: credit2 } = generateUser(index);
+    await model.createUser(userType, username, password, firstName, lastName, credit);
+    fail = false;
+
+    //Act
+    try {
+        await model.editUser(DEFAULT_ID, userType2, username2, 'Abc!', firstName2, lastName2, credit2);
+    }
+    catch {
+        fail = true;
+    }
+
+    //Assert
+    expect(fail).toBe(true);
+});
+
+test("editUser only lowercase password ", async () => {
+    //Arrange
+    let { userType, username, password, firstName, lastName, credit, index } = generateUser();
+    let { userType: userType2, username: username2, password: password2, firstName: firstName2, lastName: lastName2, credit: credit2 } = generateUser(index);
+    await model.createUser(userType, username, password, firstName, lastName, credit);
+    fail = false;
+
+    //Act
+    try {
+        await model.editUser(DEFAULT_ID, userType2, username2, 'abcdefg!', firstName2, lastName2, credit2);
+    }
+    catch {
+        fail = true;
+    }
+
+    //Assert
+    expect(fail).toBe(true);
+});
+
+test("editUser no symbol password ", async () => {
+    //Arrange
+    let { userType, username, password, firstName, lastName, credit, index } = generateUser();
+    let { userType: userType2, username: username2, password: password2, firstName: firstName2, lastName: lastName2, credit: credit2 } = generateUser(index);
+    await model.createUser(userType, username, password, firstName, lastName, credit);
+    fail = false;
+
+    //Act
+    try {
+        await model.editUser(DEFAULT_ID, userType2, username2, 'Abcdefgh', firstName2, lastName2, credit2);
+    }
+    catch {
+        fail = true;
+    }
+
+    //Assert
+    expect(fail).toBe(true);
+});
+
+test("editUser empty first name", async () => {
+    //Arrange
+    let { userType, username, password, firstName, lastName, credit, index } = generateUser();
+    let { userType: userType2, username: username2, password: password2, firstName: firstName2, lastName: lastName2, credit: credit2 } = generateUser(index);
+    await model.createUser(userType, username, password, firstName, lastName, credit);
+    fail = false;
+
+    //Act
+    try {
+        await model.editUser(DEFAULT_ID, userType2, username2, password2, '', lastName2, credit2);
+    }
+    catch {
+        fail = true;
+    }
+
+    //Assert
+    expect(fail).toBe(true);
+});
+
+test("editUser empty last name", async () => {
+    //Arrange
+    let { userType, username, password, firstName, lastName, credit, index } = generateUser();
+    let { userType: userType2, username: username2, password: password2, firstName: firstName2, lastName: lastName2, credit: credit2 } = generateUser(index);
+    await model.createUser(userType, username, password, firstName, lastName, credit);
+    fail = false;
+
+    //Act
+    try {
+        await model.editUser(DEFAULT_ID, userType2, username2, password2, firstName2, '', credit2);
+    }
+    catch {
+        fail = true;
+    }
+
+    //Assert
+    expect(fail).toBe(true);
+});
+
+test("editUser empty credit", async () => {
+    //Arrange
+    let { userType, username, password, firstName, lastName, credit, index } = generateUser();
+    let { userType: userType2, username: username2, password: password2, firstName: firstName2, lastName: lastName2, credit: credit2 } = generateUser(index);
+    await model.createUser(userType, username, password, firstName, lastName, credit);
+    fail = false;
+
+    //Act
+    try {
+        await model.editUser(DEFAULT_ID, userType2, username2, password2, firstName2, lastName2, '');
+    }
+    catch {
+        fail = true;
+    }
+
+    //Assert
+    expect(fail).toBe(true);
+});
+
+test("deleteUser not in database", async () => {
+    //Arrange
+    fail = false;
+
+    //Act
+    let result = await model.deleteUser(DEFAULT_ID);
+
+    //Assert
+    expect(result).toBe(null);
+});
+
+test("getUserById not in database", async () => {
+    //Arrange
+    fail = false;
+
+    //Act
+    let result = await model.getUserById(DEFAULT_ID);
+
+    //Assert
+    expect(result).toBe(null);
+});
+
+test("checkIfUsernameIsTaken invalid username", async () => {
+    //Arrange
+    fail = false;
+
+    //Act
+    try {
+        await model.getUserById('!');
+    }
+    catch {
+        fail = true;
+    }
+
+    //Assert
+    expect(fail).toBe(true);
+});
+
 
 //#endregion
 
-//#region ENDPOINT TESTS
+//#region ITEMS
+
+test("addItem empty name", async () => {
+    //Arrange
+    let { name, description, itemCost, itemType, rentalState } = generateItem();
+    fail = false;
+
+    //Act
+    try {
+        await model.addItem('', description, itemCost, itemType, rentalState);
+    }
+    catch {
+        fail = true;
+    }
+
+    //Assert
+    expect(fail).toBe(true);
+});
+
+test("addItem invalid name", async () => {
+    //Arrange
+    let { name, description, itemCost, itemType, rentalState } = generateItem();
+    fail = false;
+
+    //Act
+    try {
+        await model.addItem('!', description, itemCost, itemType, rentalState);
+    }
+    catch {
+        fail = true;
+    }
+
+    //Assert
+    expect(fail).toBe(true);
+});
+
+test("addItem empty description", async () => {
+    //Arrange
+    let { name, description, itemCost, itemType, rentalState } = generateItem();
+    fail = false;
+
+    //Act
+    try {
+        await model.addItem(name, '', itemCost, itemType, rentalState);
+    }
+    catch {
+        fail = true;
+    }
+
+    //Assert
+    expect(fail).toBe(true);
+});
+
+test("addItem empty itemCost", async () => {
+    //Arrange
+    let { name, description, itemCost, itemType, rentalState } = generateItem();
+    fail = false;
+
+    //Act
+    try {
+        await model.addItem(name, description, '', itemType, rentalState);
+    }
+    catch {
+        fail = true;
+    }
+
+    //Assert
+    expect(fail).toBe(true);
+});
+
+test("addItem invalid itemCost", async () => {
+    //Arrange
+    let { name, description, itemCost, itemType, rentalState } = generateItem();
+    fail = false;
+
+    //Act
+    try {
+        await model.addItem(name, description, 'a', itemType, rentalState);
+    }
+    catch {
+        fail = true;
+    }
+
+    //Assert
+    expect(fail).toBe(true);
+});
+
+test("addItem empty item type", async () => {
+    //Arrange
+    let { name, description, itemCost, itemType, rentalState } = generateItem();
+    fail = false;
+
+    //Act
+    try {
+        await model.addItem(name, description, itemCost, '', rentalState);
+    }
+    catch {
+        fail = true;
+    }
+
+    //Assert
+    expect(fail).toBe(true);
+});
+
+test("addItem invalid item type", async () => {
+    //Arrange
+    let { name, description, itemCost, itemType, rentalState } = generateItem();
+    fail = false;
+
+    //Act
+    try {
+        await model.addItem(name, description, itemCost, '-1', rentalState);
+    }
+    catch {
+        fail = true;
+    }
+
+    //Assert
+    expect(fail).toBe(true);
+});
+
+test("addItem empty rental state", async () => {
+    //Arrange
+    let { name, description, itemCost, itemType, rentalState } = generateItem();
+    fail = false;
+
+    //Act
+    try {
+        await model.addItem(name, description, itemCost, itemType, '');
+    }
+    catch {
+        fail = true;
+    }
+
+    //Assert
+    expect(fail).toBe(true);
+});
+
+test("addItem invalid rental state", async () => {
+    //Arrange
+    let { name, description, itemCost, itemType, rentalState } = generateItem();
+    fail = false;
+
+    //Act
+    try {
+        await model.addItem(name, description, itemCost, itemType, '-1');
+    }
+    catch {
+        fail = true;
+    }
+
+    //Assert
+    expect(fail).toBe(true);
+});
+
+test("editItem empty name", async () => {
+    //Arrange
+    let { name, description, itemCost, itemType, rentalState, index } = generateItem();
+    await model.addItem(name, description, itemCost, itemType, rentalState);
+    let { name: name2, description: description2, itemCost: itemCost2, itemType: itemType2, rentalState: rentalState2 } = generateItem(index);
+    fail = false;
+
+    //Act
+    try {
+        await model.editItem('', description2, itemCost2, itemType2, rentalState2);
+    }
+    catch {
+        fail = true;
+    }
+
+    //Assert
+    expect(fail).toBe(true);
+});
+
+test("editItem invalid name", async () => {
+    //Arrange
+    let { name, description, itemCost, itemType, rentalState, index } = generateItem();
+    await model.addItem(name, description, itemCost, itemType, rentalState);
+    let { name: name2, description: description2, itemCost: itemCost2, itemType: itemType2, rentalState: rentalState2 } = generateItem(index);
+    fail = false;
+
+    //Act
+    try {
+        await model.editItem('!', description2, itemCost2, itemType2, rentalState2);
+    }
+    catch {
+        fail = true;
+    }
+
+    //Assert
+    expect(fail).toBe(true);
+});
+
+test("editItem empty description", async () => {
+    //Arrange
+    let { name, description, itemCost, itemType, rentalState, index } = generateItem();
+    await model.addItem(name, description, itemCost, itemType, rentalState);
+    let { name: name2, description: description2, itemCost: itemCost2, itemType: itemType2, rentalState: rentalState2 } = generateItem(index);
+    fail = false;
+
+    //Act
+    try {
+        await model.editItem(name2, '', itemCost2, itemType2, rentalState2);
+    }
+    catch {
+        fail = true;
+    }
+
+    //Assert
+    expect(fail).toBe(true);
+});
+
+test("editItem empty itemCost", async () => {
+    //Arrange
+    let { name, description, itemCost, itemType, rentalState, index } = generateItem();
+    await model.addItem(name, description, itemCost, itemType, rentalState);
+    let { name: name2, description: description2, itemCost: itemCost2, itemType: itemType2, rentalState: rentalState2 } = generateItem(index);
+    fail = false;
+
+    //Act
+    try {
+        await model.editItem(name2, description2, '', itemType2, rentalState2);
+    }
+    catch {
+        fail = true;
+    }
+
+    //Assert
+    expect(fail).toBe(true);
+});
+
+test("editItem invalid itemCost", async () => {
+    //Arrange
+    let { name, description, itemCost, itemType, rentalState, index } = generateItem();
+    await model.addItem(name, description, itemCost, itemType, rentalState);
+    let { name: name2, description: description2, itemCost: itemCost2, itemType: itemType2, rentalState: rentalState2 } = generateItem(index);
+    fail = false;
+
+    //Act
+    try {
+        await model.editItem(name2, description2, 'a', itemType2, rentalState2);
+    }
+    catch {
+        fail = true;
+    }
+
+    //Assert
+    expect(fail).toBe(true);
+});
+
+test("editItem empty item type", async () => {
+    //Arrange
+    let { name, description, itemCost, itemType, rentalState, index } = generateItem();
+    await model.addItem(name, description, itemCost, itemType, rentalState);
+    let { name: name2, description: description2, itemCost: itemCost2, itemType: itemType2, rentalState: rentalState2 } = generateItem(index);
+    fail = false;
+
+    //Act
+    try {
+        await model.editItem(name2, description2, itemCost2, '', rentalState2);
+    }
+    catch {
+        fail = true;
+    }
+
+    //Assert
+    expect(fail).toBe(true);
+});
+
+test("editItem invalid item type", async () => {
+    //Arrange
+    let { name, description, itemCost, itemType, rentalState, index } = generateItem();
+    await model.addItem(name, description, itemCost, itemType, rentalState);
+    let { name: name2, description: description2, itemCost: itemCost2, itemType: itemType2, rentalState: rentalState2 } = generateItem(index);
+    fail = false;
+
+    //Act
+    try {
+        await model.editItem(name2, description2, itemCost2, '-1', rentalState2);
+    }
+    catch {
+        fail = true;
+    }
+
+    //Assert
+    expect(fail).toBe(true);
+});
+
+test("editItem empty rental state", async () => {
+    //Arrange
+    let { name, description, itemCost, itemType, rentalState, index } = generateItem();
+    await model.addItem(name, description, itemCost, itemType, rentalState);
+    let { name: name2, description: description2, itemCost: itemCost2, itemType: itemType2, rentalState: rentalState2 } = generateItem(index);
+    fail = false;
+
+    //Act
+    try {
+        await model.editItem(name2, description2, itemCost2, itemType2, '');
+    }
+    catch {
+        fail = true;
+    }
+
+    //Assert
+    expect(fail).toBe(true);
+});
+
+test("editItem invalid rental state", async () => {
+    //Arrange
+    let { name, description, itemCost, itemType, rentalState, index } = generateItem();
+    await model.addItem(name, description, itemCost, itemType, rentalState);
+    let { name: name2, description: description2, itemCost: itemCost2, itemType: itemType2, rentalState: rentalState2 } = generateItem(index);
+    fail = false;
+
+    //Act
+    try {
+        await model.editItem(name2, description2, itemCost2, itemType2, '-1');
+    }
+    catch {
+        fail = true;
+    }
+
+    //Assert
+    expect(fail).toBe(true);
+});
+
+test("editItemRentalState empty rental state", async () => {
+    //Arrange
+    let { name, description, itemCost, itemType, rentalState, index } = generateItem();
+    await model.addItem(name, description, itemCost, itemType, rentalState);
+    fail = false;
+
+    //Act
+    try {
+        await model.editItemRentalState(DEFAULT_ID, '');
+    }
+    catch {
+        fail = true;
+    }
+
+    //Assert
+    expect(fail).toBe(true);
+});
+
+test("editItemRentalState invalid rental state", async () => {
+    //Arrange
+    let { name, description, itemCost, itemType, rentalState, index } = generateItem();
+    await model.addItem(name, description, itemCost, itemType, rentalState);
+    fail = false;
+
+    //Act
+    try {
+        await model.editItemRentalState(DEFAULT_ID, '-1');
+    }
+    catch {
+        fail = true;
+    }
+
+    //Assert
+    expect(fail).toBe(true);
+});
+
+test("deleteItem not in database", async () => {
+    //Arrange
+    fail = false;
+
+    //Act
+    let result = await model.deleteItem(DEFAULT_ID);
+
+    //Assert
+    expect(result).toBe(null);
+});
+
+test("getItemById not in database", async () => {
+    //Arrange
+    fail = false;
+
+    //Act
+    let result = await model.getItemById(DEFAULT_ID);
+
+    //Assert
+    expect(result).toBe(null);
+});
+
+//#endregion
+
+//#region ITEM TYPES
+
+test("addItemType empty name", async () => {
+    //Arrange
+    fail = false;
+
+    //Act
+    try {
+        await model.addItemType('');
+    }
+    catch {
+        fail = true;
+    }
+
+    //Assert
+    expect(fail).toBe(true);
+});
+
+test("addItemType invalid name", async () => {
+    //Arrange
+    fail = false;
+
+    //Act
+    try {
+        await model.addItemType('!');
+    }
+    catch {
+        fail = true;
+    }
+
+    //Assert
+    expect(fail).toBe(true);
+});
+
+test("editItemType not in database", async () => {
+    //Arrange
+    let { name } = generateItemTypes();
+    fail = false;
+
+    //Act
+    try {
+        await model.editItemType("-1", name);
+    }
+    catch {
+        fail = true;
+    }
+
+    //Assert
+    expect(fail).toBe(true);
+});
+
+test("editItemType empty name", async () => {
+    //Arrange
+    let { name } = generateItemTypes();
+    await model.addItemType(name);
+    fail = false;
+
+    //Act
+    try {
+        await model.editItemType(DEFAULT_ID, '');
+    }
+    catch {
+        fail = true;
+    }
+
+    //Assert
+    expect(fail).toBe(true);
+});
+
+test("editItemType invalid name", async () => {
+    //Arrange
+    let { name } = generateItemTypes();
+    await model.addItemType(name);
+    fail = false;
+
+    //Act
+    try {
+        await model.editItemType(DEFAULT_ID, '!');
+    }
+    catch {
+        fail = true;
+    }
+
+    //Assert
+    expect(fail).toBe(true);
+});
+
+test("deleteItemType not in database", async () => {
+    //Arrange
+    fail = false;
+
+    //Act
+    try {
+        await model.deleteItemType("-1");
+    }
+    catch {
+        fail = true;
+    }
+
+    //Assert
+    expect(fail).toBe(true);
+});
+
+test("getItemTypeById not in database", async () => {
+    //Act
+    let result = await model.getItemTypeById("-1");
+
+    //Assert
+    expect(result).toBe(null);
+});
+
+test("getItemTypeByName not in database", async () => {
+    //Act
+    let result = await model.getItemTypeByName('Test');
+
+    //Assert
+    expect(result).toBe(null);
+});
+//#endregion
+
+//#region =============== ENDPOINT TESTS ===============
 
 //Home test
 test("Home test", async () => {
