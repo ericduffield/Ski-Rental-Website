@@ -441,7 +441,7 @@ router.post('/createUser', createUser);
 async function createUser(req, res) {
     try {
         //Tries to created a user in the database and if successful, renders the form with success message
-        await model.createUser(req.body.userType, req.body.username, req.body.password, req.body.firstName, req.body.lastName, req.body.credit);
+        await model.createUser(parseInt(req.body.userType) + 1, req.body.username, req.body.password, req.body.firstName, req.body.lastName, req.body.credit);
 
         console.log("Successfully created user");
         usersResponse(res, "/images/hero.jpg", "Successfully created user", false);

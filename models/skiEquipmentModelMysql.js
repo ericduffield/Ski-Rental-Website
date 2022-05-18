@@ -287,9 +287,6 @@ async function deleteUser(id) {
     if (!validate.isValidInteger(id)) {
         throw new UserDataError("Invalid id");
     }
-    else if (getUserById(id).length == 0) {
-        throw new UserDataError("Invalid id");
-    }
     const sqlQuery = 'DELETE FROM users WHERE id = ' + id;
     await connection.execute(sqlQuery)
         .catch((error) => {

@@ -40,7 +40,8 @@
         <p>First Name: {{firstName}}</p>
         <p>Last Name: {{lastName}}</p>
         <p>Credit: {{credit}}$</p>
-        <p><b>User Type:</b> {{lookup @root.userTypes userType }}</p>
+        {{decrement "usertypeIndex" userType}}
+        <p><b>User Type:</b> {{lookup @root.userTypes @root.usertypeIndex }}</p>
     </div>
     {{/each}}
 </div>
