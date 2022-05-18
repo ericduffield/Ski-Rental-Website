@@ -736,7 +736,15 @@ form label {
 	margin: 50px;
 	width: 35%;
 }
-
+#aboutUsEdit
+{
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+	justify-content: center;
+	margin: 50px;
+	width: 35%;
+}
 .personInfo
 {
 	margin-top: 50px;
@@ -1169,6 +1177,18 @@ form label {
 }
 /**						Sign In page					*/
 .loginEdit input
+{
+	width: 100%;
+	height: 40px;
+	border: 1px solid var(--black);
+	border-radius: 5px;
+	padding: 10px;
+	margin-bottom: 10px;
+}
+
+/*						Admin page edits			*/
+#name, #id, #description, #cost, #rentalState, #itemType,
+ #quantity, #firstName, #lastName, #credit, #password, #userType, #username
 {
 	width: 100%;
 	height: 40px;

@@ -155,7 +155,6 @@ router.get('/about', about);
  */
 async function about(request, response) {
     const pageData = {
-        image: "/images/hero.jpg",
         eric: "/images/eric.jpg",
         liam: "/images/liam.jpg",
         pleasure: "/images/pleasure.jpg",
