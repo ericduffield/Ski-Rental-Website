@@ -11,7 +11,7 @@
         <div class="fields">
             <p><b>Id:</b> {{id}}</p>
             <p><b>Description:</b> Description: {{description}}</p>
-            <p><b>Cost:</b> {{itemCost}}</p>
+            <p><b>Cost:</b> {{itemCost}}$</p>
             <p><b>Rental State:</b> {{#if rentalState}}
                 Rented
                 {{else}}
@@ -33,8 +33,24 @@
 <div class="grid">
     {{#each allItemTypes}}
     <div>
-        <h3>Name: {{name}}</h3>
+        <h4>Name: {{name}}</h4>
         <p>Id: {{id}}</p>
+        <br>
+    </div>
+    {{/each}}
+</div>
+
+<h1>Users</h1>
+<br>
+<div class="grid">
+    {{#each allUsers}}
+    <div>
+        <h4>Username: {{username}}</h4>
+        <p>Id: {{id}}</p>
+        <p>First Name: {{firstName}}</p>
+        <p>Last Name: {{lastName}}</p>
+        <p>Credit: {{credit}}$</p>
+        <p><b>User Type:</b> {{lookup @root.userTypes userType }}</p>
         <br>
     </div>
     {{/each}}

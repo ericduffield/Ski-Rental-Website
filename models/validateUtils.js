@@ -1,7 +1,8 @@
 const validator = require('validator');
+var format = /^[!@#$%^&*()_+\-=\[\]{};':"\\|,.<>\/?]*$/;
 
 function isValidUserType(userType) {
-    if (userType === '0' || userType === '1') {
+    if (userType.toLowerCase() === 'user' || userType.toLowerCase() == 'admin') {
         return true;
     }
     return false;
@@ -10,7 +11,7 @@ function isValidAlphanumeric(string) {
     if (validator.isAlphanumeric(validator.blacklist(string, ' '))) {
         return true;
     }
-    return false;
+    return string != '' && !string.match(format);
 }
 function isValidPassword(password) {
     if (validator.isStrongPassword(password)) {
@@ -25,6 +26,7 @@ function isValidDecimal(decimal) {
     return false;
 }
 function isValidInteger(integer) {
+    integer = integer.toString();
     if (validator.isInt(integer)) {
         return true;
     }
@@ -37,15 +39,20 @@ function isValidBoolean(boolean) {
     return false;
 }
 
+function isValidDescription(description) {
+    return description != '';
+}
 
 function isValidItemType(itemType) {
-    //TODO
-    return true;
+    return itemType != '' && itemType >= 0 && itemType <= 7;
 }
+
 function isValidRentalState(rentalState) {
-    //TODO
-    return true;
+    return rentalState != '' && rentalState >= 0 && rentalState <= 1;
 }
+
+
+
 function isValidStartTime(startTime) {
     //TODO
     return true;
@@ -58,10 +65,20 @@ function isValidDuration(duration) {
     //TODO
     return true;
 }
-function isValidCredit(credit) {
-    //TODO
-    return true;
+
+function isValidName(name) {
+    if (validator.isAlpha(name)) {
+        return true;
+    }
+    return false;
 }
+function isValidTime(time) {
+    if (validator.isISO8601(time)) {
+        return true;
+    }
+    return false;
+}
+
 
 module.exports = {
     isValidUserType,
@@ -74,5 +91,8 @@ module.exports = {
     isValidRentalState,
     isValidStartTime,
     isValidEndTime,
-    isValidDuration
+    isValidDuration,
+    isValidDescription,
+    isValidName,
+    isValidTime
 }

@@ -10,6 +10,7 @@ router.all('*', error);
  * @param {*} res 
  */
 function error(req, res) {
+    res.status(404);
     res.render("error.hbs", { alertMessage: "Error! Page not found.", image: "/images/warning.webp", alertClass: "404", error: true });
 }
 
