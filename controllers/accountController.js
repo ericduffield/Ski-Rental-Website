@@ -29,7 +29,7 @@ function signup(req, res) {
  * @param {*} req The request of the method
  * @param {*} res The response of the method
  */
-router.get('/account', async function (req, res) {
+router.get('/account', async function (request, response) {
         if(!await model.authenticateUser(request)){
             response.render("login.hbs", {message: "Unauthorized Access - Please log in to an account to use this feature"}); 
         }
