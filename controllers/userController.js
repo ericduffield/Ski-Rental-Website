@@ -39,7 +39,6 @@ async function home(request, response) {
 
 router.get('/rent', async function (request, response) {
     const pageData = {
-        image: "/images/hero.jpg", 
         rent: true,
         itemsSnow: 
         [

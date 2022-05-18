@@ -619,7 +619,7 @@ form label {
 }
 #specialMove
 {
-	margin-left: 25px;
+	margin-left: 35px;
 }
 .imageSki
 {
@@ -725,7 +725,27 @@ form label {
 .buttonAboutUs:hover {
 	box-shadow: 0 12px 16px 0 rgba(0,0,0,0.24),0 17px 50px 0 rgba(0,0,0,0.19);
 }
-
+.locationText
+{
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	flex-direction: column;
+	padding-top: none;
+}
+.locationEdit
+{
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	flex-direction: row;
+}
+.locationEdit iframe
+{
+	margin: 30px;
+	border-radius: 5%;
+	border-style: solid;
+}
 /*									About Us Page Starter							*/
 .aboutContainer
 {
@@ -1164,7 +1184,15 @@ form label {
 	padding: 10px;
 	margin-bottom: 10px;
 }
-
+.RentPageEdit
+{
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+	justify-content: center;
+	margin: 50px;
+	width: 700px;
+}
 /*							SignUp page edits			**/
 .container input
 {
@@ -1197,3 +1225,15 @@ form label {
 	padding: 10px;
 	margin-bottom: 10px;
 }
+/*							Account page edits				*/
+.logoutAccount button
+{
+	width: 70%;
+	height: 50px;
+	border: 1px solid var(--primary);
+	border-radius: 5px;
+	padding: 10px;
+	margin-bottom: 10px;
+}
+
+
