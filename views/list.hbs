@@ -2,56 +2,46 @@
 <h1>{{message}}</h1>
 {{/if}}
 
-<h1>Items</h1>
+<h2>Items</h2>
 <br>
 <div class="grid">
     {{#each allItems as |item|}}
     <div>
-        <p class="name">Name: {{name}}</p>
+        <p class="name">{{name}}</p>
         <div class="fields">
             <p><b>Id:</b> {{id}}</p>
-            <p><b>Description:</b> Description: {{description}}</p>
+            <p><b>Description:</b> {{description}}</p>
             <p><b>Cost:</b> {{itemCost}}$</p>
-            <p><b>Rental State:</b> {{#if rentalState}}
-                Rented
-                {{else}}
-                Available
-                {{/if}}
-            </p>
             {{decrement "typeIndex" itemType}}
             {{#with (lookup @root.allItemTypes @root.typeIndex )}}
             <p><b>Item Type:</b> {{name}}</p>
             {{/with}}
         </div>
-        <br>
     </div>
     {{/each}}
 </div>
 
-<h1>Item Types</h1>
-<br>
+<h2>Item Types</h2>
 <div class="grid">
     {{#each allItemTypes}}
     <div>
-        <h4>Name: {{name}}</h4>
+        <h4>{{name}}</h4>
         <p>Id: {{id}}</p>
-        <br>
     </div>
     {{/each}}
 </div>
 
-<h1>Users</h1>
-<br>
+<h2>Users</h2>
 <div class="grid">
     {{#each allUsers}}
     <div>
-        <h4>Username: {{username}}</h4>
+        <h4>{{username}}</h4>
         <p>Id: {{id}}</p>
         <p>First Name: {{firstName}}</p>
         <p>Last Name: {{lastName}}</p>
         <p>Credit: {{credit}}$</p>
-        <p><b>User Type:</b> {{lookup @root.userTypes userType }}</p>
-        <br>
+        {{decrement "usertypeIndex" userType}}
+        <p><b>User Type:</b> {{lookup @root.userTypes @root.usertypeIndex }}</p>
     </div>
     {{/each}}
 </div>

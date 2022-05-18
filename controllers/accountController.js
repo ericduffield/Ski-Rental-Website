@@ -14,7 +14,7 @@ router.get('/signup', signup);
  * @param {*} res The response of the method
  */
 async function login(req, res) {
-    res.render("login.hbs", {admin: await adminController.AdminAuth(req)});
+    res.render("login.hbs", { admin: await adminController.AdminAuth(req) });
 }
 /**
  * Renders the signup page
@@ -30,31 +30,31 @@ function signup(req, res) {
  * @param {*} res The response of the method
  */
 router.get('/account', async function (request, response) {
-        if(!await model.authenticateUser(request)){
-            response.render("login.hbs", {message: "Unauthorized Access - Please log in to an account to use this feature"}); 
-        }
-        else{
-            const session = await model.refreshSession(request, response);
-            const expiresAt = new Date(session.expiresAt);
-            response.cookie("sessionId", session.id, { expires: expiresAt });
-            response.cookie("userId", session.userId, { expires: expiresAt });
-            response.cookie("userType", session.userType, { expires: expiresAt });        
-            response.render("account.hbs", {loggedIn: true});
-        }
+    if (!await model.authenticateUser(request)) {
+        response.render("login.hbs", { message: "Unauthorized Access - Please log in to an account to use this feature" });
     }
+    else {
+        const session = await model.refreshSession(request, response);
+        const expiresAt = new Date(session.expiresAt);
+        response.cookie("sessionId", session.id, { expires: expiresAt });
+        response.cookie("userId", session.userId, { expires: expiresAt });
+        response.cookie("userType", session.userType, { expires: expiresAt });
+        response.render("account.hbs", { loggedIn: true });
+    }
+}
 );
 
 router.post('/logout', logout);
 
 async function logout(request, response) {
-    if(await model.authenticateUser(request)){        
+    if (await model.authenticateUser(request)) {
         await model.deleteSessionById(request.cookies.sessionId);
         response.clearCookie("sessionId");
         response.clearCookie("userId");
         response.clearCookie("userType");
         response.redirect("/");
     }
-    else{
+    else {
         response.redirect("/");
     }
 }
@@ -87,11 +87,11 @@ async function loginSubmit(req, res) {
     const user = await model.getUserByUsername(username);
 
     //Check if user exists
-    if(await model.verifyLogin(username, password)){
+    if (await model.verifyLogin(username, password)) {
         // Create a session object that will expire in 2 minutes
         const userType = await model.getUserTypeFromTypeId(user.userType);
         const sessionId = await model.createSession(user.id, userType, 5);
-        
+
         const currentSession = await model.getCurrentSession(sessionId);
         const expiresAt = new Date(currentSession.expiresAt);
 
@@ -100,15 +100,15 @@ async function loginSubmit(req, res) {
         res.cookie("userId", user.id, { expires: expiresAt });
         res.cookie("userType", userType, { expires: expiresAt });
         pageData.admin = userType === 'Admin';
-        if(pageData.admin){
+        if (pageData.admin) {
             adminController.listResponse(res, "/images/hero.jpg", false, false);
         }
-        else{
+        else {
             res.render("home.hbs", pageData);
         }
     }
-    else{
-        res.render("login.hbs", {message: "Invalid username or password", username: username, password: password});
+    else {
+        res.render("login.hbs", { message: "Invalid username or password", username: username, password: password });
     }
 }
 
@@ -117,22 +117,22 @@ async function loginSubmit(req, res) {
  * @param {*} req The request of the method
  * @param {*} res The response of the method
  */
-async function signupSubmit(req, res) {    
-    try{
-    if(req.body.password === req.body.confirmPassword){
-        //Create new user
-        await model.createUser('User', req.body.username, req.body.password, req.body.firstName, req.body.lastName, 0);
-        //Renders login page with success message
-        res.render("login.hbs", { message: "Account created successfully!", username: req.body.username });   
+async function signupSubmit(req, res) {
+    try {
+        if (req.body.password === req.body.confirmPassword) {
+            //Create new user
+            await model.createUser(0, req.body.username, req.body.password, req.body.firstName, req.body.lastName, 0);
+            //Renders login page with success message
+            res.render("login.hbs", { message: "Account created successfully!", username: req.body.username });
         }
-        else{
-            throw new Error("Password do not match");            
+        else {
+            throw new Error("Password do not match");
         }
     }
-    catch(err){
+    catch (err) {
         console.error(err.message);
         //Renders signup page again with error message
-        res.render("signup.hbs", { message: err.message, username: req.body.username, firstName: req.body.firstName, lastName: req.body.lastName, password: req.body.password, conformPassword: req.body.confirmPassword});
+        res.render("signup.hbs", { message: err.message, username: req.body.username, firstName: req.body.firstName, lastName: req.body.lastName, password: req.body.password, conformPassword: req.body.confirmPassword });
     }
 }
 

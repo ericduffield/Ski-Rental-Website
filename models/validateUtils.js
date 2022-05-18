@@ -2,7 +2,7 @@ const validator = require('validator');
 var format = /^[!@#$%^&*()_+\-=\[\]{};':"\\|,.<>\/?]*$/;
 
 function isValidUserType(userType) {
-    if (userType.toLowerCase() === 'user' || userType.toLowerCase() == 'admin') {
+    if (userType == '1' || userType == '2') {
         return true;
     }
     return false;
@@ -47,10 +47,6 @@ function isValidItemType(itemType) {
     return itemType != '' && itemType >= 0 && itemType <= 7;
 }
 
-function isValidRentalState(rentalState) {
-    return rentalState != '' && rentalState >= 0 && rentalState <= 1;
-}
-
 
 
 function isValidStartTime(startTime) {
@@ -88,7 +84,6 @@ module.exports = {
     isValidInteger,
     isValidBoolean,
     isValidItemType,
-    isValidRentalState,
     isValidStartTime,
     isValidEndTime,
     isValidDuration,
