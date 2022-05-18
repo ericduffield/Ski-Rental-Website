@@ -39,10 +39,26 @@ router.get('/account', async function (request, response) {
             response.cookie("sessionId", session.id, { expires: expiresAt });
             response.cookie("userId", session.userId, { expires: expiresAt });
             response.cookie("userType", session.userType, { expires: expiresAt });        
-            response.render("account.hbs");
+            response.render("account.hbs", {loggedIn: true});
         }
     }
 );
+
+router.post('/logout', logout);
+
+async function logout(request, response) {
+    if(await model.authenticateUser(request)){        
+        await model.deleteSessionById(request.cookies.sessionId);
+        response.clearCookie("sessionId");
+        response.clearCookie("userId");
+        response.clearCookie("userType");
+        response.redirect("/");
+    }
+    else{
+        response.redirect("/");
+    }
+}
+
 
 //=================FORM SUBMISSION ENDPOINTS====================
 
