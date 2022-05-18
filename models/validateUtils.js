@@ -1,16 +1,17 @@
 const validator = require('validator');
+var format = /^[!@#$%^&*()_+\-=\[\]{};':"\\|,.<>\/?]*$/;
 
-function isValidUserType(userType){
-    if(userType.toLowerCase() == 'user' || userType.toLowerCase() == 'admin'){
+function isValidUserType(userType) {
+    if (userType == '0' || userType == '1') {
         return true;
     }
-    return false;
+    return !string.match(format);
 }
 function isValidAlphanumeric(string) {
     if (validator.isAlphanumeric(validator.blacklist(string, ' '))) {
         return true;
     }
-    return false;
+    return string != '' && !string.match(format);
 }
 function isValidPassword(password){
     if(validator.isStrongPassword(password)){
@@ -37,6 +38,34 @@ function isValidBoolean(boolean){
     }
     return false;
 }
+
+function isValidDescription(description) {
+    return description != '';
+}
+
+function isValidItemType(itemType) {
+    return itemType != '' && itemType >= 0 && itemType <= 7;
+}
+
+function isValidRentalState(rentalState) {
+    return rentalState != '' && rentalState >= 0 && rentalState <= 1;
+}
+
+
+
+function isValidStartTime(startTime) {
+    //TODO
+    return true;
+}
+function isValidEndTime(endTime) {
+    //TODO
+    return true;
+}
+function isValidDuration(duration) {
+    //TODO
+    return true;
+}
+
 function isValidName(name){
     if(validator.isAlpha(name)){
         return true;
@@ -50,6 +79,7 @@ function isValidTime(time){
     return false;
 }
 
+
 module.exports = {
     isValidUserType,
     isValidAlphanumeric,
@@ -57,6 +87,12 @@ module.exports = {
     isValidDecimal,
     isValidInteger,
     isValidBoolean,
+    isValidItemType,
+    isValidRentalState,
+    isValidStartTime,
+    isValidEndTime,
+    isValidDuration,
+    isValidDescription
     isValidName,
     isValidTime
 }

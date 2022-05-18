@@ -170,14 +170,6 @@ async function initialize(dbname, reset) {
     }
 }
 
-
-//Get for connection
-function getConnection() {
-    return connection;
-}
-
-
-
 // ----------------------- Users -----------------------
 
 /**
@@ -207,6 +199,9 @@ async function createUser(userType, username, password, firstName, lastName, cre
     }
     if (!validate.isValidName(firstName)) {
         throw new UserDataError("Invalid first name");
+    }
+    if (!validate.isValidAlphanumeric(lastName)) {
+        throw new UserDataError("Invalid last name");
     }
     if (!validate.isValidName(lastName)) {
         throw new UserDataError("Invalid last name");
@@ -244,7 +239,8 @@ async function editUser(id, userType, username, password, firstName, lastName, c
     if (!validate.isValidInteger(id)) {
         throw new UserDataError("Invalid id");
     }
-    if (getUserById(id).length == 0) {
+    let result = await getUserById(id);
+    if (result.length == 0) {
         throw new UserDataError("Invalid id");
     }
     if (!validate.isValidUserType(userType)) {
@@ -253,7 +249,7 @@ async function editUser(id, userType, username, password, firstName, lastName, c
     if (!validate.isValidAlphanumeric(username)) {
         throw new UserDataError("Invalid username");
     }
-    else if (checkIfUsernameIsTaken(username)) {
+    if (await checkIfUsernameIsTaken(username)) {
         throw new UserDataError("Username already taken");
     }
     if (!validate.isValidPassword(password)) {
@@ -286,6 +282,11 @@ async function editUser(id, userType, username, password, firstName, lastName, c
  * @throws SystemError if there is an error in the database while deleting
  */
 async function deleteUser(id) {
+    let result = await getUserById(id);
+    if (result == null) {
+        return result;
+    }
+
     if (!validate.isValidInteger(id)) {
         throw new UserDataError("Invalid id");
     }
@@ -316,7 +317,7 @@ async function getUserById(id) {
             logger.error(error)
             throw new SystemError("Error getting user");
         });
-    return result[0][0];
+    return result[0][0] ? result[0][0] : null;
 }
 
 /**
@@ -426,13 +427,16 @@ async function addItem(name, description, itemCost, itemType, rentalState) {
     if (!validate.isValidAlphanumeric(name)) {
         throw new UserDataError("Invalid name");
     }
+    if (!validate.isValidDescription(description)) {
+        throw new UserDataError("Invalid name");
+    }
     if (!validate.isValidDecimal(itemCost)) {
         throw new UserDataError("Invalid cost");
     }
     if (!validate.isValidItemType(itemType)) {
         throw new UserDataError("Invalid item type");
     }
-    if (rentalState != 0 && rentalState != 1) {
+    if (!validate.isValidRentalState(rentalState)) {
         throw new UserDataError("Invalid rental state");
     }
 
@@ -480,6 +484,11 @@ async function editItem(id, name, description, itemCost, itemType) {
  * @param {*} id The id of the item to be deleted
  */
 async function deleteItem(id) {
+    let result = await getItemById(id);
+    if (result == null) {
+        return result;
+    }
+
     if (!validate.isValidInteger(id)) {
         throw new UserDataError("Invalid id");
     }
@@ -489,6 +498,7 @@ async function deleteItem(id) {
             logger.error(error)
             throw new SystemError("Error deleting item");
         });
+
 }
 
 /**
@@ -506,7 +516,7 @@ async function getItemById(id) {
             logger.error(error)
             throw new SystemError("Error getting item");
         });
-    return result[0][0];
+    return result[0][0] ? result[0][0] : null;
 }
 
 /**
@@ -558,8 +568,14 @@ async function editItemType(id, name) {
     if (!validate.isValidAlphanumeric(name)) {
         throw new UserDataError("Invalid name");
     }
-    if (getItemTypeByName(name) != null) {
+    if (await getItemTypeByName(name) != null) {
         throw new UserDataError("Name already taken");
+    }
+
+    let result = await getItemTypeById(id);
+
+    if (result == null) {
+        throw new UserDataError("Error ItemType not in database");
     }
 
     const sqlQuery = 'UPDATE itemTypes SET name = \'' + name + '\' WHERE id = ' + id;
@@ -576,10 +592,16 @@ async function editItemType(id, name) {
  * @param {*} id The id of the item type to be deleted
  */
 async function deleteItemType(id) {
+    let result = await getItemTypeById(id);
+
+    if (result == null) {
+        throw new UserDataError("Error ItemType not in database");
+    }
+
     if (!validate.isValidInteger(id)) {
         throw new UserDataError("Invalid id");
     }
-    const sqlQuery = 'DELETE FROM itemTypes WHERE id = ' + id;
+    sqlQuery = 'DELETE FROM itemTypes WHERE id = ' + id;
     await connection.execute(sqlQuery)
         .catch((error) => {
             logger.error(error);
@@ -588,8 +610,24 @@ async function deleteItemType(id) {
 }
 
 /**
+ * Returns an item from database
+ * Used to check if an id is in the database
+ * @param {*} id The id of the item to be returned
+ */
+async function getItemTypeById(id) {
+    const sqlQuery = 'SELECT * FROM itemTypes WHERE id = \'' + id + '\'';
+    const result = await connection.execute(sqlQuery)
+        .catch((error) => {
+            logger.error(error)
+            throw new SystemError("Error getting item type");
+        });
+    return result[0][0] ? result[0][0] : null;
+}
+
+/**
  * Returns an item type from the database
  * Used to check if an item type name already exists
+ * @param {*} name The name of the item type to be returned
  */
 async function getItemTypeByName(name) {
     if (!validate.isValidAlphanumeric(name)) {
@@ -602,7 +640,7 @@ async function getItemTypeByName(name) {
             logger.error(error)
             throw new SystemError("Error getting item type");
         });
-    return result[0][0];
+    return result[0][0] ? result[0][0] : null;
 }
 
 /**
@@ -1014,6 +1052,11 @@ class SystemError extends Error {
     }
 }
 
+//Get for connection
+function getConnection() {
+    return connection;
+}
+
 module.exports = {
     initialize,
 
@@ -1038,6 +1081,8 @@ module.exports = {
     deleteItemType,
     getItemTypeByName,
     getAllItemTypes,
+    getConnection,
+    getItemTypeById
 
     // Login / Sessions
     verifyLogin,
