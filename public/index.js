@@ -63,9 +63,7 @@ const bad = "❗";
 const good = "✅";
 
 //username
-
 const username = document.querySelector(".uInput");
-
 const un = document.querySelector(".un");
 
 username.addEventListener('input', () => {

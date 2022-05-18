@@ -9,8 +9,8 @@ const logger = require('../logger');
 
 //#region USER PAGES
 
-router.get('/home', home);
 router.get('/', home);
+router.get('/home', home);
 
 function home(request, response) {
     const pageData = {
@@ -21,32 +21,76 @@ function home(request, response) {
     response.render("home.hbs", pageData);
 }
 
-router.get('/rent', rent);
+router.get('/rent', async function (request, response) {
+        const pageData = {
+            image: "/images/hero.jpg",
+            rent: true,
+            items: [
+                {
+                    name: "Snowboard",
+                    formInput: "/rentSubmit",
+                }
+            ]
+        };
 
-function rent(request, response) {
-    const pageData = {
-        image: "/images/hero.jpg",
-        rent: true,
-        items: [
-            {
-                name: "Snowboard",
-                formInput: "/rentSumbit",
+        if(!await model.authenticateUser(request)){
+            response.render("login.hbs", {message: "Unauthorized Access - Please log in to an account to use this feature"}); 
+        }
+        else{
+            const session = await model.refreshSession(request, response);
+            const expiresAt = new Date(session.expiresAt);
+            response.cookie("sessionId", session.id, { expires: expiresAt });
+            response.cookie("userId", session.userId, { expires: expiresAt });
+            response.cookie("userType", session.userType, { expires: expiresAt });        
+            response.render("rent.hbs", pageData);
+        }
+    }
+);
+
+router.post('/rentSubmit', async function (request, response) {
+        let startTime = request.body.startTime;
+        let duration = request.body.duration;
+        let itemType = request.body.itemType;  
+        let endTime = "";
+
+        if(!await model.authenticateUser(request)){
+            response.render("login.hbs", {message: "Unauthorized Access - Please log in to an account to use this feature"}); 
+        }
+        else
+        {
+            const session = await model.refreshSession(request, response);
+            const expiresAt = new Date(session.expiresAt);
+            response.cookie("sessionId", session.id, { expires: expiresAt });
+            response.cookie("userId", session.userId, { expires: expiresAt });
+            response.cookie("userType", session.userType, { expires: expiresAt });       
+            
+            
+            // Make sure variables are correct time
+            try{
+                startTime = new Date(startTime);
+                duration = parseInt(duration);
+                endTime = new Date(startTime).setHours(startTime.getHours() + duration);
+                itemType = parseInt(itemTypeId);
             }
-        ]
-    };
+            catch(error){
+                console.error(error.message);
+            }
 
-    if(!await model.authenticateUser(request)){
-        response.render("login.hbs", {message: "Unauthorized Access - Please log in to an account to use this feature"}); 
+            // Try to create the rental
+            try {
+                // Create the rental
+                await model.createRental(session.userId, startTime, endTime, duration, itemType);
+                console.log("Successfully rented ski equipment");
+                rentResponse(response, "/images/hero.jpg", "Successfully rented ski equipment", false);
+            }
+            catch (err) {
+                // If it didnt work, display error message and return to rental page
+                console.error(err.message);            
+                response.render('/rent', {message: err.message});
+            }
+        }
     }
-    else{
-        const session = await model.refreshSession(request, response);
-        const expiresAt = new Date(session.expiresAt);
-        response.cookie("sessionId", session.id, { expires: expiresAt });
-        response.cookie("userId", session.userId, { expires: expiresAt });
-        response.cookie("userType", session.userType, { expires: expiresAt });        
-        response.render("rent.hbs", pageData);
-    }
-}
+);
 
 router.get('/about', about);
 
@@ -57,62 +101,6 @@ function about(request, response) {
     };
 
     response.render("about.hbs", pageData);
-}
-
-router.get('/get', getForm);
-
-function getForm(request, response) {
-    const pageData = {
-        formInput: "/getSkiEquipment",
-        image: "/images/hero.jpg"
-    };
-
-    response.render("getSkiEquipment.hbs", pageData);
-}
-
-//#endregion
-
-//#region USER ACTIONS
-
-router.post('/rentSumbit', rentSumbit);
-
-async function rentSumbit(request, response) {
-    if(!await model.authenticateUser(request)){
-        response.render("login.hbs", {message: "Unauthorized Access - Please log in to an account to use this feature"}); 
-    }
-    else{
-        const session = await model.refreshSession(request, response);
-        const expiresAt = new Date(session.expiresAt);
-        response.cookie("sessionId", session.id, { expires: expiresAt });
-        response.cookie("userId", session.userId, { expires: expiresAt });
-        response.cookie("userType", session.userType, { expires: expiresAt });       
-        
-        try {
-            console.log("Successfully rented ski equipment");
-            rentResponse(response, "/images/hero.jpg", "Successfully rented ski equipment", false);
-        }
-        catch (err) {
-            console.error(err.message);
-            //Renders rent page again with error message
-            rentResponse(response, "/images/warning.webp", err.message, true);
-        }
-    }
-}
-
-function rentResponse(response, imageUrl, theMessage) {
-    const pageData = {
-        image: imageUrl,
-        message: theMessage,
-        rent: true,
-        items: [
-            {
-                name: "Snowboard",
-                formInput: "/rentSumbit",
-            }
-        ]
-    }
-
-    response.render("rent.hbs", pageData);
 }
 
 //#endregion

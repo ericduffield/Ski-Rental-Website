@@ -613,10 +613,10 @@ async function createRental(userId, startTime, endTime, Duration, itemType) {
     if (!validate.isValidInteger(userId)) {
         throw new UserDataError("Invalid user id");
     }
-    if (!validate.isValidDate(startTime)) {
+    if (!validate.isValidTime(startTime)) {
         throw new UserDataError("Invalid start time");
     }
-    if (!validate.isValidDate(endTime)) {
+    if (!validate.isValidTime(endTime)) {
         throw new UserDataError("Invalid end time");
     }    
     if(endTime > startTime){
@@ -625,7 +625,7 @@ async function createRental(userId, startTime, endTime, Duration, itemType) {
     if (!validate.isValidInteger(Duration)) {
         throw new UserDataError("Invalid duration");
     }
-    if (!validate.isValidItemType(itemType)) {
+    if (!validate.isValidName(itemType)) {
         throw new UserDataError("Invalid item type");
     }
 
@@ -703,10 +703,10 @@ async function editRental(rentalId, userId, startTime, endTime, duration, itemTy
     if (!validate.isValidInteger(userId)) {
         throw new UserDataError("Invalid user id");
     }
-    if (!validate.isValidDate(startTime)) {
+    if (!validate.isValidTime(startTime)) {
         throw new UserDataError("Invalid start time");
     }
-    if (!validate.isValidDate(endTime)) {
+    if (!validate.isValidTime(endTime)) {
         throw new UserDataError("Invalid end time");
     }
     if(endTime > startTime){

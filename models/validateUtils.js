@@ -49,6 +49,7 @@ function isValidTime(time){
     }
     return false;
 }
+
 module.exports = {
     isValidUserType,
     isValidUsername,
@@ -56,5 +57,6 @@ module.exports = {
     isValidDecimal,
     isValidInteger,
     isValidBoolean,
-    isValidName
+    isValidName,
+    isValidTime
 }

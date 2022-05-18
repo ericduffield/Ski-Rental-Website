@@ -6,7 +6,6 @@ const logger = require('../logger');
 
 router.get('/login', login);
 router.get('/signup', signup);
-router.get('/account', account);
 
 /**
  * renders the login page
@@ -29,19 +28,20 @@ function signup(req, res) {
  * @param {*} req The request of the method
  * @param {*} res The response of the method
  */
-function account(req, res) {
-    if(!await model.authenticateUser(request)){
-        response.render("login.hbs", {message: "Unauthorized Access - Please log in to an account to use this feature"}); 
+router.get('/account', async function (req, res) {
+        if(!await model.authenticateUser(request)){
+            response.render("login.hbs", {message: "Unauthorized Access - Please log in to an account to use this feature"}); 
+        }
+        else{
+            const session = await model.refreshSession(request, response);
+            const expiresAt = new Date(session.expiresAt);
+            response.cookie("sessionId", session.id, { expires: expiresAt });
+            response.cookie("userId", session.userId, { expires: expiresAt });
+            response.cookie("userType", session.userType, { expires: expiresAt });        
+            response.render("account.hbs");
+        }
     }
-    else{
-        const session = await model.refreshSession(request, response);
-        const expiresAt = new Date(session.expiresAt);
-        response.cookie("sessionId", session.id, { expires: expiresAt });
-        response.cookie("userId", session.userId, { expires: expiresAt });
-        response.cookie("userType", session.userType, { expires: expiresAt });        
-        response.render("account.hbs");
-    }
-}
+);
 
 //=================FORM SUBMISSION ENDPOINTS====================
 
