@@ -13,8 +13,8 @@ function isValidAlphanumeric(string) {
     }
     return string != '' && !string.match(format);
 }
-function isValidPassword(password) {
-    if (validator.isStrongPassword(password)) {
+function isValidPassword(password){
+    if(validator.isStrongPassword(password)){
         return true;
     }
     return false;
@@ -25,18 +25,20 @@ function isValidDecimal(decimal) {
     }
     return false;
 }
-function isValidInteger(integer) {
-    if (validator.isInt(integer)) {
+function isValidInteger(integer){
+    integer = integer.toString();
+    if(validator.isInt(integer)){
         return true;
     }
     return false;
 }
-function isValidBoolean(boolean) {
-    if (validator.isBoolean(boolean)) {
+function isValidBoolean(boolean){
+    if(validator.isBoolean(boolean)){
         return true;
     }
     return false;
 }
+
 function isValidDescription(description) {
     return description != '';
 }
@@ -64,6 +66,20 @@ function isValidDuration(duration) {
     return true;
 }
 
+function isValidName(name){
+    if(validator.isAlpha(name)){
+        return true;
+    }
+    return false;
+}
+function isValidTime(time){
+    if(validator.isISO8601(time)){
+        return true;
+    }
+    return false;
+}
+
+
 module.exports = {
     isValidUserType,
     isValidAlphanumeric,
@@ -77,4 +93,6 @@ module.exports = {
     isValidEndTime,
     isValidDuration,
     isValidDescription
+    isValidName,
+    isValidTime
 }
