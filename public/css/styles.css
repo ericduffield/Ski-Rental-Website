@@ -529,7 +529,7 @@ h2{
 	gap: 4rem;
 }
 
-.grid div {
+.grid > div {
 	padding: 1.2rem;
 	background-color: var(--primary);
 	border-radius: 1rem;

@@ -96,7 +96,7 @@ async function initialize(dbname, reset) {
             );
 
         // Inventory
-        const inventory = 'CREATE TABLE IF NOT EXISTS inventory(id int AUTO_INCREMENT NOT NULL PRIMARY KEY, name varchar(50) NOT NULL, description varchar(500) NOT NULL, itemCost decimal NOT NULL, itemType int NOT NULL, FOREIGN KEY (itemType) REFERENCES itemTypes(id))';
+        const inventory = 'CREATE TABLE IF NOT EXISTS inventory(id int AUTO_INCREMENT NOT NULL PRIMARY KEY, name varchar(50) NOT NULL, description varchar(500) NOT NULL, itemCost DECIMAL(18,2) NOT NULL, itemType int NOT NULL, FOREIGN KEY (itemType) REFERENCES itemTypes(id))';
         await connection.execute(inventory)
             .catch((error) => {
                 throw new SystemError("SQL Execution Error - inventory");
@@ -104,7 +104,7 @@ async function initialize(dbname, reset) {
             );
 
         // Users
-        const users = 'CREATE TABLE IF NOT EXISTS users(id int AUTO_INCREMENT NOT NULL PRIMARY KEY, userType int NOT NULL DEFAULT 0, username varchar(50) NOT NULL, password varchar(250), firstName varchar(50) NOT NULL, lastName varchar(50) NOT NULL, credit decimal NOT NULL, FOREIGN KEY (userType) REFERENCES userTypes(id))';
+        const users = 'CREATE TABLE IF NOT EXISTS users(id int AUTO_INCREMENT NOT NULL PRIMARY KEY, userType int NOT NULL DEFAULT 0, username varchar(50) NOT NULL, password varchar(250), firstName varchar(50) NOT NULL, lastName varchar(50) NOT NULL, credit DECIMAL(18,2) NOT NULL, FOREIGN KEY (userType) REFERENCES userTypes(id))';
         await connection.execute(users)
             .catch((error) => {
                 throw new SystemError("SQL Execution Error - Users");
@@ -156,7 +156,7 @@ async function initialize(dbname, reset) {
 
             // Add the base admin user
             const p = await bcrypt.hash("P@ssw0rd", saltRounds);
-            const addAdmin = `INSERT INTO users (userType, username, password, firstName, lastName, credit) values ((Select id from userTypes where name = "Admin"), "Admin", "${p}", "Admin", "Admin", 0)`;
+            const addAdmin = `INSERT INTO users (userType, username, password, firstName, lastName, credit) values ((Select id from userTypes where name = "Admin"), "Admin", "${p}", "Admin", "Admin", 0.00)`;
             await connection.execute(addAdmin)
                 .catch((error) => {
                     throw new SystemError("SQL Execution Error - Adding Admin");
