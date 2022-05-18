@@ -25,14 +25,14 @@ async function initialize(dbname, reset) {
             database: dbname
         });
 
-    
+
 
         // Get rid of foreign keys
         const noForeignKeys = 'SET foreign_key_checks = 0';
         await connection.execute(noForeignKeys)
             .catch((error) => {
                 throw new SystemError("SQL Execution Error - Foreign Key Cancel");
-        });
+            });
 
         if (reset) {
 
@@ -41,42 +41,42 @@ async function initialize(dbname, reset) {
                 .catch((error) => {
                     throw new SystemError("SQL Execution Error - Drop users");
                 }
-            );
+                );
 
             const dropRentals = 'DROP TABLE IF EXISTS rentals';
             await connection.execute(dropRentals)
                 .catch((error) => {
                     throw new SystemError("SQL Execution Error - DROP TABLE rentals");
                 }
-            );
+                );
 
             const dropInventory = 'DROP TABLE IF EXISTS inventory';
             await connection.execute(dropInventory)
                 .catch((error) => {
                     throw new SystemError("SQL Execution Error - DROP TABLE inventory");
                 }
-            );
+                );
 
             const dropItemTypes = 'DROP TABLE IF EXISTS itemTypes';
             await connection.execute(dropItemTypes)
                 .catch((error) => {
                     throw new SystemError("SQL Execution Error - DROP TABLE itemTypes");
                 }
-            );
+                );
 
             const dropUserTypes = 'DROP TABLE IF EXISTS userTypes';
             await connection.execute(dropUserTypes)
                 .catch((error) => {
                     throw new SystemError("SQL Execution Error - DROP TABLE userTypes");
                 }
-            );
+                );
 
             const dropSessions = 'DROP TABLE IF EXISTS sessions';
             await connection.execute(dropSessions)
                 .catch((error) => {
                     throw new SystemError("SQL Execution Error - DROP TABLE sessions");
                 }
-            );
+                );
         }
 
         // User Types
@@ -85,7 +85,7 @@ async function initialize(dbname, reset) {
             .catch((error) => {
                 throw new SystemError("SQL Execution Error - User Types");
             }
-        );
+            );
 
         // Item Types
         const itemTypes = 'CREATE TABLE IF NOT EXISTS itemTypes(id int AUTO_INCREMENT NOT NULL PRIMARY KEY, name varchar(50) NOT NULL)';
@@ -93,7 +93,7 @@ async function initialize(dbname, reset) {
             .catch((error) => {
                 throw new SystemError("SQL Execution Error - item Types");
             }
-        );
+            );
 
         // Inventory
         const inventory = 'CREATE TABLE IF NOT EXISTS inventory(id int AUTO_INCREMENT NOT NULL PRIMARY KEY, name varchar(50) NOT NULL, description varchar(50) NOT NULL, itemCost decimal NOT NULL, itemType int NOT NULL, FOREIGN KEY (itemType) REFERENCES itemTypes(id))';
@@ -101,7 +101,7 @@ async function initialize(dbname, reset) {
             .catch((error) => {
                 throw new SystemError("SQL Execution Error - inventory");
             }
-        );
+            );
 
         // Users
         const users = 'CREATE TABLE IF NOT EXISTS users(id int AUTO_INCREMENT NOT NULL PRIMARY KEY, userType int NOT NULL DEFAULT 0, username varchar(50) NOT NULL, password varchar(250), firstName varchar(50) NOT NULL, lastName varchar(50) NOT NULL, credit decimal NOT NULL, FOREIGN KEY (userType) REFERENCES userTypes(id))';
@@ -109,7 +109,7 @@ async function initialize(dbname, reset) {
             .catch((error) => {
                 throw new SystemError("SQL Execution Error - Users");
             }
-        );
+            );
 
         // Rentals
         const rentals = 'CREATE TABLE IF NOT EXISTS rentals(id int AUTO_INCREMENT NOT NULL PRIMARY KEY, userId int NOT NULL, itemId int NOT NULL, startTime time NOT NULL, endTime time NOT NULL, rentalPrice decimal NOT NULL, duration int NOT NULL, FOREIGN KEY (userId) REFERENCES Users(id), FOREIGN KEY (itemId) REFERENCES inventory(id))';
@@ -117,15 +117,15 @@ async function initialize(dbname, reset) {
             .catch((error) => {
                 throw new SystemError("SQL Execution Error - Rentals");
             }
-        );
+            );
 
         // Sessions.
         const sessions = 'CREATE TABLE IF NOT EXISTS sessions(id varchar(50) NOT NULL PRIMARY KEY, userId int NOT NULL, userType varchar(10) NOT NULL, expiresAt varchar(100) NOT NULL, FOREIGN KEY (userId) REFERENCES users(id))';
-            await connection.execute(sessions)
-                .catch((error) => {
-                    throw new SystemError("SQL Execution Error - Sessions");
+        await connection.execute(sessions)
+            .catch((error) => {
+                throw new SystemError("SQL Execution Error - Sessions");
             }
-        );
+            );
 
         // Set back foreign key constraints
         const ForeignKeys = 'SET foreign_key_checks = 1';
@@ -134,9 +134,9 @@ async function initialize(dbname, reset) {
             .catch((error) => {
                 throw new SystemError("SQL Execution Error - Foreign Key Back On");
             }
-        );
+            );
 
-        if(reset){           
+        if (reset) {
 
             // Add both user types
             const userTypeQuery = 'INSERT INTO userTypes (name) VALUES ("User"), ("Admin")';
@@ -144,7 +144,7 @@ async function initialize(dbname, reset) {
                 .catch((error) => {
                     throw new SystemError("SQL Execution Error - Adding User Types");
                 }
-            );
+                );
 
             // Add all item types
             const itemTypeQuery = 'INSERT INTO itemTypes (name) VALUES ("Boots"), ("Poles"), ("Helmets"), ("Skis"), ("Snowboards"), ("Bundles")';
@@ -152,7 +152,7 @@ async function initialize(dbname, reset) {
                 .catch((error) => {
                     throw new SystemError("SQL Execution Error - Adding Item Types");
                 }
-            );
+                );
 
             // Add the base admin user
             const p = await bcrypt.hash("P@ssw0rd", saltRounds);
@@ -161,7 +161,7 @@ async function initialize(dbname, reset) {
                 .catch((error) => {
                     throw new SystemError("SQL Execution Error - Adding Admin");
                 }
-            );
+                );
         }
 
     }
@@ -191,7 +191,7 @@ async function createUser(userType, username, password, firstName, lastName, cre
     if (!validate.isValidAlphanumeric(username)) {
         throw new UserDataError("Invalid username");
     }
-    if(await checkIfUsernameIsTaken(username)){
+    if (await checkIfUsernameIsTaken(username)) {
         throw new UserDataError("Username is already taken");
     }
     if (!validate.isValidPassword(password)) {
@@ -212,12 +212,12 @@ async function createUser(userType, username, password, firstName, lastName, cre
     }
 
     const sqlQuery = 'INSERT INTO users (username, password, firstName, lastName, credit, userType) VALUES (\"' + username + '\",\"' + await bcrypt.hash(password, saltRounds) + '\",\"' + firstName + '\",\"' + lastName + '\",\"' + credit + '\", (Select id from userTypes where name = \"' + userType + '\"))';
-    try{
-    await connection.execute(sqlQuery)
+    try {
+        await connection.execute(sqlQuery)
     }
-    catch(error){
-            logger.error(error)
-            throw new SystemError("Error adding user");
+    catch (error) {
+        logger.error(error)
+        throw new SystemError("Error adding user");
     };
     return { "userType": userType, "username": username, "password": password, "firstName": firstName, "lastName": lastName, "credit": credit };
 }
@@ -375,20 +375,20 @@ async function checkIfUsernameIsTaken(username) {
  * @param {*} password The password to verify
  * @returns true if login information corresponds to a valid user, false otherwise
  */
-async function verifyLogin(username, password){
-    if (username && password){
+async function verifyLogin(username, password) {
+    if (username && password) {
         const sqlQuery = 'SELECT * FROM users WHERE username = \'' + username + '\'';
         const result = await connection.execute(sqlQuery)
             .catch((error) => {
                 logger.error(error)
                 throw new SystemError("Error getting user");
             });
-        if (result[0].length > 0){
-            if(await bcrypt.compare(password, result[0][0].password)){
+        if (result[0].length > 0) {
+            if (await bcrypt.compare(password, result[0][0].password)) {
                 return true;
             }
         }
-        else{
+        else {
             return false;;
         }
     }
@@ -399,7 +399,7 @@ async function verifyLogin(username, password){
  * @param {*} userType The id of the user type
  * @returns The string version of the id counterpart
  */
-async function getUserTypeFromTypeId(userType){
+async function getUserTypeFromTypeId(userType) {
     if (!validate.isValidInteger(userType)) {
         throw new UserDataError("Invalid user type");
     }
@@ -680,8 +680,8 @@ async function createRental(userId, startTime, endTime, Duration, itemType) {
     }
     if (!validate.isValidTime(endTime)) {
         throw new UserDataError("Invalid end time");
-    }    
-    if(endTime > startTime){
+    }
+    if (endTime > startTime) {
         throw new UserDataError("End time must be before start time");
     }
     if (!validate.isValidInteger(Duration)) {
@@ -710,7 +710,7 @@ async function createRental(userId, startTime, endTime, Duration, itemType) {
             logger.error(error)
             throw new SystemError("Error getting items");
         }
-    );
+        );
     // This is all of the items
     const items = result[0];
     let itemId = null;
@@ -723,7 +723,7 @@ async function createRental(userId, startTime, endTime, Duration, itemType) {
                 logger.error(error)
                 throw new SystemError("Error getting rentals");
             }
-        );
+            );
         // If there are no rentals at that time, set the itemId to the item id
         // Break the loop because that item can be rented
         if (result[0].length == 0) {
@@ -743,7 +743,7 @@ async function createRental(userId, startTime, endTime, Duration, itemType) {
             logger.error(error)
             throw new SystemError("Error adding rental");
         }
-    );
+        );
 }
 
 /**
@@ -758,7 +758,7 @@ async function createRental(userId, startTime, endTime, Duration, itemType) {
  * @param {*} duration The updated duration of the rental
  * @param {*} itemType The updated itemType of the rental
  */
-async function editRental(rentalId, userId, startTime, endTime, duration, itemType){
+async function editRental(rentalId, userId, startTime, endTime, duration, itemType) {
     if (!validate.isValidInteger(rentalId)) {
         throw new UserDataError("Invalid rental id");
     }
@@ -771,7 +771,7 @@ async function editRental(rentalId, userId, startTime, endTime, duration, itemTy
     if (!validate.isValidTime(endTime)) {
         throw new UserDataError("Invalid end time");
     }
-    if(endTime > startTime){
+    if (endTime > startTime) {
         throw new UserDataError("End time must be before start time");
     }
     if (!validate.isValidInteger(duration)) {
@@ -803,7 +803,7 @@ async function editRental(rentalId, userId, startTime, endTime, duration, itemTy
             logger.error(error)
             throw new SystemError("Error getting items");
         }
-    );
+        );
     // This is all of the items
     const items = result[0];
     let itemId = null;
@@ -816,7 +816,7 @@ async function editRental(rentalId, userId, startTime, endTime, duration, itemTy
                 logger.error(error)
                 throw new SystemError("Error getting rentals");
             }
-        );
+            );
         // If there are no rentals at that time, set the itemId to the item id
         // Break the loop because that item can be rented
         if (result[0].length == 0) {
@@ -835,7 +835,7 @@ async function editRental(rentalId, userId, startTime, endTime, duration, itemTy
             logger.error(error)
             throw new SystemError("Error updating rental");
         }
-    );
+        );
     // If this works, cry happy tears; else, cry sad tears    
 }
 
@@ -843,7 +843,7 @@ async function editRental(rentalId, userId, startTime, endTime, duration, itemTy
  * Deletes a rental with the given id
  * @param {*} rentalId The id of the rental to delete
  */
-async function deleteRental(rentalId){
+async function deleteRental(rentalId) {
     if (!validate.isValidInteger(rentalId)) {
         throw new UserDataError("Invalid rental id");
     }
@@ -854,7 +854,7 @@ async function deleteRental(rentalId){
             logger.error(error)
             throw new SystemError("Error deleting rental");
         }
-    );
+        );
 }
 
 /**
@@ -862,14 +862,14 @@ async function deleteRental(rentalId){
  * @param {*} rentalId The id of the rental to get the fields
  * @returns an array of all the fields of the rental 
  */
-async function getRentalById(rentalId){
+async function getRentalById(rentalId) {
     const sqlQuery = 'SELECT * FROM rental WHERE id = ' + rentalId;
     const result = await connection.execute(sqlQuery)
         .catch((error) => {
             logger.error(error)
             throw new SystemError("Error getting rentals");
         }
-    );
+        );
     return result[0][0];
 }
 
@@ -877,14 +877,14 @@ async function getRentalById(rentalId){
  * Gets all the rentals
  * @returns all of the rentals
  */
-async function getAllRentals(){
+async function getAllRentals() {
     const sqlQuery = 'SELECT * FROM rental';
     const result = await connection.execute(sqlQuery)
         .catch((error) => {
             logger.error(error)
             throw new SystemError("Error getting rentals");
         }
-    );
+        );
     return result[0];
 }
 
@@ -900,7 +900,7 @@ async function getCurrentSession(sessionId) {
         .catch((error) => {
             logger.error(error)
             throw new SystemError("Error getting session");
-    });
+        });
     return result[0][0];
 }
 
@@ -908,7 +908,7 @@ async function getCurrentSession(sessionId) {
  * Adds a session to the database from a session object
  * @param {*} session The session object to add to the database
  */
-async function addSession(session){
+async function addSession(session) {
     const sqlQuery = 'INSERT INTO sessions (id, userId, userType, expiresAt) VALUES (\'' + session.sessionId + '\',\'' + session.userId + '\',\'' + session.userType + '\',\'' + session.expiresAt + '\')';
     await connection.execute(sqlQuery)
         .catch((error) => {
@@ -921,7 +921,7 @@ async function addSession(session){
  * deletes a session from the database
  * @param {*} sessionId The id of the session to be deleted
  */
-async function deleteSessionById(sessionId){
+async function deleteSessionById(sessionId) {
     const sqlQuery = 'DELETE FROM sessions WHERE id = \'' + sessionId + '\'';
     await connection.execute(sqlQuery)
         .catch((error) => {
@@ -933,14 +933,14 @@ async function deleteSessionById(sessionId){
 /**
  * The session class to transfer session items more easily
  */
-class Session{
-    constructor(sessionId, userId, userType, expiresAt){
+class Session {
+    constructor(sessionId, userId, userType, expiresAt) {
         this.sessionId = sessionId;
         this.userId = userId;
         this.userType = userType;
         this.expiresAt = expiresAt;
     }
-    isExpired(){
+    isExpired() {
         this.expiresAt < (new Date());
     }
 }
@@ -957,10 +957,10 @@ async function createSession(userId, userType, numMinutes) {
     const sessionId = uuid.v4()
     // Set the expiry time as numMinutes (in milliseconds) after the current time
     const expiresAt = new Date(Date.now() + numMinutes * 60000);
-    
+
     // Create a session object containing information about the user and expiry time
     const thisSession = new Session(sessionId, userId, userType, expiresAt);
-    
+
     // Add the session information to the sessions map, using sessionId as the key
     await addSession(thisSession);
 
@@ -975,24 +975,24 @@ async function createSession(userId, userType, numMinutes) {
 async function authenticateUser(request) {
     // If this request doesn't have any cookies, that means it isn't authenticated. Return null.
     if (!request.cookies) {
-      return null;
+        return null;
     }
     // We can obtain the session token from the requests cookies, which come with every request
     const sessionId = request.cookies['sessionId']
     if (!sessionId) {
-      // If the cookie is not set, return null
-      return null;
-    } 
+        // If the cookie is not set, return null
+        return null;
+    }
     // We then get the session of the user from our session map
     userSession = await getCurrentSession(sessionId);
     if (!userSession) {
-      return null;
+        return null;
     }    // If the session has expired, delete the session from our map and return null
     if (userSession.isExpired < (new Date())) {
-      await deleteSessionById(sessionId);      
-      return null;
+        await deleteSessionById(sessionId);
+        return null;
     }
-    return {sessionId, userSession}; // Successfully validated.
+    return { sessionId, userSession }; // Successfully validated.
 }
 
 /**
@@ -1000,8 +1000,8 @@ async function authenticateUser(request) {
  * @param {*} session The session to check
  * @returns true if the session is an admin session, false if it is not
  */
-function authenticatedAdmin(session){
-    if(session.userSession.userType.toLowerCase() == 'admin'){
+function authenticatedAdmin(session) {
+    if (session.userSession.userType.toLowerCase() == 'admin') {
         return true;
     }
     return false;
@@ -1015,20 +1015,20 @@ function authenticatedAdmin(session){
  */
 async function refreshSession(request, response) {
     const authenticatedSession = await authenticateUser(request);
-      if (!authenticatedSession) {
-        res.render("error.hbs", {alertMessage: "Unauthorized access"});
-      return;
+    if (!authenticatedSession) {
+        res.render("error.hbs", { alertMessage: "Unauthorized access" });
+        return;
     }
     // Create and store a new Session object that will expire in 5 minutes.
     const newSessionId = await createSession(authenticatedSession.userSession.userId, authenticatedSession.userSession.userType, 5);
     // Delete the old entry in the session map 
     await deleteSessionById(authenticatedSession.sessionId);
-    
+
     // Get the new session
     const newSession = await getCurrentSession(newSessionId);
     // Set the session cookie to the new id we generated, with a
     // renewed expiration time
-    
+
     return newSession;
 }
 
@@ -1065,7 +1065,7 @@ module.exports = {
     editUser,
     deleteUser,
     getUserById,
-    checkIfUsernameIsTaken,    
+    checkIfUsernameIsTaken,
     getUserByUsername,
 
     // Items
@@ -1082,7 +1082,8 @@ module.exports = {
     getItemTypeByName,
     getAllItemTypes,
     getConnection,
-    getItemTypeById
+    getItemTypeById,
+    getAllUsers,
 
     // Login / Sessions
     verifyLogin,

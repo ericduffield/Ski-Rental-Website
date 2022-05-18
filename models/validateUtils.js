@@ -13,8 +13,8 @@ function isValidAlphanumeric(string) {
     }
     return string != '' && !string.match(format);
 }
-function isValidPassword(password){
-    if(validator.isStrongPassword(password)){
+function isValidPassword(password) {
+    if (validator.isStrongPassword(password)) {
         return true;
     }
     return false;
@@ -25,15 +25,15 @@ function isValidDecimal(decimal) {
     }
     return false;
 }
-function isValidInteger(integer){
+function isValidInteger(integer) {
     integer = integer.toString();
-    if(validator.isInt(integer)){
+    if (validator.isInt(integer)) {
         return true;
     }
     return false;
 }
-function isValidBoolean(boolean){
-    if(validator.isBoolean(boolean)){
+function isValidBoolean(boolean) {
+    if (validator.isBoolean(boolean)) {
         return true;
     }
     return false;
@@ -66,14 +66,14 @@ function isValidDuration(duration) {
     return true;
 }
 
-function isValidName(name){
-    if(validator.isAlpha(name)){
+function isValidName(name) {
+    if (validator.isAlpha(name)) {
         return true;
     }
     return false;
 }
-function isValidTime(time){
-    if(validator.isISO8601(time)){
+function isValidTime(time) {
+    if (validator.isISO8601(time)) {
         return true;
     }
     return false;
@@ -92,7 +92,7 @@ module.exports = {
     isValidStartTime,
     isValidEndTime,
     isValidDuration,
-    isValidDescription
+    isValidDescription,
     isValidName,
     isValidTime
 }
