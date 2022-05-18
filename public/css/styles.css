@@ -168,28 +168,30 @@ a {
 	color: var(--black);
 	margin-right: 1.15rem;
 	font-size: 1rem;
+	text-decoration: none;
+}
+#navbar li:hover {
+	color: var(--secondary);
 }
 
-#navbar a:hover {
-	border-bottom: 1px solid var(--black);
-}
-
-#navbar a.active {
-	border-bottom: 1px solid var(--black);
-}
 
 #navbar li {
 	display: inline-block;
 }
 
-#title p{
+#title{
 	text-align: center;
-	font-size: 1.1rem;
+	font-size: 1.8rem;
 	font-weight: 500;
 	color: var(--black);
 	padding-bottom: 0.1rem;
-}
+	font-family: 'Square Peg', cursive;
 
+}
+#title:hover
+{
+	color: var(--secondary);
+}
 #account {
 	flex: 5;
 	display: flex;
@@ -694,7 +696,7 @@ form label {
 }
 .circleHome img
 {
-	border: 1px solid black;
+	border: 1px solid var(--grey);
 }
 .underImage
 {
@@ -732,7 +734,7 @@ form label {
 	align-items: center;
 	justify-content: center;
 	margin: 50px;
-	width: 700px;
+	width: 35%;
 }
 
 .personInfo
@@ -749,19 +751,35 @@ form label {
 {
 	margin-left: 50px;
 }
+.personInfo img
+{
+	border: 1px solid var(--grey);
+	border-radius: 50%;
+	width: 200px;
+	height: 200px;
+}
 .customFont
+{
+	display: flex;
+	flex-direction: row;
+	align-items: center;
+	justify-content: center;
+}
+.customFont p 
 {
 	font-family: "Trirong", serif;
 }
-
 .personInfo i 
 {
 	font-size: 50px;
 	color: var(--primary);
 }
-
-
-
+.styleSame
+{
+	display: flex;
+	flex-direction: row;
+	width: 100%;
+}
 
 /* ------------------------------- Signup ------------------------------- */
 
@@ -1071,6 +1089,15 @@ form label {
 	margin: 50px;
 	width: 700px;
 }
+.sbSplit input
+{
+	width: 30%;
+	height: 40px;
+	border: 1px solid var(--black);
+	border-radius: 5px;
+	padding: 10px;
+	margin-bottom: 10px;
+}
 .skiSplit
 {
 	flex-direction: column;
@@ -1078,6 +1105,24 @@ form label {
 	justify-content: center;
 	margin: 50px;
 	width: 700px;
+}
+.skiSplit input
+{
+	width: 30%;
+	height: 40px;
+	border: 1px solid var(--black);
+	border-radius: 5px;
+	padding: 10px;
+	margin-bottom: 10px;
+}
+#durationPicker
+{
+	width: 30%;
+	height: 40px;
+	border: 1px solid var(--black);
+	border-radius: 5px;
+	padding: 10px;
+	margin-bottom: 10px;
 }
 .rentContainer button{
 	width: 30%;

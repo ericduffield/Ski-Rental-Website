@@ -2,29 +2,36 @@
 <h1>{{message}}</h1>
 {{/if}}
 
-
-{{#each items}}
-<form action="{{formInput}}" method="post" role="form" enctype="application/x-www-form-urlencoded">
-    <h3>{{name}}</h3>
-    <img src="{{image}}" alt="ImageRental" height="200px" width="200px">
-    <input type="datetime-local" id="datePicker" name="trip-start" min="2022-05-17T08:00" max="2022-10-31T22:00"> 
-        <select name="duration" id="durationPicker">
-            <option value="4">4H</option>
-            <option value="8">8H</option>
-        </select>
-    <button type="submit" class="btn btn-primary" onclick="userTrack();">Rent</button>
-</form>
-{{/each}}
-
-{{#each itemsSnow}}
-<form action="{{formInput}}" method="post" role="form" enctype="application/x-www-form-urlencoded">
-    <h3>{{name}}</h3>
-    <img src="{{image}}" alt="ImageRental" height="200px" width="200px">
-    <input type="datetime-local" id="datePicker" name="trip-start" min="2022-05-17T08:00" max="2022-10-31T22:00"> 
-        <select name="duration" id="durationPicker">
-            <option value="4">4H</option>
-            <option value="8">8H</option>
-        </select>
-    <button type="submit" class="btn btn-primary" onclick="userTrack();">Rent</button>
-</form>
-{{/each}}
+<div class="rentContainer">
+    <div class="skiSplit">
+        {{#each items}}
+            <form action="{{formInput}}" method="post" role="form" enctype="application/x-www-form-urlencoded">
+                <h3>{{name}}</h3>
+                <img src="{{image}}" alt="ImageRental" height="200px" width="200px">
+                <input type="datetime-local" id="datePicker" name="trip-start" min="2022-05-17T08:00" max="2022-10-31T22:00"> 
+                    <select name="duration" id="durationPicker">
+                        <option value="4">4H</option>
+                        <option value="8">8H</option>
+                    </select>
+                <input type="hidden" value="{{itemType}}" >
+                <button type="submit" class="btn btn-primary" onclick="userTrack();">Rent</button>
+            </form>
+            {{/each}}
+    </div>
+   <div class="sbSplit">
+    {{#each itemsSnow}}
+        <form action="{{formInput}}" method="post" role="form" enctype="application/x-www-form-urlencoded">
+            <h3>{{name}}</h3>
+            <img src="{{image}}" alt="ImageRental" height="200px" width="200px">
+            <input type="datetime-local" id="datePicker" name="trip-start" min="2022-05-17T08:00" max="2022-10-31T22:00"> 
+                <select name="duration" id="durationPicker">
+                    <option value="4">4H</option>
+                    <option value="8">8H</option>
+                </select>
+            <input type="hidden" value="{{itemType}}" >
+            <button type="submit" class="btn btn-primary" onclick="userTrack();">Rent</button>
+        </form>
+        {{/each}}
+   </div>
+  
+</div>

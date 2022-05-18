@@ -47,11 +47,13 @@ router.get('/rent', async function (request, response) {
                 name: "Snowboard",
                 formInput: "/rentSumbit",
                 image: "/images/snowboardMain.jpg",
+                itemType: "Snowboards",
             },
             {
                 name: "Snowboard Boots",
                 formInput: "/rentSumbit",
                 image: "/images/snowbardBoots.png",
+                itemType: "Boots"
             }
         ],
         items: [
@@ -59,27 +61,26 @@ router.get('/rent', async function (request, response) {
             {
                 name: "Ski",
                 formInput: "/rentSumbit",
-                image: "/images/skiMain.png",
+                image: "/images/skiRent.png",
+                itemType: "Skis"
             },
             {
                 name: "Helmet",
                 formInput: "/rentSumbit",
                 image: "/images/helmet.png",
+                itemType: "Helmets"
             },
             {
                 name: "Ski Boots",
                 formInput: "/rentSumbit",
                 image: "/images/skiBoots.png",
-            },
-            {
-                name: "Goggles",
-                formInput: "/rentSumbit",
-                image: "/images/goggles.png",
+                itemType: "Boots"
             },
             {
                 name: "Poles",
                 formInput: "/rentSumbit",
                 image: "/images/poles.png",
+                itemType: "Poles"
             },
         
         ]
@@ -155,6 +156,9 @@ router.get('/about', about);
 async function about(request, response) {
     const pageData = {
         image: "/images/hero.jpg",
+        eric: "/images/eric.jpg",
+        liam: "/images/liam.jpg",
+        pleasure: "/images/pleasure.jpg",
         about: true
     };
 
