@@ -1302,6 +1302,9 @@ test("getItemTypeByName not in database", async () => {
     //Assert
     expect(result).toBe(null);
 });
+
+//#endregion
+
 //#endregion
 
 //#region =============== ENDPOINT TESTS ===============

@@ -18,6 +18,8 @@ body{
 	--primary: #20629E;
 	--secondary: #2a71b4;
 	--white: #2a2a2a;
+	--whiteText: #EEF5FC;
+	--box-shadow: 0 0.6rem 1.1rem rgba(0, 0, 0, 0.3); /* change 1.1 or 1.2*/
 }
 
 .light-mode-variables{
@@ -505,11 +507,29 @@ form label {
 	background-color: var(--secondary);
 }
 
+h2{
+	font-size: 2.1rem;
+	margin: 2rem 0rem;
+}
+
 .grid{
 	width: 80%;
 	display: grid;
 	grid-template-columns: 1fr 1fr 1fr;
-	gap: 5rem;
+	gap: 4rem;
+}
+
+.grid div {
+	padding: 1.2rem;
+	background-color: var(--primary);
+	border-radius: 1rem;
+	border: 1px solid black;
+	box-shadow: var(--box-shadow);
+	transition: all 300ms ease;
+}
+
+.grid div:hover{
+    box-shadow: none;
 }
 
 .grid .name{
@@ -522,8 +542,15 @@ form label {
 	align-items: center;
 }
 
+.grid h4{
+	font-size: 1.5rem;
+	text-align: center;
+	color: var(--whiteText);
+}
+
 .grid p{
 	width: 80%;
+	color: var(--whiteText);
 }
 
 .title{
@@ -601,8 +628,15 @@ form label {
 	background-color: var(--primary);
 	margin: 50px;
 	border: 1px solid black;
+	box-shadow: var(--box-shadow);
+	transition: all 300ms ease;
 	
 }
+.rectangleHome:hover
+{
+	box-shadow: none;
+}
+
 .rectangleHome img
 {
 	display: flex;
@@ -620,6 +654,7 @@ form label {
 #specialMove
 {
 	margin-left: 25px;
+	color: var(--whiteText);
 }
 .imageSki
 {
@@ -637,6 +672,7 @@ form label {
 }
 .textImage
 {
+	color: var(--whiteText);
 	display: flex;
 	align-items: center;
 	justify-content: center;
@@ -733,7 +769,6 @@ form label {
 	flex-direction: column;
 	align-items: center;
 	justify-content: center;
-	margin: 50px;
 	width: 35%;
 }
 #aboutUsEdit
@@ -775,6 +810,7 @@ form label {
 }
 .customFont p 
 {
+	font-size: 1.7rem;
 	font-family: "Trirong", serif;
 }
 .personInfo i 
