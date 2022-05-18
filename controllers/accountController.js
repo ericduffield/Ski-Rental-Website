@@ -2,6 +2,7 @@ const express = require('express');
 const router = express.Router();
 const routeRoot = '/';
 const model = require("../models/skiEquipmentModelMysql");
+const adminController = require('./adminController');
 const logger = require('../logger');
 
 router.get('/login', login);
@@ -12,8 +13,8 @@ router.get('/signup', signup);
  * @param {*} req The request of the method
  * @param {*} res The response of the method
  */
-function login(req, res) {
-    res.render("login.hbs");
+async function login(req, res) {
+    res.render("login.hbs", {admin: await adminController.AdminAuth(req)});
 }
 /**
  * Renders the signup page
@@ -28,7 +29,7 @@ function signup(req, res) {
  * @param {*} req The request of the method
  * @param {*} res The response of the method
  */
-router.get('/account', async function (req, res) {
+router.get('/account', async function (request, response) {
         if(!await model.authenticateUser(request)){
             response.render("login.hbs", {message: "Unauthorized Access - Please log in to an account to use this feature"}); 
         }
@@ -38,10 +39,26 @@ router.get('/account', async function (req, res) {
             response.cookie("sessionId", session.id, { expires: expiresAt });
             response.cookie("userId", session.userId, { expires: expiresAt });
             response.cookie("userType", session.userType, { expires: expiresAt });        
-            response.render("account.hbs");
+            response.render("account.hbs", {loggedIn: true});
         }
     }
 );
+
+router.post('/logout', logout);
+
+async function logout(request, response) {
+    if(await model.authenticateUser(request)){        
+        await model.deleteSessionById(request.cookies.sessionId);
+        response.clearCookie("sessionId");
+        response.clearCookie("userId");
+        response.clearCookie("userType");
+        response.redirect("/");
+    }
+    else{
+        response.redirect("/");
+    }
+}
+
 
 //=================FORM SUBMISSION ENDPOINTS====================
 
@@ -55,6 +72,16 @@ router.post('/signupSubmit', signupSubmit);
  * @param {*} res The response of the method
  */
 async function loginSubmit(req, res) {
+    const pageData = {
+        image: "/images/hero.jpg",
+        ericImage: "/images/eric.jpg",
+        liamImage: "/images/liam.jpg",
+        pleasureImage: "/images/pleasure.jpg",
+        snowboardImage: "/images/snowboardMain.jpg",
+        skiImage: "/images/skiMain.png",
+        home: true
+    };
+
     const username = req.body.username;
     const password = req.body.password;
     const user = await model.getUserByUsername(username);
@@ -72,7 +99,13 @@ async function loginSubmit(req, res) {
         res.cookie("sessionId", sessionId, { expires: expiresAt });
         res.cookie("userId", user.id, { expires: expiresAt });
         res.cookie("userType", userType, { expires: expiresAt });
-        res.render("home.hbs", {admin: userType === 'Admin'});
+        pageData.admin = userType === 'Admin';
+        if(pageData.admin){
+            adminController.listResponse(res, "/images/hero.jpg", false, false);
+        }
+        else{
+            res.render("home.hbs", pageData);
+        }
     }
     else{
         res.render("login.hbs", {message: "Invalid username or password", username: username, password: password});
@@ -90,7 +123,7 @@ async function signupSubmit(req, res) {
         //Create new user
         await model.createUser('User', req.body.username, req.body.password, req.body.firstName, req.body.lastName, 0);
         //Renders login page with success message
-        res.render("login.hbs", { message: "Account created successfully!" });   
+        res.render("login.hbs", { message: "Account created successfully!", username: req.body.username });   
         }
         else{
             throw new Error("Password do not match");            

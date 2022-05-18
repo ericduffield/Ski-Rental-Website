@@ -12,7 +12,7 @@ const logger = require('../logger');
 router.get('/', home);
 router.get('/home', home);
 
-function home(request, response) {
+async function home(request, response) {
     const pageData = {
         image: "/images/hero.jpg",
         ericImage: "/images/eric.jpg",
@@ -23,7 +23,18 @@ function home(request, response) {
         home: true
     };
 
-    response.render("home.hbs", pageData);
+    if(!await model.authenticateUser(request)){
+        response.render("home.hbs", pageData);
+    }
+    else{
+        pageData.loggedIn = true;
+        const session = await model.refreshSession(request, response);
+        const expiresAt = new Date(session.expiresAt);
+        response.cookie("sessionId", session.id, { expires: expiresAt });
+        response.cookie("userId", session.userId, { expires: expiresAt });
+        response.cookie("userType", session.userType, { expires: expiresAt });        
+        response.render("home.hbs", pageData);
+    }    
 }
 
 router.get('/rent', async function (request, response) {
@@ -78,6 +89,7 @@ router.get('/rent', async function (request, response) {
         response.render("login.hbs", {message: "Unauthorized Access - Please log in to an account to use this feature"}); 
     }
     else{
+        pageData.loggedIn = true;
         const session = await model.refreshSession(request, response);
         const expiresAt = new Date(session.expiresAt);
         response.cookie("sessionId", session.id, { expires: expiresAt });
@@ -134,13 +146,32 @@ router.post('/rentSubmit', async function (request, response) {
 
 router.get('/about', about);
 
-function about(request, response) {
+/**
+ * Displays the about page
+ * Refreshes the authenticated cookie if someone is logged in
+ * @param {*} request The request object
+ * @param {*} response The response object
+ */
+async function about(request, response) {
     const pageData = {
         image: "/images/hero.jpg",
         about: true
     };
 
-    response.render("about.hbs", pageData);
+    if(!await model.authenticateUser(request)){
+        response.render("about.hbs", pageData);
+        
+        
+    }
+    else{
+        pageData.loggedIn = true;
+        const session = await model.refreshSession(request, response);
+        const expiresAt = new Date(session.expiresAt);
+        response.cookie("sessionId", session.id, { expires: expiresAt });
+        response.cookie("userId", session.userId, { expires: expiresAt });
+        response.cookie("userType", session.userType, { expires: expiresAt });        
+        response.render("about.hbs", pageData);
+    }    
 }
 
 //#endregion
