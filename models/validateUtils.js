@@ -2,10 +2,10 @@ const validator = require('validator');
 var format = /^[!@#$%^&*()_+\-=\[\]{};':"\\|,.<>\/?]*$/;
 
 function isValidUserType(userType) {
-    if (userType == '0' || userType == '1') {
+    if (userType.toLowerCase() === 'user' || userType.toLowerCase() == 'admin') {
         return true;
     }
-    return !string.match(format);
+    return false;
 }
 function isValidAlphanumeric(string) {
     if (validator.isAlphanumeric(validator.blacklist(string, ' '))) {

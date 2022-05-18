@@ -704,5 +704,7 @@ class UserDataError extends Error {
 
 module.exports = {
     router,
-    routeRoot
+    routeRoot,
+    listResponse,
+    AdminAuth
 }
