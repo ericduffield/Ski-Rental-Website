@@ -13,7 +13,7 @@ router.get('/signup', signup);
  * @param {*} req The request of the method
  * @param {*} res The response of the method
  */
-function login(req, res) {
+async function login(req, res) {
     res.render("login.hbs", {admin: await adminController.AdminAuth(req)});
 }
 /**
