@@ -14,13 +14,22 @@
         <form action="/rentSumbit" method="post" role="form" enctype="application/x-www-form-urlencoded">
             <h3>Snowboard</h3>
                 <img src="{{snowboardImage}}" class="imageSnowbaord" alt="SnowBoard" height="200px" width="200px">
-                <input type="date" id="datePicker" name="trip-start" value="2018-07-22" min="2018-01-01" max="2018-12-31">
+                <input type="datetime-local" id="datePicker" name="trip-start" min="2022-05-17T08:00" max="2022-10-31T22:00"> 
+                <select name="cars" id="durationPicker">
+                    <option value="4">4H</option>
+                    <option value="8">8H</option>
+                </select>
                 <button type="submit" class="btn btn-primary" onclick="userTrack();">Submit</button>
         </form>
 
         <form action="/rentSumbit" method="post" role="form" enctype="application/x-www-form-urlencoded">
             <h3>SnowBoard Boots</h3>
             <img src="{{snowboardBoots}}" class="imageSnowbaord" alt="SnowBoard" height="200px" width="200px">
+            <input type="datetime-local" id="datePicker" name="trip-start" min="2022-05-17T08:00" max="2022-10-31T22:00">
+                <select name="cars" id="durationPicker">
+                    <option value="4">4H</option>
+                    <option value="8">8H</option>
+                </select>
             <button type="submit" class="btn btn-primary" onclick="userTrack();">Submit</button>
         </form>
     </div>
@@ -28,30 +37,55 @@
         <form action="/rentSumbit" method="post" role="form" enctype="application/x-www-form-urlencoded">
             <h3>Skis</h3>
             <img src="{{skiImage}}" class="imageSki" alt="skiImage" height="200px" width="70px">
+            <input type="datetime-local" id="datePicker" name="trip-start" min="2022-05-17T08:00" max="2022-10-31T22:00">
+                <select name="cars" id="durationPicker">
+                    <option value="4">4H</option>
+                    <option value="8">8H</option>
+                </select>
             <button type="submit" class="btn btn-primary" onclick="userTrack();">Submit</button>
         </form>
 
         <form action="/rentSumbit" method="post" role="form" enctype="application/x-www-form-urlencoded">
             <h3>Helmet</h3>
             <img src="{{helmet}}" class="imageSnowbaord" alt="SnowBoard" height="200px" width="200px">
+            <input type="datetime-local" id="datePicker" name="trip-start" min="2022-05-17T08:00" max="2022-10-31T22:00">
+                <select name="cars" id="durationPicker">
+                    <option value="4">4H</option>
+                    <option value="8">8H</option>
+                </select>
             <button type="submit" class="btn btn-primary" onclick="userTrack();">Submit</button>
         </form>
 
         <form action="/rentSumbit" method="post" role="form" enctype="application/x-www-form-urlencoded">
             <h3>Ski Boots</h3>
             <img src="{{skiBoots}}" class="imageSnowbaord" alt="SnowBoard" height="200px" width="200px">
+            <input type="datetime-local" id="datePicker" name="trip-start" min="2022-05-17T08:00" max="2022-10-31T22:00">
+                <select name="cars" id="durationPicker">
+                    <option value="4">4H</option>
+                    <option value="8">8H</option>
+                </select>
             <button type="submit" class="btn btn-primary" onclick="userTrack();">Submit</button>
         </form>
 
         <form action="/rentSumbit" method="post" role="form" enctype="application/x-www-form-urlencoded">
             <h3>Goggles</h3>
             <img src="{{goggles}}" class="imageSnowbaord" alt="SnowBoard" height="200px" width="200px">
+            <input type="datetime-local" id="datePicker" name="trip-start" min="2022-05-17T08:00" max="2022-10-31T22:00">
+                <select name="cars" id="durationPicker">
+                    <option value="4">4H</option>
+                    <option value="8">8H</option>
+                </select>
             <button type="submit" class="btn btn-primary" onclick="userTrack();">Submit</button>
         </form>
 
         <form action="/rentSumbit" method="post" role="form" enctype="application/x-www-form-urlencoded">
             <h3>Ski Poles</h3>
             <img src="{{poles}}" class="imageSnowbaord" alt="SnowBoard" height="200px" width="200px">
+            <input type="datetime-local" id="datePicker" name="trip-start" min="2022-05-17T08:00" max="2022-10-31T22:00">
+                <select name="cars" id="durationPicker">
+                    <option value="4">4H</option>
+                    <option value="8">8H</option>
+                </select>
             <button type="submit" class="btn btn-primary" onclick="userTrack();">Submit</button>
         </form>
     </div>

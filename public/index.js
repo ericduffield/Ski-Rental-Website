@@ -78,6 +78,8 @@ if (getCookie("isDark") == "true") {
  * 
  */
 window.onload = function() {
+
+
     document.getElementById('contact-form').addEventListener('submit', function(event) {
         event.preventDefault();
         const name = document.getElementById('nameCon').value;
@@ -170,7 +172,11 @@ if(cookie_consent != ""){
 }else{
     document.getElementById("cookieNotice").style.display = "block";
 }
-
+/**
+ * Made for getting the value of the cookie
+ * 
+ * @param {*} cookieName 
+ */
 function gettingTheValue(cookieName)
 {
     var re = new RegExp(cookieName + "=([^;]+)"); 
@@ -184,6 +190,10 @@ function gettingTheValue(cookieName)
         return null;
     }
 }
+/**
+ * Method is meant to keep track of the item the user bought as a cookie implementation 
+ * 
+ */
 function userTrack(){
 
     click ++; 

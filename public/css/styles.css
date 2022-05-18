@@ -986,3 +986,13 @@ form label {
 	padding: 10px;
 	margin-bottom: 10px;
 }
+#durationPicker
+{
+	width: 30%;
+	height: 40px;
+	margin-top: 10px;
+	border: 1px solid var(--black);
+	border-radius: 5px;
+	padding: 10px;
+	margin-bottom: 10px;
+}
