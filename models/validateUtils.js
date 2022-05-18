@@ -1,7 +1,7 @@
 const validator = require('validator');
 
-function isValidUserType(userType) {
-    if (userType === '0' || userType === '1') {
+function isValidUserType(userType){
+    if(userType.toLowerCase() == 'user' || userType.toLowerCase() == 'admin'){
         return true;
     }
     return false;
@@ -12,8 +12,8 @@ function isValidAlphanumeric(string) {
     }
     return false;
 }
-function isValidPassword(password) {
-    if (validator.isStrongPassword(password)) {
+function isValidPassword(password){
+    if(validator.isStrongPassword(password)){
         return true;
     }
     return false;
@@ -24,43 +24,30 @@ function isValidDecimal(decimal) {
     }
     return false;
 }
-function isValidInteger(integer) {
-    if (validator.isInt(integer)) {
+function isValidInteger(integer){
+    integer = integer.toString();
+    if(validator.isInt(integer)){
         return true;
     }
     return false;
 }
-function isValidBoolean(boolean) {
-    if (validator.isBoolean(boolean)) {
+function isValidBoolean(boolean){
+    if(validator.isBoolean(boolean)){
         return true;
     }
     return false;
 }
-
-
-function isValidItemType(itemType) {
-    //TODO
-    return true;
+function isValidName(name){
+    if(validator.isAlpha(name)){
+        return true;
+    }
+    return false;
 }
-function isValidRentalState(rentalState) {
-    //TODO
-    return true;
-}
-function isValidStartTime(startTime) {
-    //TODO
-    return true;
-}
-function isValidEndTime(endTime) {
-    //TODO
-    return true;
-}
-function isValidDuration(duration) {
-    //TODO
-    return true;
-}
-function isValidCredit(credit) {
-    //TODO
-    return true;
+function isValidTime(time){
+    if(validator.isISO8601(time)){
+        return true;
+    }
+    return false;
 }
 
 module.exports = {
@@ -70,9 +57,6 @@ module.exports = {
     isValidDecimal,
     isValidInteger,
     isValidBoolean,
-    isValidItemType,
-    isValidRentalState,
-    isValidStartTime,
-    isValidEndTime,
-    isValidDuration
+    isValidName,
+    isValidTime
 }
