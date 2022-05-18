@@ -96,7 +96,7 @@ async function initialize(dbname, reset) {
             );
 
         // Inventory
-        const inventory = 'CREATE TABLE IF NOT EXISTS inventory(id int AUTO_INCREMENT NOT NULL PRIMARY KEY, name varchar(50) NOT NULL, description varchar(50) NOT NULL, itemCost decimal NOT NULL, itemType int NOT NULL, FOREIGN KEY (itemType) REFERENCES itemTypes(id))';
+        const inventory = 'CREATE TABLE IF NOT EXISTS inventory(id int AUTO_INCREMENT NOT NULL PRIMARY KEY, name varchar(50) NOT NULL, description varchar(500) NOT NULL, itemCost decimal NOT NULL, itemType int NOT NULL, FOREIGN KEY (itemType) REFERENCES itemTypes(id))';
         await connection.execute(inventory)
             .catch((error) => {
                 throw new SystemError("SQL Execution Error - inventory");
@@ -440,7 +440,7 @@ async function addItem(name, description, itemCost, itemType, rentalState) {
         throw new UserDataError("Invalid rental state");
     }
 
-    const sqlQuery = 'INSERT INTO inventory (name, description, itemCost, itemType) VALUES (\"' + name + '\",\"' + description + '\",\"' + itemCost + '\", (SELECT id FROM itemType where name = \"' + itemType + '\"))';
+    const sqlQuery = 'INSERT INTO inventory (name, description, itemCost, itemType) VALUES (\"' + name + '\",\"' + description + '\",\"' + itemCost + '\",\"' + itemType + '\");';
     await connection.execute(sqlQuery)
         .catch((error) => {
             console.error(error)
@@ -470,7 +470,7 @@ async function editItem(id, name, description, itemCost, itemType) {
         throw new UserDataError("Invalid item type");
     }
 
-    const sqlQuery = 'UPDATE inventory SET name = \'' + name + '\', description = \'' + description + '\', itemCost = \'' + itemCost + '\', itemType = (SELECT id FROM itemType where name = \'' + itemType + '\') WHERE id = ' + id;
+    const sqlQuery = 'UPDATE inventory SET name = \'' + name + '\', description = \'' + description + '\', itemCost = \'' + itemCost + '\', itemType = \'' + itemType + '\';';
     await connection.execute(sqlQuery)
         .catch((error) => {
             logger.error(error)
@@ -704,7 +704,7 @@ async function createRental(userId, startTime, endTime, Duration, itemType) {
 
     // Get all the items from inventory that have the right item Type
     // Check that there is one of that item available at that given time by getting all the rentals and checking that no item of that type is being rented in given time period between start and end times
-    const sqlQuery = 'SELECT * FROM inventory WHERE itemType = (SELECT id FROM itemType WHERE name = \'' + itemType + '\')';
+    const sqlQuery = 'SELECT * FROM inventory WHERE itemType = (SELECT id FROM itemTypes WHERE name = \'' + itemType + '\')';
     const result = await connection.execute(sqlQuery)
         .catch((error) => {
             logger.error(error)
@@ -797,7 +797,7 @@ async function editRental(rentalId, userId, startTime, endTime, duration, itemTy
     // Check that the new rental with the updated fields can be added
     // If it can be added, update the rental
     // If it can't be added, throw an error
-    const sqlQuery = 'SELECT * FROM inventory WHERE itemType = (SELECT id FROM itemType WHERE name = \'' + itemType + '\')';
+    const sqlQuery = 'SELECT * FROM inventory WHERE itemType = (SELECT id FROM itemTypes WHERE name = \'' + itemType + '\')';
     const result = await connection.execute(sqlQuery)
         .catch((error) => {
             logger.error(error)
