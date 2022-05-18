@@ -10,14 +10,8 @@
         <p class="name">Name: {{name}}</p>
         <div class="fields">
             <p><b>Id:</b> {{id}}</p>
-            <p><b>Description:</b> Description: {{description}}</p>
+            <p><b>Description:</b> {{description}}</p>
             <p><b>Cost:</b> {{itemCost}}$</p>
-            <p><b>Rental State:</b> {{#if rentalState}}
-                Rented
-                {{else}}
-                Available
-                {{/if}}
-            </p>
             {{decrement "typeIndex" itemType}}
             {{#with (lookup @root.allItemTypes @root.typeIndex )}}
             <p><b>Item Type:</b> {{name}}</p>

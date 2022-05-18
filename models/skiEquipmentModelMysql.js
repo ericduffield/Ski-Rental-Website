@@ -249,9 +249,6 @@ async function editUser(id, userType, username, password, firstName, lastName, c
     if (!validate.isValidAlphanumeric(username)) {
         throw new UserDataError("Invalid username");
     }
-    if (await checkIfUsernameIsTaken(username)) {
-        throw new UserDataError("Username already taken");
-    }
     if (!validate.isValidPassword(password)) {
         throw new UserDataError("Invalid password, password must contain one Uppercase, one lowercase, one number and one special character");
     }
@@ -423,7 +420,7 @@ async function getUserTypeFromTypeId(userType) {
  * @throws UserDataError if user sends invalid data
  * @throws SystemError if there is an error in the database while deleting
  */
-async function addItem(name, description, itemCost, itemType, rentalState) {
+async function addItem(name, description, itemCost, itemType) {
     if (!validate.isValidAlphanumeric(name)) {
         throw new UserDataError("Invalid name");
     }
@@ -435,9 +432,6 @@ async function addItem(name, description, itemCost, itemType, rentalState) {
     }
     if (!validate.isValidItemType(itemType)) {
         throw new UserDataError("Invalid item type");
-    }
-    if (!validate.isValidRentalState(rentalState)) {
-        throw new UserDataError("Invalid rental state");
     }
 
     const sqlQuery = 'INSERT INTO inventory (name, description, itemCost, itemType) VALUES (\"' + name + '\",\"' + description + '\",\"' + itemCost + '\",\"' + itemType + '\");';
@@ -453,7 +447,6 @@ async function addItem(name, description, itemCost, itemType, rentalState) {
  * @param {*} name The updated name of the item
  * @param {*} description The updated description of the item
  * @param {*} itemCost The updated cost of the item
- * @param {*} rentalState The updated rental state of the item
  * @param {*} itemType The updated type of the item
  */
 async function editItem(id, name, description, itemCost, itemType) {

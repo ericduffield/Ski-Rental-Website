@@ -12,7 +12,7 @@ const validate = require('../models/validateUtils');
  * @param {*} request The request object
  * @returns true if they have access and false otherwise
  */
-async function AdminAuth(request){
+async function AdminAuth(request) {
     // Gets the current authed session
     const authenticatedSession = await model.authenticateUser(request);
     if (!authenticatedSession) {
@@ -38,23 +38,23 @@ function list(req, res) {
 }
 
 router.get('/admin', async function (request, response) {
-        const pageData = {
-            image: "/images/hero.jpg",
-            admin: true,
-            rent: true
-        };
-        if(!await AdminAuth(request)){
-            response.render("error.hbs", {alertMessage: "Unauthorized Access - Please log in to an Admin account to use this feature"}); // Unauthorized access
-        }
-        else{
-            const session = await model.refreshSession(request, response);
-            const expiresAt = new Date(session.expiresAt);
-            response.cookie("sessionId", session.id, { expires: expiresAt });
-            response.cookie("userId", session.userId, { expires: expiresAt });
-            response.cookie("userType", session.userType, { expires: expiresAt });
-            response.render("adminRent.hbs", pageData);
-        }   
+    const pageData = {
+        image: "/images/hero.jpg",
+        admin: true,
+        rent: true
+    };
+    if (!await AdminAuth(request)) {
+        response.render("error.hbs", { alertMessage: "Unauthorized Access - Please log in to an Admin account to use this feature" }); // Unauthorized access
     }
+    else {
+        const session = await model.refreshSession(request, response);
+        const expiresAt = new Date(session.expiresAt);
+        response.cookie("sessionId", session.id, { expires: expiresAt });
+        response.cookie("userId", session.userId, { expires: expiresAt });
+        response.cookie("userType", session.userType, { expires: expiresAt });
+        response.render("adminRent.hbs", pageData);
+    }
+}
 );
 
 router.get('/items', items);
@@ -79,7 +79,7 @@ function users(req, res) {
  * This function renders the list view.
  * It displays all important information in the database so admins can see what they are working with.
  * It takes in an image url which will either be the default hero image or the alert image.
- * It takes in a message which will either be a success message or an error message.
+ * It takes in a message which will either be a success message or an error message.listResponseitems
  * @param {*} res response object
  * @param {*} imageUrl image url
  * @param {*} theMessage message to be displayed to screen
@@ -142,7 +142,7 @@ async function addItem(req, res) {
 
         console.log(req.body.itemType)
         for (let i = 0; i < req.body.quantity; i++) {
-            await model.addItem(req.body.name, req.body.description, req.body.cost, req.body.itemType, req.body.rentalState);
+            await model.addItem(req.body.name, req.body.description, req.body.cost, req.body.itemType);
         }
         console.log("Successfully added " + req.body.name);
         itemResponse(res, "/images/hero.jpg", "Successfully added ski equipment", false, false);
@@ -168,8 +168,7 @@ router.post('/editItem', editItem);
 async function editItem(req, res) {
     try {
         //Tries to edit ski equipment in the database and if successful, renders the form with success message
-        let state = req.body.rentalState == 0 ? true : false;
-        await model.editItem(req.body.id, req.body.name, req.body.description, req.body.cost, state, req.body.itemType);
+        await model.editItem(req.body.id, req.body.name, req.body.description, req.body.cost, req.body.itemType);
 
         console.log("Successfully edited " + req.body.name);
         itemResponse(res, "/images/hero.jpg", "Successfully edited " + req.body.name, false, false);
@@ -178,32 +177,6 @@ async function editItem(req, res) {
         console.error(err.message);
         //Renders the form again with error message and alert image
 
-        itemResponse(res, "/images/warning.webp", err.message, true);
-    }
-}
-
-
-router.post('/editItemRentalState', editItemRentalState);
-
-/**
- * This function edits rental state of an item in the database.
- * If it is successfully edited it renders the form again with a success message.
- * If it is not successful it renders the form with a specific error message that explains what went wrong.
- * @param {*} req request object
- * @param {*} res response object
- */
-async function editItemRentalState(req, res) {
-    try {
-        //Tries to edit item rental state in the database and if successful, renders the form with success message
-        let state = req.body.rentalState == 0 ? false : true;
-        await model.editItemRentalState(req.body.id, state);
-
-        console.log("Successfully edited item rental state");
-        itemResponse(res, "/images/hero.jpg", "Successfully edited item rental state", false, false);
-    }
-    catch (err) {
-        console.error(err.message);
-        //Renders the form again with error message and alert image
         itemResponse(res, "/images/warning.webp", err.message, true);
     }
 }
@@ -235,7 +208,7 @@ async function deleteItem(req, res) {
 
 /**
  * This function renders the item view.
- * It has 4 forms: add, edit, delete and edit rental state
+ * It has 3 forms: add, edit, delete
  * It takes in an image url which will either be the default hero image or the alert image.
  * It takes in a message which will either be a success message or an error message.
  * @param {*} res response object
@@ -275,19 +248,6 @@ async function itemResponse(res, imageUrl, theMessage, isError) {
                 },
                 {
                     combobox: true,
-                    fieldId: 'rentalState',
-                    fieldName: 'Rental State',
-                    options: [{
-                        id: 0,
-                        name: 'Available'
-                    },
-                    {
-                        id: 1,
-                        name: 'Rented'
-                    }]
-                },
-                {
-                    combobox: true,
                     options: itemTypes,
                     fieldId: 'itemType',
                     fieldName: 'Item Type',
@@ -318,44 +278,10 @@ async function itemResponse(res, imageUrl, theMessage, isError) {
             },
             {
                 combobox: true,
-                fieldId: 'rentalState',
-                fieldName: 'Rental State',
-                options: [{
-                    id: 0,
-                    name: 'Available'
-                },
-                {
-                    id: 1,
-                    name: 'Rented'
-                }]
-            },
-            {
-                combobox: true,
                 options: itemTypes,
                 fieldId: 'itemType',
                 fieldName: 'Item Type',
-            }]
-        },
-        {
-            formName: 'Edit Item Rental State',
-            formInput: "/editItemRentalState",
-            fields: [{
-                fieldId: 'id',
-                fieldName: 'Id',
-            },
-            {
-                combobox: true,
-                fieldId: 'rentalState',
-                fieldName: 'Rental State',
-                options: [{
-                    id: 0,
-                    name: 'Available'
-                },
-                {
-                    id: 1,
-                    name: 'Rented'
-                }]
-            }]
+            },]
         },
         {
             formName: 'Delete Item',

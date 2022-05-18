@@ -43,10 +43,10 @@ const generateUser = (usedIndex) => {
 }
 
 const items = [
-    { name: 'S FORCE BOLD', description: "Description: Developed for on-piste chargers always eager to challenge the boundaries of their comfort zone, this ski’s couple extra centimeters underfoot make it perfect for laying down fast turns in all snow conditions.", itemCost: '80', itemType: '4', rentalState: '1', index: 0 },
-    { name: 'Tree Leader Board Camber Snowboard', description: "Description: Freeride champions and big mountain billy goats, take note. The Burton Leader Board puts control and response right beneath your feet.", itemCost: '100', itemType: '5', rentalState: '1', index: 1 },
-    { name: 'Oakley MOD5 MIPS Helmet', description: "Description: The Mod 5 MIPS provides optimal protection, comfort and great ventilation and boasts a typical Oakley design!", itemCost: '40', itemType: '3', rentalState: '1', index: 2 },
-    { name: 'Head Kore 2 120', description: "Description: The Head Kore 2 120 are high performance freeride and touring ski boots for advanced riders and ski experts.", itemCost: '20', itemType: '1', rentalState: '1', index: 6 },
+    { name: 'S FORCE BOLD', description: "Description: Developed for on-piste chargers always eager to challenge the boundaries of their comfort zone, this ski’s couple extra centimeters underfoot make it perfect for laying down fast turns in all snow conditions.", itemCost: '80', itemType: '4', index: 0 },
+    { name: 'Tree Leader Board Camber Snowboard', description: "Description: Freeride champions and big mountain billy goats, take note. The Burton Leader Board puts control and response right beneath your feet.", itemCost: '100', itemType: '5', index: 1 },
+    { name: 'Oakley MOD5 MIPS Helmet', description: "Description: The Mod 5 MIPS provides optimal protection, comfort and great ventilation and boasts a typical Oakley design!", itemCost: '40', itemType: '3', index: 2 },
+    { name: 'Head Kore 2 120', description: "Description: The Head Kore 2 120 are high performance freeride and touring ski boots for advanced riders and ski experts.", itemCost: '20', itemType: '1', index: 6 },
 ]
 
 const generateItem = (usedIndex) => {
@@ -92,7 +92,6 @@ test("createUser success case", async () => {
     let result = await model.getUserById(DEFAULT_USER_ID);
     expect(result.userType.toString()).toBe(userType);
     expect(result.username).toBe(username);
-    expect(result.password).toBe(password);
     expect(result.firstName).toBe(firstName);
     expect(result.lastName).toBe(lastName);
     expect(result.credit).toBe(credit);
@@ -156,19 +155,17 @@ test("getAllUsers success case", async () => {
     let result = await model.getAllUsers();
 
     //Assert
-    expect(result[0].userType.toString()).toBe(userType);
-    expect(result[0].username).toBe(username);
-    expect(result[0].password).toBe(password);
-    expect(result[0].firstName).toBe(firstName);
-    expect(result[0].lastName).toBe(lastName);
-    expect(result[0].credit).toBe(credit);
+    expect(result[DEFAULT_ID].userType.toString()).toBe(userType);
+    expect(result[DEFAULT_ID].username).toBe(username);
+    expect(result[DEFAULT_ID].firstName).toBe(firstName);
+    expect(result[DEFAULT_ID].lastName).toBe(lastName);
+    expect(result[DEFAULT_ID].credit).toBe(credit);
 
-    expect(result[1].userType.toString()).toBe(userType2);
-    expect(result[1].username).toBe(username2);
-    expect(result[1].password).toBe(password2);
-    expect(result[1].firstName).toBe(firstName2);
-    expect(result[1].lastName).toBe(lastName2);
-    expect(result[1].credit).toBe(credit2);
+    expect(result[DEFAULT_USER_ID].userType.toString()).toBe(userType2);
+    expect(result[DEFAULT_USER_ID].username).toBe(username2);
+    expect(result[DEFAULT_USER_ID].firstName).toBe(firstName2);
+    expect(result[DEFAULT_USER_ID].lastName).toBe(lastName2);
+    expect(result[DEFAULT_USER_ID].credit).toBe(credit2);
 });
 
 test("checkIfUsernameIsTaken available", async () => {
@@ -200,28 +197,27 @@ test("checkIfUsernameIsTaken taken", async () => {
 
 test("addItem success case", async () => {
     //Arrange
-    let { name, description, itemCost, itemType, rentalState } = generateItem();
+    let { name, description, itemCost, itemType } = generateItem();
 
     //Act
-    await model.addItem(name, description, itemCost, itemType, rentalState);
+    await model.addItem(name, description, itemCost, itemType);
 
     //Assert
     let result = await model.getItemById(DEFAULT_ID);
     expect(result.name).toBe(name);
     expect(result.description).toBe(description);
     expect(result.itemCost).toBe(itemCost);
-    expect(result.itemType.toString()).toBe(itemType);
-    expect(result.rentalState.toString()).toBe(rentalState);
+    expect(result.itemType).toBe(parseInt(itemType));
 });
 
 test("editItem success case", async () => {
     //Arrange
-    let { name, description, itemCost, itemType, rentalState } = generateItem();
-    let { name: name2, description: description2, itemCost: itemCost2, itemType: itemType2, rentalState: rentalState2 } = generateItem();
-    await model.addItem(name, description, itemCost, itemType, rentalState);
+    let { name, description, itemCost, itemType } = generateItem();
+    let { name: name2, description: description2, itemCost: itemCost2, itemType: itemType2 } = generateItem();
+    await model.addItem(name, description, itemCost, itemType);
 
     //Act
-    await model.editItem(DEFAULT_ID, name2, description2, itemCost2, rentalState2, itemType2);
+    await model.editItem(DEFAULT_ID, name2, description2, itemCost2, itemType2);
 
     //Assert
     let result = await model.getItemById(DEFAULT_ID);
@@ -229,27 +225,12 @@ test("editItem success case", async () => {
     expect(result.description).toBe(description2);
     expect(result.itemCost).toBe(itemCost2);
     expect(result.itemType.toString()).toBe(itemType2);
-    expect(result.rentalState.toString()).toBe(rentalState2);
-});
-
-test("editItemRentalState success case", async () => {
-    //Arrange
-    let { name, description, itemCost, itemType, rentalState } = generateItem();
-    let { name: name2, description: description2, itemCost: itemCost2, itemType: itemType2, rentalState: rentalState2 } = generateItem();
-    await model.addItem(name, description, itemCost, itemType, rentalState);
-
-    //Act
-    await model.editItemRentalState(DEFAULT_ID, rentalState2);
-
-    //Assert
-    let result = await model.getItemById(DEFAULT_ID);
-    expect(result.rentalState.toString()).toBe(rentalState2);
 });
 
 test("deleteItem success case", async () => {
     //Arrange
-    let { name, description, itemCost, itemType, rentalState } = generateItem();
-    await model.addItem(name, description, itemCost, itemType, rentalState);
+    let { name, description, itemCost, itemType } = generateItem();
+    await model.addItem(name, description, itemCost, itemType);
 
     //Act
     await model.deleteItem(DEFAULT_ID);
@@ -261,8 +242,8 @@ test("deleteItem success case", async () => {
 
 test("getItemById success case", async () => {
     //Arrange
-    let { name, description, itemCost, itemType, rentalState } = generateItem();
-    await model.addItem(name, description, itemCost, itemType, rentalState);
+    let { name, description, itemCost, itemType } = generateItem();
+    await model.addItem(name, description, itemCost, itemType);
 
     //Act
     let result = await model.getItemById(DEFAULT_ID);
@@ -272,15 +253,14 @@ test("getItemById success case", async () => {
     expect(result.description).toBe(description);
     expect(result.itemCost).toBe(itemCost);
     expect(result.itemType.toString()).toBe(itemType);
-    expect(result.rentalState.toString()).toBe(rentalState);
 });
 
 test("getAllItems success case", async () => {
     //Arrange
-    let { name, description, itemCost, itemType, rentalState } = generateItem();
-    await model.addItem(name, description, itemCost, itemType, rentalState);
-    let { name: name2, description: description2, itemCost: itemCost2, itemType: itemType2, rentalState: rentalState2 } = generateItem();
-    await model.addItem(name2, description2, itemCost2, itemType2, rentalState2);
+    let { name, description, itemCost, itemType } = generateItem();
+    await model.addItem(name, description, itemCost, itemType);
+    let { name: name2, description: description2, itemCost: itemCost2, itemType: itemType2 } = generateItem();
+    await model.addItem(name2, description2, itemCost2, itemType2);
 
     //Act
     let result = await model.getAllItems();
@@ -290,13 +270,11 @@ test("getAllItems success case", async () => {
     expect(result[0].description).toBe(description);
     expect(result[0].itemCost).toBe(itemCost);
     expect(result[0].itemType.toString()).toBe(itemType);
-    expect(result[0].rentalState.toString()).toBe(rentalState);
 
     expect(result[1].name).toBe(name2);
     expect(result[1].description).toBe(description2);
     expect(result[1].itemCost).toBe(itemCost2);
     expect(result[1].itemType.toString()).toBe(itemType2);
-    expect(result[1].rentalState.toString()).toBe(rentalState2);
 });
 
 //#endregion
@@ -858,12 +836,12 @@ test("checkIfUsernameIsTaken invalid username", async () => {
 
 test("addItem empty name", async () => {
     //Arrange
-    let { name, description, itemCost, itemType, rentalState } = generateItem();
+    let { name, description, itemCost, itemType } = generateItem();
     fail = false;
 
     //Act
     try {
-        await model.addItem('', description, itemCost, itemType, rentalState);
+        await model.addItem('', description, itemCost, itemType);
     }
     catch {
         fail = true;
@@ -875,12 +853,12 @@ test("addItem empty name", async () => {
 
 test("addItem invalid name", async () => {
     //Arrange
-    let { name, description, itemCost, itemType, rentalState } = generateItem();
+    let { name, description, itemCost, itemType } = generateItem();
     fail = false;
 
     //Act
     try {
-        await model.addItem('!', description, itemCost, itemType, rentalState);
+        await model.addItem('!', description, itemCost, itemType);
     }
     catch {
         fail = true;
@@ -892,12 +870,12 @@ test("addItem invalid name", async () => {
 
 test("addItem empty description", async () => {
     //Arrange
-    let { name, description, itemCost, itemType, rentalState } = generateItem();
+    let { name, description, itemCost, itemType } = generateItem();
     fail = false;
 
     //Act
     try {
-        await model.addItem(name, '', itemCost, itemType, rentalState);
+        await model.addItem(name, '', itemCost, itemType);
     }
     catch {
         fail = true;
@@ -909,12 +887,12 @@ test("addItem empty description", async () => {
 
 test("addItem empty itemCost", async () => {
     //Arrange
-    let { name, description, itemCost, itemType, rentalState } = generateItem();
+    let { name, description, itemCost, itemType } = generateItem();
     fail = false;
 
     //Act
     try {
-        await model.addItem(name, description, '', itemType, rentalState);
+        await model.addItem(name, description, '', itemType);
     }
     catch {
         fail = true;
@@ -926,12 +904,12 @@ test("addItem empty itemCost", async () => {
 
 test("addItem invalid itemCost", async () => {
     //Arrange
-    let { name, description, itemCost, itemType, rentalState } = generateItem();
+    let { name, description, itemCost, itemType } = generateItem();
     fail = false;
 
     //Act
     try {
-        await model.addItem(name, description, 'a', itemType, rentalState);
+        await model.addItem(name, description, 'a', itemType);
     }
     catch {
         fail = true;
@@ -943,12 +921,12 @@ test("addItem invalid itemCost", async () => {
 
 test("addItem empty item type", async () => {
     //Arrange
-    let { name, description, itemCost, itemType, rentalState } = generateItem();
+    let { name, description, itemCost, itemType } = generateItem();
     fail = false;
 
     //Act
     try {
-        await model.addItem(name, description, itemCost, '', rentalState);
+        await model.addItem(name, description, itemCost, '');
     }
     catch {
         fail = true;
@@ -960,46 +938,12 @@ test("addItem empty item type", async () => {
 
 test("addItem invalid item type", async () => {
     //Arrange
-    let { name, description, itemCost, itemType, rentalState } = generateItem();
+    let { name, description, itemCost, itemType } = generateItem();
     fail = false;
 
     //Act
     try {
-        await model.addItem(name, description, itemCost, '-1', rentalState);
-    }
-    catch {
-        fail = true;
-    }
-
-    //Assert
-    expect(fail).toBe(true);
-});
-
-test("addItem empty rental state", async () => {
-    //Arrange
-    let { name, description, itemCost, itemType, rentalState } = generateItem();
-    fail = false;
-
-    //Act
-    try {
-        await model.addItem(name, description, itemCost, itemType, '');
-    }
-    catch {
-        fail = true;
-    }
-
-    //Assert
-    expect(fail).toBe(true);
-});
-
-test("addItem invalid rental state", async () => {
-    //Arrange
-    let { name, description, itemCost, itemType, rentalState } = generateItem();
-    fail = false;
-
-    //Act
-    try {
-        await model.addItem(name, description, itemCost, itemType, '-1');
+        await model.addItem(name, description, itemCost, '-1');
     }
     catch {
         fail = true;
@@ -1011,14 +955,14 @@ test("addItem invalid rental state", async () => {
 
 test("editItem empty name", async () => {
     //Arrange
-    let { name, description, itemCost, itemType, rentalState, index } = generateItem();
-    await model.addItem(name, description, itemCost, itemType, rentalState);
-    let { name: name2, description: description2, itemCost: itemCost2, itemType: itemType2, rentalState: rentalState2 } = generateItem(index);
+    let { name, description, itemCost, itemType, index } = generateItem();
+    await model.addItem(name, description, itemCost, itemType);
+    let { name: name2, description: description2, itemCost: itemCost2, itemType: itemType2 } = generateItem(index);
     fail = false;
 
     //Act
     try {
-        await model.editItem('', description2, itemCost2, itemType2, rentalState2);
+        await model.editItem('', description2, itemCost2, itemType22);
     }
     catch {
         fail = true;
@@ -1030,14 +974,14 @@ test("editItem empty name", async () => {
 
 test("editItem invalid name", async () => {
     //Arrange
-    let { name, description, itemCost, itemType, rentalState, index } = generateItem();
-    await model.addItem(name, description, itemCost, itemType, rentalState);
-    let { name: name2, description: description2, itemCost: itemCost2, itemType: itemType2, rentalState: rentalState2 } = generateItem(index);
+    let { name, description, itemCost, itemType, index } = generateItem();
+    await model.addItem(name, description, itemCost, itemType);
+    let { name: name2, description: description2, itemCost: itemCost2, itemType: itemType2 } = generateItem(index);
     fail = false;
 
     //Act
     try {
-        await model.editItem('!', description2, itemCost2, itemType2, rentalState2);
+        await model.editItem('!', description2, itemCost2, itemType22);
     }
     catch {
         fail = true;
@@ -1049,14 +993,14 @@ test("editItem invalid name", async () => {
 
 test("editItem empty description", async () => {
     //Arrange
-    let { name, description, itemCost, itemType, rentalState, index } = generateItem();
-    await model.addItem(name, description, itemCost, itemType, rentalState);
-    let { name: name2, description: description2, itemCost: itemCost2, itemType: itemType2, rentalState: rentalState2 } = generateItem(index);
+    let { name, description, itemCost, itemType, index } = generateItem();
+    await model.addItem(name, description, itemCost, itemType);
+    let { name: name2, description: description2, itemCost: itemCost2, itemType: itemType2 } = generateItem(index);
     fail = false;
 
     //Act
     try {
-        await model.editItem(name2, '', itemCost2, itemType2, rentalState2);
+        await model.editItem(name2, '', itemCost2, itemType22);
     }
     catch {
         fail = true;
@@ -1068,14 +1012,14 @@ test("editItem empty description", async () => {
 
 test("editItem empty itemCost", async () => {
     //Arrange
-    let { name, description, itemCost, itemType, rentalState, index } = generateItem();
-    await model.addItem(name, description, itemCost, itemType, rentalState);
-    let { name: name2, description: description2, itemCost: itemCost2, itemType: itemType2, rentalState: rentalState2 } = generateItem(index);
+    let { name, description, itemCost, itemType, index } = generateItem();
+    await model.addItem(name, description, itemCost, itemType);
+    let { name: name2, description: description2, itemCost: itemCost2, itemType: itemType2 } = generateItem(index);
     fail = false;
 
     //Act
     try {
-        await model.editItem(name2, description2, '', itemType2, rentalState2);
+        await model.editItem(name2, description2, '', itemType2);
     }
     catch {
         fail = true;
@@ -1087,14 +1031,14 @@ test("editItem empty itemCost", async () => {
 
 test("editItem invalid itemCost", async () => {
     //Arrange
-    let { name, description, itemCost, itemType, rentalState, index } = generateItem();
-    await model.addItem(name, description, itemCost, itemType, rentalState);
-    let { name: name2, description: description2, itemCost: itemCost2, itemType: itemType2, rentalState: rentalState2 } = generateItem(index);
+    let { name, description, itemCost, itemType, index } = generateItem();
+    await model.addItem(name, description, itemCost, itemType);
+    let { name: name2, description: description2, itemCost: itemCost2, itemType: itemType2 } = generateItem(index);
     fail = false;
 
     //Act
     try {
-        await model.editItem(name2, description2, 'a', itemType2, rentalState2);
+        await model.editItem(name2, description2, 'a', itemType2);
     }
     catch {
         fail = true;
@@ -1106,14 +1050,14 @@ test("editItem invalid itemCost", async () => {
 
 test("editItem empty item type", async () => {
     //Arrange
-    let { name, description, itemCost, itemType, rentalState, index } = generateItem();
-    await model.addItem(name, description, itemCost, itemType, rentalState);
-    let { name: name2, description: description2, itemCost: itemCost2, itemType: itemType2, rentalState: rentalState2 } = generateItem(index);
+    let { name, description, itemCost, itemType, index } = generateItem();
+    await model.addItem(name, description, itemCost, itemType);
+    let { name: name2, description: description2, itemCost: itemCost2, itemType: itemType2 } = generateItem(index);
     fail = false;
 
     //Act
     try {
-        await model.editItem(name2, description2, itemCost2, '', rentalState2);
+        await model.editItem(name2, description2, itemCost2, '');
     }
     catch {
         fail = true;
@@ -1125,14 +1069,14 @@ test("editItem empty item type", async () => {
 
 test("editItem invalid item type", async () => {
     //Arrange
-    let { name, description, itemCost, itemType, rentalState, index } = generateItem();
-    await model.addItem(name, description, itemCost, itemType, rentalState);
-    let { name: name2, description: description2, itemCost: itemCost2, itemType: itemType2, rentalState: rentalState2 } = generateItem(index);
+    let { name, description, itemCost, itemType, index } = generateItem();
+    await model.addItem(name, description, itemCost, itemType);
+    let { name: name2, description: description2, itemCost: itemCost2, itemType: itemType2 } = generateItem(index);
     fail = false;
 
     //Act
     try {
-        await model.editItem(name2, description2, itemCost2, '-1', rentalState2);
+        await model.editItem(name2, description2, itemCost2, '-1');
     }
     catch {
         fail = true;
@@ -1144,9 +1088,9 @@ test("editItem invalid item type", async () => {
 
 test("editItem empty rental state", async () => {
     //Arrange
-    let { name, description, itemCost, itemType, rentalState, index } = generateItem();
-    await model.addItem(name, description, itemCost, itemType, rentalState);
-    let { name: name2, description: description2, itemCost: itemCost2, itemType: itemType2, rentalState: rentalState2 } = generateItem(index);
+    let { name, description, itemCost, itemType, index } = generateItem();
+    await model.addItem(name, description, itemCost, itemType);
+    let { name: name2, description: description2, itemCost: itemCost2, itemType: itemType2 } = generateItem(index);
     fail = false;
 
     //Act
@@ -1163,9 +1107,9 @@ test("editItem empty rental state", async () => {
 
 test("editItem invalid rental state", async () => {
     //Arrange
-    let { name, description, itemCost, itemType, rentalState, index } = generateItem();
-    await model.addItem(name, description, itemCost, itemType, rentalState);
-    let { name: name2, description: description2, itemCost: itemCost2, itemType: itemType2, rentalState: rentalState2 } = generateItem(index);
+    let { name, description, itemCost, itemType, index } = generateItem();
+    await model.addItem(name, description, itemCost, itemType);
+    let { name: name2, description: description2, itemCost: itemCost2, itemType: itemType2 } = generateItem(index);
     fail = false;
 
     //Act
@@ -1182,8 +1126,8 @@ test("editItem invalid rental state", async () => {
 
 test("editItemRentalState empty rental state", async () => {
     //Arrange
-    let { name, description, itemCost, itemType, rentalState, index } = generateItem();
-    await model.addItem(name, description, itemCost, itemType, rentalState);
+    let { name, description, itemCost, itemType, index } = generateItem();
+    await model.addItem(name, description, itemCost, itemType);
     fail = false;
 
     //Act
@@ -1200,8 +1144,8 @@ test("editItemRentalState empty rental state", async () => {
 
 test("editItemRentalState invalid rental state", async () => {
     //Arrange
-    let { name, description, itemCost, itemType, rentalState, index } = generateItem();
-    await model.addItem(name, description, itemCost, itemType, rentalState);
+    let { name, description, itemCost, itemType, index } = generateItem();
+    await model.addItem(name, description, itemCost, itemType);
     fail = false;
 
     //Act
