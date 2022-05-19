@@ -184,14 +184,8 @@ router.post('/rentSubmit', async function (request, response) {
 
 
         // Make sure variables are correct time
-<<<<<<< HEAD
         try {
-            startTime = new Date(startTime);
-=======
-        try{
-            
             startTime = new Date(startDate + 'T' + startTime);
->>>>>>> 4f2ec06fb49ecc7d830b1db9a401a038b0d075e6
             duration = parseInt(duration);
             endTime = new Date(addTime(startTime, { hours: duration }));
         }
