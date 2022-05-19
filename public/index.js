@@ -1,3 +1,4 @@
+
 // Cookies
 const darkMode = document.querySelector("#dark-mode");
 const modeLogo = document.querySelector("#mode-logo");
@@ -6,6 +7,7 @@ const cookieStyle = document.querySelector(".simple-cookie-consent");
 const cookieModel = document.querySelector(".cookie-consent-container")
 const cancelButton = document.querySelector(".cookie-consent-deny")
 const acceptButton = document.querySelector(".cookie-consent-allow");
+
 var click = 0;
 
 
@@ -230,7 +232,8 @@ function checkConfirmPassword() {
 }
 
 // On load, refresh all the checks in case a failed signup was made and fields have information in them
-window.onload = function () {
+window.onload = function () 
+{
     checkUsername();
     checkFirstName();
     checkLastName();
@@ -238,60 +241,11 @@ window.onload = function () {
     checkConfirmPassword();
 }
 
-    // FORM emailJs
-
-
-    /***
-     * Made to send mails through a server 
-     * This makes it easier since it will have template to send mails
-     * 
-     */
-    (function () {
-        // https://dashboard.emailjs.com/admin/account
-        emailjs.init('erahkk0th3Z3BKcn9');
-    })();
-
-/**
- * Listens for the submit, and then sends a server request for it to be sent to the 
- * email address provided
- * 
- */
-window.onload = function () {
-    document.getElementById('contact-form').addEventListener('submit', function (event) {
-
-        event.preventDefault();
-        const name = document.getElementById('nameCon').value;
-        const fromName = document.getElementById('fromNameCon').value;
-        const message = document.getElementById('messageCon').value;
-        if (name == "" || fromName == "" || message == ""
-            || name == null || fromName == null || message == null) {
-            alert("Please fill all the fields");
-            return false;
-        }
-        else {
-
-            // generate a five digit number for the contact_number variable
-            this.contact_number.value = Math.random() * 100000 | 0;
-            // these IDs from the previous steps
-            emailjs.sendForm('service_mksrijc', 'template_y5kbr8g', this)
-                .then(function () {
-                    console.log('SUCCESS!');
-                    name.innerHTML = "";
-                    fromName.innerHTML = "";
-                    message.innerHTML = "";
-                },
-                    function (error) {
-                        console.log('FAILED...', error);
-                    });
-        }
-
-    });
-}
-
+          
 
 window.onload = function () 
 {
-   
+   console.log("loaded");
 }
             
 
@@ -342,7 +296,7 @@ function getCookiePl(cname) {
 /**
  * Check if the cookie is set or not, if not then show the cookie consent
  */
-function acceptCookieConsent() {
+ function acceptCookieConsent() {
     deleteCookie('user_cookie_consent');
     setCookie('user_cookie_consent', 1, 30);
     document.getElementById("cookieNotice").style.display = "none";
@@ -386,4 +340,3 @@ function userTrack() {
     }
 
 }
-

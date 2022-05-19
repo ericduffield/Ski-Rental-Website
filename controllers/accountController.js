@@ -38,8 +38,9 @@ router.get('/account', async function (request, response) {
         const expiresAt = new Date(session.expiresAt);
         response.cookie("sessionId", session.id, { expires: expiresAt });
         response.cookie("userId", session.userId, { expires: expiresAt });
-        response.cookie("userType", session.userType, { expires: expiresAt });
-        response.render("account.hbs", { loggedIn: true });
+        response.cookie("userType", session.userType, { expires: expiresAt });       
+        response.render("account.hbs", {loggedIn: true});
+       
     }
 }
 );
