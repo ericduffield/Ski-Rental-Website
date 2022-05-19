@@ -44,9 +44,7 @@ router.get('/account', async function (request, response) {
 }
 );
 
-router.post('/logout', logout);
-
-async function logout(request, response) {
+router.post('/logout', async function(request, response) {
     if (await model.authenticateUser(request)) {
         await model.deleteSessionById(request.cookies.sessionId);
         response.clearCookie("sessionId");
@@ -58,7 +56,7 @@ async function logout(request, response) {
     else {
         response.redirect("/");
     }
-}
+});
 
 
 //=================FORM SUBMISSION ENDPOINTS====================
