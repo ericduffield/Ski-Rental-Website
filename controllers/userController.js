@@ -165,6 +165,7 @@ router.post('/rentSubmit', async function (request, response) {
     };
 
     let startTime = request.body.startTime;
+    let startDate = request.body.startDate;
     let duration = request.body.duration;
     let itemType = request.body.itemType;  
     let endTime = "";
@@ -183,7 +184,8 @@ router.post('/rentSubmit', async function (request, response) {
         
         // Make sure variables are correct time
         try{
-            startTime = new Date(startTime);
+            
+            startTime = new Date(startDate + 'T' + startTime);
             duration = parseInt(duration);
             endTime = new Date(addTime(startTime, {hours: duration}));
         }
