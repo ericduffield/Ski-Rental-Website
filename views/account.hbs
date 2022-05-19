@@ -19,5 +19,13 @@
     </form>
 </div>
 <script>
+    const model = require("../models/skiEquipmentModelMysql")
+    // get the current cookie session.id
+    const sessionId = document.cookie.split("=")[1];
+    // get the current user's id
+    const userId = sessionId.split("%")[0];
+
+    let user = await model.getRentalFromUserId(userId);
+    console.log(user);
     
 </script>
