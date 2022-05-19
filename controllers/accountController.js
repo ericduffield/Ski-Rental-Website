@@ -105,7 +105,7 @@ async function loginSubmit(req, res) {
             adminController.listResponse(res, "/images/hero.jpg", false, false);
         }
         else {
-            res.render("home.hbs", pageData);
+            res.redirect('/rent')
         }
     }
     else {
