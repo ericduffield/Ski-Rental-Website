@@ -1,7 +1,7 @@
 //#region SETUP
 const app = require("../app");
 const supertest = require("supertest");
-const testRequest = supertest(app);
+testRequest = supertest.agent(app);
 
 const dbName = "skiEquipment_db_test";
 const model = require('../models/skiEquipmentModelMysql');
@@ -795,11 +795,16 @@ test("deleteUser not in database", async () => {
     //Arrange
     fail = false;
 
-    //Act
-    let result = await model.deleteUser(DEFAULT_USER_ID);
+    try {
+        //Act
+        await model.deleteUser(DEFAULT_USER_ID);
+    }
+    catch {
+        fail = true;
+    }
 
     //Assert
-    expect(result).toBe(null);
+    expect(fail).toBe(true);
 });
 
 test("getUserById not in database", async () => {
@@ -1164,11 +1169,16 @@ test("deleteItem not in database", async () => {
     //Arrange
     fail = false;
 
-    //Act
-    let result = await model.deleteItem(DEFAULT_ID);
+    try {
+        //Act
+        await model.deleteItem(DEFAULT_ID);
+    }
+    catch (err) {
+        fail = true;
+    }
 
     //Assert
-    expect(result).toBe(null);
+    expect(fail).toBe(true);
 });
 
 test("getItemById not in database", async () => {
@@ -1307,18 +1317,669 @@ test("getItemTypeByName not in database", async () => {
 
 //#endregion
 
-//#region =============== ENDPOINT TESTS ===============
+//#region =============== ENDPOINT SUCCESS TESTS ===============
 
-//Home test
+//#region USER PAGE TESTS
+
 test("Home test", async () => {
     let testResponse = await testRequest.get("/home");
     expect(testResponse.status).toBe(200);
 });
 
-//404 test
 test("404 test", async () => {
     let testResponse = await testRequest.get("/anything");
     expect(testResponse.status).toBe(404);
 });
+
+test("About test", async () => {
+    let testResponse = await testRequest.get("/about");
+    expect(testResponse.status).toBe(200);
+});
+
+test("Login test", async () => {
+    let testResponse = await testRequest.get("/login");
+    expect(testResponse.status).toBe(200);
+});
+
+test("Signup test", async () => {
+    let testResponse = await testRequest.get("/signup");
+    expect(testResponse.status).toBe(200);
+});
+
+test("Account test", async () => {
+    let testResponse = await testRequest.get("/account");
+    expect(testResponse.status).toBe(200);
+});
+
+
+
+//#endregion
+
+//#region ADMIN TESTS
+
+test("List page test", async () => {
+    let testResponse = await testRequest.get("/admin");
+    expect(testResponse.status).toBe(200);
+});
+
+test("Items page test", async () => {
+    let testResponse = await testRequest.get("/items");
+    expect(testResponse.status).toBe(200);
+});
+
+test("Item types page test", async () => {
+    let testResponse = await testRequest.get("/itemtypes");
+    expect(testResponse.status).toBe(200);
+});
+
+test("Users page test", async () => {
+    let testResponse = await testRequest.get("/users");
+    expect(testResponse.status).toBe(200);
+});
+
+//#endregion
+
+//#region USERS TESTS
+
+test("createUser endpoint test", async () => {
+    //Arrange
+    let { userType, username, password, firstName, lastName, credit } = generateUser();
+
+    //Act
+    let testResponse = await testRequest.post("/createUser").send({
+        userType: userType,
+        username: username,
+        password: password,
+        firstName: firstName,
+        lastName: lastName,
+        credit: credit
+    });
+
+    //Assert
+    expect(testResponse.status).toBe(200);
+});
+
+test("editUser endpoint test", async () => {
+    //Arrange
+    let { userType, username, password, firstName, lastName, credit, index } = generateUser();
+    let { userType: userType2, username: username2, password: password2, firstName: firstName2, lastName: lastName2, credit: credit2 } = generateUser(index);
+    await testRequest.post("/createUser").send({
+        userType: userType,
+        username: username,
+        password: password,
+        firstName: firstName,
+        lastName: lastName,
+        credit: credit
+    });
+
+    //Act
+    let testResponse = await testRequest.post("/editUser").send({
+        id: DEFAULT_USER_ID,
+        userType: userType2,
+        username: username2,
+        password: password2,
+        firstName: firstName2,
+        lastName: lastName2,
+        credit: credit2
+    });
+
+    //Assert
+    expect(testResponse.status).toBe(200);
+});
+
+test("deleteUser endpoint test", async () => {
+    //Arrange
+    let { userType, username, password, firstName, lastName, credit } = generateUser();
+    await testRequest.post("/createUser").send({
+        userType: userType,
+        username: username,
+        password: password,
+        firstName: firstName,
+        lastName: lastName,
+        credit: credit
+    });
+
+    //Act
+    let testResponse = await testRequest.post("/deleteUser").send({
+        id: DEFAULT_USER_ID,
+    });
+
+    //Assert
+    expect(testResponse.status).toBe(200);
+});
+
+//#endregion
+
+//#region ITEM TESTS
+
+test("addItem endpoint test", async () => {
+    //Arrange
+    let { name, description, itemCost, itemType } = generateItem();
+
+    //Act
+    let testResponse = await testRequest.post("/addItem").send({
+        name: name,
+        description: description,
+        cost: itemCost,
+        itemType: itemType,
+        quantity: '1'
+    });
+
+    //Assert
+    expect(testResponse.status).toBe(200);
+});
+
+test("editItem endpoint test", async () => {
+    //Arrange
+    let { name, description, itemCost, itemType, index } = generateItem();
+    let { name: name2, description: description2, itemCost: itemCost2, itemType: itemType2 } = generateItem(index);
+    await testRequest.post("/addItem").send({
+        name: name,
+        description: description,
+        cost: itemCost,
+        itemType: itemType,
+        quantity: '1'
+    });
+
+    //Act
+    let testResponse = await testRequest.post("/editItem").send({
+        id: DEFAULT_ID,
+        name: name2,
+        description: description2,
+        cost: itemCost2,
+        itemType: itemType2
+    });
+
+    //Assert
+    expect(testResponse.status).toBe(200);
+});
+
+test("deleteItem endpoint test", async () => {
+    //Arrange
+    let { name, description, itemCost, itemType } = generateItem();
+    await testRequest.post("/addItem").send({
+        name: name,
+        description: description,
+        cost: itemCost,
+        itemType: itemType,
+        quantity: '1'
+    });
+
+    //Act
+    let testResponse = await testRequest.post("/deleteItem").send({
+        id: DEFAULT_ID,
+    });
+
+    //Assert
+    expect(testResponse.status).toBe(200);
+});
+
+//#endregion
+
+//#region ITEM TYPES TESTS
+
+test("addItemType endpoint test", async () => {
+    //Arrange
+    let { name } = generateItemTypes();
+
+    //Act
+    let testResponse = await testRequest.post("/addItemType").send({
+        name: name
+    });
+
+    //Assert
+    expect(testResponse.status).toBe(200);
+});
+
+test("editItemType endpoint test", async () => {
+    //Arrange
+    let { name, index } = generateItemTypes();
+    let { name: name2 } = generateItemTypes(index);
+    await testRequest.post("/addItemType").send({
+        name: name
+    });
+
+    //Act
+    let testResponse = await testRequest.post("/editItemType").send({
+        id: DEFAULT_ID,
+        name: name2
+    });
+
+    //Assert
+    expect(testResponse.status).toBe(200);
+});
+
+test("deleteItemType endpoint test", async () => {
+    //Arrange
+    let { name, index } = generateItemTypes();
+    await testRequest.post("/addItemType").send({
+        name: name,
+    });
+
+    //Act
+    let testResponse = await testRequest.post("/deleteItemType").send({
+        id: DEFAULT_ID,
+    });
+
+    //Assert
+    expect(testResponse.status).toBe(200);
+});
+
+//#endregion
+
+//#region OTHER FORM TESTS
+
+test("Default user login", async () => {
+    let testResponse = await testRequest.post("/loginSubmit").send({
+        username: 'Admin',
+        password: 'P@ssw0rd'
+    });
+
+    expect(testResponse.status).toBe(200);
+});
+
+test("Logout test", async () => {
+    let testResponse = await testRequest.post("/logout");
+    expect(testResponse.status).toBe(302);
+});
+
+test("Signup", async () => {
+    let { userType, username, password, firstName, lastName, credit } = generateUser();
+    let testResponse = await testRequest.post("/signupSubmit").send({
+        username: username,
+        firstName: firstName,
+        lastName: lastName,
+        password: password,
+        confirmPassword: password
+    });
+
+    expect(testResponse.status).toBe(200);
+});
+
+//#endregion
+
+//#endregion
+
+//#region =============== ENDPOINT FAILURE TESTS ===============
+
+//#region USER TESTS
+
+test("createUser empty userType test", async () => {
+    //Arrange
+    let { userType, username, password, firstName, lastName, credit } = generateUser();
+
+    testResponse = await testRequest.post("/createUser").send({
+        userType: "",
+        username: username,
+        password: password,
+        firstName: firstName,
+        lastName: lastName,
+        credit: credit
+    });
+
+    //Assert
+    expect(testResponse.status).toBe(400);
+});
+
+test("createUser invalid userType test", async () => {
+    //Arrange
+    let { userType, username, password, firstName, lastName, credit } = generateUser();
+
+    //Act
+    let testResponse = await testRequest.post("/createUser").send({
+        userType: "!",
+        username: username,
+        password: password,
+        firstName: firstName,
+        lastName: lastName,
+        credit: credit
+    });
+
+    //Assert
+    expect(testResponse.status).toBe(400);
+});
+
+test("createUser empty username test", async () => {
+    //Arrange
+    let { userType, username, password, firstName, lastName, credit } = generateUser();
+
+    //Act
+    let testResponse = await testRequest.post("/createUser").send({
+        userType: userType,
+        username: "",
+        password: password,
+        firstName: firstName,
+        lastName: lastName,
+        credit: credit
+    });
+
+    //Assert
+    expect(testResponse.status).toBe(400);
+});
+
+test("createUser invalid username test", async () => {
+    //Arrange
+    let { userType, username, password, firstName, lastName, credit } = generateUser();
+
+    //Act
+    let testResponse = await testRequest.post("/createUser").send({
+        userType: userType,
+        username: "!",
+        password: password,
+        firstName: firstName,
+        lastName: lastName,
+        credit: credit
+    });
+
+    //Assert
+    expect(testResponse.status).toBe(400);
+});
+
+test("createUser empty password test", async () => {
+    //Arrange
+    let { userType, username, password, firstName, lastName, credit } = generateUser();
+
+    //Act
+    let testResponse = await testRequest.post("/createUser").send({
+        userType: userType,
+        username: username,
+        password: "",
+        firstName: firstName,
+        lastName: lastName,
+        credit: credit
+    });
+
+    //Assert
+    expect(testResponse.status).toBe(400);
+});
+
+test("createUser short password test", async () => {
+    //Arrange
+    let { userType, username, password, firstName, lastName, credit } = generateUser();
+
+    //Act
+    let testResponse = await testRequest.post("/createUser").send({
+        userType: userType,
+        username: username,
+        password: "Abcd!",
+        firstName: firstName,
+        lastName: lastName,
+        credit: credit
+    });
+
+    //Assert
+    expect(testResponse.status).toBe(400);
+});
+
+test("createUser no symbol password test", async () => {
+    //Arrange
+    let { userType, username, password, firstName, lastName, credit } = generateUser();
+
+    //Act
+    let testResponse = await testRequest.post("/createUser").send({
+        userType: userType,
+        username: username,
+        password: "Abcdadfaf",
+        firstName: firstName,
+        lastName: lastName,
+        credit: credit
+    });
+
+    //Assert
+    expect(testResponse.status).toBe(400);
+});
+
+test("createUser no capital password test", async () => {
+    //Arrange
+    let { userType, username, password, firstName, lastName, credit } = generateUser();
+
+    //Act
+    let testResponse = await testRequest.post("/createUser").send({
+        userType: userType,
+        username: username,
+        password: "abcdadfaf!",
+        firstName: firstName,
+        lastName: lastName,
+        credit: credit
+    });
+
+    //Assert
+    expect(testResponse.status).toBe(400);
+});
+
+test("createUser empty firstName test", async () => {
+    //Arrange
+    let { userType, username, password, firstName, lastName, credit } = generateUser();
+
+    //Act
+    let testResponse = await testRequest.post("/createUser").send({
+        userType: userType,
+        username: username,
+        password: password,
+        firstName: "",
+        lastName: lastName,
+        credit: credit
+    });
+
+    //Assert
+    expect(testResponse.status).toBe(400);
+});
+
+test("createUser empty lastName test", async () => {
+    //Arrange
+    let { userType, username, password, firstName, lastName, credit } = generateUser();
+
+    //Act
+    let testResponse = await testRequest.post("/createUser").send({
+        userType: userType,
+        username: username,
+        password: password,
+        firstName: firstName,
+        lastName: "",
+        credit: credit
+    });
+
+    //Assert
+    expect(testResponse.status).toBe(400);
+});
+
+test("createUser empty credit test", async () => {
+    //Arrange
+    let { userType, username, password, firstName, lastName, credit } = generateUser();
+
+    //Act
+    let testResponse = await testRequest.post("/createUser").send({
+        userType: userType,
+        username: username,
+        password: password,
+        firstName: firstName,
+        lastName: credit,
+        credit: credit
+    });
+
+    //Assert
+    expect(testResponse.status).toBe(400);
+});
+
+test("editUser empty username test", async () => {
+    //Arrange
+    let { userType, username, password, firstName, lastName, credit, index } = generateUser();
+    let { userType: userType2, username: username2, password: password2, firstName: firstName2, lastName: lastName2, credit: credit2 } = generateUser(index);
+    await testRequest.post("/createUser").send({
+        userType: userType,
+        username: username,
+        password: password,
+        firstName: firstName,
+        lastName: lastName,
+        credit: credit
+    });
+
+    //Act
+    let testResponse = await testRequest.post("/editUser").send({
+        id: DEFAULT_USER_ID,
+        userType: userType2,
+        username: "",
+        password: password2,
+        firstName: firstName2,
+        lastName: lastName2,
+        credit: credit2
+    });
+
+    //Assert
+    expect(testResponse.status).toBe(400);
+});
+
+test("deleteUser not in database test", async () => {
+    //Arrange
+
+    //Act
+    let testResponse = await testRequest.post("/deleteUser").send({
+        id: DEFAULT_USER_ID,
+    });
+
+    //Assert
+    expect(testResponse.status).toBe(400);
+});
+
+//#endregion
+
+//#region ITEM TESTS
+
+test("addItem empty name test", async () => {
+    //Arrange
+    let { name, description, itemCost, itemType } = generateItem();
+
+    //Act
+    let testResponse = await testRequest.post("/addItem").send({
+        name: "",
+        description: description,
+        cost: itemCost,
+        itemType: itemType,
+        quantity: '1'
+    });
+
+    //Assert
+    expect(testResponse.status).toBe(400);
+});
+
+test("editItem empty name test", async () => {
+    //Arrange
+    let { name, description, itemCost, itemType, index } = generateItem();
+    let { name: name2, description: description2, itemCost: itemCost2, itemType: itemType2 } = generateItem(index);
+    await testRequest.post("/addItem").send({
+        name: name,
+        description: description,
+        cost: itemCost,
+        itemType: itemType,
+        quantity: '1'
+    });
+
+    //Act
+    let testResponse = await testRequest.post("/editItem").send({
+        id: DEFAULT_ID,
+        name: "",
+        description: description2,
+        cost: itemCost2,
+        itemType: itemType2
+    });
+
+    //Assert
+    expect(testResponse.status).toBe(400);
+});
+
+test("deleteItem not in database test", async () => {
+    //Arrange
+
+    //Act
+    let testResponse = await testRequest.post("/deleteItem").send({
+        id: DEFAULT_ID,
+    });
+
+    //Assert
+    expect(testResponse.status).toBe(400);
+});
+
+//#endregion
+
+//#region ITEM TYPES TESTS
+
+test("addItemType empty name test", async () => {
+    //Arrange
+
+    //Act
+    let testResponse = await testRequest.post("/addItemType").send({
+        name: ""
+    });
+
+    //Assert
+    expect(testResponse.status).toBe(400);
+});
+
+test("editItemType empty name test", async () => {
+    //Arrange
+    let { name } = generateItemTypes();
+    await testRequest.post("/addItemType").send({
+        name: name
+    });
+
+    //Act
+    let testResponse = await testRequest.post("/editItemType").send({
+        id: DEFAULT_ID,
+        name: ""
+    });
+
+    //Assert
+    expect(testResponse.status).toBe(400);
+});
+
+test("deleteItemType not in database test", async () => {
+    //Arrange
+
+    //Act
+    let testResponse = await testRequest.post("/deleteItemType").send({
+        id: "-1",
+    });
+
+    //Assert
+    expect(testResponse.status).toBe(400);
+});
+
+//#endregion
+
+//#region OTHER FORMS TESTS
+
+test("Login not a user", async () => {
+    let testResponse = await testRequest.post("/loginSubmit").send({
+        username: 'Eric',
+        password: 'P@ssw0rd'
+    });
+
+    expect(testResponse.status).toBe(400);
+});
+
+test("Signup empty username", async () => {
+    let { userType, username, password, firstName, lastName, credit } = generateUser();
+    let testResponse = await testRequest.post("/signupSubmit").send({
+        username: "",
+        firstName: firstName,
+        lastName: lastName,
+        password: password,
+        confirmPassword: password
+    });
+
+    expect(testResponse.status).toBe(400);
+});
+
+test("Rent not logged in", async () => {
+    let testResponse = await testRequest.post("/rentSubmit").send({
+        startTime: '15:47',
+        duration: '4',
+        itemType: 'Skis',
+    });
+
+    expect(testResponse.status).toBe(400);
+});
+
+//#endregion
 
 //#endregion

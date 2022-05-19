@@ -34,6 +34,9 @@ async function AdminAuth(request) {
 router.get('/admin', list);
 
 function list(req, res) {
+    if (!AdminAuth(req)) {
+        res.render("login.hbs", { message: "Unauthorized Access - Please log in to an account to use this feature" });
+    }
     listResponse(res, "/images/hero.jpg", false, false);
 }
 
@@ -59,19 +62,28 @@ router.get('/admin', async function (request, response) {
 
 router.get('/items', items);
 
-function items(req, res,) {
+function items(req, res) {
+    if (!AdminAuth(req)) {
+        res.render("login.hbs", { message: "Unauthorized Access - Please log in to an account to use this feature" });
+    }
     itemResponse(res, "/images/hero.jpg", false, false);
 }
 
 router.get('/itemtypes', itemTypes);
 
 function itemTypes(req, res) {
+    if (!AdminAuth(req)) {
+        res.render("login.hbs", { message: "Unauthorized Access - Please log in to an account to use this feature" });
+    }
     itemTypesResponse(res, "/images/hero.jpg", false, false);
 }
 
 router.get('/users', users);
 
 function users(req, res) {
+    if (!AdminAuth(req)) {
+        res.render("login.hbs", { message: "Unauthorized Access - Please log in to an account to use this feature" });
+    }
     usersResponse(res, "/images/hero.jpg", false, false);
 }
 
@@ -138,7 +150,7 @@ async function addItem(req, res) {
     try {
         //Tries to add ski equipment to the database and if successful, renders the form with success message
         if (!validate.isValidInteger(req.body.quantity))
-            throw new Error("Quantity must be an integer");
+            throw new UserDataError("Quantity must be an integer");
 
         console.log(req.body.itemType)
         for (let i = 0; i < req.body.quantity; i++) {
@@ -150,7 +162,7 @@ async function addItem(req, res) {
     catch (err) {
         console.error(err.message);
         //Renders the form again with error message and alert image
-
+        res.status(err.status == 400 ? 400 : 500);
         itemResponse(res, "/images/warning.webp", err.message, true);
     }
 }
@@ -176,7 +188,7 @@ async function editItem(req, res) {
     catch (err) {
         console.error(err.message);
         //Renders the form again with error message and alert image
-
+        res.status(err.status == 400 ? 400 : 500);
         itemResponse(res, "/images/warning.webp", err.message, true);
     }
 }
@@ -202,6 +214,7 @@ async function deleteItem(req, res) {
     catch (err) {
         console.error(err.message);
         //Renders the form again with error message and alert image
+        res.status(err.status == 400 ? 400 : 500);
         itemResponse(res, "/images/warning.webp", err.message, true);
     }
 }
@@ -319,7 +332,7 @@ async function addItemType(req, res) {
     catch (err) {
         console.error(err.message);
         //Renders the form again with error message and alert image
-
+        res.status(err.status == 400 ? 400 : 500);
         itemTypesResponse(res, "/images/warning.webp", err.message);
     }
 }
@@ -345,7 +358,7 @@ async function editItemType(req, res) {
     catch (err) {
         console.error(err.message);
         //Renders the form again with error message and alert image
-
+        res.status(err.status == 400 ? 400 : 500);
         itemTypesResponse(res, "/images/warning.webp", err.message);
     }
 }
@@ -370,7 +383,7 @@ async function deleteItemType(req, res) {
     catch (err) {
         console.error(err.message);
         //Renders the form again with error message and alert image
-
+        res.status(err.status == 400 ? 400 : 500);
         itemTypesResponse(res, "/images/warning.webp", err.message);
     }
 }
@@ -449,7 +462,7 @@ async function createUser(req, res) {
     catch (err) {
         console.error(err.message);
         //Renders the form again with error message and alert image
-
+        res.status(err.status == 400 ? 400 : 500);
         usersResponse(res, "/images/warning.webp", err.message);
     }
 }
@@ -475,7 +488,7 @@ async function editUser(req, res) {
     catch (err) {
         console.error(err.message);
         //Renders the form again with error message and alert image
-
+        res.status(err.status == 400 ? 400 : 500);
         usersResponse(res, "/images/warning.webp", err.message);
     }
 }
@@ -501,7 +514,7 @@ async function deleteUser(req, res) {
     catch (err) {
         console.error(err.message);
         //Renders the form again with error message and alert image
-
+        res.status(err.status == 400 ? 400 : 500);
         usersResponse(res, "/images/warning.webp", err.message);
     }
 }
