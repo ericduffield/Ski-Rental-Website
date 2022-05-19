@@ -662,7 +662,9 @@ h2{
 	padding-top: 10px;
 }
 #specialMove
-{}
+{
+	margin-left: 42px;
+}
 .imageSki
 {
 	align-items: center;
@@ -1277,5 +1279,13 @@ h2{
 	padding: 10px;
 	margin-bottom: 10px;
 }
+.accountEdits h1
+{
+	font-size: 28px;
+	color: var(--black);
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	margin-top: 50px;
 
-
+}
