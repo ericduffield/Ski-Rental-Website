@@ -24,13 +24,13 @@ afterEach(async () => {
 
 /* Data to be used to generate random skiEquipment for testing */
 const users = [
-    { userType: '1', username: 'Liam', password: "Abcd123!", firstName: 'Liam', lastName: 'Liam', credit: '80', index: 0 },
-    { userType: '1', username: 'Pleasure', password: "Abed123!", firstName: 'Pleasure', lastName: 'Pleasure', credit: '0', index: 1 },
-    { userType: '1', username: 'Brandon', password: "Abdd123!", firstName: 'Brandon', lastName: 'Brandon', credit: '40', index: 2 },
-    { userType: '1', username: 'Gorav', password: "Abcd123!", firstName: 'Gorav', lastName: 'Gorav', credit: '30', index: 3 },
-    { userType: '1', username: 'Sam', password: "Abdf123!", firstName: 'Sam', lastName: 'Sam', credit: '0', index: 4 },
-    { userType: '1', username: 'Eric', password: "Aded123!", firstName: 'Eric', lastName: 'Eric', credit: '15', index: 5 },
-    { userType: '1', username: 'Emma', password: "Abed123!", firstName: 'Emma', lastName: 'Emma', credit: '20', index: 6 },
+    { userType: '1', username: 'Liam', password: "Abcd123!", firstName: 'Liam', lastName: 'Liam', credit: '80.99', index: 0 },
+    { userType: '1', username: 'Pleasure', password: "Abed123!", firstName: 'Pleasure', lastName: 'Pleasure', credit: '0.00', index: 1 },
+    { userType: '1', username: 'Brandon', password: "Abdd123!", firstName: 'Brandon', lastName: 'Brandon', credit: '40.99', index: 2 },
+    { userType: '1', username: 'Gorav', password: "Abcd123!", firstName: 'Gorav', lastName: 'Gorav', credit: '30.99', index: 3 },
+    { userType: '1', username: 'Sam', password: "Abdf123!", firstName: 'Sam', lastName: 'Sam', credit: '0.00', index: 4 },
+    { userType: '1', username: 'Eric', password: "Aded123!", firstName: 'Eric', lastName: 'Eric', credit: '15.99', index: 5 },
+    { userType: '1', username: 'Emma', password: "Abed123!", firstName: 'Emma', lastName: 'Emma', credit: '20.99', index: 6 },
 ]
 
 const generateUser = (usedIndex) => {
@@ -43,10 +43,10 @@ const generateUser = (usedIndex) => {
 }
 
 const items = [
-    { name: 'S FORCE BOLD', description: "Description: Developed for on-piste chargers always eager to challenge the boundaries of their comfort zone, this ski’s couple extra centimeters underfoot make it perfect for laying down fast turns in all snow conditions.", itemCost: '80', itemType: '4', index: 0 },
-    { name: 'Tree Leader Board Camber Snowboard', description: "Description: Freeride champions and big mountain billy goats, take note. The Burton Leader Board puts control and response right beneath your feet.", itemCost: '100', itemType: '5', index: 1 },
-    { name: 'Oakley MOD5 MIPS Helmet', description: "Description: The Mod 5 MIPS provides optimal protection, comfort and great ventilation and boasts a typical Oakley design!", itemCost: '40', itemType: '3', index: 2 },
-    { name: 'Head Kore 2 120', description: "Description: The Head Kore 2 120 are high performance freeride and touring ski boots for advanced riders and ski experts.", itemCost: '20', itemType: '1', index: 6 },
+    { name: 'S FORCE BOLD', description: "Description: Developed for on-piste chargers always eager to challenge the boundaries of their comfort zone, this ski’s couple extra centimeters underfoot make it perfect for laying down fast turns in all snow conditions.", itemCost: '80.99', itemType: '4', index: 0 },
+    { name: 'Tree Leader Board Camber Snowboard', description: "Description: Freeride champions and big mountain billy goats, take note. The Burton Leader Board puts control and response right beneath your feet.", itemCost: '100.99', itemType: '5', index: 1 },
+    { name: 'Oakley MOD5 MIPS Helmet', description: "Description: The Mod 5 MIPS provides optimal protection, comfort and great ventilation and boasts a typical Oakley design!", itemCost: '40.99', itemType: '3', index: 2 },
+    { name: 'Head Kore 2 120', description: "Description: The Head Kore 2 120 are high performance freeride and touring ski boots for advanced riders and ski experts.", itemCost: '20.99', itemType: '1', index: 6 },
 ]
 
 const generateItem = (usedIndex) => {
