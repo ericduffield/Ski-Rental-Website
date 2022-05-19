@@ -192,7 +192,7 @@ a {
 
 }
 #title:hover
-{
+{	
 	color: var(--secondary);
 }
 #account {
@@ -220,6 +220,7 @@ a {
 }
 
 #login:hover {
+	color: var(--secondary);
 	border-bottom: 1px solid var(--black);
 }
 
@@ -291,6 +292,8 @@ footer{
 	"formContainer locationFooter linkForm";
 	text-align: center;
 	justify-content: space-between;
+	text-decoration: none;
+	color: var(--black);
 }
 
 .contactUs{ grid-area: contactUs;}
@@ -307,6 +310,8 @@ footer{
 	display: flex;
 	flex-direction: column;
 }
+.linkForm a{ color: var(--black)}
+.linkForm a:hover{ color: var(--secondary);}
 
 .socialsTags li{
     margin: 0 10px;
@@ -324,8 +329,7 @@ footer{
 }
 
 .socialsTags a:hover i{
-    color: var(--white);
-	
+    color: var(--secondary);	
 }
 
 .footer-bottom{
@@ -1064,7 +1068,7 @@ h2{
 	}
 
 	#menuToggle a:hover {
-		color: var(--hover);
+		color: var(--secondary);
 	}
 
 	#menuToggle input {
