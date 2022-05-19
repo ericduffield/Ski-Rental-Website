@@ -52,6 +52,7 @@ async function logout(request, response) {
         response.clearCookie("sessionId");
         response.clearCookie("userId");
         response.clearCookie("userType");
+        response.clearCookie("user_track")
         response.redirect("/login");
     }
     else {

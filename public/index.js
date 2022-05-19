@@ -345,14 +345,13 @@ let cookie_consent = getCookiePl("user_cookie_consent");
 if (cookie_consent != "") {
     document.getElementById("cookieNotice").style.display = "none";
 } else {
-    document.getElementById("cookieNotice").style.display = "block";
+    document.getElementById("cookieNotice").style.display = "none";
 }
 /**
  * Made for getting the value of the cookie
  * 
  * @param {*} cookieName 
  */
-
 function gettingTheValue(cookieName) {
     var re = new RegExp(cookieName + "=([^;]+)");
     var value = re.exec(document.cookie);
