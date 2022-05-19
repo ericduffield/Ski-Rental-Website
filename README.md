@@ -53,31 +53,31 @@ We have two different headers to better display, both of which have our logo, wh
 
 Our footer allows the user to know more about us, contact us or access the different parts of the site.
 
-![](./ImagesForReadMe/userFooter.PNG)
+![Footer](./ImagesForReadMe/userFooter.PNG)
 
 
 
 **Personalization**: Dark Mode / Light Mode switch
 
-![](./ImagesForReadMe/footer - personalisation.PNG)
+![Footer Personalization](./ImagesForReadMe/footer-personalisation.PNG)
 
 
 
 **Socials**: Links to our other platforms
 
-![](./ImagesForReadMe/footer - links.PNG)
+![Footer Socials](./ImagesForReadMe/footer-links.PNG)
 
 
 
 **Contact Us**: Sends an email to the dev team
 
-![](./ImagesForReadMe/footer - Contact.PNG)
+![Footer Contact](./ImagesForReadMe/footer-Contact.PNG)
 
 
 
 **Location**: Address where people can come see us
 
-![](./ImagesForReadMe/footer - address.PNG)
+![Footer Address](./ImagesForReadMe/footer-address.PNG)
 
 
 
@@ -85,11 +85,11 @@ Our footer allows the user to know more about us, contact us or access the diffe
 
 [Admin](#Admin-Footer): 
 
-![](./ImagesForReadMe/adminFooter - links.png)
+![Footer Admin Links](./ImagesForReadMe/adminFooter-links.png)
 
 [User](#User):
 
-![](./ImagesForReadMe/footer - pagesU.PNG)
+![Footer User Links](./ImagesForReadMe/footer-pagesU.PNG)
 
 
 
@@ -105,7 +105,7 @@ Any error is displayed over the form.
 
 Once a user is logged in, the header will display [account](#Account) instead of login
 
-![](./ImagesForReadMe/login.PNG)
+![Login](./ImagesForReadMe/login.PNG)
 
 
 
@@ -123,7 +123,7 @@ Allows a user to logout. This clears all session cookies.
 
 In the [footer](#Footer), a Dark Mode / Light Mode button can be found that switches the theme of the site. This choice is saved as a cookie so that the choice is constant across all pages.
 
-![](./ImagesForReadMe/footer - personalisation.PNG)
+![](./ImagesForReadMe/footer-personalisation.PNG)
 
 
 
@@ -166,31 +166,31 @@ Its features are as follows:
 
    - Prompts the user to rent now
 
-   ![Hero Image](./ImagesForReadMe/heroImage.PNG)
+![Hero Image](./ImagesForReadMe/heroImage.PNG)
 
 2. Welcome Message
 
    - Makes the user feel invited to the site
 
-   ![Welcome](./ImagesForReadMe/welcome.PNG)
+![Welcome](./ImagesForReadMe/welcome.PNG)
 
 3. Rental examples
 
    - Forces the user to see our rentals
 
-     ![Home Page Rental](./ImagesForReadMe/homePage - Rental.PNG)
+![Home Page Rental](./ImagesForReadMe/homePage-Rental.PNG)
 
 4. Sneak Peak at the about us
 
    - Makes our site feel more human
 
-     ![Home Page About Us](./ImagesForReadMe/homePage - OurTeam.PNG)
+![Home Page About Us](./ImagesForReadMe/homePage-OurTeam.PNG)
 
 5. Locations
 
    - Added for flare
 
-     ![Home Page - Locations](./ImagesForReadMe/homePage - Locations.PNG)
+![Home Page - Locations](./ImagesForReadMe/homePage-Locations.PNG)
 
 
 
@@ -231,7 +231,7 @@ The rental forms is as follows:
 
   - If an item is found, it creates the rental under that users id
 
-    ![Rentals](./ImagesForReadMe/rent.PNG)
+![Rentals](./ImagesForReadMe/rent.PNG)
 
 
 
@@ -239,7 +239,7 @@ The rental forms is as follows:
 
 This page allows the user to get to know more about our team as well as visit some of our personal links.  They also get to see who is behind the website.
 
-![About Us](./ImagesForReadMe/about us.PNG)
+![About Us](./ImagesForReadMe/aboutus.PNG)
 
 
 
@@ -312,7 +312,7 @@ Gets and displays all of the following to the screen:
 
   - Item Type
 
-    ![List Items](./ImagesForReadMe/list - items.png)
+![List Items](./ImagesForReadMe/list-items.png)
 
 - Item Types
 
@@ -320,7 +320,7 @@ Gets and displays all of the following to the screen:
 
   - Id
 
-    ![List Item Types](./ImagesForReadMe/list - itemtypes.png)
+![List Item Types](./ImagesForReadMe/list-itemtypes.png)
 
 - Users
 
@@ -334,7 +334,7 @@ Gets and displays all of the following to the screen:
 
   - User Type
 
-    ![List Users](./ImagesForReadMe/list - users.PNG)
+![List Users](./ImagesForReadMe/list-users.PNG)
 
 
 
@@ -342,7 +342,7 @@ Gets and displays all of the following to the screen:
 
 Allows the admin to add, edit or delete items from the forms. All the values are validated and results are displayed above the forms.
 
-![Items](./ImagesForReadMe/items - aed.png)
+![Items](./ImagesForReadMe/items-aed.png)
 
 
 
@@ -350,7 +350,7 @@ Allows the admin to add, edit or delete items from the forms. All the values are
 
 Allows the admin to add, edit or delete item types from the forms. All the values are validated and results are displayed above the forms.
 
-![Item Types](./ImagesForReadMe/itemtypes- aed.png)
+![Item Types](./ImagesForReadMe/itemtypes-aed.png)
 
 
 
@@ -358,7 +358,7 @@ Allows the admin to add, edit or delete item types from the forms. All the value
 
 Allows the admin to add, edit or delete users from the forms. All the values are validated and results are displayed above the forms.
 
-![Users](./ImagesForReadMe/users - aed.png)
+![Users](./ImagesForReadMe/users-aed.png)
 
 
 
