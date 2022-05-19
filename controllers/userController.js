@@ -2,6 +2,7 @@ const express = require('express');
 const router = express.Router();
 const routeRoot = '/';
 const model = require("../models/skiEquipmentModelMysql");
+const addTime = require("add-time");
 //require user model
 //const model = require('../models/skiEquipmentModelMysql');
 
@@ -44,13 +45,13 @@ router.get('/rent', async function (request, response) {
         [
             {               
                 name: "Snowboard",
-                formInput: "/rentSumbit",
+                formInput: "/rentSubmit",
                 image: "/images/snowboardMain.jpg",
                 itemType: "Snowboards",
             },
             {
                 name: "Snowboard Boots",
-                formInput: "/rentSumbit",
+                formInput: "/rentSubmit",
                 image: "/images/snowbardBoots.png",
                 itemType: "Boots"
             }
@@ -59,25 +60,25 @@ router.get('/rent', async function (request, response) {
             
             {
                 name: "Ski",
-                formInput: "/rentSumbit",
+                formInput: "/rentSubmit",
                 image: "/images/skiRent.png",
                 itemType: "Skis"
             },
             {
                 name: "Helmet",
-                formInput: "/rentSumbit",
+                formInput: "/rentSubmit",
                 image: "/images/helmet.png",
                 itemType: "Helmets"
             },
             {
                 name: "Ski Boots",
-                formInput: "/rentSumbit",
+                formInput: "/rentSubmit",
                 image: "/images/skiBoots.png",
                 itemType: "Boots"
             },
             {
                 name: "Poles",
-                formInput: "/rentSumbit",
+                formInput: "/rentSubmit",
                 image: "/images/poles.png",
                 itemType: "Poles"
             },
@@ -121,8 +122,7 @@ router.post('/rentSubmit', async function (request, response) {
             try{
                 startTime = new Date(startTime);
                 duration = parseInt(duration);
-                endTime = new Date(startTime).setHours(startTime.getHours() + duration);
-                itemType = parseInt(itemTypeId);
+                endTime = new Date(addTime(startTime, {hours: duration}));
             }
             catch(error){
                 console.error(error.message);
@@ -133,7 +133,9 @@ router.post('/rentSubmit', async function (request, response) {
                 // Create the rental
                 await model.createRental(session.userId, startTime, endTime, duration, itemType);
                 console.log("Successfully rented ski equipment");
-                rentResponse(response, "/images/hero.jpg", "Successfully rented ski equipment", false);
+                
+                // TODO, change this to account so that you can see ur rental
+                response.render("home.hbs", {message: "Successfully rented ski equipment"});
             }
             catch (err) {
                 // If it didnt work, display error message and return to rental page

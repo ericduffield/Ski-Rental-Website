@@ -112,7 +112,7 @@ async function initialize(dbname, reset) {
             );
 
         // Rentals
-        const rentals = 'CREATE TABLE IF NOT EXISTS rentals(id int AUTO_INCREMENT NOT NULL PRIMARY KEY, userId int NOT NULL, itemId int NOT NULL, startTime time NOT NULL, endTime time NOT NULL, rentalPrice decimal NOT NULL, duration int NOT NULL, FOREIGN KEY (userId) REFERENCES Users(id), FOREIGN KEY (itemId) REFERENCES inventory(id))';
+        const rentals = 'CREATE TABLE IF NOT EXISTS rentals(id int AUTO_INCREMENT NOT NULL PRIMARY KEY, userId int NOT NULL, itemId int NOT NULL, startTime varchar(100) NOT NULL, endTime varchar(100) NOT NULL, rentalPrice decimal NOT NULL, duration int NOT NULL, FOREIGN KEY (userId) REFERENCES Users(id), FOREIGN KEY (itemId) REFERENCES inventory(id))';
         await connection.execute(rentals)
             .catch((error) => {
                 throw new SystemError("SQL Execution Error - Rentals");
@@ -662,16 +662,18 @@ async function getAllItemTypes() {
  * @throws UserDataError if there are no available items at that time
  */
 async function createRental(userId, startTime, endTime, Duration, itemType) {
+    // will be used later
+    var username;
     if (!validate.isValidInteger(userId)) {
         throw new UserDataError("Invalid user id");
     }
-    if (!validate.isValidTime(startTime)) {
+    if (!validate.isValidDateTime(startTime)) {
         throw new UserDataError("Invalid start time");
     }
-    if (!validate.isValidTime(endTime)) {
+    if (!validate.isValidDateTime(endTime)) {
         throw new UserDataError("Invalid end time");
     }
-    if (endTime > startTime) {
+    if (endTime < startTime) {
         throw new UserDataError("End time must be before start time");
     }
     if (!validate.isValidInteger(Duration)) {
@@ -682,7 +684,7 @@ async function createRental(userId, startTime, endTime, Duration, itemType) {
     }
 
     // Check that the user exists in the database
-    const userQuery = 'SELECT * FROM user WHERE id = ' + userId;
+    const userQuery = 'SELECT * FROM users WHERE id = \'' + userId + '\'';
     const userResult = await connection.execute(userQuery)
         .catch((error) => {
             logger.error(error)
@@ -690,6 +692,9 @@ async function createRental(userId, startTime, endTime, Duration, itemType) {
         });
     if (userResult[0].length == 0) {
         throw new UserDataError("User does not exist");
+    }
+    else{
+        username = userResult[0][0].username;
     }
 
     // Get all the items from inventory that have the right item Type
@@ -703,11 +708,11 @@ async function createRental(userId, startTime, endTime, Duration, itemType) {
         );
     // This is all of the items
     const items = result[0];
-    let itemId = null;
+    let item = null;
     // Loops over each item
     for (let i = 0; i < items.length; i++) {
         // Checks if the item is available at that time frame
-        const sqlQuery = 'SELECT * FROM rental WHERE item = ' + items[i].id + ' AND startTime <= \'' + startTime + '\' AND endTime >= \'' + endTime + '\'';
+        const sqlQuery = 'SELECT * FROM rentals WHERE itemId = ' + items[i].id + ' AND startTime <= \'' + endTime + '\' AND endTime >= \'' + startTime + '\'';
         const result = await connection.execute(sqlQuery)
             .catch((error) => {
                 logger.error(error)
@@ -717,23 +722,41 @@ async function createRental(userId, startTime, endTime, Duration, itemType) {
         // If there are no rentals at that time, set the itemId to the item id
         // Break the loop because that item can be rented
         if (result[0].length == 0) {
-            itemId = items[i].id;
+            item = items[i];
             break;
         }
     }
     // If there is no possible rental, throw an error
-    if (itemId == null) {
+    if (item.id == null) {
         throw new UserDataError("No items available");
     }
 
+    // Disable foreign keys because sqlite is picky, my query is good
+    await connection.execute('SET FOREIGN_KEY_CHECKS=0;')
+        .catch((error) => {
+            logger.error(error)
+            throw new SystemError("Error disabling foreign keys");
+        }
+    );
+
     // Otherwise insert it into the rentals Table
-    const addRental = 'INSERT INTO rental (user, item, startTime, endTime, duration) VALUES (' + userId + ', ' + itemId + ', \'' + startTime + '\', \'' + endTime + '\', ' + Duration + ')';
+    const addRental = 'INSERT INTO rentals (userId, itemId, startTime, endTime, duration, rentalPrice) VALUES ((Select id from users where username = \'' + username + '\'),\'' + item.id + '\', \'' + startTime + '\', \'' + endTime + '\', \'' + Duration + '\', \'' + item.itemCost +'\');'
+    
     await connection.execute(addRental)
         .catch((error) => {
             logger.error(error)
             throw new SystemError("Error adding rental");
         }
-        );
+    );
+
+    // Re-enable foreign keys
+    // Disable foreign keys because sqlite is picky, my query is good
+    await connection.execute('SET FOREIGN_KEY_CHECKS=1;')
+        .catch((error) => {
+            logger.error(error)
+            throw new SystemError("Error disabling foreign keys");
+        }
+    );
 }
 
 /**

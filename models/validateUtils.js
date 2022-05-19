@@ -2,7 +2,7 @@ const validator = require('validator');
 var format = /^[!@#$%^&*()_+\-=\[\]{};':"\\|,.<>\/?]*$/;
 
 function isValidUserType(userType) {
-    if (userType == '1' || userType == '2') {
+    if (userType == 1 || userType == 2) {
         return true;
     }
     return false;
@@ -49,27 +49,12 @@ function isValidItemType(itemType) {
 
 
 
-function isValidStartTime(startTime) {
-    //TODO
-    return true;
-}
-function isValidEndTime(endTime) {
-    //TODO
-    return true;
-}
-function isValidDuration(duration) {
-    //TODO
-    return true;
+function isValidDateTime(date) {
+    return (new Date(date) !== "Invalid Date") && !isNaN(new Date(date));
 }
 
 function isValidName(name) {
     if (validator.isAlpha(name)) {
-        return true;
-    }
-    return false;
-}
-function isValidTime(time) {
-    if (validator.isISO8601(time)) {
         return true;
     }
     return false;
@@ -84,10 +69,7 @@ module.exports = {
     isValidInteger,
     isValidBoolean,
     isValidItemType,
-    isValidStartTime,
-    isValidEndTime,
-    isValidDuration,
     isValidDescription,
     isValidName,
-    isValidTime
+    isValidDateTime
 }

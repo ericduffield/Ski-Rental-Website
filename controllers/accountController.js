@@ -121,7 +121,7 @@ async function signupSubmit(req, res) {
     try {
         if (req.body.password === req.body.confirmPassword) {
             //Create new user
-            await model.createUser(0, req.body.username, req.body.password, req.body.firstName, req.body.lastName, 0);
+            await model.createUser(1, req.body.username, req.body.password, req.body.firstName, req.body.lastName, 0);
             //Renders login page with success message
             res.render("login.hbs", { message: "Account created successfully!", username: req.body.username });
         }
