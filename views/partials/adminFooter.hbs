@@ -1,0 +1,122 @@
+<footer>
+    <div class="big-footer">
+        <div class="footer-content">
+            <div class="firstFooterSection">
+                <h3>Copyright &copy; 2022 Web II </h3>
+                <div id="middleFooter">
+                    <p> Pushing [P]</p>
+                    <a id="dark-mode">
+                        <span id="mode-logo" class="material-icons-sharp">light_mode</span>
+                        <h3 id="mode-text">Light Mode</h3>
+                    </a>
+                </div>
+
+                <ul class="socialsTags">
+                    <li><a href="https://www.youtube.com/watch?v=-705T4FioZE&ab_channel=Gunna" target="_blank"><i class="fa fa-facebook"></i></a></li>
+                    <li><a href="https://www.youtube.com/watch?v=-705T4FioZE&ab_channel=Gunna" target="_blank"><i class="fa fa-twitter"></i></a></li>
+                    <li><a href="https://www.youtube.com/watch?v=-705T4FioZE&ab_channel=Gunna" target="_blank"><i class="fa fa-google-plus"></i></a></li>
+                    <li><a href="https://www.youtube.com/watch?v=-705T4FioZE&ab_channel=Gunna" target="_blank"><i class="fa fa-youtube"></i></a></li>
+                    <li><a href="https://www.youtube.com/watch?v=-705T4FioZE&ab_channel=Gunna" target="_blank"><i class="fa fa-linkedin-square"></i></a></li>
+                </ul>
+            </div>    
+            <div class="secondFooterSection">                
+                <h3 class="contactUs footerHeader">Contact Us</h3>
+                <div class="formContainer">
+                    <div class="formEdit">
+                        <form id="contact-form" name="contactForm" enctype="application/x-www-form-urlencoded">
+                            <div class="fixFoot">
+                                <input type="hidden" name="contact_number">
+                                <input type="text" name="to_name" placeholder="Name" id="nameCon">
+                                <input type="text" name="from_name" placeholder="Last Name" id="fromNameCon">
+                            </div>
+                            <textarea name="message" placeholder="Message" id="messageCon"></textarea>
+                            <input type="submit" value="Send">
+                        </form>
+                    </div>
+                </div>
+                    
+                
+                <h3 id="locationTag" class="ourLocation footerHeader">Our Location</h3>
+                <div class="locationFooter">
+                    <div class="locationAdd">
+                        <p><i class="fa fa-map-marker"></i> <span>21 275 Rue Lakeshore Road, Sainte-Anne-de-Bellevue, QC H9X 3L9</span></p>
+                        <p><i class="fa fa-phone"></i><span>+1 (514) 457-5036</span></p>
+                        <p><a href="mailto:pleasuregt01@gmail.com"><i class="fa fa-envelope"></i></a></p>
+                    </div>
+                </div>
+
+                
+                <h3 id="locationTag" class="ourPages footerHeader">Our Pages</h3> 
+                <div class="linkForm">                       
+                    <ul>
+                        <a href="/admin">
+                            <li>List</li>
+                        </a>
+                        <a href="/items">
+                            <li>Items</li>
+                        </a>
+                        <a href="/itemtypes">
+                            <li>Item Types</li>
+                        </a>
+                        <a href="/users">
+                            <li>Users</li>
+                        </a>
+                    </ul>
+                </div>
+            </div>  
+        </div>
+    </div>
+
+</footer>
+
+    <script>
+        // FORM emailJs
+
+
+    /***
+     * Made to send mails through a server 
+     * This makes it easier since it will have template to send mails
+     * 
+     */
+    (function () {
+        // https://dashboard.emailjs.com/admin/account
+        emailjs.init('erahkk0th3Z3BKcn9');
+    })();
+
+/**
+ * Listens for the submit, and then sends a server request for it to be sent to the 
+ * email address provided
+ * 
+ */
+window.onload = function () {
+    document.getElementById('contact-form').addEventListener('submit', function (event) {
+
+        event.preventDefault();
+        const name = document.getElementById('nameCon').value;
+        const fromName = document.getElementById('fromNameCon').value;
+        const message = document.getElementById('messageCon').value;
+        if (name == "" || fromName == "" || message == ""
+            || name == null || fromName == null || message == null) {
+            alert("Please fill all the fields");
+            return false;
+        }
+        else {
+
+            // generate a five digit number for the contact_number variable
+            this.contact_number.value = Math.random() * 100000 | 0;
+            // these IDs from the previous steps
+            emailjs.sendForm('service_mksrijc', 'template_y5kbr8g', this)
+                .then(function () {
+                    console.log('SUCCESS!');
+                    name.innerHTML = "";
+                    fromName.innerHTML = "";
+                    message.innerHTML = "";
+                },
+                    function (error) {
+                        console.log('FAILED...', error);
+                    });
+        }
+
+    });
+}
+</script>
