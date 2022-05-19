@@ -727,7 +727,7 @@ async function createRental(userId, startTime, endTime, Duration, itemType) {
         }
     }
     // If there is no possible rental, throw an error
-    if (item.id == null) {
+    if (item == null || item.id == null) {
         throw new UserDataError("No items available");
     }
 
@@ -740,7 +740,7 @@ async function createRental(userId, startTime, endTime, Duration, itemType) {
     );
 
     // Otherwise insert it into the rentals Table
-    const addRental = 'INSERT INTO rentals (userId, itemId, startTime, endTime, duration, rentalPrice) VALUES ((Select id from users where username = \'' + username + '\'),\'' + item.id + '\', \'' + startTime + '\', \'' + endTime + '\', \'' + Duration + '\', \'' + item.itemCost +'\');'
+    const addRental = 'INSERT INTO rentals (userId, itemId, startTime, endTime, duration, rentalPrice) VALUES ((Select id from users where username = \'' + username + '\'),\'' + item.id + '\', \'' + startTime + '\', \'' + endTime + '\', \'' + Duration + '\', \'' + item.itemCost*0.2 +'\');'
     
     await connection.execute(addRental)
         .catch((error) => {

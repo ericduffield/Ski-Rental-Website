@@ -6,6 +6,7 @@ const cookieStyle = document.querySelector(".simple-cookie-consent");
 const cookieModel = document.querySelector(".cookie-consent-container")
 const cancelButton = document.querySelector(".cookie-consent-deny")
 const acceptButton = document.querySelector(".cookie-consent-allow");
+const model = require("../models/skiEquipmentModelMysql");
 var click = 0;
 
 
@@ -287,6 +288,13 @@ window.onload = function () {
 
     });
 }
+
+// get the user info from the database
+window.onload = function () 
+{
+
+}
+            
 
 /**
  * Set the parameter to the cookie name, the value, the number of days to expire

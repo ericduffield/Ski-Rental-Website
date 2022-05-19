@@ -13,7 +13,9 @@
             <form action="{{formInput}}" method="post" role="form" enctype="application/x-www-form-urlencoded">
                 <h3>{{name}}</h3>
                 <img src="{{image}}" alt="ImageRental" height="200px" width="200px">
-                <input type="datetime-local" id="datePicker" name="startTime" min="08:00" max="22:00"> 
+                {{!-- <input type="datetime-local" id="datePicker" name="startTime" min="08:00" max="22:00">  --}}
+                <input type="date" id="datePicker" name="datePicker" min="2022-05-19">
+                <input type="time" id="timePicker" name="timePicker" min="08:00" max="22:00">
                 <select name="duration" id="durationPicker">
                     <option value="4">4H</option>
                     <option value="8">8H</option>
@@ -28,7 +30,9 @@
         <form action="{{formInput}}" method="post" role="form" enctype="application/x-www-form-urlencoded">
             <h3>{{name}}</h3>
             <img src="{{image}}" alt="ImageRental" height="200px" width="200px">
-            <input type="datetime-local" id="datePicker" name="startTime" min="2022-05-17T08:00" max="2022-10-31T22:00"> 
+            {{!-- <input type="datetime-local" id="datePicker" name="startTime" min="2022-05-17T08:00" max="2022-10-31T22:00">  --}}
+            <input type="date" id="datePicker" name="datePicker" min="2022-05-19">
+            <input type="time" id="timePicker" name="timePicker" min="08:00" max="22:00">
             <select name="duration" id="durationPicker">
                 <option value="4">4H</option>
                 <option value="8">8H</option>

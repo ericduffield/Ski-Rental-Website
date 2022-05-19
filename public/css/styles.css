@@ -241,15 +241,14 @@ footer{
   	bottom: 0;
 	height: 0px;
   	margin-top: -50px;
-    border-top: 1px solid var(--black);
+	border-top: 1px solid var(--black);
 }
 
 .footer-content{
     padding: 1rem;
-    display: grid;
-    grid-template-columns: 1fr 1fr 1fr;
-    align-items: center;
-    text-align: center;
+	display: flex;
+	flex-direction: column;
+	justify-content: center;
 }
 
 .footer-content *{
@@ -272,6 +271,42 @@ footer{
     align-items: center;
     justify-content: right;
     margin: auto 2rem;
+}
+
+.firstFooterSection{
+	width: 100%;
+	display: flex;
+	flex-direction: row;
+	justify-content: space-between;
+    border-bottom: 1px solid var(--black);
+	padding-bottom: 1rem;
+}
+.secondFooterSection{ 
+	padding-top: 1rem;
+	width: 100%;
+	display: grid;
+	grid-template-columns: 1fr 1fr 1fr;
+	grid-template-rows: 1fr 4fr;
+	grid-template-areas: 
+	"contactUs ourLocation ourPages"
+	"formContainer locationFooter linkForm";
+	text-align: center;
+	justify-content: space-between;
+}
+
+.contactUs{ grid-area: contactUs;}
+.ourLocation{ grid-area: ourLocation;}
+.ourPages{ grid-area: ourPages;}
+.formContainer{ grid-area: formContainer;}
+.locationFooter{ grid-area: locationFooter;}
+.linkForm{ 
+	grid-area: linkForm;
+	text-decoration: none;
+	color: var(--black);
+	font-size: 1.5rem;
+	margin: 0.5rem;	
+	display: flex;
+	flex-direction: column;
 }
 
 .socialsTags li{
@@ -414,12 +449,6 @@ footer{
 	justify-content: center;
 	align-items: center;
 	margin-bottom: 11%;
-}
-.linkForm
-{
-	display: flex;
-	flex-direction: column;
-	justify-content: center;
 }
 .linkContainer
 {
