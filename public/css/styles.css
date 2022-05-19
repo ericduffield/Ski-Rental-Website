@@ -245,7 +245,6 @@ footer{
 }
 
 .footer-content{
-    padding: 1rem;
 	display: flex;
 	flex-direction: column;
 	justify-content: center;
@@ -279,7 +278,7 @@ footer{
 	flex-direction: row;
 	justify-content: space-between;
     border-bottom: 1px solid var(--black);
-	padding-bottom: 1rem;
+	padding: 1rem 0;
 }
 .secondFooterSection{ 
 	padding-top: 1rem;
