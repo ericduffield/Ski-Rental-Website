@@ -85,7 +85,7 @@ Our footer allows the user to know more about us, contact us or access the diffe
 
 [Admin](#Admin Footer): 
 
-![](.\ImagesForReadMe\)
+![](.\ImagesForReadMe\adminFooter - links.png)
 
 [User](#User):
 
@@ -293,6 +293,8 @@ Our header allows the admin to access all the pages they need.
 #### Admin Footer
 
 Only difference from main [footer](#Footer) is that the links are for the same as the same as in the [admin header](#Admin Header)
+
+![Admin Footer](.\ImagesForReadMe\adminFooter.png)
 
 
 
