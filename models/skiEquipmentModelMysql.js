@@ -890,8 +890,8 @@ async function getRentalById(rentalId) {
  * Gets all the rentals
  * @returns all of the rentals
  */
-async function getAllRentals() {
-    const sqlQuery = 'SELECT * FROM rental';
+async function getAllRentalsForUser(userId) {
+    const sqlQuery = 'SELECT * FROM rental WHERE userId = \'' + userId + '\'';
     const result = await connection.execute(sqlQuery)
         .catch((error) => {
             logger.error(error)
@@ -1121,5 +1121,5 @@ module.exports = {
     editRental,
     deleteRental,
     getRentalById,
-    getAllRentals
+    getAllRentalsForUser
 }
