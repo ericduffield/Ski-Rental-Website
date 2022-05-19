@@ -14,11 +14,9 @@ router.get('/', home);
 router.get('/home', home);
 
 /**
- * This will render the home page as soon the user hits the localhost:1339/ or localhost:1339/home
- * It will create a cookie for the
- * 
- * @param {*} request 
- * @param {*} response 
+ * Displays the home page
+ * @param {*} request The request object
+ * @param {*} response The response object
  */
 async function home(request, response) {
     const pageData = {
@@ -45,6 +43,12 @@ async function home(request, response) {
     }    
 }
 
+/**
+ * Displays the rentals page
+ * Refreshes the authenticated cookie if someone is logged in
+ * @param {*} request The request object
+ * @param {*} response The response object
+ */
 router.get('/rent', async function (request, response) {
     const pageData = {
         rent: true,
@@ -107,6 +111,11 @@ router.get('/rent', async function (request, response) {
     }
 });
 
+/**
+ * Controller logic for the rentals
+ * @param {*} request The request object
+ * @param {*} response The response object
+ */
 router.post('/rentSubmit', async function (request, response) {
     const pageData = {
         rent: true,

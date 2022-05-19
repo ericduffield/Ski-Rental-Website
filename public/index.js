@@ -289,7 +289,7 @@ window.onload = function () {
     });
 }
 
-// get the user info from the database
+
 window.onload = function () 
 {
 

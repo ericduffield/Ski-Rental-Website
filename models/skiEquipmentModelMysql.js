@@ -1047,7 +1047,9 @@ async function refreshSession(request, response) {
 
 
 // ----------------------- Error Classes -----------------------
-//Error if user gives invalid input
+/**
+ * User if the user inputed a wrong input
+ */
 class UserDataError extends Error {
     constructor(message) {
         super(message);
@@ -1056,7 +1058,9 @@ class UserDataError extends Error {
     }
 }
 
-//Error for SQL execution error
+/**
+ * Error is the error is server sided
+ */
 class SystemError extends Error {
     constructor(message) {
         super(message);
@@ -1065,7 +1069,10 @@ class SystemError extends Error {
     }
 }
 
-//Get for connection
+/**
+ * Gets the connection
+ * @returns the connection
+ */
 function getConnection() {
     return connection;
 }
