@@ -16,7 +16,7 @@ Made by Liam
 
 2. [**User**](#User)
 
-   - [**User Header**](#User Header)
+   - [**User Header**](#"User Header")
 
    - [**User Footer**](#User Footer)
 
@@ -53,7 +53,7 @@ We have two different headers to better display, both of which have our logo, wh
 
 Our footer allows the user to know more about us, contact us or access the different parts of the site.
 
-![](.\ImagesForReadMe\userFooter.PNG)
+![](./ImagesForReadMe/userFooter.PNG)
 
 
 
