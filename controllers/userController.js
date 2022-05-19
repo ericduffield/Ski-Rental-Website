@@ -13,6 +13,11 @@ const logger = require('../logger');
 router.get('/', home);
 router.get('/home', home);
 
+/**
+ * Displays the home page
+ * @param {*} request The request object
+ * @param {*} response The response object
+ */
 async function home(request, response) {
     const pageData = {
         image: "/images/hero.jpg",
@@ -38,6 +43,12 @@ async function home(request, response) {
     }    
 }
 
+/**
+ * Displays the rentals page
+ * Refreshes the authenticated cookie if someone is logged in
+ * @param {*} request The request object
+ * @param {*} response The response object
+ */
 router.get('/rent', async function (request, response) {
     const pageData = {
         rent: true,
@@ -100,6 +111,11 @@ router.get('/rent', async function (request, response) {
     }
 });
 
+/**
+ * Controller logic for the rentals
+ * @param {*} request The request object
+ * @param {*} response The response object
+ */
 router.post('/rentSubmit', async function (request, response) {
     const pageData = {
         rent: true,
