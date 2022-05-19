@@ -29,18 +29,18 @@ async function home(request, response) {
         home: true
     };
 
-    if(!await model.authenticateUser(request)){
+    if (!await model.authenticateUser(request)) {
         response.render("home.hbs", pageData);
     }
-    else{
+    else {
         pageData.loggedIn = true;
         const session = await model.refreshSession(request, response);
         const expiresAt = new Date(session.expiresAt);
         response.cookie("sessionId", session.id, { expires: expiresAt });
         response.cookie("userId", session.userId, { expires: expiresAt });
-        response.cookie("userType", session.userType, { expires: expiresAt });        
+        response.cookie("userType", session.userType, { expires: expiresAt });
         response.render("home.hbs", pageData);
-    }    
+    }
 }
 
 /**
@@ -52,23 +52,23 @@ async function home(request, response) {
 router.get('/rent', async function (request, response) {
     const pageData = {
         rent: true,
-        itemsSnow: 
-        [
-            {               
-                name: "Snowboard",
-                formInput: "/rentSubmit",
-                image: "/images/snowboardMain.jpg",
-                itemType: "Snowboards",
-            },
-            {
-                name: "Snowboard Boots",
-                formInput: "/rentSubmit",
-                image: "/images/snowbardBoots.png",
-                itemType: "Boots"
-            }
-        ],
+        itemsSnow:
+            [
+                {
+                    name: "Snowboard",
+                    formInput: "/rentSubmit",
+                    image: "/images/snowboardMain.jpg",
+                    itemType: "Snowboards",
+                },
+                {
+                    name: "Snowboard Boots",
+                    formInput: "/rentSubmit",
+                    image: "/images/snowbardBoots.png",
+                    itemType: "Boots"
+                }
+            ],
         items: [
-            
+
             {
                 name: "Ski",
                 formInput: "/rentSubmit",
@@ -93,20 +93,21 @@ router.get('/rent', async function (request, response) {
                 image: "/images/poles.png",
                 itemType: "Poles"
             },
-        
+
         ]
     };
 
-    if(!await model.authenticateUser(request)){
-        response.render("login.hbs", {message: "Unauthorized Access - Please log in to an account to use this feature"}); 
+    if (!await model.authenticateUser(request)) {
+        response.status(400);
+        response.render("login.hbs", { message: "Unauthorized Access - Please log in to an account to use this feature" });
     }
-    else{
+    else {
         pageData.loggedIn = true;
         const session = await model.refreshSession(request, response);
         const expiresAt = new Date(session.expiresAt);
         response.cookie("sessionId", session.id, { expires: expiresAt });
         response.cookie("userId", session.userId, { expires: expiresAt });
-        response.cookie("userType", session.userType, { expires: expiresAt });        
+        response.cookie("userType", session.userType, { expires: expiresAt });
         response.render("rent.hbs", pageData);
     }
 });
@@ -119,23 +120,23 @@ router.get('/rent', async function (request, response) {
 router.post('/rentSubmit', async function (request, response) {
     const pageData = {
         rent: true,
-        itemsSnow: 
-        [
-            {               
-                name: "Snowboard",
-                formInput: "/rentSubmit",
-                image: "/images/snowboardMain.jpg",
-                itemType: "Snowboards",
-            },
-            {
-                name: "Snowboard Boots",
-                formInput: "/rentSubmit",
-                image: "/images/snowbardBoots.png",
-                itemType: "Boots"
-            }
-        ],
+        itemsSnow:
+            [
+                {
+                    name: "Snowboard",
+                    formInput: "/rentSubmit",
+                    image: "/images/snowboardMain.jpg",
+                    itemType: "Snowboards",
+                },
+                {
+                    name: "Snowboard Boots",
+                    formInput: "/rentSubmit",
+                    image: "/images/snowbardBoots.png",
+                    itemType: "Boots"
+                }
+            ],
         items: [
-            
+
             {
                 name: "Ski",
                 formInput: "/rentSubmit",
@@ -160,66 +161,72 @@ router.post('/rentSubmit', async function (request, response) {
                 image: "/images/poles.png",
                 itemType: "Poles"
             },
-        
+
         ]
     };
 
     let startTime = request.body.startTime;
     let startDate = request.body.startDate;
     let duration = request.body.duration;
-    let itemType = request.body.itemType;  
+    let itemType = request.body.itemType;
     let endTime = "";
 
-    if(!await model.authenticateUser(request)){
-        response.render("login.hbs", {message: "Unauthorized Access - Please log in to an account to use this feature"}); 
+    if (!await model.authenticateUser(request)) {
+        response.status(400);
+        response.render("login.hbs", { message: "Unauthorized Access - Please log in to an account to use this feature" });
     }
-    else
-    {
+    else {
         const session = await model.refreshSession(request, response);
         const expiresAt = new Date(session.expiresAt);
         response.cookie("sessionId", session.id, { expires: expiresAt });
         response.cookie("userId", session.userId, { expires: expiresAt });
-        response.cookie("userType", session.userType, { expires: expiresAt });       
-        
-        
+        response.cookie("userType", session.userType, { expires: expiresAt });
+
+
         // Make sure variables are correct time
+<<<<<<< HEAD
+        try {
+            startTime = new Date(startTime);
+=======
         try{
             
             startTime = new Date(startDate + 'T' + startTime);
+>>>>>>> 4f2ec06fb49ecc7d830b1db9a401a038b0d075e6
             duration = parseInt(duration);
-            endTime = new Date(addTime(startTime, {hours: duration}));
+            endTime = new Date(addTime(startTime, { hours: duration }));
         }
-        catch(error){
+        catch (error) {
             console.error(error.message);
         }
 
-            // Try to create the rental
-            try {
-                // Create the rental
-                await model.createRental(session.userId, startTime, endTime, duration, itemType);
-                console.log("Successfully rented ski equipment");
-                
-                // TODO, change this to account so that you can see ur rental
-                response.render("home.hbs", {message: "Successfully rented ski equipment"});
-            }
-            catch (err) {
-                // If it didnt work, display error message and return to rental page
-                console.error(err.message);            
-                response.render('rent.hbs', {message: err.message});
-            }
         // Try to create the rental
         try {
             // Create the rental
             await model.createRental(session.userId, startTime, endTime, duration, itemType);
             console.log("Successfully rented ski equipment");
-            
+
             // TODO, change this to account so that you can see ur rental
-            response.render("home.hbs", {message: "Successfully rented ski equipment"});
+            response.render("home.hbs", { message: "Successfully rented ski equipment" });
         }
         catch (err) {
             // If it didnt work, display error message and return to rental page
-            console.error(err.message);     
-            pageData.message = err.message;      
+            console.error(err.message);
+            res.status(err.status == 400 ? 400 : 500);
+            response.render('rent.hbs', { message: err.message });
+        }
+        // Try to create the rental
+        try {
+            // Create the rental
+            await model.createRental(session.userId, startTime, endTime, duration, itemType);
+            console.log("Successfully rented ski equipment");
+
+            // TODO, change this to account so that you can see ur rental
+            response.render("home.hbs", { message: "Successfully rented ski equipment" });
+        }
+        catch (err) {
+            // If it didnt work, display error message and return to rental page
+            console.error(err.message);
+            pageData.message = err.message;
             response.render('rent.hbs', pageData);
         }
     }
@@ -242,20 +249,20 @@ async function about(request, response) {
         about: true
     };
 
-    if(!await model.authenticateUser(request)){
+    if (!await model.authenticateUser(request)) {
         response.render("about.hbs", pageData);
-        
-        
+
+
     }
-    else{
+    else {
         pageData.loggedIn = true;
         const session = await model.refreshSession(request, response);
         const expiresAt = new Date(session.expiresAt);
         response.cookie("sessionId", session.id, { expires: expiresAt });
         response.cookie("userId", session.userId, { expires: expiresAt });
-        response.cookie("userType", session.userType, { expires: expiresAt });        
+        response.cookie("userType", session.userType, { expires: expiresAt });
         response.render("about.hbs", pageData);
-    }    
+    }
 }
 
 //#endregion

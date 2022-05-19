@@ -52,7 +52,7 @@ router.get('/account', async function (request, response) {
  * @param {*} response 
  */
 
-router.post('/logout', async function(request, response) {
+router.post('/logout', async function (request, response) {
     if (await model.authenticateUser(request)) {
         await model.deleteSessionById(request.cookies.sessionId);
         response.clearCookie("sessionId");
@@ -115,6 +115,7 @@ async function loginSubmit(req, res) {
         }
     }
     else {
+        res.status(400);
         res.render("login.hbs", { message: "Invalid username or password", username: username, password: password });
     }
 }
@@ -139,6 +140,7 @@ async function signupSubmit(req, res) {
     catch (err) {
         console.error(err.message);
         //Renders signup page again with error message
+        res.status(err.status == 400 ? 400 : 500);
         res.render("signup.hbs", { message: err.message, username: req.body.username, firstName: req.body.firstName, lastName: req.body.lastName, password: req.body.password, conformPassword: req.body.confirmPassword });
     }
 }
