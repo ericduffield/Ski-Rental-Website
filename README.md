@@ -16,7 +16,7 @@ Made by Liam
 
 2. [**User**](#User)
 
-   - [**User Header**](#"User Header")
+   - [**User Header**](#UserHeader)
 
    - [**User Footer**](#User Footer)
 
