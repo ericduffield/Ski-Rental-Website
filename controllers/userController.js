@@ -13,6 +13,13 @@ const logger = require('../logger');
 router.get('/', home);
 router.get('/home', home);
 
+/**
+ * This will render the home page as soon the user hits the localhost:1339/ or localhost:1339/home
+ * It will create a cookie for the
+ * 
+ * @param {*} request 
+ * @param {*} response 
+ */
 async function home(request, response) {
     const pageData = {
         image: "/images/hero.jpg",
@@ -140,7 +147,7 @@ router.post('/rentSubmit', async function (request, response) {
             catch (err) {
                 // If it didnt work, display error message and return to rental page
                 console.error(err.message);            
-                response.render('/rent', {message: err.message});
+                response.render('rent.hbs', {message: err.message});
             }
         }
     }

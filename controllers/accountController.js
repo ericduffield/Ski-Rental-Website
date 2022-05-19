@@ -46,6 +46,13 @@ router.get('/account', async function (request, response) {
 
 router.post('/logout', logout);
 
+/**
+ * Logout clears the existing cookies and redirects to the login page
+ * It will ensure us that the old cookies are going to be deleted
+ * 
+ * @param {*} request 
+ * @param {*} response 
+ */
 async function logout(request, response) {
     if (await model.authenticateUser(request)) {
         await model.deleteSessionById(request.cookies.sessionId);
