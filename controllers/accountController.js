@@ -43,9 +43,6 @@ router.get('/account', async function (request, response) {
     }
 }
 );
-
-router.post('/logout', logout);
-
 /**
  * Logout clears the existing cookies and redirects to the login page
  * It will ensure us that the old cookies are going to be deleted
@@ -53,7 +50,7 @@ router.post('/logout', logout);
  * @param {*} request 
  * @param {*} response 
  */
-async function logout(request, response) {
+
 router.post('/logout', async function(request, response) {
     if (await model.authenticateUser(request)) {
         await model.deleteSessionById(request.cookies.sessionId);
@@ -67,7 +64,7 @@ router.post('/logout', async function(request, response) {
         response.redirect("/");
     }
 });
-}
+
 
 //=================FORM SUBMISSION ENDPOINTS====================
 
