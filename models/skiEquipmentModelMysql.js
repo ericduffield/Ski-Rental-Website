@@ -281,7 +281,7 @@ async function editUser(id, userType, username, password, firstName, lastName, c
 async function deleteUser(id) {
     let result = await getUserById(id);
     if (result == null) {
-        return result;
+        throw new UserDataError("Error user not in database");
     }
 
     if (!validate.isValidInteger(id)) {
@@ -476,7 +476,7 @@ async function editItem(id, name, description, itemCost, itemType) {
 async function deleteItem(id) {
     let result = await getItemById(id);
     if (result == null) {
-        return result;
+        throw new UserDataError("Error item not in database");
     }
 
     if (!validate.isValidInteger(id)) {
@@ -693,7 +693,7 @@ async function createRental(userId, startTime, endTime, Duration, itemType) {
     if (userResult[0].length == 0) {
         throw new UserDataError("User does not exist");
     }
-    else{
+    else {
         username = userResult[0][0].username;
     }
 
@@ -737,17 +737,17 @@ async function createRental(userId, startTime, endTime, Duration, itemType) {
             logger.error(error)
             throw new SystemError("Error disabling foreign keys");
         }
-    );
+        );
 
     // Otherwise insert it into the rentals Table
-    const addRental = 'INSERT INTO rentals (userId, itemId, startTime, endTime, duration, rentalPrice) VALUES ((Select id from users where username = \'' + username + '\'),\'' + item.id + '\', \'' + startTime + '\', \'' + endTime + '\', \'' + Duration + '\', \'' + item.itemCost*0.2 +'\');'
-    
+    const addRental = 'INSERT INTO rentals (userId, itemId, startTime, endTime, duration, rentalPrice) VALUES ((Select id from users where username = \'' + username + '\'),\'' + item.id + '\', \'' + startTime + '\', \'' + endTime + '\', \'' + Duration + '\', \'' + item.itemCost * 0.2 + '\');'
+
     await connection.execute(addRental)
         .catch((error) => {
             logger.error(error)
             throw new SystemError("Error adding rental");
         }
-    );
+        );
 
     // Re-enable foreign keys
     // Disable foreign keys because sqlite is picky, my query is good
@@ -756,7 +756,7 @@ async function createRental(userId, startTime, endTime, Duration, itemType) {
             logger.error(error)
             throw new SystemError("Error disabling foreign keys");
         }
-    );
+        );
 }
 
 /**
@@ -885,6 +885,27 @@ async function getRentalById(rentalId) {
         );
     return result[0][0];
 }
+/**
+ * Gets all the information about the rentals with the given user id
+ * 
+ * @param {*} userId 
+ * @returns an array of all the fields of the rental
+ */
+async function getRentalFromUserId(userId)
+{
+    if (!validate.isValidInteger(userId)) {
+        throw new UserDataError("Invalid user id");
+    }
+
+    const sqlQuery = 'SELECT * FROM rental WHERE user = ' + userId;
+    const result = await connection.execute(sqlQuery)
+        .catch((error) => {
+            logger.error(error)
+            throw new SystemError("Error getting rentals");
+        }
+        );
+    return result[0];    
+}
 
 /**
  * Gets all the rentals
@@ -900,6 +921,8 @@ async function getAllRentalsForUser(userId) {
         );
     return result[0];
 }
+
+
 
 // ----------------------- Session -----------------------
 /**
@@ -1121,5 +1144,6 @@ module.exports = {
     editRental,
     deleteRental,
     getRentalById,
+    getRentalFromUserId,
     getAllRentalsForUser
 }

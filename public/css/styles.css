@@ -590,7 +590,7 @@ h2{
 	color: var(--whiteText);
 }
 
-.grid p{
+.grid .fields p{
 	width: 80%;
 	color: var(--whiteText);
 }
@@ -741,7 +741,7 @@ h2{
 	margin: 4px 2px;
 	cursor: pointer;
 	transition-duration: 0.4s;
-	margin: 50px;
+	margin: 45px;
 	border: 1px solid black;
 }
 .buttonRent:hover {
@@ -1318,6 +1318,7 @@ h2{
 	display: flex;
 	justify-content: center;
 	align-items: center;
+	margin-left: 18px;
 	margin-top: 50px;
 
 }
