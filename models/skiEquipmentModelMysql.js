@@ -885,6 +885,27 @@ async function getRentalById(rentalId) {
         );
     return result[0][0];
 }
+/**
+ * Gets all the information about the rentals with the given user id
+ * 
+ * @param {*} userId 
+ * @returns an array of all the fields of the rental
+ */
+async function getRentalFromUserId(userId)
+{
+    if (!validate.isValidInteger(userId)) {
+        throw new UserDataError("Invalid user id");
+    }
+
+    const sqlQuery = 'SELECT * FROM rental WHERE user = ' + userId;
+    const result = await connection.execute(sqlQuery)
+        .catch((error) => {
+            logger.error(error)
+            throw new SystemError("Error getting rentals");
+        }
+        );
+    return result[0];    
+}
 
 /**
  * Gets all the rentals
@@ -900,6 +921,8 @@ async function getAllRentals() {
         );
     return result[0];
 }
+
+
 
 // ----------------------- Session -----------------------
 /**
@@ -1121,5 +1144,6 @@ module.exports = {
     editRental,
     deleteRental,
     getRentalById,
-    getAllRentals
+    getAllRentals,
+    getRentalFromUserId
 }
