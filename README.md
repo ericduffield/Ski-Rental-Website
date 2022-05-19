@@ -85,7 +85,7 @@ Our footer allows the user to know more about us, contact us or access the diffe
 
 [Admin](#Admin-Footer): 
 
-![Footer Admin Links](./ImagesForReadMe/adminFooter-links.png)
+![Footer Admin Links](./ImagesForReadMe/adminFooter-links.PNG)
 
 [User](#User):
 
@@ -140,9 +140,8 @@ Our header allows the user to access all the pages they have access to.
 [**About Us**](#About-Us): Information about our team to make the site feel more human
 
 **User Pages**:
-
-	1. [**Account**](#Account): Displays account information
-	1. [**Login**](#Login): Allows the user to log in or sign up
+  1. [**Account**](#Account): Displays account information
+  2. [**Login**](#Login): Allows the user to log in or sign up
 
 ![User Header](./ImagesForReadMe/userHeader.PNG)
 
@@ -294,7 +293,7 @@ Our header allows the admin to access all the pages they need.
 
 Only difference from main [footer](#Footer) is that the links are for the same as the same as in the [admin header](#Admin-Header)
 
-![Admin Footer](./ImagesForReadMe/adminFooter.png)
+![Admin Footer](./ImagesForReadMe/adminFooter.PNG)
 
 
 
@@ -312,7 +311,7 @@ Gets and displays all of the following to the screen:
 
   - Item Type
 
-![List Items](./ImagesForReadMe/list-items.png)
+![List Items](./ImagesForReadMe/list-items.PNG)
 
 - Item Types
 
@@ -320,7 +319,7 @@ Gets and displays all of the following to the screen:
 
   - Id
 
-![List Item Types](./ImagesForReadMe/list-itemtypes.png)
+![List Item Types](./ImagesForReadMe/list-itemtypes.PNG)
 
 - Users
 
@@ -342,7 +341,7 @@ Gets and displays all of the following to the screen:
 
 Allows the admin to add, edit or delete items from the forms. All the values are validated and results are displayed above the forms.
 
-![Items](./ImagesForReadMe/items-aed.png)
+![Items](./ImagesForReadMe/items-aed.PNG)
 
 
 
@@ -350,7 +349,7 @@ Allows the admin to add, edit or delete items from the forms. All the values are
 
 Allows the admin to add, edit or delete item types from the forms. All the values are validated and results are displayed above the forms.
 
-![Item Types](./ImagesForReadMe/itemtypes-aed.png)
+![Item Types](./ImagesForReadMe/itemtypes-aed.PNG)
 
 
 
@@ -358,7 +357,7 @@ Allows the admin to add, edit or delete item types from the forms. All the value
 
 Allows the admin to add, edit or delete users from the forms. All the values are validated and results are displayed above the forms.
 
-![Users](./ImagesForReadMe/users-aed.png)
+![Users](./ImagesForReadMe/users-aed.PNG)
 
 
 
