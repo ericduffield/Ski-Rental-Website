@@ -16,29 +16,29 @@ Made by Liam
 
 2. [**User**](#User)
 
-   - [**User Header**](#UserHeader)
+   - [**User Header**](#User-Header)
 
-   - [**User Footer**](#User Footer)
+   - [**User Footer**](#User-Footer)
 
-   - [**Home Page**](#Home Page)
+   - [**Home Page**](#Home-Page)
 
-   - [**Rentals Page**](#Rentals Page)
+   - [**Rentals Page**](#Rentals-Page)
 
-   - [**About Us**](#About Us)
+   - [**About Us**](#About-Us)
 
    - [**Login**](#Login)
 
    - [**Account**](#Account)
 
-   - [**Sign Up**](#Sign Up)
+   - [**Sign Up**](#Sign-Up)
 
 3. [**Admin**](#Admin)
 
-   - [**Admin Header**](#Admin Header)
-   - [**Admin Footer**](#Admin Footer)
+   - [**Admin Header**](#Admin-Header)
+   - [**Admin Footer**](#Admin-Footer)
    - [**List**](#List)
    - [**Items**](#Items)
-   - [**Item Types**](#Item Types)
+   - [**Item Types**](#Item-Types)
    - [**Users**](#Users)
 
 
@@ -47,7 +47,7 @@ Made by Liam
 
 #### Header
 
-We have two different headers to better display, both of which have our logo, which redirects the user back the our [home page](#Home Page)
+We have two different headers to better display, both of which have our logo, which redirects the user back the our [home page](#Home-Page)
 
 #### Footer
 
@@ -59,37 +59,37 @@ Our footer allows the user to know more about us, contact us or access the diffe
 
 **Personalization**: Dark Mode / Light Mode switch
 
-![](.\ImagesForReadMe\footer - personalisation.PNG)
+![](./ImagesForReadMe/footer - personalisation.PNG)
 
 
 
 **Socials**: Links to our other platforms
 
-![](.\ImagesForReadMe\footer - links.PNG)
+![](./ImagesForReadMe/footer - links.PNG)
 
 
 
 **Contact Us**: Sends an email to the dev team
 
-![](.\ImagesForReadMe\footer - Contact.PNG)
+![](./ImagesForReadMe/footer - Contact.PNG)
 
 
 
 **Location**: Address where people can come see us
 
-![](.\ImagesForReadMe\footer - address.PNG)
+![](./ImagesForReadMe/footer - address.PNG)
 
 
 
 **Pages**: Links to all the pages of our site depending on the logged in users' type. Changes depending on which user is logged in. 
 
-[Admin](#Admin Footer): 
+[Admin](#Admin-Footer): 
 
-![](.\ImagesForReadMe\adminFooter - links.png)
+![](./ImagesForReadMe/adminFooter - links.png)
 
 [User](#User):
 
-![](.\ImagesForReadMe\footer - pagesU.PNG)
+![](./ImagesForReadMe/footer - pagesU.PNG)
 
 
 
@@ -105,7 +105,7 @@ Any error is displayed over the form.
 
 Once a user is logged in, the header will display [account](#Account) instead of login
 
-![](.\ImagesForReadMe\login.PNG)
+![](./ImagesForReadMe/login.PNG)
 
 
 
@@ -123,7 +123,7 @@ Allows a user to logout. This clears all session cookies.
 
 In the [footer](#Footer), a Dark Mode / Light Mode button can be found that switches the theme of the site. This choice is saved as a cookie so that the choice is constant across all pages.
 
-![](.\ImagesForReadMe\footer - personalisation.PNG)
+![](./ImagesForReadMe/footer - personalisation.PNG)
 
 
 
@@ -133,26 +133,26 @@ In the [footer](#Footer), a Dark Mode / Light Mode button can be found that swit
 
 Our header allows the user to access all the pages they have access to. 
 
-[**Home Page**](#Home Page): Call to actions to all parts of our site
+[**Home Page**](#Home-Page): Call to actions to all parts of our site
 
-[**Rentals Page**](#Rentals Page): The core reason for our site
+[**Rentals Page**](#Rentals-Page): The core reason for our site
 
-[**About Us**](#About Us): Information about our team to make the site feel more human
+[**About Us**](#About-Us): Information about our team to make the site feel more human
 
 **User Pages**:
 
 	1. [**Account**](#Account): Displays account information
 	1. [**Login**](#Login): Allows the user to log in or sign up
 
-![User Header](.\ImagesForReadMe\userHeader.PNG)
+![User Header](./ImagesForReadMe/userHeader.PNG)
 
 
 
 #### User Footer
 
-Only difference from main [footer](#Footer) is that the links are for the same as the same as in the [user header](#User Header)
+Only difference from main [footer](#Footer) is that the links are for the same as the same as in the [user header](#User-Header)
 
-![User Footer](.\ImagesForReadMe\userFooter.PNG)
+![User Footer](./ImagesForReadMe/userFooter.PNG)
 
 
 
@@ -166,31 +166,31 @@ Its features are as follows:
 
    - Prompts the user to rent now
 
-   ![Hero Image](.\ImagesForReadMe\heroImage.PNG)
+   ![Hero Image](./ImagesForReadMe/heroImage.PNG)
 
 2. Welcome Message
 
    - Makes the user feel invited to the site
 
-   ![Welcome](.\ImagesForReadMe\welcome.PNG)
+   ![Welcome](./ImagesForReadMe/welcome.PNG)
 
 3. Rental examples
 
    - Forces the user to see our rentals
 
-     ![Home Page Rental](.\ImagesForReadMe\homePage - Rental.PNG)
+     ![Home Page Rental](./ImagesForReadMe/homePage - Rental.PNG)
 
 4. Sneak Peak at the about us
 
    - Makes our site feel more human
 
-     ![Home Page About Us](.\ImagesForReadMe\homePage - OurTeam.PNG)
+     ![Home Page About Us](./ImagesForReadMe/homePage - OurTeam.PNG)
 
 5. Locations
 
    - Added for flare
 
-     ![Home Page - Locations](.\ImagesForReadMe\homePage - Locations.PNG)
+     ![Home Page - Locations](./ImagesForReadMe/homePage - Locations.PNG)
 
 
 
@@ -198,7 +198,7 @@ Its features are as follows:
 
 The page allows a user to rent an item from our inventory.
 
-In order to access this page, the user must be logged in from the [Log In](#Login) page. 
+In order to access this page, the user must be logged in from the [login](#Login) page. 
 
 Once inside, the user can expect to find two categories of items. Items related to skiing and items related to snowboarding. These two categories of items are split down the middle with the left pertaining to the former and the right the latter. 
 
@@ -231,7 +231,7 @@ The rental forms is as follows:
 
   - If an item is found, it creates the rental under that users id
 
-    ![Rentals](.\ImagesForReadMe\rent.PNG)
+    ![Rentals](./ImagesForReadMe/rent.PNG)
 
 
 
@@ -239,7 +239,7 @@ The rental forms is as follows:
 
 This page allows the user to get to know more about our team as well as visit some of our personal links.  They also get to see who is behind the website.
 
-![About Us](.\ImagesForReadMe\about us.PNG)
+![About Us](./ImagesForReadMe/about us.PNG)
 
 
 
@@ -262,7 +262,7 @@ The signup page, accessed from the [login](#Login) page allows a user to create 
 
 During the Sign Up process, automated checks are made and displayed on the side of the form to show validity to the user before they submit. 
 
-![Sign Up](.\ImagesForReadMe\signup.PNG)
+![Sign Up](./ImagesForReadMe/signup.PNG)
 
 
 
@@ -280,21 +280,21 @@ Our header allows the admin to access all the pages they need.
 
 [**Items**](#Items): Allows the admin to add, edit or delete an item from the inventory
 
-[**Item Types**](#Item Types): Allows the admin to add, edit or delete an item type from the database
+[**Item Types**](#Item-Types): Allows the admin to add, edit or delete an item type from the database
 
 [**Users**](#Users): Allows the admin to add, edit or delete a user from the database
 
 [**Logout**](#Logout): Allows the admin to logout
 
-![Admin Header](.\ImagesForReadMe\adminHeader.PNG)
+![Admin Header](./ImagesForReadMe/adminHeader.PNG)
 
 
 
 #### Admin Footer
 
-Only difference from main [footer](#Footer) is that the links are for the same as the same as in the [admin header](#Admin Header)
+Only difference from main [footer](#Footer) is that the links are for the same as the same as in the [admin header](#Admin-Header)
 
-![Admin Footer](.\ImagesForReadMe\adminFooter.png)
+![Admin Footer](./ImagesForReadMe/adminFooter.png)
 
 
 
@@ -312,7 +312,7 @@ Gets and displays all of the following to the screen:
 
   - Item Type
 
-    ![List Items](.\ImagesForReadMe\list - items.png)
+    ![List Items](./ImagesForReadMe/list - items.png)
 
 - Item Types
 
@@ -320,7 +320,7 @@ Gets and displays all of the following to the screen:
 
   - Id
 
-    ![List Item Types](.\ImagesForReadMe\list - itemtypes.png)
+    ![List Item Types](./ImagesForReadMe/list - itemtypes.png)
 
 - Users
 
@@ -334,7 +334,7 @@ Gets and displays all of the following to the screen:
 
   - User Type
 
-    ![List Users](.\ImagesForReadMe\list - users.PNG)
+    ![List Users](./ImagesForReadMe/list - users.PNG)
 
 
 
@@ -342,7 +342,7 @@ Gets and displays all of the following to the screen:
 
 Allows the admin to add, edit or delete items from the forms. All the values are validated and results are displayed above the forms.
 
-![Items](.\ImagesForReadMe\items - aed.png)
+![Items](./ImagesForReadMe/items - aed.png)
 
 
 
@@ -350,7 +350,7 @@ Allows the admin to add, edit or delete items from the forms. All the values are
 
 Allows the admin to add, edit or delete item types from the forms. All the values are validated and results are displayed above the forms.
 
-![Item Types](.\ImagesForReadMe\itemtypes- aed.png)
+![Item Types](./ImagesForReadMe/itemtypes- aed.png)
 
 
 
@@ -358,7 +358,7 @@ Allows the admin to add, edit or delete item types from the forms. All the value
 
 Allows the admin to add, edit or delete users from the forms. All the values are validated and results are displayed above the forms.
 
-![Users](.\ImagesForReadMe\users - aed.png)
+![Users](./ImagesForReadMe/users - aed.png)
 
 
 
