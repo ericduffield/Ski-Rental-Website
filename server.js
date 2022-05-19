@@ -8,7 +8,7 @@ if (!dbName) {
     dbName = 'skiEquipment_db';
 }
 
-model.initialize(dbName, false)
+model.initialize(dbName, true)
     .then(
         app.listen(port) // Run the server
     );
