@@ -9,8 +9,8 @@
 
 {{!-- Display all the user fields --}}
 
+<h3>Your Info</h3>
 <div class="grid">
-    <h3>Your Info</h3>
     <div>
         {{#each userFields}}
             <div class="fields">
@@ -18,7 +18,10 @@
             </div>
         {{/each}}
     </div>
-    <h3>Rentals</h3>
+</div>
+    
+<h3>Rentals</h3>
+<div class="grid">    
     {{#each userRentals}}
         <div>
             {{#each rental}}
