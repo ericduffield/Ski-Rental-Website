@@ -248,12 +248,13 @@ Account will only display if a user is [logged in](#Login)
 
 The account page lists all of the user fields
 
-- User Id
-- Username
-- First Name
-- Last Name
-- Rentals
-  - Shows all the rentals made by that user
+![Account Information](./ImagesForReadMe/account-info.PNG)
+
+As well as every rental that user has
+
+![Account Rentals](./ImagesForReadMe/account-rentals.PNG)
+
+
 
 #### Sign Up
 
