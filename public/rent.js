@@ -8,11 +8,14 @@ window.addEventListener('load', function() {
     // Loop over times and change the value to right Now
     for (var i = 0; i < times.length; i++) {
         hour = new Date().toLocaleTimeString().split(':')[0];
+        time = new Date().toLocaleTimeString();              
+        if(time.split(' ')[1] == 'PM'){
+            hour = parseInt(hour) + 12;
+        }  
         if(hour < 10){
             hour = '0' + hour;
-        }
-        minute = new Date().toLocaleTimeString().split(':')[1];
-
-        times[i].value = hour + ':' + minute;
+        }        
+        time = hour + ':' + time.split(':')[1]
+        times[i].value = time;
     }
 });
