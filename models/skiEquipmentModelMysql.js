@@ -795,15 +795,19 @@ async function editRental(rentalId, userId, startTime, endTime, duration, itemTy
     }
 
     // Check that the user exists in the database
-    const userQuery = 'SELECT * FROM user WHERE id = ' + userId;
+    // Check that the user exists in the database
+    const userQuery = 'SELECT * FROM users WHERE id = \'' + userId + '\'';
     const userResult = await connection.execute(userQuery)
         .catch((error) => {
             logger.error(error)
             throw new SystemError("Error getting user");
         });
-    if (userResult[0].length == 0) {
-        throw new UserDataError("User does not exist");
-    }
+        if (userResult[0].length == 0) {
+            throw new UserDataError("User does not exist");
+        }
+        else {
+            username = userResult[0][0].username;
+        }
 
     // Get the rental via its isValidDate
 
@@ -842,7 +846,7 @@ async function editRental(rentalId, userId, startTime, endTime, duration, itemTy
         throw new UserDataError("No items available");
     }
     // Now that the rental is possible, update the rental with the new fields
-    const updateRental = 'UPDATE rental SET user = ' + userId + ', item = ' + itemId + ', startTime = \'' + startTime + '\', endTime = \'' + endTime + '\', duration = ' + duration + ' WHERE id = ' + rentalId;
+    const updateRental = 'UPDATE rentals SET userId = \'' + userId + '\', itemId = \'' + itemId + '\', startTime = \'' + startTime + '\', endTime = \'' + endTime + '\', duration = \'' + duration + '\' WHERE id = \'' + rentalId + '\'';
     await connection.execute(updateRental)
         .catch((error) => {
             logger.error(error)

@@ -89,7 +89,7 @@ router.get('/account', async function (request, response) {
  * @param {*} response 
  */
 
-router.post('/logout', async function (request, response) {
+router.get('/logout', async function (request, response) {
     if (await model.authenticateUser(request)) {
         await model.deleteSessionById(request.cookies.sessionId);
         response.clearCookie("sessionId");
@@ -97,7 +97,7 @@ router.post('/logout', async function (request, response) {
         response.clearCookie("userType");
         response.clearCookie("user_track")        
     }
-    response.redirect("/login");
+    response.render("login.hbs");
 });
 
 
