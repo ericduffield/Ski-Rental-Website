@@ -1322,11 +1322,17 @@ h2{
 	margin-top: 50px;
 
 }
-
-.accountContainer{
+.accountInfo
+{
 	display: flex;
-	flex-direction: column;
+	flex-direction: row;
 	align-items: center;
 	justify-content: center;
-	background-color: var(--secondary);
+	margin: 50px;
+	width: 700px;
+}
+.basicEdits
+{
+	font-size: 22px;
+
 }
