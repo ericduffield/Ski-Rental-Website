@@ -1,4 +1,32 @@
-const express = require('express');
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <title>JSDoc: Source: userController.js</title>
+
+    <script src="scripts/prettify/prettify.js"> </script>
+    <script src="scripts/prettify/lang-css.js"> </script>
+    <!--[if lt IE 9]>
+      <script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script>
+    <![endif]-->
+    <link type="text/css" rel="stylesheet" href="styles/prettify-tomorrow.css">
+    <link type="text/css" rel="stylesheet" href="styles/jsdoc-default.css">
+</head>
+
+<body>
+
+<div id="main">
+
+    <h1 class="page-title">Source: userController.js</h1>
+
+    
+
+
+
+    
+    <section>
+        <article>
+            <pre class="prettyprint source linenums"><code>const express = require('express');
 const router = express.Router();
 const routeRoot = '/';
 const model = require("../models/skiEquipmentModelMysql");
@@ -256,4 +284,26 @@ async function about(request, response) {
 module.exports = {
     router,
     routeRoot
-}
+}</code></pre>
+        </article>
+    </section>
+
+
+
+
+</div>
+
+<nav>
+    <h2><a href="index.html">Home</a></h2><h3>Classes</h3><ul><li><a href="Session.html">Session</a></li><li><a href="SystemError.html">SystemError</a></li><li><a href="UserDataError.html">UserDataError</a></li></ul><h3>Global</h3><ul><li><a href="global.html#about">about</a></li><li><a href="global.html#acceptCookieConsent">acceptCookieConsent</a></li><li><a href="global.html#addItem">addItem</a></li><li><a href="global.html#addItemType">addItemType</a></li><li><a href="global.html#addSession">addSession</a></li><li><a href="global.html#AdminAuth">AdminAuth</a></li><li><a href="global.html#authenticatedAdmin">authenticatedAdmin</a></li><li><a href="global.html#authenticateUser">authenticateUser</a></li><li><a href="global.html#checkConfirmPassword">checkConfirmPassword</a></li><li><a href="global.html#checkFirstName">checkFirstName</a></li><li><a href="global.html#checkIfUsernameIsTaken">checkIfUsernameIsTaken</a></li><li><a href="global.html#checkLastName">checkLastName</a></li><li><a href="global.html#checkPassword">checkPassword</a></li><li><a href="global.html#checkUsername">checkUsername</a></li><li><a href="global.html#createRental">createRental</a></li><li><a href="global.html#createSession">createSession</a></li><li><a href="global.html#createUser">createUser</a></li><li><a href="global.html#deleteCookie">deleteCookie</a></li><li><a href="global.html#deleteItem">deleteItem</a></li><li><a href="global.html#deleteItemType">deleteItemType</a></li><li><a href="global.html#deleteRental">deleteRental</a></li><li><a href="global.html#deleteSessionById">deleteSessionById</a></li><li><a href="global.html#deleteUser">deleteUser</a></li><li><a href="global.html#editItem">editItem</a></li><li><a href="global.html#editItemType">editItemType</a></li><li><a href="global.html#editRental">editRental</a></li><li><a href="global.html#editUser">editUser</a></li><li><a href="global.html#error">error</a></li><li><a href="global.html#getAllItems">getAllItems</a></li><li><a href="global.html#getAllItemTypes">getAllItemTypes</a></li><li><a href="global.html#getAllRentalsForUser">getAllRentalsForUser</a></li><li><a href="global.html#getAllUsers">getAllUsers</a></li><li><a href="global.html#getConnection">getConnection</a></li><li><a href="global.html#getCookiePl">getCookiePl</a></li><li><a href="global.html#getCurrentSession">getCurrentSession</a></li><li><a href="global.html#getItemById">getItemById</a></li><li><a href="global.html#getItemTypeById">getItemTypeById</a></li><li><a href="global.html#getItemTypeByName">getItemTypeByName</a></li><li><a href="global.html#getRentalById">getRentalById</a></li><li><a href="global.html#getRentalFromUserId">getRentalFromUserId</a></li><li><a href="global.html#gettingTheValue">gettingTheValue</a></li><li><a href="global.html#getUserById">getUserById</a></li><li><a href="global.html#getUserByUsername">getUserByUsername</a></li><li><a href="global.html#getUserTypeFromTypeId">getUserTypeFromTypeId</a></li><li><a href="global.html#home">home</a></li><li><a href="global.html#initialize">initialize</a></li><li><a href="global.html#itemResponse">itemResponse</a></li><li><a href="global.html#itemTypesResponse">itemTypesResponse</a></li><li><a href="global.html#listResponse">listResponse</a></li><li><a href="global.html#login">login</a></li><li><a href="global.html#loginSubmit">loginSubmit</a></li><li><a href="global.html#onlyLetters">onlyLetters</a></li><li><a href="global.html#refreshSession">refreshSession</a></li><li><a href="global.html#setCookie">setCookie</a></li><li><a href="global.html#signup">signup</a></li><li><a href="global.html#signupSubmit">signupSubmit</a></li><li><a href="global.html#usersResponse">usersResponse</a></li><li><a href="global.html#userTrack">userTrack</a></li><li><a href="global.html#verifyLogin">verifyLogin</a></li></ul>
+</nav>
+
+<br class="clear">
+
+<footer>
+    Documentation generated by <a href="https://github.com/jsdoc/jsdoc">JSDoc 3.6.10</a> on Thu May 19 2022 23:48:58 GMT-0400 (Eastern Daylight Time)
+</footer>
+
+<script> prettyPrint(); </script>
+<script src="scripts/linenumber.js"> </script>
+</body>
+</html>

@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="utf-8">
     <title>JSDoc: Global</title>
@@ -15,2214 +16,11179 @@
 
 <body>
 
-<div id="main">
+    <div id="main">
 
-    <h1 class="page-title">Global</h1>
-
-    
+        <h1 class="page-title">Global</h1>
 
 
 
 
-<section>
-
-<header>
-    
-        <h2></h2>
-        
-    
-</header>
-
-<article>
-    <div class="container-overview">
-    
-        
-
-        
 
 
-<dl class="details">
+        <section>
 
-    
+            <header>
 
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-</dl>
+                <h2></h2>
 
 
-        
-    
+            </header>
+
+            <article>
+                <div class="container-overview">
+
+
+
+
+
+
+                    <dl class="details">
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+                    </dl>
+
+
+
+
+                </div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+                <h3 class="subsection-title">Methods</h3>
+
+
+
+
+
+
+
+                <h4 class="name" id="about"><span class="type-signature">(async) </span>about<span
+                        class="signature">(request, response)</span><span class="type-signature"></span></h4>
+
+
+
+
+
+
+                <div class="description">
+                    Displays the about page
+                    Refreshes the authenticated cookie if someone is logged in
+                </div>
+
+
+
+
+
+
+
+
+
+                <h5>Parameters:</h5>
+
+
+                <table class="params">
+                    <thead>
+                        <tr>
+
+                            <th>Name</th>
+
+
+                            <th>Type</th>
+
+
+
+
+
+                            <th class="last">Description</th>
+                        </tr>
+                    </thead>
+
+                    <tbody>
+
+
+                        <tr>
+
+                            <td class="name"><code>request</code></td>
+
+
+                            <td class="type">
+
+
+                                <span class="param-type">*</span>
+
+
+
+                            </td>
+
+
+
+
+
+                            <td class="description last">The request object</td>
+                        </tr>
+
+
+
+                        <tr>
+
+                            <td class="name"><code>response</code></td>
+
+
+                            <td class="type">
+
+
+                                <span class="param-type">*</span>
+
+
+
+                            </td>
+
+
+
+
+
+                            <td class="description last">The response object</td>
+                        </tr>
+
+
+                    </tbody>
+                </table>
+
+
+
+
+
+
+                <dl class="details">
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+                    <dt class="tag-source">Source:</dt>
+                    <dd class="tag-source">
+                        <ul class="dummy">
+                            <li>
+                                <a href="userController.js.html">userController.js</a>, <a
+                                    href="userController.js.html#line230">line 230</a>
+                            </li>
+                        </ul>
+                    </dd>
+
+
+
+
+
+
+
+                </dl>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+                <h4 class="name" id="acceptCookieConsent"><span class="type-signature"></span>acceptCookieConsent<span
+                        class="signature">()</span><span class="type-signature"></span></h4>
+
+
+
+
+
+
+                <div class="description">
+                    Check if the cookie is set or not, if not then show the cookie consent
+                </div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+                <dl class="details">
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+                    <dt class="tag-source">Source:</dt>
+                    <dd class="tag-source">
+                        <ul class="dummy">
+                            <li>
+                                <a href="pleasure.js.html">pleasure.js</a>, <a href="pleasure.js.html#line111">line
+                                    111</a>
+                            </li>
+                        </ul>
+                    </dd>
+
+
+
+
+
+
+
+                </dl>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+                <h4 class="name" id="addItem"><span class="type-signature">(async) </span>addItem<span
+                        class="signature">(request, response)</span><span class="type-signature"></span></h4>
+
+
+
+
+
+
+                <div class="description">
+                    This function adds an item to the database.
+                    If it is successfully added it renders the form again with a success message.
+                    If it is not successful it renders the form with a specific error message that explains what went
+                    wrong.
+                </div>
+
+
+
+
+
+
+
+
+
+                <h5>Parameters:</h5>
+
+
+                <table class="params">
+                    <thead>
+                        <tr>
+
+                            <th>Name</th>
+
+
+                            <th>Type</th>
+
+
+
+
+
+                            <th class="last">Description</th>
+                        </tr>
+                    </thead>
+
+                    <tbody>
+
+
+                        <tr>
+
+                            <td class="name"><code>request</code></td>
+
+
+                            <td class="type">
+
+
+                                <span class="param-type">*</span>
+
+
+
+                            </td>
+
+
+
+
+
+                            <td class="description last">request object</td>
+                        </tr>
+
+
+
+                        <tr>
+
+                            <td class="name"><code>response</code></td>
+
+
+                            <td class="type">
+
+
+                                <span class="param-type">*</span>
+
+
+
+                            </td>
+
+
+
+
+
+                            <td class="description last">response object</td>
+                        </tr>
+
+
+                    </tbody>
+                </table>
+
+
+
+
+
+
+                <dl class="details">
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+                    <dt class="tag-source">Source:</dt>
+                    <dd class="tag-source">
+                        <ul class="dummy">
+                            <li>
+                                <a href="adminController.js.html">adminController.js</a>, <a
+                                    href="adminController.js.html#line161">line 161</a>
+                            </li>
+                        </ul>
+                    </dd>
+
+
+
+
+
+
+
+                </dl>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+                <h4 class="name" id="addItem"><span class="type-signature">(async) </span>addItem<span
+                        class="signature">(name, description, cost, itemType)</span><span class="type-signature"></span>
+                </h4>
+
+
+
+
+
+
+                <div class="description">
+                    Adds an item to the inventory
+                </div>
+
+
+
+
+
+
+
+
+
+                <h5>Parameters:</h5>
+
+
+                <table class="params">
+                    <thead>
+                        <tr>
+
+                            <th>Name</th>
+
+
+                            <th>Type</th>
+
+
+
+
+
+                            <th class="last">Description</th>
+                        </tr>
+                    </thead>
+
+                    <tbody>
+
+
+                        <tr>
+
+                            <td class="name"><code>name</code></td>
+
+
+                            <td class="type">
+
+
+                                <span class="param-type">*</span>
+
+
+
+                            </td>
+
+
+
+
+
+                            <td class="description last">The name of the item to add</td>
+                        </tr>
+
+
+
+                        <tr>
+
+                            <td class="name"><code>description</code></td>
+
+
+                            <td class="type">
+
+
+                                <span class="param-type">*</span>
+
+
+
+                            </td>
+
+
+
+
+
+                            <td class="description last">The description of the item to add</td>
+                        </tr>
+
+
+
+                        <tr>
+
+                            <td class="name"><code>cost</code></td>
+
+
+                            <td class="type">
+
+
+                                <span class="param-type">*</span>
+
+
+
+                            </td>
+
+
+
+
+
+                            <td class="description last">The cost of the item to add</td>
+                        </tr>
+
+
+
+                        <tr>
+
+                            <td class="name"><code>itemType</code></td>
+
+
+                            <td class="type">
+
+
+                                <span class="param-type">*</span>
+
+
+
+                            </td>
+
+
+
+
+
+                            <td class="description last">The type of the item to add</td>
+                        </tr>
+
+
+                    </tbody>
+                </table>
+
+
+
+
+
+
+                <dl class="details">
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+                    <dt class="tag-source">Source:</dt>
+                    <dd class="tag-source">
+                        <ul class="dummy">
+                            <li>
+                                <a href="skiEquipmentModelMysql.js.html">skiEquipmentModelMysql.js</a>, <a
+                                    href="skiEquipmentModelMysql.js.html#line418">line 418</a>
+                            </li>
+                        </ul>
+                    </dd>
+
+
+
+
+
+
+
+                </dl>
+
+
+
+
+
+
+
+
+
+
+
+
+
+                <h5>Throws:</h5>
+                <ul>
+                    <li>
+
+                        <div class="param-desc">
+
+                            UserDataError if user sends invalid data
+
+                        </div>
+
+                    </li>
+
+                    <li>
+
+                        <div class="param-desc">
+
+                            SystemError if there is an error in the database while deleting
+
+                        </div>
+
+                    </li>
+                </ul>
+
+
+
+
+
+
+
+
+
+
+
+
+
+                <h4 class="name" id="addItemType"><span class="type-signature">(async) </span>addItemType<span
+                        class="signature">(request, response)</span><span class="type-signature"></span></h4>
+
+
+
+
+
+
+                <div class="description">
+                    This function adds an item type to the database.
+                    If it is successfully added it renders the form again with a success message.
+                    If it is not successful it renders the form with a specific error message that explains what went
+                    wrong.
+                </div>
+
+
+
+
+
+
+
+
+
+                <h5>Parameters:</h5>
+
+
+                <table class="params">
+                    <thead>
+                        <tr>
+
+                            <th>Name</th>
+
+
+                            <th>Type</th>
+
+
+
+
+
+                            <th class="last">Description</th>
+                        </tr>
+                    </thead>
+
+                    <tbody>
+
+
+                        <tr>
+
+                            <td class="name"><code>request</code></td>
+
+
+                            <td class="type">
+
+
+                                <span class="param-type">*</span>
+
+
+
+                            </td>
+
+
+
+
+
+                            <td class="description last">request object</td>
+                        </tr>
+
+
+
+                        <tr>
+
+                            <td class="name"><code>response</code></td>
+
+
+                            <td class="type">
+
+
+                                <span class="param-type">*</span>
+
+
+
+                            </td>
+
+
+
+
+
+                            <td class="description last">response object</td>
+                        </tr>
+
+
+                    </tbody>
+                </table>
+
+
+
+
+
+
+                <dl class="details">
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+                    <dt class="tag-source">Source:</dt>
+                    <dd class="tag-source">
+                        <ul class="dummy">
+                            <li>
+                                <a href="adminController.js.html">adminController.js</a>, <a
+                                    href="adminController.js.html#line336">line 336</a>
+                            </li>
+                        </ul>
+                    </dd>
+
+
+
+
+
+
+
+                </dl>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+                <h4 class="name" id="addItemType"><span class="type-signature">(async) </span>addItemType<span
+                        class="signature">(name)</span><span class="type-signature"></span></h4>
+
+
+
+
+
+
+                <div class="description">
+                    Adds an item type to the database
+                </div>
+
+
+
+
+
+
+
+
+
+                <h5>Parameters:</h5>
+
+
+                <table class="params">
+                    <thead>
+                        <tr>
+
+                            <th>Name</th>
+
+
+                            <th>Type</th>
+
+
+
+
+
+                            <th class="last">Description</th>
+                        </tr>
+                    </thead>
+
+                    <tbody>
+
+
+                        <tr>
+
+                            <td class="name"><code>name</code></td>
+
+
+                            <td class="type">
+
+
+                                <span class="param-type">*</span>
+
+
+
+                            </td>
+
+
+
+
+
+                            <td class="description last">The name of the item type to add</td>
+                        </tr>
+
+
+                    </tbody>
+                </table>
+
+
+
+
+
+
+                <dl class="details">
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+                    <dt class="tag-source">Source:</dt>
+                    <dd class="tag-source">
+                        <ul class="dummy">
+                            <li>
+                                <a href="skiEquipmentModelMysql.js.html">skiEquipmentModelMysql.js</a>, <a
+                                    href="skiEquipmentModelMysql.js.html#line531">line 531</a>
+                            </li>
+                        </ul>
+                    </dd>
+
+
+
+
+
+
+
+                </dl>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+                <h4 class="name" id="addSession"><span class="type-signature">(async) </span>addSession<span
+                        class="signature">(session)</span><span class="type-signature"></span></h4>
+
+
+
+
+
+
+                <div class="description">
+                    Adds a session to the database from a session object
+                </div>
+
+
+
+
+
+
+
+
+
+                <h5>Parameters:</h5>
+
+
+                <table class="params">
+                    <thead>
+                        <tr>
+
+                            <th>Name</th>
+
+
+                            <th>Type</th>
+
+
+
+
+
+                            <th class="last">Description</th>
+                        </tr>
+                    </thead>
+
+                    <tbody>
+
+
+                        <tr>
+
+                            <td class="name"><code>session</code></td>
+
+
+                            <td class="type">
+
+
+                                <span class="param-type">*</span>
+
+
+
+                            </td>
+
+
+
+
+
+                            <td class="description last">The session object to add to the database</td>
+                        </tr>
+
+
+                    </tbody>
+                </table>
+
+
+
+
+
+
+                <dl class="details">
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+                    <dt class="tag-source">Source:</dt>
+                    <dd class="tag-source">
+                        <ul class="dummy">
+                            <li>
+                                <a href="skiEquipmentModelMysql.js.html">skiEquipmentModelMysql.js</a>, <a
+                                    href="skiEquipmentModelMysql.js.html#line948">line 948</a>
+                            </li>
+                        </ul>
+                    </dd>
+
+
+
+
+
+
+
+                </dl>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+                <h4 class="name" id="AdminAuth"><span class="type-signature">(async) </span>AdminAuth<span
+                        class="signature">(request)</span><span class="type-signature"></span></h4>
+
+
+
+
+
+
+                <div class="description">
+                    Method to validate if someone had access to an admin page
+                </div>
+
+
+
+
+
+
+
+
+
+                <h5>Parameters:</h5>
+
+
+                <table class="params">
+                    <thead>
+                        <tr>
+
+                            <th>Name</th>
+
+
+                            <th>Type</th>
+
+
+
+
+
+                            <th class="last">Description</th>
+                        </tr>
+                    </thead>
+
+                    <tbody>
+
+
+                        <tr>
+
+                            <td class="name"><code>request</code></td>
+
+
+                            <td class="type">
+
+
+                                <span class="param-type">*</span>
+
+
+
+                            </td>
+
+
+
+
+
+                            <td class="description last">The request object</td>
+                        </tr>
+
+
+                    </tbody>
+                </table>
+
+
+
+
+
+
+                <dl class="details">
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+                    <dt class="tag-source">Source:</dt>
+                    <dd class="tag-source">
+                        <ul class="dummy">
+                            <li>
+                                <a href="adminController.js.html">adminController.js</a>, <a
+                                    href="adminController.js.html#line15">line 15</a>
+                            </li>
+                        </ul>
+                    </dd>
+
+
+
+
+
+
+
+                </dl>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+                <h5>Returns:</h5>
+
+
+                <div class="param-desc">
+                    true if they have access and false otherwise
+                </div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+                <h4 class="name" id="authenticatedAdmin"><span class="type-signature"></span>authenticatedAdmin<span
+                        class="signature">(session)</span><span class="type-signature"></span></h4>
+
+
+
+
+
+
+                <div class="description">
+                    Checks if a session is an admin session
+                </div>
+
+
+
+
+
+
+
+
+
+                <h5>Parameters:</h5>
+
+
+                <table class="params">
+                    <thead>
+                        <tr>
+
+                            <th>Name</th>
+
+
+                            <th>Type</th>
+
+
+
+
+
+                            <th class="last">Description</th>
+                        </tr>
+                    </thead>
+
+                    <tbody>
+
+
+                        <tr>
+
+                            <td class="name"><code>session</code></td>
+
+
+                            <td class="type">
+
+
+                                <span class="param-type">*</span>
+
+
+
+                            </td>
+
+
+
+
+
+                            <td class="description last">The session to check</td>
+                        </tr>
+
+
+                    </tbody>
+                </table>
+
+
+
+
+
+
+                <dl class="details">
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+                    <dt class="tag-source">Source:</dt>
+                    <dd class="tag-source">
+                        <ul class="dummy">
+                            <li>
+                                <a href="skiEquipmentModelMysql.js.html">skiEquipmentModelMysql.js</a>, <a
+                                    href="skiEquipmentModelMysql.js.html#line1040">line 1040</a>
+                            </li>
+                        </ul>
+                    </dd>
+
+
+
+
+
+
+
+                </dl>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+                <h5>Returns:</h5>
+
+
+                <div class="param-desc">
+                    true if the session is an admin session, false if it is not
+                </div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+                <h4 class="name" id="authenticateUser"><span class="type-signature">(async) </span>authenticateUser<span
+                        class="signature">(request)</span><span class="type-signature"></span></h4>
+
+
+
+
+
+
+                <div class="description">
+                    Authenticates if a user has an active session
+                </div>
+
+
+
+
+
+
+
+
+
+                <h5>Parameters:</h5>
+
+
+                <table class="params">
+                    <thead>
+                        <tr>
+
+                            <th>Name</th>
+
+
+                            <th>Type</th>
+
+
+
+
+
+                            <th class="last">Description</th>
+                        </tr>
+                    </thead>
+
+                    <tbody>
+
+
+                        <tr>
+
+                            <td class="name"><code>request</code></td>
+
+
+                            <td class="type">
+
+
+                                <span class="param-type">*</span>
+
+
+
+                            </td>
+
+
+
+
+
+                            <td class="description last">The request object</td>
+                        </tr>
+
+
+                    </tbody>
+                </table>
+
+
+
+
+
+
+                <dl class="details">
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+                    <dt class="tag-source">Source:</dt>
+                    <dd class="tag-source">
+                        <ul class="dummy">
+                            <li>
+                                <a href="skiEquipmentModelMysql.js.html">skiEquipmentModelMysql.js</a>, <a
+                                    href="skiEquipmentModelMysql.js.html#line1012">line 1012</a>
+                            </li>
+                        </ul>
+                    </dd>
+
+
+
+
+
+
+
+                </dl>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+                <h5>Returns:</h5>
+
+
+                <div class="param-desc">
+                    null if there is no active session, the session object if there is an active session
+                </div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+                <h4 class="name" id="checkConfirmPassword"><span class="type-signature"></span>checkConfirmPassword<span
+                        class="signature">()</span><span class="type-signature"></span></h4>
+
+
+
+
+
+
+                <div class="description">
+                    Checks that the confirm password matches the password
+                    Displays the result as the confirm password is being typed
+                </div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+                <dl class="details">
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+                    <dt class="tag-source">Source:</dt>
+                    <dd class="tag-source">
+                        <ul class="dummy">
+                            <li>
+                                <a href="liam.js.html">liam.js</a>, <a href="liam.js.html#line159">line 159</a>
+                            </li>
+                        </ul>
+                    </dd>
+
+
+
+
+
+
+
+                </dl>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+                <h4 class="name" id="checkFirstName"><span class="type-signature"></span>checkFirstName<span
+                        class="signature">()</span><span class="type-signature"></span></h4>
+
+
+
+
+
+
+                <div class="description">
+                    Checks that the first name is alpha
+                    Displays the result as the first name is being typed
+                </div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+                <dl class="details">
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+                    <dt class="tag-source">Source:</dt>
+                    <dd class="tag-source">
+                        <ul class="dummy">
+                            <li>
+                                <a href="liam.js.html">liam.js</a>, <a href="liam.js.html#line79">line 79</a>
+                            </li>
+                        </ul>
+                    </dd>
+
+
+
+
+
+
+
+                </dl>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+                <h4 class="name" id="checkIfUsernameIsTaken"><span class="type-signature">(async)
+                    </span>checkIfUsernameIsTaken<span class="signature">(username)</span><span
+                        class="type-signature"></span></h4>
+
+
+
+
+
+
+                <div class="description">
+                    Checks if a username is taken
+                </div>
+
+
+
+
+
+
+
+
+
+                <h5>Parameters:</h5>
+
+
+                <table class="params">
+                    <thead>
+                        <tr>
+
+                            <th>Name</th>
+
+
+                            <th>Type</th>
+
+
+
+
+
+                            <th class="last">Description</th>
+                        </tr>
+                    </thead>
+
+                    <tbody>
+
+
+                        <tr>
+
+                            <td class="name"><code>username</code></td>
+
+
+                            <td class="type">
+
+
+                                <span class="param-type">*</span>
+
+
+
+                            </td>
+
+
+
+
+
+                            <td class="description last">The username to check</td>
+                        </tr>
+
+
+                    </tbody>
+                </table>
+
+
+
+
+
+
+                <dl class="details">
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+                    <dt class="tag-source">Source:</dt>
+                    <dd class="tag-source">
+                        <ul class="dummy">
+                            <li>
+                                <a href="skiEquipmentModelMysql.js.html">skiEquipmentModelMysql.js</a>, <a
+                                    href="skiEquipmentModelMysql.js.html#line352">line 352</a>
+                            </li>
+                        </ul>
+                    </dd>
+
+
+
+
+
+
+
+                </dl>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+                <h5>Returns:</h5>
+
+
+                <div class="param-desc">
+                    False if the username is unique, true if it is taken
+                </div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+                <h4 class="name" id="checkLastName"><span class="type-signature"></span>checkLastName<span
+                        class="signature">()</span><span class="type-signature"></span></h4>
+
+
+
+
+
+
+                <div class="description">
+                    Checks that the last name is alpha
+                    Displays the result as the last name is being typed
+                </div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+                <dl class="details">
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+                    <dt class="tag-source">Source:</dt>
+                    <dd class="tag-source">
+                        <ul class="dummy">
+                            <li>
+                                <a href="liam.js.html">liam.js</a>, <a href="liam.js.html#line92">line 92</a>
+                            </li>
+                        </ul>
+                    </dd>
+
+
+
+
+
+
+
+                </dl>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+                <h4 class="name" id="checkPassword"><span class="type-signature"></span>checkPassword<span
+                        class="signature">()</span><span class="type-signature"></span></h4>
+
+
+
+
+
+
+                <div class="description">
+                    Checks that the password meets the requirements to be strong
+                    Displays the result as the password is being typed
+                </div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+                <dl class="details">
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+                    <dt class="tag-source">Source:</dt>
+                    <dd class="tag-source">
+                        <ul class="dummy">
+                            <li>
+                                <a href="liam.js.html">liam.js</a>, <a href="liam.js.html#line105">line 105</a>
+                            </li>
+                        </ul>
+                    </dd>
+
+
+
+
+
+
+
+                </dl>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+                <h4 class="name" id="checkUsername"><span class="type-signature"></span>checkUsername<span
+                        class="signature">()</span><span class="type-signature"></span></h4>
+
+
+
+
+
+
+                <div class="description">
+                    Checks that the username is alphanumeric
+                    Displays the result as the username is being typed
+                </div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+                <dl class="details">
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+                    <dt class="tag-source">Source:</dt>
+                    <dd class="tag-source">
+                        <ul class="dummy">
+                            <li>
+                                <a href="liam.js.html">liam.js</a>, <a href="liam.js.html#line66">line 66</a>
+                            </li>
+                        </ul>
+                    </dd>
+
+
+
+
+
+
+
+                </dl>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+                <h4 class="name" id="createRental"><span class="type-signature">(async) </span>createRental<span
+                        class="signature">(userId, startTime, endTime, Duration, itemType)</span><span
+                        class="type-signature"></span></h4>
+
+
+
+
+
+
+                <div class="description">
+                    Creates a rental from the given information
+                    Checks that an item of the correct type is available at that times
+                    If there is one, creates a rental, if not, throws an error
+                </div>
+
+
+
+
+
+
+
+
+
+                <h5>Parameters:</h5>
+
+
+                <table class="params">
+                    <thead>
+                        <tr>
+
+                            <th>Name</th>
+
+
+                            <th>Type</th>
+
+
+
+
+
+                            <th class="last">Description</th>
+                        </tr>
+                    </thead>
+
+                    <tbody>
+
+
+                        <tr>
+
+                            <td class="name"><code>userId</code></td>
+
+
+                            <td class="type">
+
+
+                                <span class="param-type">*</span>
+
+
+
+                            </td>
+
+
+
+
+
+                            <td class="description last">The id of the user renting the item</td>
+                        </tr>
+
+
+
+                        <tr>
+
+                            <td class="name"><code>startTime</code></td>
+
+
+                            <td class="type">
+
+
+                                <span class="param-type">*</span>
+
+
+
+                            </td>
+
+
+
+
+
+                            <td class="description last">The start time of the rental</td>
+                        </tr>
+
+
+
+                        <tr>
+
+                            <td class="name"><code>endTime</code></td>
+
+
+                            <td class="type">
+
+
+                                <span class="param-type">*</span>
+
+
+
+                            </td>
+
+
+
+
+
+                            <td class="description last">The end time of the rental</td>
+                        </tr>
+
+
+
+                        <tr>
+
+                            <td class="name"><code>Duration</code></td>
+
+
+                            <td class="type">
+
+
+                                <span class="param-type">*</span>
+
+
+
+                            </td>
+
+
+
+
+
+                            <td class="description last">The duration of the rental</td>
+                        </tr>
+
+
+
+                        <tr>
+
+                            <td class="name"><code>itemType</code></td>
+
+
+                            <td class="type">
+
+
+                                <span class="param-type">*</span>
+
+
+
+                            </td>
+
+
+
+
+
+                            <td class="description last">The type of item being rented</td>
+                        </tr>
+
+
+                    </tbody>
+                </table>
+
+
+
+
+
+
+                <dl class="details">
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+                    <dt class="tag-source">Source:</dt>
+                    <dd class="tag-source">
+                        <ul class="dummy">
+                            <li>
+                                <a href="skiEquipmentModelMysql.js.html">skiEquipmentModelMysql.js</a>, <a
+                                    href="skiEquipmentModelMysql.js.html#line662">line 662</a>
+                            </li>
+                        </ul>
+                    </dd>
+
+
+
+
+
+
+
+                </dl>
+
+
+
+
+
+
+
+
+
+
+
+
+
+                <h5>Throws:</h5>
+
+
+
+                <div class="param-desc">
+
+                    UserDataError if there are no available items at that time
+
+                </div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+                <h4 class="name" id="createSession"><span class="type-signature">(async) </span>createSession<span
+                        class="signature">(userId, userType, numMinutes)</span><span class="type-signature"></span></h4>
+
+
+
+
+
+
+                <div class="description">
+                    Creates a session from the given fields
+                </div>
+
+
+
+
+
+
+
+
+
+                <h5>Parameters:</h5>
+
+
+                <table class="params">
+                    <thead>
+                        <tr>
+
+                            <th>Name</th>
+
+
+                            <th>Type</th>
+
+
+
+
+
+                            <th class="last">Description</th>
+                        </tr>
+                    </thead>
+
+                    <tbody>
+
+
+                        <tr>
+
+                            <td class="name"><code>userId</code></td>
+
+
+                            <td class="type">
+
+
+                                <span class="param-type">*</span>
+
+
+
+                            </td>
+
+
+
+
+
+                            <td class="description last">The id of the user</td>
+                        </tr>
+
+
+
+                        <tr>
+
+                            <td class="name"><code>userType</code></td>
+
+
+                            <td class="type">
+
+
+                                <span class="param-type">*</span>
+
+
+
+                            </td>
+
+
+
+
+
+                            <td class="description last">The type of the user</td>
+                        </tr>
+
+
+
+                        <tr>
+
+                            <td class="name"><code>numMinutes</code></td>
+
+
+                            <td class="type">
+
+
+                                <span class="param-type">*</span>
+
+
+
+                            </td>
+
+
+
+
+
+                            <td class="description last">The number of minutes the session will last</td>
+                        </tr>
+
+
+                    </tbody>
+                </table>
+
+
+
+
+
+
+                <dl class="details">
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+                    <dt class="tag-source">Source:</dt>
+                    <dd class="tag-source">
+                        <ul class="dummy">
+                            <li>
+                                <a href="skiEquipmentModelMysql.js.html">skiEquipmentModelMysql.js</a>, <a
+                                    href="skiEquipmentModelMysql.js.html#line992">line 992</a>
+                            </li>
+                        </ul>
+                    </dd>
+
+
+
+
+
+
+
+                </dl>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+                <h5>Returns:</h5>
+
+
+                <div class="param-desc">
+                    the session id
+                </div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+                <h4 class="name" id="createUser"><span class="type-signature">(async) </span>createUser<span
+                        class="signature">(request, response)</span><span class="type-signature"></span></h4>
+
+
+
+
+
+
+                <div class="description">
+                    This function creates a user in the database.
+                    If it is successfully created it renders the form again with a success message.
+                    If it is not successful it renders the form with a specific error message that explains what went
+                    wrong.
+                </div>
+
+
+
+
+
+
+
+
+
+                <h5>Parameters:</h5>
+
+
+                <table class="params">
+                    <thead>
+                        <tr>
+
+                            <th>Name</th>
+
+
+                            <th>Type</th>
+
+
+
+
+
+                            <th class="last">Description</th>
+                        </tr>
+                    </thead>
+
+                    <tbody>
+
+
+                        <tr>
+
+                            <td class="name"><code>request</code></td>
+
+
+                            <td class="type">
+
+
+                                <span class="param-type">*</span>
+
+
+
+                            </td>
+
+
+
+
+
+                            <td class="description last">request object</td>
+                        </tr>
+
+
+
+                        <tr>
+
+                            <td class="name"><code>response</code></td>
+
+
+                            <td class="type">
+
+
+                                <span class="param-type">*</span>
+
+
+
+                            </td>
+
+
+
+
+
+                            <td class="description last">response object</td>
+                        </tr>
+
+
+                    </tbody>
+                </table>
+
+
+
+
+
+
+                <dl class="details">
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+                    <dt class="tag-source">Source:</dt>
+                    <dd class="tag-source">
+                        <ul class="dummy">
+                            <li>
+                                <a href="adminController.js.html">adminController.js</a>, <a
+                                    href="adminController.js.html#line466">line 466</a>
+                            </li>
+                        </ul>
+                    </dd>
+
+
+
+
+
+
+
+                </dl>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+                <h4 class="name" id="createUser"><span class="type-signature">(async) </span>createUser<span
+                        class="signature">(userType, username, password, firstName, lastName, credit)</span><span
+                        class="type-signature"></span></h4>
+
+
+
+
+
+
+                <div class="description">
+                    Validates all the new user fields then creates the user in the db
+                </div>
+
+
+
+
+
+
+
+
+
+                <h5>Parameters:</h5>
+
+
+                <table class="params">
+                    <thead>
+                        <tr>
+
+                            <th>Name</th>
+
+
+                            <th>Type</th>
+
+
+
+
+
+                            <th class="last">Description</th>
+                        </tr>
+                    </thead>
+
+                    <tbody>
+
+
+                        <tr>
+
+                            <td class="name"><code>userType</code></td>
+
+
+                            <td class="type">
+
+
+                                <span class="param-type">*</span>
+
+
+
+                            </td>
+
+
+
+
+
+                            <td class="description last">The type of the new user</td>
+                        </tr>
+
+
+
+                        <tr>
+
+                            <td class="name"><code>username</code></td>
+
+
+                            <td class="type">
+
+
+                                <span class="param-type">*</span>
+
+
+
+                            </td>
+
+
+
+
+
+                            <td class="description last">The username of the new user</td>
+                        </tr>
+
+
+
+                        <tr>
+
+                            <td class="name"><code>password</code></td>
+
+
+                            <td class="type">
+
+
+                                <span class="param-type">*</span>
+
+
+
+                            </td>
+
+
+
+
+
+                            <td class="description last">The password of the new user</td>
+                        </tr>
+
+
+
+                        <tr>
+
+                            <td class="name"><code>firstName</code></td>
+
+
+                            <td class="type">
+
+
+                                <span class="param-type">*</span>
+
+
+
+                            </td>
+
+
+
+
+
+                            <td class="description last">The first name of the new user</td>
+                        </tr>
+
+
+
+                        <tr>
+
+                            <td class="name"><code>lastName</code></td>
+
+
+                            <td class="type">
+
+
+                                <span class="param-type">*</span>
+
+
+
+                            </td>
+
+
+
+
+
+                            <td class="description last">The last name of the new user</td>
+                        </tr>
+
+
+
+                        <tr>
+
+                            <td class="name"><code>credit</code></td>
+
+
+                            <td class="type">
+
+
+                                <span class="param-type">*</span>
+
+
+
+                            </td>
+
+
+
+
+
+                            <td class="description last">The credit in the account of the new user</td>
+                        </tr>
+
+
+                    </tbody>
+                </table>
+
+
+
+
+
+
+                <dl class="details">
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+                    <dt class="tag-source">Source:</dt>
+                    <dd class="tag-source">
+                        <ul class="dummy">
+                            <li>
+                                <a href="skiEquipmentModelMysql.js.html">skiEquipmentModelMysql.js</a>, <a
+                                    href="skiEquipmentModelMysql.js.html#line185">line 185</a>
+                            </li>
+                        </ul>
+                    </dd>
+
+
+
+
+
+
+
+                </dl>
+
+
+
+
+
+
+
+
+
+
+
+
+
+                <h5>Throws:</h5>
+                <ul>
+                    <li>
+
+                        <div class="param-desc">
+
+                            UserDataError if user sends invalid data
+
+                        </div>
+
+                    </li>
+
+                    <li>
+
+                        <div class="param-desc">
+
+                            SystemError If there is an error in the database while adding
+
+                        </div>
+
+                    </li>
+                </ul>
+
+
+                <h5>Returns:</h5>
+
+
+                <div class="param-desc">
+                    an object of the added user
+                </div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+                <h4 class="name" id="deleteCookie"><span class="type-signature"></span>deleteCookie<span
+                        class="signature">(cname)</span><span class="type-signature"></span></h4>
+
+
+
+
+
+
+                <div class="description">
+                    Delete the cookie with the name passed as parameter
+                </div>
+
+
+
+
+
+
+
+
+
+                <h5>Parameters:</h5>
+
+
+                <table class="params">
+                    <thead>
+                        <tr>
+
+                            <th>Name</th>
+
+
+                            <th>Type</th>
+
+
+
+
+
+                            <th class="last">Description</th>
+                        </tr>
+                    </thead>
+
+                    <tbody>
+
+
+                        <tr>
+
+                            <td class="name"><code>cname</code></td>
+
+
+                            <td class="type">
+
+
+                                <span class="param-type">*</span>
+
+
+
+                            </td>
+
+
+
+
+
+                            <td class="description last"></td>
+                        </tr>
+
+
+                    </tbody>
+                </table>
+
+
+
+
+
+
+                <dl class="details">
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+                    <dt class="tag-source">Source:</dt>
+                    <dd class="tag-source">
+                        <ul class="dummy">
+                            <li>
+                                <a href="pleasure.js.html">pleasure.js</a>, <a href="pleasure.js.html#line81">line
+                                    81</a>
+                            </li>
+                        </ul>
+                    </dd>
+
+
+
+
+
+
+
+                </dl>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+                <h4 class="name" id="deleteItem"><span class="type-signature">(async) </span>deleteItem<span
+                        class="signature">(request, response)</span><span class="type-signature"></span></h4>
+
+
+
+
+
+
+                <div class="description">
+                    This function deleted an item from the database.
+                    If it is successfully deleted it renders the form again with a success message.
+                    If it is not successful it renders the form with a specific error message that explains what went
+                    wrong.
+                </div>
+
+
+
+
+
+
+
+
+
+                <h5>Parameters:</h5>
+
+
+                <table class="params">
+                    <thead>
+                        <tr>
+
+                            <th>Name</th>
+
+
+                            <th>Type</th>
+
+
+
+
+
+                            <th class="last">Description</th>
+                        </tr>
+                    </thead>
+
+                    <tbody>
+
+
+                        <tr>
+
+                            <td class="name"><code>request</code></td>
+
+
+                            <td class="type">
+
+
+                                <span class="param-type">*</span>
+
+
+
+                            </td>
+
+
+
+
+
+                            <td class="description last">request object</td>
+                        </tr>
+
+
+
+                        <tr>
+
+                            <td class="name"><code>response</code></td>
+
+
+                            <td class="type">
+
+
+                                <span class="param-type">*</span>
+
+
+
+                            </td>
+
+
+
+
+
+                            <td class="description last">response object</td>
+                        </tr>
+
+
+                    </tbody>
+                </table>
+
+
+
+
+
+
+                <dl class="details">
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+                    <dt class="tag-source">Source:</dt>
+                    <dd class="tag-source">
+                        <ul class="dummy">
+                            <li>
+                                <a href="adminController.js.html">adminController.js</a>, <a
+                                    href="adminController.js.html#line218">line 218</a>
+                            </li>
+                        </ul>
+                    </dd>
+
+
+
+
+
+
+
+                </dl>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+                <h4 class="name" id="deleteItem"><span class="type-signature">(async) </span>deleteItem<span
+                        class="signature">(id)</span><span class="type-signature"></span></h4>
+
+
+
+
+
+
+                <div class="description">
+                    Deletes an item from the inventory.
+                </div>
+
+
+
+
+
+
+
+
+
+                <h5>Parameters:</h5>
+
+
+                <table class="params">
+                    <thead>
+                        <tr>
+
+                            <th>Name</th>
+
+
+                            <th>Type</th>
+
+
+
+
+
+                            <th class="last">Description</th>
+                        </tr>
+                    </thead>
+
+                    <tbody>
+
+
+                        <tr>
+
+                            <td class="name"><code>id</code></td>
+
+
+                            <td class="type">
+
+
+                                <span class="param-type">*</span>
+
+
+
+                            </td>
+
+
+
+
+
+                            <td class="description last">The id of the item to be deleted</td>
+                        </tr>
+
+
+                    </tbody>
+                </table>
+
+
+
+
+
+
+                <dl class="details">
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+                    <dt class="tag-source">Source:</dt>
+                    <dd class="tag-source">
+                        <ul class="dummy">
+                            <li>
+                                <a href="skiEquipmentModelMysql.js.html">skiEquipmentModelMysql.js</a>, <a
+                                    href="skiEquipmentModelMysql.js.html#line474">line 474</a>
+                            </li>
+                        </ul>
+                    </dd>
+
+
+
+
+
+
+
+                </dl>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+                <h4 class="name" id="deleteItemType"><span class="type-signature">(async) </span>deleteItemType<span
+                        class="signature">(request, response)</span><span class="type-signature"></span></h4>
+
+
+
+
+
+
+                <div class="description">
+                    This function deleted an item type from the database.
+                    If it is successfully deleted it renders the form again with a success message.
+                    If it is not successful it renders the form with a specific error message that explains what went
+                    wrong.
+                </div>
+
+
+
+
+
+
+
+
+
+                <h5>Parameters:</h5>
+
+
+                <table class="params">
+                    <thead>
+                        <tr>
+
+                            <th>Name</th>
+
+
+                            <th>Type</th>
+
+
+
+
+
+                            <th class="last">Description</th>
+                        </tr>
+                    </thead>
+
+                    <tbody>
+
+
+                        <tr>
+
+                            <td class="name"><code>request</code></td>
+
+
+                            <td class="type">
+
+
+                                <span class="param-type">*</span>
+
+
+
+                            </td>
+
+
+
+
+
+                            <td class="description last">request object</td>
+                        </tr>
+
+
+
+                        <tr>
+
+                            <td class="name"><code>response</code></td>
+
+
+                            <td class="type">
+
+
+                                <span class="param-type">*</span>
+
+
+
+                            </td>
+
+
+
+
+
+                            <td class="description last">response object</td>
+                        </tr>
+
+
+                    </tbody>
+                </table>
+
+
+
+
+
+
+                <dl class="details">
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+                    <dt class="tag-source">Source:</dt>
+                    <dd class="tag-source">
+                        <ul class="dummy">
+                            <li>
+                                <a href="adminController.js.html">adminController.js</a>, <a
+                                    href="adminController.js.html#line387">line 387</a>
+                            </li>
+                        </ul>
+                    </dd>
+
+
+
+
+
+
+
+                </dl>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+                <h4 class="name" id="deleteItemType"><span class="type-signature">(async) </span>deleteItemType<span
+                        class="signature">(id)</span><span class="type-signature"></span></h4>
+
+
+
+
+
+
+                <div class="description">
+                    Deletes an item type from the database
+                </div>
+
+
+
+
+
+
+
+
+
+                <h5>Parameters:</h5>
+
+
+                <table class="params">
+                    <thead>
+                        <tr>
+
+                            <th>Name</th>
+
+
+                            <th>Type</th>
+
+
+
+
+
+                            <th class="last">Description</th>
+                        </tr>
+                    </thead>
+
+                    <tbody>
+
+
+                        <tr>
+
+                            <td class="name"><code>id</code></td>
+
+
+                            <td class="type">
+
+
+                                <span class="param-type">*</span>
+
+
+
+                            </td>
+
+
+
+
+
+                            <td class="description last">The id of the item type to be deleted</td>
+                        </tr>
+
+
+                    </tbody>
+                </table>
+
+
+
+
+
+
+                <dl class="details">
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+                    <dt class="tag-source">Source:</dt>
+                    <dd class="tag-source">
+                        <ul class="dummy">
+                            <li>
+                                <a href="skiEquipmentModelMysql.js.html">skiEquipmentModelMysql.js</a>, <a
+                                    href="skiEquipmentModelMysql.js.html#line582">line 582</a>
+                            </li>
+                        </ul>
+                    </dd>
+
+
+
+
+
+
+
+                </dl>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+                <h4 class="name" id="deleteRental"><span class="type-signature">(async) </span>deleteRental<span
+                        class="signature">(rentalId)</span><span class="type-signature"></span></h4>
+
+
+
+
+
+
+                <div class="description">
+                    Deletes a rental with the given id
+                </div>
+
+
+
+
+
+
+
+
+
+                <h5>Parameters:</h5>
+
+
+                <table class="params">
+                    <thead>
+                        <tr>
+
+                            <th>Name</th>
+
+
+                            <th>Type</th>
+
+
+
+
+
+                            <th class="last">Description</th>
+                        </tr>
+                    </thead>
+
+                    <tbody>
+
+
+                        <tr>
+
+                            <td class="name"><code>rentalId</code></td>
+
+
+                            <td class="type">
+
+
+                                <span class="param-type">*</span>
+
+
+
+                            </td>
+
+
+
+
+
+                            <td class="description last">The id of the rental to delete</td>
+                        </tr>
+
+
+                    </tbody>
+                </table>
+
+
+
+
+
+
+                <dl class="details">
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+                    <dt class="tag-source">Source:</dt>
+                    <dd class="tag-source">
+                        <ul class="dummy">
+                            <li>
+                                <a href="skiEquipmentModelMysql.js.html">skiEquipmentModelMysql.js</a>, <a
+                                    href="skiEquipmentModelMysql.js.html#line861">line 861</a>
+                            </li>
+                        </ul>
+                    </dd>
+
+
+
+
+
+
+
+                </dl>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+                <h4 class="name" id="deleteSessionById"><span class="type-signature">(async)
+                    </span>deleteSessionById<span class="signature">(sessionId)</span><span
+                        class="type-signature"></span></h4>
+
+
+
+
+
+
+                <div class="description">
+                    deletes a session from the database
+                </div>
+
+
+
+
+
+
+
+
+
+                <h5>Parameters:</h5>
+
+
+                <table class="params">
+                    <thead>
+                        <tr>
+
+                            <th>Name</th>
+
+
+                            <th>Type</th>
+
+
+
+
+
+                            <th class="last">Description</th>
+                        </tr>
+                    </thead>
+
+                    <tbody>
+
+
+                        <tr>
+
+                            <td class="name"><code>sessionId</code></td>
+
+
+                            <td class="type">
+
+
+                                <span class="param-type">*</span>
+
+
+
+                            </td>
+
+
+
+
+
+                            <td class="description last">The id of the session to be deleted</td>
+                        </tr>
+
+
+                    </tbody>
+                </table>
+
+
+
+
+
+
+                <dl class="details">
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+                    <dt class="tag-source">Source:</dt>
+                    <dd class="tag-source">
+                        <ul class="dummy">
+                            <li>
+                                <a href="skiEquipmentModelMysql.js.html">skiEquipmentModelMysql.js</a>, <a
+                                    href="skiEquipmentModelMysql.js.html#line961">line 961</a>
+                            </li>
+                        </ul>
+                    </dd>
+
+
+
+
+
+
+
+                </dl>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+                <h4 class="name" id="deleteUser"><span class="type-signature">(async) </span>deleteUser<span
+                        class="signature">(request, response)</span><span class="type-signature"></span></h4>
+
+
+
+
+
+
+                <div class="description">
+                    This function deleted a user from the database.
+                    If it is successfully deleted it renders the form again with a success message.
+                    If it is not successful it renders the form with a specific error message that explains what went
+                    wrong.
+                </div>
+
+
+
+
+
+
+
+
+
+                <h5>Parameters:</h5>
+
+
+                <table class="params">
+                    <thead>
+                        <tr>
+
+                            <th>Name</th>
+
+
+                            <th>Type</th>
+
+
+
+
+
+                            <th class="last">Description</th>
+                        </tr>
+                    </thead>
+
+                    <tbody>
+
+
+                        <tr>
+
+                            <td class="name"><code>request</code></td>
+
+
+                            <td class="type">
+
+
+                                <span class="param-type">*</span>
+
+
+
+                            </td>
+
+
+
+
+
+                            <td class="description last">request object</td>
+                        </tr>
+
+
+
+                        <tr>
+
+                            <td class="name"><code>response</code></td>
+
+
+                            <td class="type">
+
+
+                                <span class="param-type">*</span>
+
+
+
+                            </td>
+
+
+
+
+
+                            <td class="description last">response object</td>
+                        </tr>
+
+
+                    </tbody>
+                </table>
+
+
+
+
+
+
+                <dl class="details">
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+                    <dt class="tag-source">Source:</dt>
+                    <dd class="tag-source">
+                        <ul class="dummy">
+                            <li>
+                                <a href="adminController.js.html">adminController.js</a>, <a
+                                    href="adminController.js.html#line518">line 518</a>
+                            </li>
+                        </ul>
+                    </dd>
+
+
+
+
+
+
+
+                </dl>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+                <h4 class="name" id="deleteUser"><span class="type-signature">(async) </span>deleteUser<span
+                        class="signature">(id)</span><span class="type-signature"></span></h4>
+
+
+
+
+
+
+                <div class="description">
+                    Deletes a user that has the specified id
+                </div>
+
+
+
+
+
+
+
+
+
+                <h5>Parameters:</h5>
+
+
+                <table class="params">
+                    <thead>
+                        <tr>
+
+                            <th>Name</th>
+
+
+                            <th>Type</th>
+
+
+
+
+
+                            <th class="last">Description</th>
+                        </tr>
+                    </thead>
+
+                    <tbody>
+
+
+                        <tr>
+
+                            <td class="name"><code>id</code></td>
+
+
+                            <td class="type">
+
+
+                                <span class="param-type">*</span>
+
+
+
+                            </td>
+
+
+
+
+
+                            <td class="description last">The id of the user to delete</td>
+                        </tr>
+
+
+                    </tbody>
+                </table>
+
+
+
+
+
+
+                <dl class="details">
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+                    <dt class="tag-source">Source:</dt>
+                    <dd class="tag-source">
+                        <ul class="dummy">
+                            <li>
+                                <a href="skiEquipmentModelMysql.js.html">skiEquipmentModelMysql.js</a>, <a
+                                    href="skiEquipmentModelMysql.js.html#line279">line 279</a>
+                            </li>
+                        </ul>
+                    </dd>
+
+
+
+
+
+
+
+                </dl>
+
+
+
+
+
+
+
+
+
+
+
+
+
+                <h5>Throws:</h5>
+                <ul>
+                    <li>
+
+                        <div class="param-desc">
+
+                            UserDataError if user sends invalid data
+
+                        </div>
+
+                    </li>
+
+                    <li>
+
+                        <div class="param-desc">
+
+                            SystemError if there is an error in the database while deleting
+
+                        </div>
+
+                    </li>
+                </ul>
+
+
+
+
+
+
+
+
+
+
+
+
+
+                <h4 class="name" id="editItem"><span class="type-signature">(async) </span>editItem<span
+                        class="signature">(request, response)</span><span class="type-signature"></span></h4>
+
+
+
+
+
+
+                <div class="description">
+                    This function edits an item in the database.
+                    If it is successfully edited it renders the form again with a success message.
+                    If it is not successful it renders the form with a specific error message that explains what went
+                    wrong.
+                </div>
+
+
+
+
+
+
+
+
+
+                <h5>Parameters:</h5>
+
+
+                <table class="params">
+                    <thead>
+                        <tr>
+
+                            <th>Name</th>
+
+
+                            <th>Type</th>
+
+
+
+
+
+                            <th class="last">Description</th>
+                        </tr>
+                    </thead>
+
+                    <tbody>
+
+
+                        <tr>
+
+                            <td class="name"><code>request</code></td>
+
+
+                            <td class="type">
+
+
+                                <span class="param-type">*</span>
+
+
+
+                            </td>
+
+
+
+
+
+                            <td class="description last">request object</td>
+                        </tr>
+
+
+
+                        <tr>
+
+                            <td class="name"><code>response</code></td>
+
+
+                            <td class="type">
+
+
+                                <span class="param-type">*</span>
+
+
+
+                            </td>
+
+
+
+
+
+                            <td class="description last">response object</td>
+                        </tr>
+
+
+                    </tbody>
+                </table>
+
+
+
+
+
+
+                <dl class="details">
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+                    <dt class="tag-source">Source:</dt>
+                    <dd class="tag-source">
+                        <ul class="dummy">
+                            <li>
+                                <a href="adminController.js.html">adminController.js</a>, <a
+                                    href="adminController.js.html#line192">line 192</a>
+                            </li>
+                        </ul>
+                    </dd>
+
+
+
+
+
+
+
+                </dl>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+                <h4 class="name" id="editItem"><span class="type-signature">(async) </span>editItem<span
+                        class="signature">(id, name, description, itemCost, itemType)</span><span
+                        class="type-signature"></span></h4>
+
+
+
+
+
+
+                <div class="description">
+                    Edits an item from the given id
+                </div>
+
+
+
+
+
+
+
+
+
+                <h5>Parameters:</h5>
+
+
+                <table class="params">
+                    <thead>
+                        <tr>
+
+                            <th>Name</th>
+
+
+                            <th>Type</th>
+
+
+
+
+
+                            <th class="last">Description</th>
+                        </tr>
+                    </thead>
+
+                    <tbody>
+
+
+                        <tr>
+
+                            <td class="name"><code>id</code></td>
+
+
+                            <td class="type">
+
+
+                                <span class="param-type">*</span>
+
+
+
+                            </td>
+
+
+
+
+
+                            <td class="description last">The id of the item to edit</td>
+                        </tr>
+
+
+
+                        <tr>
+
+                            <td class="name"><code>name</code></td>
+
+
+                            <td class="type">
+
+
+                                <span class="param-type">*</span>
+
+
+
+                            </td>
+
+
+
+
+
+                            <td class="description last">The updated name of the item</td>
+                        </tr>
+
+
+
+                        <tr>
+
+                            <td class="name"><code>description</code></td>
+
+
+                            <td class="type">
+
+
+                                <span class="param-type">*</span>
+
+
+
+                            </td>
+
+
+
+
+
+                            <td class="description last">The updated description of the item</td>
+                        </tr>
+
+
+
+                        <tr>
+
+                            <td class="name"><code>itemCost</code></td>
+
+
+                            <td class="type">
+
+
+                                <span class="param-type">*</span>
+
+
+
+                            </td>
+
+
+
+
+
+                            <td class="description last">The updated cost of the item</td>
+                        </tr>
+
+
+
+                        <tr>
+
+                            <td class="name"><code>itemType</code></td>
+
+
+                            <td class="type">
+
+
+                                <span class="param-type">*</span>
+
+
+
+                            </td>
+
+
+
+
+
+                            <td class="description last">The updated type of the item</td>
+                        </tr>
+
+
+                    </tbody>
+                </table>
+
+
+
+
+
+
+                <dl class="details">
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+                    <dt class="tag-source">Source:</dt>
+                    <dd class="tag-source">
+                        <ul class="dummy">
+                            <li>
+                                <a href="skiEquipmentModelMysql.js.html">skiEquipmentModelMysql.js</a>, <a
+                                    href="skiEquipmentModelMysql.js.html#line447">line 447</a>
+                            </li>
+                        </ul>
+                    </dd>
+
+
+
+
+
+
+
+                </dl>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+                <h4 class="name" id="editItemType"><span class="type-signature">(async) </span>editItemType<span
+                        class="signature">(request, response)</span><span class="type-signature"></span></h4>
+
+
+
+
+
+
+                <div class="description">
+                    This function edits an item type in the database.
+                    If it is successfully edited it renders the form again with a success message.
+                    If it is not successful it renders the form with a specific error message that explains what went
+                    wrong.
+                </div>
+
+
+
+
+
+
+
+
+
+                <h5>Parameters:</h5>
+
+
+                <table class="params">
+                    <thead>
+                        <tr>
+
+                            <th>Name</th>
+
+
+                            <th>Type</th>
+
+
+
+
+
+                            <th class="last">Description</th>
+                        </tr>
+                    </thead>
+
+                    <tbody>
+
+
+                        <tr>
+
+                            <td class="name"><code>request</code></td>
+
+
+                            <td class="type">
+
+
+                                <span class="param-type">*</span>
+
+
+
+                            </td>
+
+
+
+
+
+                            <td class="description last">request object</td>
+                        </tr>
+
+
+
+                        <tr>
+
+                            <td class="name"><code>response</code></td>
+
+
+                            <td class="type">
+
+
+                                <span class="param-type">*</span>
+
+
+
+                            </td>
+
+
+
+
+
+                            <td class="description last">response object</td>
+                        </tr>
+
+
+                    </tbody>
+                </table>
+
+
+
+
+
+
+                <dl class="details">
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+                    <dt class="tag-source">Source:</dt>
+                    <dd class="tag-source">
+                        <ul class="dummy">
+                            <li>
+                                <a href="adminController.js.html">adminController.js</a>, <a
+                                    href="adminController.js.html#line362">line 362</a>
+                            </li>
+                        </ul>
+                    </dd>
+
+
+
+
+
+
+
+                </dl>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+                <h4 class="name" id="editItemType"><span class="type-signature">(async) </span>editItemType<span
+                        class="signature">(id, name)</span><span class="type-signature"></span></h4>
+
+
+
+
+
+
+                <div class="description">
+                    Edits an item type from the given id
+                </div>
+
+
+
+
+
+
+
+
+
+                <h5>Parameters:</h5>
+
+
+                <table class="params">
+                    <thead>
+                        <tr>
+
+                            <th>Name</th>
+
+
+                            <th>Type</th>
+
+
+
+
+
+                            <th class="last">Description</th>
+                        </tr>
+                    </thead>
+
+                    <tbody>
+
+
+                        <tr>
+
+                            <td class="name"><code>id</code></td>
+
+
+                            <td class="type">
+
+
+                                <span class="param-type">*</span>
+
+
+
+                            </td>
+
+
+
+
+
+                            <td class="description last">The id of the item type to edit</td>
+                        </tr>
+
+
+
+                        <tr>
+
+                            <td class="name"><code>name</code></td>
+
+
+                            <td class="type">
+
+
+                                <span class="param-type">*</span>
+
+
+
+                            </td>
+
+
+
+
+
+                            <td class="description last">The updated name of the item type</td>
+                        </tr>
+
+
+                    </tbody>
+                </table>
+
+
+
+
+
+
+                <dl class="details">
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+                    <dt class="tag-source">Source:</dt>
+                    <dd class="tag-source">
+                        <ul class="dummy">
+                            <li>
+                                <a href="skiEquipmentModelMysql.js.html">skiEquipmentModelMysql.js</a>, <a
+                                    href="skiEquipmentModelMysql.js.html#line552">line 552</a>
+                            </li>
+                        </ul>
+                    </dd>
+
+
+
+
+
+
+
+                </dl>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+                <h4 class="name" id="editRental"><span class="type-signature">(async) </span>editRental<span
+                        class="signature">(rentalId, userId, startTime, endTime, duration, itemType)</span><span
+                        class="type-signature"></span></h4>
+
+
+
+
+
+
+                <div class="description">
+                    Edits the rental that has the given id
+                    First checks if the new rental can be added, if not throws an error
+                    If it is possible, updates the rental
+                    Also checks that the user is valid
+                </div>
+
+
+
+
+
+
+
+
+
+                <h5>Parameters:</h5>
+
+
+                <table class="params">
+                    <thead>
+                        <tr>
+
+                            <th>Name</th>
+
+
+                            <th>Type</th>
+
+
+
+
+
+                            <th class="last">Description</th>
+                        </tr>
+                    </thead>
+
+                    <tbody>
+
+
+                        <tr>
+
+                            <td class="name"><code>rentalId</code></td>
+
+
+                            <td class="type">
+
+
+                                <span class="param-type">*</span>
+
+
+
+                            </td>
+
+
+
+
+
+                            <td class="description last">The id of the rental to update</td>
+                        </tr>
+
+
+
+                        <tr>
+
+                            <td class="name"><code>userId</code></td>
+
+
+                            <td class="type">
+
+
+                                <span class="param-type">*</span>
+
+
+
+                            </td>
+
+
+
+
+
+                            <td class="description last">The id of the user doing the rental</td>
+                        </tr>
+
+
+
+                        <tr>
+
+                            <td class="name"><code>startTime</code></td>
+
+
+                            <td class="type">
+
+
+                                <span class="param-type">*</span>
+
+
+
+                            </td>
+
+
+
+
+
+                            <td class="description last">The updated start time of the rental</td>
+                        </tr>
+
+
+
+                        <tr>
+
+                            <td class="name"><code>endTime</code></td>
+
+
+                            <td class="type">
+
+
+                                <span class="param-type">*</span>
+
+
+
+                            </td>
+
+
+
+
+
+                            <td class="description last">The updated end time of the rental</td>
+                        </tr>
+
+
+
+                        <tr>
+
+                            <td class="name"><code>duration</code></td>
+
+
+                            <td class="type">
+
+
+                                <span class="param-type">*</span>
+
+
+
+                            </td>
+
+
+
+
+
+                            <td class="description last">The updated duration of the rental</td>
+                        </tr>
+
+
+
+                        <tr>
+
+                            <td class="name"><code>itemType</code></td>
+
+
+                            <td class="type">
+
+
+                                <span class="param-type">*</span>
+
+
+
+                            </td>
+
+
+
+
+
+                            <td class="description last">The updated itemType of the rental</td>
+                        </tr>
+
+
+                    </tbody>
+                </table>
+
+
+
+
+
+
+                <dl class="details">
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+                    <dt class="tag-source">Source:</dt>
+                    <dd class="tag-source">
+                        <ul class="dummy">
+                            <li>
+                                <a href="skiEquipmentModelMysql.js.html">skiEquipmentModelMysql.js</a>, <a
+                                    href="skiEquipmentModelMysql.js.html#line772">line 772</a>
+                            </li>
+                        </ul>
+                    </dd>
+
+
+
+
+
+
+
+                </dl>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+                <h4 class="name" id="editUser"><span class="type-signature">(async) </span>editUser<span
+                        class="signature">(request, response)</span><span class="type-signature"></span></h4>
+
+
+
+
+
+
+                <div class="description">
+                    This function edits a user in the database.
+                    If it is successfully edited it renders the form again with a success message.
+                    If it is not successful it renders the form with a specific error message that explains what went
+                    wrong.
+                </div>
+
+
+
+
+
+
+
+
+
+                <h5>Parameters:</h5>
+
+
+                <table class="params">
+                    <thead>
+                        <tr>
+
+                            <th>Name</th>
+
+
+                            <th>Type</th>
+
+
+
+
+
+                            <th class="last">Description</th>
+                        </tr>
+                    </thead>
+
+                    <tbody>
+
+
+                        <tr>
+
+                            <td class="name"><code>request</code></td>
+
+
+                            <td class="type">
+
+
+                                <span class="param-type">*</span>
+
+
+
+                            </td>
+
+
+
+
+
+                            <td class="description last">request object</td>
+                        </tr>
+
+
+
+                        <tr>
+
+                            <td class="name"><code>response</code></td>
+
+
+                            <td class="type">
+
+
+                                <span class="param-type">*</span>
+
+
+
+                            </td>
+
+
+
+
+
+                            <td class="description last">response object</td>
+                        </tr>
+
+
+                    </tbody>
+                </table>
+
+
+
+
+
+
+                <dl class="details">
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+                    <dt class="tag-source">Source:</dt>
+                    <dd class="tag-source">
+                        <ul class="dummy">
+                            <li>
+                                <a href="adminController.js.html">adminController.js</a>, <a
+                                    href="adminController.js.html#line492">line 492</a>
+                            </li>
+                        </ul>
+                    </dd>
+
+
+
+
+
+
+
+                </dl>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+                <h4 class="name" id="editUser"><span class="type-signature">(async) </span>editUser<span
+                        class="signature">(id, userType, username, password, firstName, lastName, credit)</span><span
+                        class="type-signature"></span></h4>
+
+
+
+
+
+
+                <div class="description">
+                    Edits all the fields for a user from its id
+                </div>
+
+
+
+
+
+
+
+
+
+                <h5>Parameters:</h5>
+
+
+                <table class="params">
+                    <thead>
+                        <tr>
+
+                            <th>Name</th>
+
+
+                            <th>Type</th>
+
+
+
+
+
+                            <th class="last">Description</th>
+                        </tr>
+                    </thead>
+
+                    <tbody>
+
+
+                        <tr>
+
+                            <td class="name"><code>id</code></td>
+
+
+                            <td class="type">
+
+
+                                <span class="param-type">*</span>
+
+
+
+                            </td>
+
+
+
+
+
+                            <td class="description last">The id of the user to update</td>
+                        </tr>
+
+
+
+                        <tr>
+
+                            <td class="name"><code>userType</code></td>
+
+
+                            <td class="type">
+
+
+                                <span class="param-type">*</span>
+
+
+
+                            </td>
+
+
+
+
+
+                            <td class="description last">The new user type of the user</td>
+                        </tr>
+
+
+
+                        <tr>
+
+                            <td class="name"><code>username</code></td>
+
+
+                            <td class="type">
+
+
+                                <span class="param-type">*</span>
+
+
+
+                            </td>
+
+
+
+
+
+                            <td class="description last">The new username of the user</td>
+                        </tr>
+
+
+
+                        <tr>
+
+                            <td class="name"><code>password</code></td>
+
+
+                            <td class="type">
+
+
+                                <span class="param-type">*</span>
+
+
+
+                            </td>
+
+
+
+
+
+                            <td class="description last">The new password of the user</td>
+                        </tr>
+
+
+
+                        <tr>
+
+                            <td class="name"><code>firstName</code></td>
+
+
+                            <td class="type">
+
+
+                                <span class="param-type">*</span>
+
+
+
+                            </td>
+
+
+
+
+
+                            <td class="description last">The new first name of the user</td>
+                        </tr>
+
+
+
+                        <tr>
+
+                            <td class="name"><code>lastName</code></td>
+
+
+                            <td class="type">
+
+
+                                <span class="param-type">*</span>
+
+
+
+                            </td>
+
+
+
+
+
+                            <td class="description last">The new last name of the user</td>
+                        </tr>
+
+
+
+                        <tr>
+
+                            <td class="name"><code>credit</code></td>
+
+
+                            <td class="type">
+
+
+                                <span class="param-type">*</span>
+
+
+
+                            </td>
+
+
+
+
+
+                            <td class="description last">The new credit of the user</td>
+                        </tr>
+
+
+                    </tbody>
+                </table>
+
+
+
+
+
+
+                <dl class="details">
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+                    <dt class="tag-source">Source:</dt>
+                    <dd class="tag-source">
+                        <ul class="dummy">
+                            <li>
+                                <a href="skiEquipmentModelMysql.js.html">skiEquipmentModelMysql.js</a>, <a
+                                    href="skiEquipmentModelMysql.js.html#line236">line 236</a>
+                            </li>
+                        </ul>
+                    </dd>
+
+
+
+
+
+
+
+                </dl>
+
+
+
+
+
+
+
+
+
+
+
+
+
+                <h5>Throws:</h5>
+                <ul>
+                    <li>
+
+                        <div class="param-desc">
+
+                            UserDataError if user sends invalid data
+
+                        </div>
+
+                    </li>
+
+                    <li>
+
+                        <div class="param-desc">
+
+                            SystemError If there is an error in the database while updating
+
+                        </div>
+
+                    </li>
+                </ul>
+
+
+                <h5>Returns:</h5>
+
+
+                <div class="param-desc">
+                    An object of the user
+                </div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+                <h4 class="name" id="error"><span class="type-signature"></span>error<span class="signature">(req,
+                        res)</span><span class="type-signature"></span></h4>
+
+
+
+
+
+
+                <div class="description">
+                    Error endpoint. Most error handling is done in the form pages themselves but this endpoint is used
+                    for any errors that occur.
+                </div>
+
+
+
+
+
+
+
+
+
+                <h5>Parameters:</h5>
+
+
+                <table class="params">
+                    <thead>
+                        <tr>
+
+                            <th>Name</th>
+
+
+                            <th>Type</th>
+
+
+
+
+
+                            <th class="last">Description</th>
+                        </tr>
+                    </thead>
+
+                    <tbody>
+
+
+                        <tr>
+
+                            <td class="name"><code>req</code></td>
+
+
+                            <td class="type">
+
+
+                                <span class="param-type">*</span>
+
+
+
+                            </td>
+
+
+
+
+
+                            <td class="description last"></td>
+                        </tr>
+
+
+
+                        <tr>
+
+                            <td class="name"><code>res</code></td>
+
+
+                            <td class="type">
+
+
+                                <span class="param-type">*</span>
+
+
+
+                            </td>
+
+
+
+
+
+                            <td class="description last"></td>
+                        </tr>
+
+
+                    </tbody>
+                </table>
+
+
+
+
+
+
+                <dl class="details">
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+                    <dt class="tag-source">Source:</dt>
+                    <dd class="tag-source">
+                        <ul class="dummy">
+                            <li>
+                                <a href="errorController.js.html">errorController.js</a>, <a
+                                    href="errorController.js.html#line12">line 12</a>
+                            </li>
+                        </ul>
+                    </dd>
+
+
+
+
+
+
+
+                </dl>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+                <h4 class="name" id="getAllItems"><span class="type-signature">(async) </span>getAllItems<span
+                        class="signature">()</span><span class="type-signature"></span></h4>
+
+
+
+
+
+
+                <div class="description">
+                    Returns an array of all the items in the inventory
+                </div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+                <dl class="details">
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+                    <dt class="tag-source">Source:</dt>
+                    <dd class="tag-source">
+                        <ul class="dummy">
+                            <li>
+                                <a href="skiEquipmentModelMysql.js.html">skiEquipmentModelMysql.js</a>, <a
+                                    href="skiEquipmentModelMysql.js.html#line514">line 514</a>
+                            </li>
+                        </ul>
+                    </dd>
+
+
+
+
+
+
+
+                </dl>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+                <h5>Returns:</h5>
+
+
+                <div class="param-desc">
+                    an array of all the items in the inventory
+                </div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+                <h4 class="name" id="getAllItemTypes"><span class="type-signature">(async) </span>getAllItemTypes<span
+                        class="signature">()</span><span class="type-signature"></span></h4>
+
+
+
+
+
+
+                <div class="description">
+                    Gets all the item types from the database
+                </div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+                <dl class="details">
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+                    <dt class="tag-source">Source:</dt>
+                    <dd class="tag-source">
+                        <ul class="dummy">
+                            <li>
+                                <a href="skiEquipmentModelMysql.js.html">skiEquipmentModelMysql.js</a>, <a
+                                    href="skiEquipmentModelMysql.js.html#line638">line 638</a>
+                            </li>
+                        </ul>
+                    </dd>
+
+
+
+
+
+
+
+                </dl>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+                <h5>Returns:</h5>
+
+
+                <div class="param-desc">
+                    an array of all the item types in the database
+                </div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+                <h4 class="name" id="getAllRentalsForUser"><span class="type-signature">(async)
+                    </span>getAllRentalsForUser<span class="signature">()</span><span class="type-signature"></span>
+                </h4>
+
+
+
+
+
+
+                <div class="description">
+                    Gets all the rentals
+                </div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+                <dl class="details">
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+                    <dt class="tag-source">Source:</dt>
+                    <dd class="tag-source">
+                        <ul class="dummy">
+                            <li>
+                                <a href="skiEquipmentModelMysql.js.html">skiEquipmentModelMysql.js</a>, <a
+                                    href="skiEquipmentModelMysql.js.html#line915">line 915</a>
+                            </li>
+                        </ul>
+                    </dd>
+
+
+
+
+
+
+
+                </dl>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+                <h5>Returns:</h5>
+
+
+                <div class="param-desc">
+                    all of the rentals
+                </div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+                <h4 class="name" id="getAllUsers"><span class="type-signature">(async) </span>getAllUsers<span
+                        class="signature">()</span><span class="type-signature"></span></h4>
+
+
+
+
+
+
+                <div class="description">
+                    Returns an object with all the user fields for every user
+                </div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+                <dl class="details">
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+                    <dt class="tag-source">Source:</dt>
+                    <dd class="tag-source">
+                        <ul class="dummy">
+                            <li>
+                                <a href="skiEquipmentModelMysql.js.html">skiEquipmentModelMysql.js</a>, <a
+                                    href="skiEquipmentModelMysql.js.html#line320">line 320</a>
+                            </li>
+                        </ul>
+                    </dd>
+
+
+
+
+
+
+
+                </dl>
+
+
+
+
+
+
+
+
+
+
+
+
+
+                <h5>Throws:</h5>
+
+
+
+                <div class="param-desc">
+
+                    SystemError if there is an error in the database while deleting
+
+                </div>
+
+
+
+
+
+                <h5>Returns:</h5>
+
+
+                <div class="param-desc">
+                    An array of objects with all the user
+                </div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+                <h4 class="name" id="getConnection"><span class="type-signature"></span>getConnection<span
+                        class="signature">()</span><span class="type-signature"></span></h4>
+
+
+
+
+
+
+                <div class="description">
+                    Gets the connection
+                </div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+                <dl class="details">
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+                    <dt class="tag-source">Source:</dt>
+                    <dd class="tag-source">
+                        <ul class="dummy">
+                            <li>
+                                <a href="skiEquipmentModelMysql.js.html">skiEquipmentModelMysql.js</a>, <a
+                                    href="skiEquipmentModelMysql.js.html#line1100">line 1100</a>
+                            </li>
+                        </ul>
+                    </dd>
+
+
+
+
+
+
+
+                </dl>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+                <h5>Returns:</h5>
+
+
+                <div class="param-desc">
+                    the connection
+                </div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+                <h4 class="name" id="getCookiePl"><span class="type-signature"></span>getCookiePl<span
+                        class="signature">(cname)</span><span class="type-signature"></span></h4>
+
+
+
+
+
+
+                <div class="description">
+                    Check if the cookie is set or not, if not then show the cookie consent
+                </div>
+
+
+
+
+
+
+
+
+
+                <h5>Parameters:</h5>
+
+
+                <table class="params">
+                    <thead>
+                        <tr>
+
+                            <th>Name</th>
+
+
+                            <th>Type</th>
+
+
+
+
+
+                            <th class="last">Description</th>
+                        </tr>
+                    </thead>
+
+                    <tbody>
+
+
+                        <tr>
+
+                            <td class="name"><code>cname</code></td>
+
+
+                            <td class="type">
+
+
+                                <span class="param-type">*</span>
+
+
+
+                            </td>
+
+
+
+
+
+                            <td class="description last"></td>
+                        </tr>
+
+
+                    </tbody>
+                </table>
+
+
+
+
+
+
+                <dl class="details">
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+                    <dt class="tag-source">Source:</dt>
+                    <dd class="tag-source">
+                        <ul class="dummy">
+                            <li>
+                                <a href="pleasure.js.html">pleasure.js</a>, <a href="pleasure.js.html#line93">line
+                                    93</a>
+                            </li>
+                        </ul>
+                    </dd>
+
+
+
+
+
+
+
+                </dl>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+                <h5>Returns:</h5>
+
+
+                <div class="param-desc">
+                    nothing
+                </div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+                <h4 class="name" id="getCurrentSession"><span class="type-signature">(async)
+                    </span>getCurrentSession<span class="signature">(sessionId)</span><span
+                        class="type-signature"></span></h4>
+
+
+
+
+
+
+                <div class="description">
+                    Gets a session from its id
+                </div>
+
+
+
+
+
+
+
+
+
+                <h5>Parameters:</h5>
+
+
+                <table class="params">
+                    <thead>
+                        <tr>
+
+                            <th>Name</th>
+
+
+                            <th>Type</th>
+
+
+
+
+
+                            <th class="last">Description</th>
+                        </tr>
+                    </thead>
+
+                    <tbody>
+
+
+                        <tr>
+
+                            <td class="name"><code>sessionId</code></td>
+
+
+                            <td class="type">
+
+
+                                <span class="param-type">*</span>
+
+
+
+                            </td>
+
+
+
+
+
+                            <td class="description last">The id of the session to retrieve</td>
+                        </tr>
+
+
+                    </tbody>
+                </table>
+
+
+
+
+
+
+                <dl class="details">
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+                    <dt class="tag-source">Source:</dt>
+                    <dd class="tag-source">
+                        <ul class="dummy">
+                            <li>
+                                <a href="skiEquipmentModelMysql.js.html">skiEquipmentModelMysql.js</a>, <a
+                                    href="skiEquipmentModelMysql.js.html#line934">line 934</a>
+                            </li>
+                        </ul>
+                    </dd>
+
+
+
+
+
+
+
+                </dl>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+                <h5>Returns:</h5>
+
+
+                <div class="param-desc">
+                    The session
+                </div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+                <h4 class="name" id="getItemById"><span class="type-signature">(async) </span>getItemById<span
+                        class="signature">(id)</span><span class="type-signature"></span></h4>
+
+
+
+
+
+
+                <div class="description">
+                    Returns an item from the inventory
+                </div>
+
+
+
+
+
+
+
+
+
+                <h5>Parameters:</h5>
+
+
+                <table class="params">
+                    <thead>
+                        <tr>
+
+                            <th>Name</th>
+
+
+                            <th>Type</th>
+
+
+
+
+
+                            <th class="last">Description</th>
+                        </tr>
+                    </thead>
+
+                    <tbody>
+
+
+                        <tr>
+
+                            <td class="name"><code>id</code></td>
+
+
+                            <td class="type">
+
+
+                                <span class="param-type">*</span>
+
+
+
+                            </td>
+
+
+
+
+
+                            <td class="description last">The id of the item to be returned</td>
+                        </tr>
+
+
+                    </tbody>
+                </table>
+
+
+
+
+
+
+                <dl class="details">
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+                    <dt class="tag-source">Source:</dt>
+                    <dd class="tag-source">
+                        <ul class="dummy">
+                            <li>
+                                <a href="skiEquipmentModelMysql.js.html">skiEquipmentModelMysql.js</a>, <a
+                                    href="skiEquipmentModelMysql.js.html#line497">line 497</a>
+                            </li>
+                        </ul>
+                    </dd>
+
+
+
+
+
+
+
+                </dl>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+                <h5>Returns:</h5>
+
+
+                <div class="param-desc">
+                    the item being returned
+                </div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+                <h4 class="name" id="getItemTypeById"><span class="type-signature">(async) </span>getItemTypeById<span
+                        class="signature">(id)</span><span class="type-signature"></span></h4>
+
+
+
+
+
+
+                <div class="description">
+                    Returns an item from database
+                    Used to check if an id is in the database
+                </div>
+
+
+
+
+
+
+
+
+
+                <h5>Parameters:</h5>
+
+
+                <table class="params">
+                    <thead>
+                        <tr>
+
+                            <th>Name</th>
+
+
+                            <th>Type</th>
+
+
+
+
+
+                            <th class="last">Description</th>
+                        </tr>
+                    </thead>
+
+                    <tbody>
+
+
+                        <tr>
+
+                            <td class="name"><code>id</code></td>
+
+
+                            <td class="type">
+
+
+                                <span class="param-type">*</span>
+
+
+
+                            </td>
+
+
+
+
+
+                            <td class="description last">The id of the item to be returned</td>
+                        </tr>
+
+
+                    </tbody>
+                </table>
+
+
+
+
+
+
+                <dl class="details">
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+                    <dt class="tag-source">Source:</dt>
+                    <dd class="tag-source">
+                        <ul class="dummy">
+                            <li>
+                                <a href="skiEquipmentModelMysql.js.html">skiEquipmentModelMysql.js</a>, <a
+                                    href="skiEquipmentModelMysql.js.html#line605">line 605</a>
+                            </li>
+                        </ul>
+                    </dd>
+
+
+
+
+
+
+
+                </dl>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+                <h4 class="name" id="getItemTypeByName"><span class="type-signature">(async)
+                    </span>getItemTypeByName<span class="signature">(name)</span><span class="type-signature"></span>
+                </h4>
+
+
+
+
+
+
+                <div class="description">
+                    Returns an item type from the database
+                    Used to check if an item type name already exists
+                </div>
+
+
+
+
+
+
+
+
+
+                <h5>Parameters:</h5>
+
+
+                <table class="params">
+                    <thead>
+                        <tr>
+
+                            <th>Name</th>
+
+
+                            <th>Type</th>
+
+
+
+
+
+                            <th class="last">Description</th>
+                        </tr>
+                    </thead>
+
+                    <tbody>
+
+
+                        <tr>
+
+                            <td class="name"><code>name</code></td>
+
+
+                            <td class="type">
+
+
+                                <span class="param-type">*</span>
+
+
+
+                            </td>
+
+
+
+
+
+                            <td class="description last">The name of the item type to be returned</td>
+                        </tr>
+
+
+                    </tbody>
+                </table>
+
+
+
+
+
+
+                <dl class="details">
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+                    <dt class="tag-source">Source:</dt>
+                    <dd class="tag-source">
+                        <ul class="dummy">
+                            <li>
+                                <a href="skiEquipmentModelMysql.js.html">skiEquipmentModelMysql.js</a>, <a
+                                    href="skiEquipmentModelMysql.js.html#line620">line 620</a>
+                            </li>
+                        </ul>
+                    </dd>
+
+
+
+
+
+
+
+                </dl>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+                <h4 class="name" id="getRentalById"><span class="type-signature">(async) </span>getRentalById<span
+                        class="signature">(rentalId)</span><span class="type-signature"></span></h4>
+
+
+
+
+
+
+                <div class="description">
+                    Gets all the fields from a rental with the given id
+                </div>
+
+
+
+
+
+
+
+
+
+                <h5>Parameters:</h5>
+
+
+                <table class="params">
+                    <thead>
+                        <tr>
+
+                            <th>Name</th>
+
+
+                            <th>Type</th>
+
+
+
+
+
+                            <th class="last">Description</th>
+                        </tr>
+                    </thead>
+
+                    <tbody>
+
+
+                        <tr>
+
+                            <td class="name"><code>rentalId</code></td>
+
+
+                            <td class="type">
+
+
+                                <span class="param-type">*</span>
+
+
+
+                            </td>
+
+
+
+
+
+                            <td class="description last">The id of the rental to get the fields</td>
+                        </tr>
+
+
+                    </tbody>
+                </table>
+
+
+
+
+
+
+                <dl class="details">
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+                    <dt class="tag-source">Source:</dt>
+                    <dd class="tag-source">
+                        <ul class="dummy">
+                            <li>
+                                <a href="skiEquipmentModelMysql.js.html">skiEquipmentModelMysql.js</a>, <a
+                                    href="skiEquipmentModelMysql.js.html#line880">line 880</a>
+                            </li>
+                        </ul>
+                    </dd>
+
+
+
+
+
+
+
+                </dl>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+                <h5>Returns:</h5>
+
+
+                <div class="param-desc">
+                    an array of all the fields of the rental
+                </div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+                <h4 class="name" id="getRentalFromUserId"><span class="type-signature">(async)
+                    </span>getRentalFromUserId<span class="signature">(userId)</span><span
+                        class="type-signature"></span></h4>
+
+
+
+
+
+
+                <div class="description">
+                    Gets all the information about the rentals with the given user id
+                </div>
+
+
+
+
+
+
+
+
+
+                <h5>Parameters:</h5>
+
+
+                <table class="params">
+                    <thead>
+                        <tr>
+
+                            <th>Name</th>
+
+
+                            <th>Type</th>
+
+
+
+
+
+                            <th class="last">Description</th>
+                        </tr>
+                    </thead>
+
+                    <tbody>
+
+
+                        <tr>
+
+                            <td class="name"><code>userId</code></td>
+
+
+                            <td class="type">
+
+
+                                <span class="param-type">*</span>
+
+
+
+                            </td>
+
+
+
+
+
+                            <td class="description last"></td>
+                        </tr>
+
+
+                    </tbody>
+                </table>
+
+
+
+
+
+
+                <dl class="details">
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+                    <dt class="tag-source">Source:</dt>
+                    <dd class="tag-source">
+                        <ul class="dummy">
+                            <li>
+                                <a href="skiEquipmentModelMysql.js.html">skiEquipmentModelMysql.js</a>, <a
+                                    href="skiEquipmentModelMysql.js.html#line896">line 896</a>
+                            </li>
+                        </ul>
+                    </dd>
+
+
+
+
+
+
+
+                </dl>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+                <h5>Returns:</h5>
+
+
+                <div class="param-desc">
+                    an array of all the fields of the rental
+                </div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+                <h4 class="name" id="gettingTheValue"><span class="type-signature"></span>gettingTheValue<span
+                        class="signature">(cookieName)</span><span class="type-signature"></span></h4>
+
+
+
+
+
+
+                <div class="description">
+                    Made for getting the value of the cookie
+                </div>
+
+
+
+
+
+
+
+
+
+                <h5>Parameters:</h5>
+
+
+                <table class="params">
+                    <thead>
+                        <tr>
+
+                            <th>Name</th>
+
+
+                            <th>Type</th>
+
+
+
+
+
+                            <th class="last">Description</th>
+                        </tr>
+                    </thead>
+
+                    <tbody>
+
+
+                        <tr>
+
+                            <td class="name"><code>cookieName</code></td>
+
+
+                            <td class="type">
+
+
+                                <span class="param-type">*</span>
+
+
+
+                            </td>
+
+
+
+
+
+                            <td class="description last"></td>
+                        </tr>
+
+
+                    </tbody>
+                </table>
+
+
+
+
+
+
+                <dl class="details">
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+                    <dt class="tag-source">Source:</dt>
+                    <dd class="tag-source">
+                        <ul class="dummy">
+                            <li>
+                                <a href="pleasure.js.html">pleasure.js</a>, <a href="pleasure.js.html#line128">line
+                                    128</a>
+                            </li>
+                        </ul>
+                    </dd>
+
+
+
+
+
+
+
+                </dl>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+                <h4 class="name" id="getUserById"><span class="type-signature">(async) </span>getUserById<span
+                        class="signature">(id)</span><span class="type-signature"></span></h4>
+
+
+
+
+
+
+                <div class="description">
+                    Returns an object with all the user fields from the user with the specified id
+                </div>
+
+
+
+
+
+
+
+
+
+                <h5>Parameters:</h5>
+
+
+                <table class="params">
+                    <thead>
+                        <tr>
+
+                            <th>Name</th>
+
+
+                            <th>Type</th>
+
+
+
+
+
+                            <th class="last">Description</th>
+                        </tr>
+                    </thead>
+
+                    <tbody>
+
+
+                        <tr>
+
+                            <td class="name"><code>id</code></td>
+
+
+                            <td class="type">
+
+
+                                <span class="param-type">*</span>
+
+
+
+                            </td>
+
+
+
+
+
+                            <td class="description last">The id of the user to get</td>
+                        </tr>
+
+
+                    </tbody>
+                </table>
+
+
+
+
+
+
+                <dl class="details">
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+                    <dt class="tag-source">Source:</dt>
+                    <dd class="tag-source">
+                        <ul class="dummy">
+                            <li>
+                                <a href="skiEquipmentModelMysql.js.html">skiEquipmentModelMysql.js</a>, <a
+                                    href="skiEquipmentModelMysql.js.html#line302">line 302</a>
+                            </li>
+                        </ul>
+                    </dd>
+
+
+
+
+
+
+
+                </dl>
+
+
+
+
+
+
+
+
+
+
+
+
+
+                <h5>Throws:</h5>
+                <ul>
+                    <li>
+
+                        <div class="param-desc">
+
+                            UserDataError if user sends invalid data
+
+                        </div>
+
+                    </li>
+
+                    <li>
+
+                        <div class="param-desc">
+
+                            SystemError if there is an error in the database while deleting
+
+                        </div>
+
+                    </li>
+                </ul>
+
+
+
+
+
+
+
+
+
+
+
+
+
+                <h4 class="name" id="getUserByUsername"><span class="type-signature">(async)
+                    </span>getUserByUsername<span class="signature">(username)</span><span
+                        class="type-signature"></span></h4>
+
+
+
+
+
+
+                <div class="description">
+                    Gets all user fields from the unique username
+                </div>
+
+
+
+
+
+
+
+
+
+                <h5>Parameters:</h5>
+
+
+                <table class="params">
+                    <thead>
+                        <tr>
+
+                            <th>Name</th>
+
+
+                            <th>Type</th>
+
+
+
+
+
+                            <th class="last">Description</th>
+                        </tr>
+                    </thead>
+
+                    <tbody>
+
+
+                        <tr>
+
+                            <td class="name"><code>username</code></td>
+
+
+                            <td class="type">
+
+
+                                <span class="param-type">*</span>
+
+
+
+                            </td>
+
+
+
+
+
+                            <td class="description last">The username of the user</td>
+                        </tr>
+
+
+                    </tbody>
+                </table>
+
+
+
+
+
+
+                <dl class="details">
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+                    <dt class="tag-source">Source:</dt>
+                    <dd class="tag-source">
+                        <ul class="dummy">
+                            <li>
+                                <a href="skiEquipmentModelMysql.js.html">skiEquipmentModelMysql.js</a>, <a
+                                    href="skiEquipmentModelMysql.js.html#line335">line 335</a>
+                            </li>
+                        </ul>
+                    </dd>
+
+
+
+
+
+
+
+                </dl>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+                <h5>Returns:</h5>
+
+
+                <div class="param-desc">
+                    All the fields for the given user
+                </div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+                <h4 class="name" id="getUserTypeFromTypeId"><span class="type-signature">(async)
+                    </span>getUserTypeFromTypeId<span class="signature">(userType)</span><span
+                        class="type-signature"></span></h4>
+
+
+
+
+
+
+                <div class="description">
+                    Gets the user type string from its id counterpart
+                </div>
+
+
+
+
+
+
+
+
+
+                <h5>Parameters:</h5>
+
+
+                <table class="params">
+                    <thead>
+                        <tr>
+
+                            <th>Name</th>
+
+
+                            <th>Type</th>
+
+
+
+
+
+                            <th class="last">Description</th>
+                        </tr>
+                    </thead>
+
+                    <tbody>
+
+
+                        <tr>
+
+                            <td class="name"><code>userType</code></td>
+
+
+                            <td class="type">
+
+
+                                <span class="param-type">*</span>
+
+
+
+                            </td>
+
+
+
+
+
+                            <td class="description last">The id of the user type</td>
+                        </tr>
+
+
+                    </tbody>
+                </table>
+
+
+
+
+
+
+                <dl class="details">
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+                    <dt class="tag-source">Source:</dt>
+                    <dd class="tag-source">
+                        <ul class="dummy">
+                            <li>
+                                <a href="skiEquipmentModelMysql.js.html">skiEquipmentModelMysql.js</a>, <a
+                                    href="skiEquipmentModelMysql.js.html#line394">line 394</a>
+                            </li>
+                        </ul>
+                    </dd>
+
+
+
+
+
+
+
+                </dl>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+                <h5>Returns:</h5>
+
+
+                <div class="param-desc">
+                    The string version of the id counterpart
+                </div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+                <h4 class="name" id="home"><span class="type-signature">(async) </span>home<span
+                        class="signature">(request, response)</span><span class="type-signature"></span></h4>
+
+
+
+
+
+
+                <div class="description">
+                    Displays the home page
+                </div>
+
+
+
+
+
+
+
+
+
+                <h5>Parameters:</h5>
+
+
+                <table class="params">
+                    <thead>
+                        <tr>
+
+                            <th>Name</th>
+
+
+                            <th>Type</th>
+
+
+
+
+
+                            <th class="last">Description</th>
+                        </tr>
+                    </thead>
+
+                    <tbody>
+
+
+                        <tr>
+
+                            <td class="name"><code>request</code></td>
+
+
+                            <td class="type">
+
+
+                                <span class="param-type">*</span>
+
+
+
+                            </td>
+
+
+
+
+
+                            <td class="description last">The request object</td>
+                        </tr>
+
+
+
+                        <tr>
+
+                            <td class="name"><code>response</code></td>
+
+
+                            <td class="type">
+
+
+                                <span class="param-type">*</span>
+
+
+
+                            </td>
+
+
+
+
+
+                            <td class="description last">The response object</td>
+                        </tr>
+
+
+                    </tbody>
+                </table>
+
+
+
+
+
+
+                <dl class="details">
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+                    <dt class="tag-source">Source:</dt>
+                    <dd class="tag-source">
+                        <ul class="dummy">
+                            <li>
+                                <a href="userController.js.html">userController.js</a>, <a
+                                    href="userController.js.html#line21">line 21</a>
+                            </li>
+                        </ul>
+                    </dd>
+
+
+
+
+
+
+
+                </dl>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+                <h4 class="name" id="initialize"><span class="type-signature">(async) </span>initialize<span
+                        class="signature">(dbname, reset)</span><span class="type-signature"></span></h4>
+
+
+
+
+
+
+                <div class="description">
+                    Inject database name so we can use this model for both testing and main program without overwriting
+                    our main database.
+                </div>
+
+
+
+
+
+
+
+
+
+                <h5>Parameters:</h5>
+
+
+                <table class="params">
+                    <thead>
+                        <tr>
+
+                            <th>Name</th>
+
+
+                            <th>Type</th>
+
+
+
+
+
+                            <th class="last">Description</th>
+                        </tr>
+                    </thead>
+
+                    <tbody>
+
+
+                        <tr>
+
+                            <td class="name"><code>dbname</code></td>
+
+
+                            <td class="type">
+
+
+                                <span class="param-type">*</span>
+
+
+
+                            </td>
+
+
+
+
+
+                            <td class="description last">name of database</td>
+                        </tr>
+
+
+
+                        <tr>
+
+                            <td class="name"><code>reset</code></td>
+
+
+                            <td class="type">
+
+
+                                <span class="param-type">*</span>
+
+
+
+                            </td>
+
+
+
+
+
+                            <td class="description last">boolean to reset database</td>
+                        </tr>
+
+
+                    </tbody>
+                </table>
+
+
+
+
+
+
+                <dl class="details">
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+                    <dt class="tag-source">Source:</dt>
+                    <dd class="tag-source">
+                        <ul class="dummy">
+                            <li>
+                                <a href="skiEquipmentModelMysql.js.html">skiEquipmentModelMysql.js</a>, <a
+                                    href="skiEquipmentModelMysql.js.html#line18">line 18</a>
+                            </li>
+                        </ul>
+                    </dd>
+
+
+
+
+
+
+
+                </dl>
+
+
+
+
+
+
+
+
+
+
+
+
+
+                <h5>Throws:</h5>
+
+
+
+                <div class="param-desc">
+
+                    SystemError if connection fails
+
+                </div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+                <h4 class="name" id="itemResponse"><span class="type-signature">(async) </span>itemResponse<span
+                        class="signature">(response, imageUrl, theMessage, isError)</span><span
+                        class="type-signature"></span></h4>
+
+
+
+
+
+
+                <div class="description">
+                    This function renders the item view.
+                    It has 3 forms: add, edit, delete
+                    It takes in an image url which will either be the default hero image or the alert image.
+                    It takes in a message which will either be a success message or an error message.
+                </div>
+
+
+
+
+
+
+
+
+
+                <h5>Parameters:</h5>
+
+
+                <table class="params">
+                    <thead>
+                        <tr>
+
+                            <th>Name</th>
+
+
+                            <th>Type</th>
+
+
+
+
+
+                            <th class="last">Description</th>
+                        </tr>
+                    </thead>
+
+                    <tbody>
+
+
+                        <tr>
+
+                            <td class="name"><code>response</code></td>
+
+
+                            <td class="type">
+
+
+                                <span class="param-type">*</span>
+
+
+
+                            </td>
+
+
+
+
+
+                            <td class="description last">response object</td>
+                        </tr>
+
+
+
+                        <tr>
+
+                            <td class="name"><code>imageUrl</code></td>
+
+
+                            <td class="type">
+
+
+                                <span class="param-type">*</span>
+
+
+
+                            </td>
+
+
+
+
+
+                            <td class="description last">image url</td>
+                        </tr>
+
+
+
+                        <tr>
+
+                            <td class="name"><code>theMessage</code></td>
+
+
+                            <td class="type">
+
+
+                                <span class="param-type">*</span>
+
+
+
+                            </td>
+
+
+
+
+
+                            <td class="description last">message to be displayed to screen</td>
+                        </tr>
+
+
+
+                        <tr>
+
+                            <td class="name"><code>isError</code></td>
+
+
+                            <td class="type">
+
+
+                                <span class="param-type">*</span>
+
+
+
+                            </td>
+
+
+
+
+
+                            <td class="description last">boolean to determine if an error has occurred</td>
+                        </tr>
+
+
+                    </tbody>
+                </table>
+
+
+
+
+
+
+                <dl class="details">
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+                    <dt class="tag-source">Source:</dt>
+                    <dd class="tag-source">
+                        <ul class="dummy">
+                            <li>
+                                <a href="adminController.js.html">adminController.js</a>, <a
+                                    href="adminController.js.html#line244">line 244</a>
+                            </li>
+                        </ul>
+                    </dd>
+
+
+
+
+
+
+
+                </dl>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+                <h4 class="name" id="itemTypesResponse"><span class="type-signature"></span>itemTypesResponse<span
+                        class="signature">(response, imageUrl, theMessage, isError)</span><span
+                        class="type-signature"></span></h4>
+
+
+
+
+
+
+                <div class="description">
+                    This function renders the item type view.
+                    It has 4 forms: add, edit, and delete.
+                    It takes in an image url which will either be the default hero image or the alert image.
+                    It takes in a message which will either be a success message or an error message.
+                </div>
+
+
+
+
+
+
+
+
+
+                <h5>Parameters:</h5>
+
+
+                <table class="params">
+                    <thead>
+                        <tr>
+
+                            <th>Name</th>
+
+
+                            <th>Type</th>
+
+
+
+
+
+                            <th class="last">Description</th>
+                        </tr>
+                    </thead>
+
+                    <tbody>
+
+
+                        <tr>
+
+                            <td class="name"><code>response</code></td>
+
+
+                            <td class="type">
+
+
+                                <span class="param-type">*</span>
+
+
+
+                            </td>
+
+
+
+
+
+                            <td class="description last">response object</td>
+                        </tr>
+
+
+
+                        <tr>
+
+                            <td class="name"><code>imageUrl</code></td>
+
+
+                            <td class="type">
+
+
+                                <span class="param-type">*</span>
+
+
+
+                            </td>
+
+
+
+
+
+                            <td class="description last">image url</td>
+                        </tr>
+
+
+
+                        <tr>
+
+                            <td class="name"><code>theMessage</code></td>
+
+
+                            <td class="type">
+
+
+                                <span class="param-type">*</span>
+
+
+
+                            </td>
+
+
+
+
+
+                            <td class="description last">message to be displayed to screen</td>
+                        </tr>
+
+
+
+                        <tr>
+
+                            <td class="name"><code>isError</code></td>
+
+
+                            <td class="type">
+
+
+                                <span class="param-type">*</span>
+
+
+
+                            </td>
+
+
+
+
+
+                            <td class="description last">boolean to determine if an error has occurred</td>
+                        </tr>
+
+
+                    </tbody>
+                </table>
+
+
+
+
+
+
+                <dl class="details">
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+                    <dt class="tag-source">Source:</dt>
+                    <dd class="tag-source">
+                        <ul class="dummy">
+                            <li>
+                                <a href="adminController.js.html">adminController.js</a>, <a
+                                    href="adminController.js.html#line413">line 413</a>
+                            </li>
+                        </ul>
+                    </dd>
+
+
+
+
+
+
+
+                </dl>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+                <h4 class="name" id="listResponse"><span class="type-signature">(async) </span>listResponse<span
+                        class="signature">(response, imageUrl, theMessage)</span><span class="type-signature"></span>
+                </h4>
+
+
+
+
+
+
+                <div class="description">
+                    This function renders the list view.
+                    It displays all important information in the database so admins can see what they are working with.
+                    It takes in an image url which will either be the default hero image or the alert image.
+                    It takes in a message which will either be a success message or an error message.listResponseitems
+                </div>
+
+
+
+
+
+
+
+
+
+                <h5>Parameters:</h5>
+
+
+                <table class="params">
+                    <thead>
+                        <tr>
+
+                            <th>Name</th>
+
+
+                            <th>Type</th>
+
+
+
+
+
+                            <th class="last">Description</th>
+                        </tr>
+                    </thead>
+
+                    <tbody>
+
+
+                        <tr>
+
+                            <td class="name"><code>response</code></td>
+
+
+                            <td class="type">
+
+
+                                <span class="param-type">*</span>
+
+
+
+                            </td>
+
+
+
+
+
+                            <td class="description last">response object</td>
+                        </tr>
+
+
+
+                        <tr>
+
+                            <td class="name"><code>imageUrl</code></td>
+
+
+                            <td class="type">
+
+
+                                <span class="param-type">*</span>
+
+
+
+                            </td>
+
+
+
+
+
+                            <td class="description last">image url</td>
+                        </tr>
+
+
+
+                        <tr>
+
+                            <td class="name"><code>theMessage</code></td>
+
+
+                            <td class="type">
+
+
+                                <span class="param-type">*</span>
+
+
+
+                            </td>
+
+
+
+
+
+                            <td class="description last">message to be displayed to screen</td>
+                        </tr>
+
+
+                    </tbody>
+                </table>
+
+
+
+
+
+
+                <dl class="details">
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+                    <dt class="tag-source">Source:</dt>
+                    <dd class="tag-source">
+                        <ul class="dummy">
+                            <li>
+                                <a href="adminController.js.html">adminController.js</a>, <a
+                                    href="adminController.js.html#line111">line 111</a>
+                            </li>
+                        </ul>
+                    </dd>
+
+
+
+
+
+
+
+                </dl>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+                <h4 class="name" id="login"><span class="type-signature">(async) </span>login<span
+                        class="signature">(req, res)</span><span class="type-signature"></span></h4>
+
+
+
+
+
+
+                <div class="description">
+                    renders the login page
+                </div>
+
+
+
+
+
+
+
+
+
+                <h5>Parameters:</h5>
+
+
+                <table class="params">
+                    <thead>
+                        <tr>
+
+                            <th>Name</th>
+
+
+                            <th>Type</th>
+
+
+
+
+
+                            <th class="last">Description</th>
+                        </tr>
+                    </thead>
+
+                    <tbody>
+
+
+                        <tr>
+
+                            <td class="name"><code>req</code></td>
+
+
+                            <td class="type">
+
+
+                                <span class="param-type">*</span>
+
+
+
+                            </td>
+
+
+
+
+
+                            <td class="description last">The request of the method</td>
+                        </tr>
+
+
+
+                        <tr>
+
+                            <td class="name"><code>res</code></td>
+
+
+                            <td class="type">
+
+
+                                <span class="param-type">*</span>
+
+
+
+                            </td>
+
+
+
+
+
+                            <td class="description last">The response of the method</td>
+                        </tr>
+
+
+                    </tbody>
+                </table>
+
+
+
+
+
+
+                <dl class="details">
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+                    <dt class="tag-source">Source:</dt>
+                    <dd class="tag-source">
+                        <ul class="dummy">
+                            <li>
+                                <a href="accountController.js.html">accountController.js</a>, <a
+                                    href="accountController.js.html#line16">line 16</a>
+                            </li>
+                        </ul>
+                    </dd>
+
+
+
+
+
+
+
+                </dl>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+                <h4 class="name" id="loginSubmit"><span class="type-signature">(async) </span>loginSubmit<span
+                        class="signature">(req, res)</span><span class="type-signature"></span></h4>
+
+
+
+
+
+
+                <div class="description">
+                    Function that runs on login submission, calls the model method and handles any errors
+                </div>
+
+
+
+
+
+
+
+
+
+                <h5>Parameters:</h5>
+
+
+                <table class="params">
+                    <thead>
+                        <tr>
+
+                            <th>Name</th>
+
+
+                            <th>Type</th>
+
+
+
+
+
+                            <th class="last">Description</th>
+                        </tr>
+                    </thead>
+
+                    <tbody>
+
+
+                        <tr>
+
+                            <td class="name"><code>req</code></td>
+
+
+                            <td class="type">
+
+
+                                <span class="param-type">*</span>
+
+
+
+                            </td>
+
+
+
+
+
+                            <td class="description last">The request of the method</td>
+                        </tr>
+
+
+
+                        <tr>
+
+                            <td class="name"><code>res</code></td>
+
+
+                            <td class="type">
+
+
+                                <span class="param-type">*</span>
+
+
+
+                            </td>
+
+
+
+
+
+                            <td class="description last">The response of the method</td>
+                        </tr>
+
+
+                    </tbody>
+                </table>
+
+
+
+
+
+
+                <dl class="details">
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+                    <dt class="tag-source">Source:</dt>
+                    <dd class="tag-source">
+                        <ul class="dummy">
+                            <li>
+                                <a href="accountController.js.html">accountController.js</a>, <a
+                                    href="accountController.js.html#line115">line 115</a>
+                            </li>
+                        </ul>
+                    </dd>
+
+
+
+
+
+
+
+                </dl>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+                <h4 class="name" id="onlyLetters"><span class="type-signature"></span>onlyLetters<span
+                        class="signature">(str)</span><span class="type-signature"></span></h4>
+
+
+
+
+
+
+                <div class="description">
+                    Checks that a string is alpha
+                </div>
+
+
+
+
+
+
+
+
+
+                <h5>Parameters:</h5>
+
+
+                <table class="params">
+                    <thead>
+                        <tr>
+
+                            <th>Name</th>
+
+
+                            <th>Type</th>
+
+
+
+
+
+                            <th class="last">Description</th>
+                        </tr>
+                    </thead>
+
+                    <tbody>
+
+
+                        <tr>
+
+                            <td class="name"><code>str</code></td>
+
+
+                            <td class="type">
+
+
+                                <span class="param-type">*</span>
+
+
+
+                            </td>
+
+
+
+
+
+                            <td class="description last">The string to check</td>
+                        </tr>
+
+
+                    </tbody>
+                </table>
+
+
+
+
+
+
+                <dl class="details">
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+                    <dt class="tag-source">Source:</dt>
+                    <dd class="tag-source">
+                        <ul class="dummy">
+                            <li>
+                                <a href="liam.js.html">liam.js</a>, <a href="liam.js.html#line58">line 58</a>
+                            </li>
+                        </ul>
+                    </dd>
+
+
+
+
+
+
+
+                </dl>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+                <h5>Returns:</h5>
+
+
+                <div class="param-desc">
+                    true if the string is alpha, false otherwise
+                </div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+                <h4 class="name" id="refreshSession"><span class="type-signature">(async) </span>refreshSession<span
+                        class="signature">(request, response)</span><span class="type-signature"></span></h4>
+
+
+
+
+
+
+                <div class="description">
+                    Refreshes a session
+                </div>
+
+
+
+
+
+
+
+
+
+                <h5>Parameters:</h5>
+
+
+                <table class="params">
+                    <thead>
+                        <tr>
+
+                            <th>Name</th>
+
+
+                            <th>Type</th>
+
+
+
+
+
+                            <th class="last">Description</th>
+                        </tr>
+                    </thead>
+
+                    <tbody>
+
+
+                        <tr>
+
+                            <td class="name"><code>request</code></td>
+
+
+                            <td class="type">
+
+
+                                <span class="param-type">*</span>
+
+
+
+                            </td>
+
+
+
+
+
+                            <td class="description last">The request object</td>
+                        </tr>
+
+
+
+                        <tr>
+
+                            <td class="name"><code>response</code></td>
+
+
+                            <td class="type">
+
+
+                                <span class="param-type">*</span>
+
+
+
+                            </td>
+
+
+
+
+
+                            <td class="description last">The response object</td>
+                        </tr>
+
+
+                    </tbody>
+                </table>
+
+
+
+
+
+
+                <dl class="details">
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+                    <dt class="tag-source">Source:</dt>
+                    <dd class="tag-source">
+                        <ul class="dummy">
+                            <li>
+                                <a href="skiEquipmentModelMysql.js.html">skiEquipmentModelMysql.js</a>, <a
+                                    href="skiEquipmentModelMysql.js.html#line1053">line 1053</a>
+                            </li>
+                        </ul>
+                    </dd>
+
+
+
+
+
+
+
+                </dl>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+                <h5>Returns:</h5>
+
+
+                <div class="param-desc">
+                    the new session id
+                </div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+                <h4 class="name" id="setCookie"><span class="type-signature"></span>setCookie<span
+                        class="signature">(cname, cvalue, exdays)</span><span class="type-signature"></span></h4>
+
+
+
+
+
+
+                <div class="description">
+                    Set the parameter to the cookie name, the value, the number of days to expire
+                </div>
+
+
+
+
+
+
+
+
+
+                <h5>Parameters:</h5>
+
+
+                <table class="params">
+                    <thead>
+                        <tr>
+
+                            <th>Name</th>
+
+
+                            <th>Type</th>
+
+
+
+
+
+                            <th class="last">Description</th>
+                        </tr>
+                    </thead>
+
+                    <tbody>
+
+
+                        <tr>
+
+                            <td class="name"><code>cname</code></td>
+
+
+                            <td class="type">
+
+
+                                <span class="param-type">*</span>
+
+
+
+                            </td>
+
+
+
+
+
+                            <td class="description last"></td>
+                        </tr>
+
+
+
+                        <tr>
+
+                            <td class="name"><code>cvalue</code></td>
+
+
+                            <td class="type">
+
+
+                                <span class="param-type">*</span>
+
+
+
+                            </td>
+
+
+
+
+
+                            <td class="description last"></td>
+                        </tr>
+
+
+
+                        <tr>
+
+                            <td class="name"><code>exdays</code></td>
+
+
+                            <td class="type">
+
+
+                                <span class="param-type">*</span>
+
+
+
+                            </td>
+
+
+
+
+
+                            <td class="description last"></td>
+                        </tr>
+
+
+                    </tbody>
+                </table>
+
+
+
+
+
+
+                <dl class="details">
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+                    <dt class="tag-source">Source:</dt>
+                    <dd class="tag-source">
+                        <ul class="dummy">
+                            <li>
+                                <a href="pleasure.js.html">pleasure.js</a>, <a href="pleasure.js.html#line71">line
+                                    71</a>
+                            </li>
+                        </ul>
+                    </dd>
+
+
+
+
+
+
+
+                </dl>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+                <h4 class="name" id="signup"><span class="type-signature"></span>signup<span class="signature">(req,
+                        res)</span><span class="type-signature"></span></h4>
+
+
+
+
+
+
+                <div class="description">
+                    Renders the signup page
+                </div>
+
+
+
+
+
+
+
+
+
+                <h5>Parameters:</h5>
+
+
+                <table class="params">
+                    <thead>
+                        <tr>
+
+                            <th>Name</th>
+
+
+                            <th>Type</th>
+
+
+
+
+
+                            <th class="last">Description</th>
+                        </tr>
+                    </thead>
+
+                    <tbody>
+
+
+                        <tr>
+
+                            <td class="name"><code>req</code></td>
+
+
+                            <td class="type">
+
+
+                                <span class="param-type">*</span>
+
+
+
+                            </td>
+
+
+
+
+
+                            <td class="description last">The request of the method</td>
+                        </tr>
+
+
+
+                        <tr>
+
+                            <td class="name"><code>res</code></td>
+
+
+                            <td class="type">
+
+
+                                <span class="param-type">*</span>
+
+
+
+                            </td>
+
+
+
+
+
+                            <td class="description last">The response of the method</td>
+                        </tr>
+
+
+                    </tbody>
+                </table>
+
+
+
+
+
+
+                <dl class="details">
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+                    <dt class="tag-source">Source:</dt>
+                    <dd class="tag-source">
+                        <ul class="dummy">
+                            <li>
+                                <a href="accountController.js.html">accountController.js</a>, <a
+                                    href="accountController.js.html#line24">line 24</a>
+                            </li>
+                        </ul>
+                    </dd>
+
+
+
+
+
+
+
+                </dl>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+                <h4 class="name" id="signupSubmit"><span class="type-signature">(async) </span>signupSubmit<span
+                        class="signature">(req, res)</span><span class="type-signature"></span></h4>
+
+
+
+
+
+
+                <div class="description">
+                    Function that runs on signup submission, calls the model method and handles any errors
+                </div>
+
+
+
+
+
+
+
+
+
+                <h5>Parameters:</h5>
+
+
+                <table class="params">
+                    <thead>
+                        <tr>
+
+                            <th>Name</th>
+
+
+                            <th>Type</th>
+
+
+
+
+
+                            <th class="last">Description</th>
+                        </tr>
+                    </thead>
+
+                    <tbody>
+
+
+                        <tr>
+
+                            <td class="name"><code>req</code></td>
+
+
+                            <td class="type">
+
+
+                                <span class="param-type">*</span>
+
+
+
+                            </td>
+
+
+
+
+
+                            <td class="description last">The request of the method</td>
+                        </tr>
+
+
+
+                        <tr>
+
+                            <td class="name"><code>res</code></td>
+
+
+                            <td class="type">
+
+
+                                <span class="param-type">*</span>
+
+
+
+                            </td>
+
+
+
+
+
+                            <td class="description last">The response of the method</td>
+                        </tr>
+
+
+                    </tbody>
+                </table>
+
+
+
+
+
+
+                <dl class="details">
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+                    <dt class="tag-source">Source:</dt>
+                    <dd class="tag-source">
+                        <ul class="dummy">
+                            <li>
+                                <a href="accountController.js.html">accountController.js</a>, <a
+                                    href="accountController.js.html#line162">line 162</a>
+                            </li>
+                        </ul>
+                    </dd>
+
+
+
+
+
+
+
+                </dl>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+                <h4 class="name" id="usersResponse"><span class="type-signature"></span>usersResponse<span
+                        class="signature">(response, imageUrl, theMessage, isError)</span><span
+                        class="type-signature"></span></h4>
+
+
+
+
+
+
+                <div class="description">
+                    This function renders the users view.
+                    It has 3 forms: create, edit and delete.
+                    It takes in an image url which will either be the default hero image or the alert image.
+                    It takes in a message which will either be a success message or an error message.
+                </div>
+
+
+
+
+
+
+
+
+
+                <h5>Parameters:</h5>
+
+
+                <table class="params">
+                    <thead>
+                        <tr>
+
+                            <th>Name</th>
+
+
+                            <th>Type</th>
+
+
+
+
+
+                            <th class="last">Description</th>
+                        </tr>
+                    </thead>
+
+                    <tbody>
+
+
+                        <tr>
+
+                            <td class="name"><code>response</code></td>
+
+
+                            <td class="type">
+
+
+                                <span class="param-type">*</span>
+
+
+
+                            </td>
+
+
+
+
+
+                            <td class="description last">response object</td>
+                        </tr>
+
+
+
+                        <tr>
+
+                            <td class="name"><code>imageUrl</code></td>
+
+
+                            <td class="type">
+
+
+                                <span class="param-type">*</span>
+
+
+
+                            </td>
+
+
+
+
+
+                            <td class="description last">image url</td>
+                        </tr>
+
+
+
+                        <tr>
+
+                            <td class="name"><code>theMessage</code></td>
+
+
+                            <td class="type">
+
+
+                                <span class="param-type">*</span>
+
+
+
+                            </td>
+
+
+
+
+
+                            <td class="description last">message to be displayed to screen</td>
+                        </tr>
+
+
+
+                        <tr>
+
+                            <td class="name"><code>isError</code></td>
+
+
+                            <td class="type">
+
+
+                                <span class="param-type">*</span>
+
+
+
+                            </td>
+
+
+
+
+
+                            <td class="description last">boolean to determine if an error has occurred</td>
+                        </tr>
+
+
+                    </tbody>
+                </table>
+
+
+
+
+
+
+                <dl class="details">
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+                    <dt class="tag-source">Source:</dt>
+                    <dd class="tag-source">
+                        <ul class="dummy">
+                            <li>
+                                <a href="adminController.js.html">adminController.js</a>, <a
+                                    href="adminController.js.html#line545">line 545</a>
+                            </li>
+                        </ul>
+                    </dd>
+
+
+
+
+
+
+
+                </dl>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+                <h4 class="name" id="userTrack"><span class="type-signature"></span>userTrack<span
+                        class="signature">()</span><span class="type-signature"></span></h4>
+
+
+
+
+
+
+                <div class="description">
+                    Method is meant to keep track of the item the user bought as a cookie implementation
+                </div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+                <dl class="details">
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+                    <dt class="tag-source">Source:</dt>
+                    <dd class="tag-source">
+                        <ul class="dummy">
+                            <li>
+                                <a href="pleasure.js.html">pleasure.js</a>, <a href="pleasure.js.html#line143">line
+                                    143</a>
+                            </li>
+                        </ul>
+                    </dd>
+
+
+
+
+
+
+
+                </dl>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+                <h4 class="name" id="verifyLogin"><span class="type-signature">(async) </span>verifyLogin<span
+                        class="signature">(username, password)</span><span class="type-signature"></span></h4>
+
+
+
+
+
+
+                <div class="description">
+                    Verifies login information
+                </div>
+
+
+
+
+
+
+
+
+
+                <h5>Parameters:</h5>
+
+
+                <table class="params">
+                    <thead>
+                        <tr>
+
+                            <th>Name</th>
+
+
+                            <th>Type</th>
+
+
+
+
+
+                            <th class="last">Description</th>
+                        </tr>
+                    </thead>
+
+                    <tbody>
+
+
+                        <tr>
+
+                            <td class="name"><code>username</code></td>
+
+
+                            <td class="type">
+
+
+                                <span class="param-type">*</span>
+
+
+
+                            </td>
+
+
+
+
+
+                            <td class="description last">The username to verify</td>
+                        </tr>
+
+
+
+                        <tr>
+
+                            <td class="name"><code>password</code></td>
+
+
+                            <td class="type">
+
+
+                                <span class="param-type">*</span>
+
+
+
+                            </td>
+
+
+
+
+
+                            <td class="description last">The password to verify</td>
+                        </tr>
+
+
+                    </tbody>
+                </table>
+
+
+
+
+
+
+                <dl class="details">
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+                    <dt class="tag-source">Source:</dt>
+                    <dd class="tag-source">
+                        <ul class="dummy">
+                            <li>
+                                <a href="skiEquipmentModelMysql.js.html">skiEquipmentModelMysql.js</a>, <a
+                                    href="skiEquipmentModelMysql.js.html#line370">line 370</a>
+                            </li>
+                        </ul>
+                    </dd>
+
+
+
+
+
+
+
+                </dl>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+                <h5>Returns:</h5>
+
+
+                <div class="param-desc">
+                    true if login information corresponds to a valid user, false otherwise
+                </div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+            </article>
+
+        </section>
+
+
+
+
     </div>
 
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-        <h3 class="subsection-title">Methods</h3>
-
-        
-            
-
-    
-
-    
-    <h4 class="name" id="add"><span class="type-signature">(async) </span>add<span class="signature">()</span><span class="type-signature"></span></h4>
-    
-
-    
-
-
-
-<div class="description">
-    Adds ski equipment to the database using model.addSkiEquipment function.Takes in specified name and price.If successful, renders the showSkiEquipment view, else renders the form with an error message and an alert image.
-</div>
-
-
-
-
-
-
-
-
-
-
-
-
-
-<dl class="details">
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-    <dt class="tag-source">Source:</dt>
-    <dd class="tag-source"><ul class="dummy"><li>
-        <a href="skiEquipmentController.js.html">skiEquipmentController.js</a>, <a href="skiEquipmentController.js.html#line66">line 66</a>
-    </li></ul></dd>
-    
-
-    
-
-    
-
-    
-</dl>
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-        
-            
-
-    
-
-    
-    <h4 class="name" id="addSkiEquipment"><span class="type-signature">(async) </span>addSkiEquipment<span class="signature">(name, price)</span><span class="type-signature"></span></h4>
-    
-
-    
-
-
-
-<div class="description">
-    Adds the given skiEquipment to the db if  valid and returns that skiEquipment as an object
-</div>
-
-
-
-
-
-
-
-
-
-    <h5>Parameters:</h5>
-    
-
-<table class="params">
-    <thead>
-    <tr>
-        
-        <th>Name</th>
-        
-
-        <th>Type</th>
-
-        
-
-        
-
-        <th class="last">Description</th>
-    </tr>
-    </thead>
-
-    <tbody>
-    
-
-        <tr>
-            
-                <td class="name"><code>name</code></td>
-            
-
-            <td class="type">
-            
-                
-<span class="param-type">*</span>
-
-
-            
-            </td>
-
-            
-
-            
-
-            <td class="description last">name of skiEquipment</td>
-        </tr>
-
-    
-
-        <tr>
-            
-                <td class="name"><code>price</code></td>
-            
-
-            <td class="type">
-            
-                
-<span class="param-type">*</span>
-
-
-            
-            </td>
-
-            
-
-            
-
-            <td class="description last">price of skiEquipment</td>
-        </tr>
-
-    
-    </tbody>
-</table>
-
-
-
-
-
-
-<dl class="details">
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-    <dt class="tag-source">Source:</dt>
-    <dd class="tag-source"><ul class="dummy"><li>
-        <a href="skiEquipmentModelMysql.js.html">skiEquipmentModelMysql.js</a>, <a href="skiEquipmentModelMysql.js.html#line53">line 53</a>
-    </li></ul></dd>
-    
-
-    
-
-    
-
-    
-</dl>
-
-
-
-
-
-
-
-
-
-
-
-
-
-<h5>Throws:</h5>
-
-        
-
-    <div class="param-desc">
-    
-        UserDataError if user sends invalid data or SystemError if database error
-    
-    </div>
-
-
-    
-
-
-<h5>Returns:</h5>
-
-        
-<div class="param-desc">
-    object that represents the ski equipment
-</div>
-
-
-
-    
-
-
-
-
-
-        
-            
-
-    
-
-    
-    <h4 class="name" id="deleteForm"><span class="type-signature"></span>deleteForm<span class="signature">()</span><span class="type-signature"></span></h4>
-    
-
-    
-
-
-
-<div class="description">
-    Delete Ski Equipment Endpoint.Has a form that takes in a name and deletes it from the database.
-</div>
-
-
-
-
-
-
-
-
-
-
-
-
-
-<dl class="details">
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-    <dt class="tag-source">Source:</dt>
-    <dd class="tag-source"><ul class="dummy"><li>
-        <a href="skiEquipmentController.js.html">skiEquipmentController.js</a>, <a href="skiEquipmentController.js.html#line46">line 46</a>
-    </li></ul></dd>
-    
-
-    
-
-    
-
-    
-</dl>
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-        
-            
-
-    
-
-    
-    <h4 class="name" id="deleteSki"><span class="type-signature">(async) </span>deleteSki<span class="signature">()</span><span class="type-signature"></span></h4>
-    
-
-    
-
-
-
-<div class="description">
-    Deletes ski equipment from the database using model.deleteSkiEquipment function.Takes in a specified name.If successful, renders the showSkiEquipment view with deleted information, else renders the form with an error message and an alert image.
-</div>
-
-
-
-
-
-
-
-
-
-
-
-
-
-<dl class="details">
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-    <dt class="tag-source">Source:</dt>
-    <dd class="tag-source"><ul class="dummy"><li>
-        <a href="skiEquipmentController.js.html">skiEquipmentController.js</a>, <a href="skiEquipmentController.js.html#line171">line 171</a>
-    </li></ul></dd>
-    
-
-    
-
-    
-
-    
-</dl>
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-        
-            
-
-    
-
-    
-    <h4 class="name" id="deleteSkiEquipment"><span class="type-signature">(async) </span>deleteSkiEquipment<span class="signature">(name)</span><span class="type-signature"></span></h4>
-    
-
-    
-
-
-
-<div class="description">
-    Deletes the ski equipment with the specified name.
-</div>
-
-
-
-
-
-
-
-
-
-    <h5>Parameters:</h5>
-    
-
-<table class="params">
-    <thead>
-    <tr>
-        
-        <th>Name</th>
-        
-
-        <th>Type</th>
-
-        
-
-        
-
-        <th class="last">Description</th>
-    </tr>
-    </thead>
-
-    <tbody>
-    
-
-        <tr>
-            
-                <td class="name"><code>name</code></td>
-            
-
-            <td class="type">
-            
-                
-<span class="param-type">*</span>
-
-
-            
-            </td>
-
-            
-
-            
-
-            <td class="description last">name of the ski equipment</td>
-        </tr>
-
-    
-    </tbody>
-</table>
-
-
-
-
-
-
-<dl class="details">
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-    <dt class="tag-source">Source:</dt>
-    <dd class="tag-source"><ul class="dummy"><li>
-        <a href="skiEquipmentModelMysql.js.html">skiEquipmentModelMysql.js</a>, <a href="skiEquipmentModelMysql.js.html#line154">line 154</a>
-    </li></ul></dd>
-    
-
-    
-
-    
-
-    
-</dl>
-
-
-
-
-
-
-
-
-
-
-
-
-
-<h5>Throws:</h5>
-
-        
-
-    <div class="param-desc">
-    
-        UserDataError if user sends invalid data or SystemError if database error
-    
-    </div>
-
-
-    
-
-
-
-
-
-
-
-        
-            
-
-    
-
-    
-    <h4 class="name" id="edit"><span class="type-signature">(async) </span>edit<span class="signature">()</span><span class="type-signature"></span></h4>
-    
-
-    
-
-
-
-<div class="description">
-    Edits ski equipment in the database using model.replaceSkiEquipment function.Takes in original name a new name and a new price.If successful, renders the showSkiEquipment view with new information, else renders the form with an error message and an alert image.
-</div>
-
-
-
-
-
-
-
-
-
-
-
-
-
-<dl class="details">
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-    <dt class="tag-source">Source:</dt>
-    <dd class="tag-source"><ul class="dummy"><li>
-        <a href="skiEquipmentController.js.html">skiEquipmentController.js</a>, <a href="skiEquipmentController.js.html#line144">line 144</a>
-    </li></ul></dd>
-    
-
-    
-
-    
-
-    
-</dl>
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-        
-            
-
-    
-
-    
-    <h4 class="name" id="editForm"><span class="type-signature"></span>editForm<span class="signature">()</span><span class="type-signature"></span></h4>
-    
-
-    
-
-
-
-<div class="description">
-    Edit Ski Equipment Endpoint.Has a form that takes in an original name, new name and new price and edits information in the database.
-</div>
-
-
-
-
-
-
-
-
-
-
-
-
-
-<dl class="details">
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-    <dt class="tag-source">Source:</dt>
-    <dd class="tag-source"><ul class="dummy"><li>
-        <a href="skiEquipmentController.js.html">skiEquipmentController.js</a>, <a href="skiEquipmentController.js.html#line30">line 30</a>
-    </li></ul></dd>
-    
-
-    
-
-    
-
-    
-</dl>
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-        
-            
-
-    
-
-    
-    <h4 class="name" id="error"><span class="type-signature"></span>error<span class="signature">(req, res)</span><span class="type-signature"></span></h4>
-    
-
-    
-
-
-
-<div class="description">
-    Error endpoint. Most error handling is done in the form pages themselves but this endpoint is used for any errors that occur.
-</div>
-
-
-
-
-
-
-
-
-
-    <h5>Parameters:</h5>
-    
-
-<table class="params">
-    <thead>
-    <tr>
-        
-        <th>Name</th>
-        
-
-        <th>Type</th>
-
-        
-
-        
-
-        <th class="last">Description</th>
-    </tr>
-    </thead>
-
-    <tbody>
-    
-
-        <tr>
-            
-                <td class="name"><code>req</code></td>
-            
-
-            <td class="type">
-            
-                
-<span class="param-type">*</span>
-
-
-            
-            </td>
-
-            
-
-            
-
-            <td class="description last"></td>
-        </tr>
-
-    
-
-        <tr>
-            
-                <td class="name"><code>res</code></td>
-            
-
-            <td class="type">
-            
-                
-<span class="param-type">*</span>
-
-
-            
-            </td>
-
-            
-
-            
-
-            <td class="description last"></td>
-        </tr>
-
-    
-    </tbody>
-</table>
-
-
-
-
-
-
-<dl class="details">
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-    <dt class="tag-source">Source:</dt>
-    <dd class="tag-source"><ul class="dummy"><li>
-        <a href="errorController.js.html">errorController.js</a>, <a href="errorController.js.html#line12">line 12</a>
-    </li></ul></dd>
-    
-
-    
-
-    
-
-    
-</dl>
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-        
-            
-
-    
-
-    
-    <h4 class="name" id="findByName"><span class="type-signature">(async) </span>findByName<span class="signature">(name)</span><span class="type-signature"></span></h4>
-    
-
-    
-
-
-
-<div class="description">
-    Checks if the ski equipment with the specified name exists in the database.
-</div>
-
-
-
-
-
-
-
-
-
-    <h5>Parameters:</h5>
-    
-
-<table class="params">
-    <thead>
-    <tr>
-        
-        <th>Name</th>
-        
-
-        <th>Type</th>
-
-        
-
-        
-
-        <th class="last">Description</th>
-    </tr>
-    </thead>
-
-    <tbody>
-    
-
-        <tr>
-            
-                <td class="name"><code>name</code></td>
-            
-
-            <td class="type">
-            
-                
-<span class="param-type">*</span>
-
-
-            
-            </td>
-
-            
-
-            
-
-            <td class="description last">name of the ski equipment</td>
-        </tr>
-
-    
-    </tbody>
-</table>
-
-
-
-
-
-
-<dl class="details">
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-    <dt class="tag-source">Source:</dt>
-    <dd class="tag-source"><ul class="dummy"><li>
-        <a href="skiEquipmentModelMysql.js.html">skiEquipmentModelMysql.js</a>, <a href="skiEquipmentModelMysql.js.html#line95">line 95</a>
-    </li></ul></dd>
-    
-
-    
-
-    
-
-    
-</dl>
-
-
-
-
-
-
-
-
-
-
-
-
-
-<h5>Throws:</h5>
-
-        
-
-    <div class="param-desc">
-    
-        UserDataError if user sends invalid data or SystemError if database error
-    
-    </div>
-
-
-    
-
-
-<h5>Returns:</h5>
-
-        
-<div class="param-desc">
-    arrays that represents all ski equipment in the database
-</div>
-
-
-
-    
-
-
-
-
-
-        
-            
-
-    
-
-    
-    <h4 class="name" id="get"><span class="type-signature">(async) </span>get<span class="signature">()</span><span class="type-signature"></span></h4>
-    
-
-    
-
-
-
-<div class="description">
-    Gets ski equipment to the database using model.addSkiEquipment function.Takes in specified name.If successful, renders the showSkiEquipment view, else renders the form with an error message and an alert image.
-</div>
-
-
-
-
-
-
-
-
-
-
-
-
-
-<dl class="details">
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-    <dt class="tag-source">Source:</dt>
-    <dd class="tag-source"><ul class="dummy"><li>
-        <a href="skiEquipmentController.js.html">skiEquipmentController.js</a>, <a href="skiEquipmentController.js.html#line117">line 117</a>
-    </li></ul></dd>
-    
-
-    
-
-    
-
-    
-</dl>
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-        
-            
-
-    
-
-    
-    <h4 class="name" id="getForm"><span class="type-signature"></span>getForm<span class="signature">()</span><span class="type-signature"></span></h4>
-    
-
-    
-
-
-
-<div class="description">
-    Get Ski Equipment Endpoint.Has a form that takes in a name and gets it from the database.
-</div>
-
-
-
-
-
-
-
-
-
-
-
-
-
-<dl class="details">
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-    <dt class="tag-source">Source:</dt>
-    <dd class="tag-source"><ul class="dummy"><li>
-        <a href="skiEquipmentController.js.html">skiEquipmentController.js</a>, <a href="skiEquipmentController.js.html#line15">line 15</a>
-    </li></ul></dd>
-    
-
-    
-
-    
-
-    
-</dl>
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-        
-            
-
-    
-
-    
-    <h4 class="name" id="home"><span class="type-signature"></span>home<span class="signature">()</span><span class="type-signature"></span></h4>
-    
-
-    
-
-
-
-<div class="description">
-    Home endpoint.Has a form that takes in a name and price and adds a ski equipment to the database.
-</div>
-
-
-
-
-
-
-
-
-
-
-
-
-
-<dl class="details">
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-    <dt class="tag-source">Source:</dt>
-    <dd class="tag-source"><ul class="dummy"><li>
-        <a href="homeController.js.html">homeController.js</a>, <a href="homeController.js.html#line11">line 11</a>
-    </li></ul></dd>
-    
-
-    
-
-    
-
-    
-</dl>
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-        
-            
-
-    
-
-    
-    <h4 class="name" id="initialize"><span class="type-signature">(async) </span>initialize<span class="signature">(dbname, reset)</span><span class="type-signature"></span></h4>
-    
-
-    
-
-
-
-<div class="description">
-    Inject database name so we can use this model for both testing and main program without overwriting our main database.
-</div>
-
-
-
-
-
-
-
-
-
-    <h5>Parameters:</h5>
-    
-
-<table class="params">
-    <thead>
-    <tr>
-        
-        <th>Name</th>
-        
-
-        <th>Type</th>
-
-        
-
-        
-
-        <th class="last">Description</th>
-    </tr>
-    </thead>
-
-    <tbody>
-    
-
-        <tr>
-            
-                <td class="name"><code>dbname</code></td>
-            
-
-            <td class="type">
-            
-                
-<span class="param-type">*</span>
-
-
-            
-            </td>
-
-            
-
-            
-
-            <td class="description last">name of database</td>
-        </tr>
-
-    
-
-        <tr>
-            
-                <td class="name"><code>reset</code></td>
-            
-
-            <td class="type">
-            
-                
-<span class="param-type">*</span>
-
-
-            
-            </td>
-
-            
-
-            
-
-            <td class="description last">boolean to reset database</td>
-        </tr>
-
-    
-    </tbody>
-</table>
-
-
-
-
-
-
-<dl class="details">
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-    <dt class="tag-source">Source:</dt>
-    <dd class="tag-source"><ul class="dummy"><li>
-        <a href="skiEquipmentModelMysql.js.html">skiEquipmentModelMysql.js</a>, <a href="skiEquipmentModelMysql.js.html#line15">line 15</a>
-    </li></ul></dd>
-    
-
-    
-
-    
-
-    
-</dl>
-
-
-
-
-
-
-
-
-
-
-
-
-
-<h5>Throws:</h5>
-
-        
-
-    <div class="param-desc">
-    
-        SystemError if connection fails
-    
-    </div>
-
-
-    
-
-
-
-
-
-
-
-        
-            
-
-    
-
-    
-    <h4 class="name" id="isValid"><span class="type-signature"></span>isValid<span class="signature">(name, price)</span><span class="type-signature"></span></h4>
-    
-
-    
-
-
-
-<div class="description">
-    Checks if name and price are valid.This function is called before adding to the database to make sure the data is valid.
-</div>
-
-
-
-
-
-
-
-
-
-    <h5>Parameters:</h5>
-    
-
-<table class="params">
-    <thead>
-    <tr>
-        
-        <th>Name</th>
-        
-
-        <th>Type</th>
-
-        
-
-        
-
-        <th class="last">Description</th>
-    </tr>
-    </thead>
-
-    <tbody>
-    
-
-        <tr>
-            
-                <td class="name"><code>name</code></td>
-            
-
-            <td class="type">
-            
-                
-<span class="param-type">*</span>
-
-
-            
-            </td>
-
-            
-
-            
-
-            <td class="description last">name of the ski equipment</td>
-        </tr>
-
-    
-
-        <tr>
-            
-                <td class="name"><code>price</code></td>
-            
-
-            <td class="type">
-            
-                
-<span class="param-type">*</span>
-
-
-            
-            </td>
-
-            
-
-            
-
-            <td class="description last">price of the ski equipment</td>
-        </tr>
-
-    
-    </tbody>
-</table>
-
-
-
-
-
-
-<dl class="details">
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-    <dt class="tag-source">Source:</dt>
-    <dd class="tag-source"><ul class="dummy"><li>
-        <a href="validateUtils.js.html">validateUtils.js</a>, <a href="validateUtils.js.html#line10">line 10</a>
-    </li></ul></dd>
-    
-
-    
-
-    
-
-    
-</dl>
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-<h5>Returns:</h5>
-
-        
-<div class="param-desc">
-    returns true if the data is valid, false otherwise
-</div>
-
-
-
-    
-
-
-
-
-
-        
-            
-
-    
-
-    
-    <h4 class="name" id="list"><span class="type-signature">(async) </span>list<span class="signature">()</span><span class="type-signature"></span></h4>
-    
-
-    
-
-
-
-<div class="description">
-    Gets all ski equipment to the database using model.listSkiEquipment function.If successful, renders the listSkiEquipment view with a list of all equipment, else renders the form with an error message and an alert image.
-</div>
-
-
-
-
-
-
-
-
-
-
-
-
-
-<dl class="details">
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-    <dt class="tag-source">Source:</dt>
-    <dd class="tag-source"><ul class="dummy"><li>
-        <a href="skiEquipmentController.js.html">skiEquipmentController.js</a>, <a href="skiEquipmentController.js.html#line92">line 92</a>
-    </li></ul></dd>
-    
-
-    
-
-    
-
-    
-</dl>
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-        
-            
-
-    
-
-    
-    <h4 class="name" id="listSkiEquipment"><span class="type-signature">(async) </span>listSkiEquipment<span class="signature">()</span><span class="type-signature"></span></h4>
-    
-
-    
-
-
-
-<div class="description">
-    Lists all the ski equipment in the database.
-</div>
-
-
-
-
-
-
-
-
-
-
-
-
-
-<dl class="details">
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-    <dt class="tag-source">Source:</dt>
-    <dd class="tag-source"><ul class="dummy"><li>
-        <a href="skiEquipmentModelMysql.js.html">skiEquipmentModelMysql.js</a>, <a href="skiEquipmentModelMysql.js.html#line75">line 75</a>
-    </li></ul></dd>
-    
-
-    
-
-    
-
-    
-</dl>
-
-
-
-
-
-
-
-
-
-
-
-
-
-<h5>Throws:</h5>
-
-        
-
-    <div class="param-desc">
-    
-        UserDataError if user sends invalid data or SystemError if database error
-    
-    </div>
-
-
-    
-
-
-<h5>Returns:</h5>
-
-        
-<div class="param-desc">
-    object that represents the ski equipment if it exists
-</div>
-
-
-
-    
-
-
-
-
-
-        
-            
-
-    
-
-    
-    <h4 class="name" id="replaceSkiEquipment"><span class="type-signature">(async) </span>replaceSkiEquipment<span class="signature">(originalName, newName, newPrice)</span><span class="type-signature"></span></h4>
-    
-
-    
-
-
-
-<div class="description">
-    Replaces the ski equipment with the specified name with the new name and price.
-</div>
-
-
-
-
-
-
-
-
-
-    <h5>Parameters:</h5>
-    
-
-<table class="params">
-    <thead>
-    <tr>
-        
-        <th>Name</th>
-        
-
-        <th>Type</th>
-
-        
-
-        
-
-        <th class="last">Description</th>
-    </tr>
-    </thead>
-
-    <tbody>
-    
-
-        <tr>
-            
-                <td class="name"><code>originalName</code></td>
-            
-
-            <td class="type">
-            
-                
-<span class="param-type">*</span>
-
-
-            
-            </td>
-
-            
-
-            
-
-            <td class="description last">original name of the ski equipment</td>
-        </tr>
-
-    
-
-        <tr>
-            
-                <td class="name"><code>newName</code></td>
-            
-
-            <td class="type">
-            
-                
-<span class="param-type">*</span>
-
-
-            
-            </td>
-
-            
-
-            
-
-            <td class="description last">new name of the ski equipment</td>
-        </tr>
-
-    
-
-        <tr>
-            
-                <td class="name"><code>newPrice</code></td>
-            
-
-            <td class="type">
-            
-                
-<span class="param-type">*</span>
-
-
-            
-            </td>
-
-            
-
-            
-
-            <td class="description last">new price of the ski equipment</td>
-        </tr>
-
-    
-    </tbody>
-</table>
-
-
-
-
-
-
-<dl class="details">
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-    <dt class="tag-source">Source:</dt>
-    <dd class="tag-source"><ul class="dummy"><li>
-        <a href="skiEquipmentModelMysql.js.html">skiEquipmentModelMysql.js</a>, <a href="skiEquipmentModelMysql.js.html#line123">line 123</a>
-    </li></ul></dd>
-    
-
-    
-
-    
-
-    
-</dl>
-
-
-
-
-
-
-
-
-
-
-
-
-
-<h5>Throws:</h5>
-
-        
-
-    <div class="param-desc">
-    
-        UserDataError if user sends invalid data or SystemError if database error
-    
-    </div>
-
-
-    
-
-
-<h5>Returns:</h5>
-
-        
-<div class="param-desc">
-    object that represents the new ski equipment
-</div>
-
-
-
-    
-
-
-
-
-
-        
-    
-
-    
-
-    
-</article>
-
-</section>
-
-
-
-
-</div>
-
-<nav>
-    <h2><a href="index.html">Home</a></h2><h3>Global</h3><ul><li><a href="global.html#add">add</a></li><li><a href="global.html#addSkiEquipment">addSkiEquipment</a></li><li><a href="global.html#deleteForm">deleteForm</a></li><li><a href="global.html#deleteSki">deleteSki</a></li><li><a href="global.html#deleteSkiEquipment">deleteSkiEquipment</a></li><li><a href="global.html#edit">edit</a></li><li><a href="global.html#editForm">editForm</a></li><li><a href="global.html#error">error</a></li><li><a href="global.html#findByName">findByName</a></li><li><a href="global.html#get">get</a></li><li><a href="global.html#getForm">getForm</a></li><li><a href="global.html#home">home</a></li><li><a href="global.html#initialize">initialize</a></li><li><a href="global.html#isValid">isValid</a></li><li><a href="global.html#list">list</a></li><li><a href="global.html#listSkiEquipment">listSkiEquipment</a></li><li><a href="global.html#replaceSkiEquipment">replaceSkiEquipment</a></li></ul>
-</nav>
-
-<br class="clear">
-
-<footer>
-    Documentation generated by <a href="https://github.com/jsdoc/jsdoc">JSDoc 3.6.10</a> on Tue Apr 12 2022 17:27:05 GMT-0400 (Eastern Daylight Time)
-</footer>
-
-<script> prettyPrint(); </script>
-<script src="scripts/linenumber.js"> </script>
+    <nav>
+        <h2><a href="index.html">Home</a></h2>
+        <h3>Classes</h3>
+        <ul>
+            <li><a href="Session.html">Session</a></li>
+            <li><a href="SystemError.html">SystemError</a></li>
+            <li><a href="UserDataError.html">UserDataError</a></li>
+        </ul>
+        <h3>Global</h3>
+        <ul>
+            <li><a href="global.html#about">about</a></li>
+            <li><a href="global.html#acceptCookieConsent">acceptCookieConsent</a></li>
+            <li><a href="global.html#addItem">addItem</a></li>
+            <li><a href="global.html#addItemType">addItemType</a></li>
+            <li><a href="global.html#addSession">addSession</a></li>
+            <li><a href="global.html#AdminAuth">AdminAuth</a></li>
+            <li><a href="global.html#authenticatedAdmin">authenticatedAdmin</a></li>
+            <li><a href="global.html#authenticateUser">authenticateUser</a></li>
+            <li><a href="global.html#checkConfirmPassword">checkConfirmPassword</a></li>
+            <li><a href="global.html#checkFirstName">checkFirstName</a></li>
+            <li><a href="global.html#checkIfUsernameIsTaken">checkIfUsernameIsTaken</a></li>
+            <li><a href="global.html#checkLastName">checkLastName</a></li>
+            <li><a href="global.html#checkPassword">checkPassword</a></li>
+            <li><a href="global.html#checkUsername">checkUsername</a></li>
+            <li><a href="global.html#createRental">createRental</a></li>
+            <li><a href="global.html#createSession">createSession</a></li>
+            <li><a href="global.html#createUser">createUser</a></li>
+            <li><a href="global.html#deleteCookie">deleteCookie</a></li>
+            <li><a href="global.html#deleteItem">deleteItem</a></li>
+            <li><a href="global.html#deleteItemType">deleteItemType</a></li>
+            <li><a href="global.html#deleteRental">deleteRental</a></li>
+            <li><a href="global.html#deleteSessionById">deleteSessionById</a></li>
+            <li><a href="global.html#deleteUser">deleteUser</a></li>
+            <li><a href="global.html#editItem">editItem</a></li>
+            <li><a href="global.html#editItemType">editItemType</a></li>
+            <li><a href="global.html#editRental">editRental</a></li>
+            <li><a href="global.html#editUser">editUser</a></li>
+            <li><a href="global.html#error">error</a></li>
+            <li><a href="global.html#getAllItems">getAllItems</a></li>
+            <li><a href="global.html#getAllItemTypes">getAllItemTypes</a></li>
+            <li><a href="global.html#getAllRentalsForUser">getAllRentalsForUser</a></li>
+            <li><a href="global.html#getAllUsers">getAllUsers</a></li>
+            <li><a href="global.html#getConnection">getConnection</a></li>
+            <li><a href="global.html#getCookiePl">getCookiePl</a></li>
+            <li><a href="global.html#getCurrentSession">getCurrentSession</a></li>
+            <li><a href="global.html#getItemById">getItemById</a></li>
+            <li><a href="global.html#getItemTypeById">getItemTypeById</a></li>
+            <li><a href="global.html#getItemTypeByName">getItemTypeByName</a></li>
+            <li><a href="global.html#getRentalById">getRentalById</a></li>
+            <li><a href="global.html#getRentalFromUserId">getRentalFromUserId</a></li>
+            <li><a href="global.html#gettingTheValue">gettingTheValue</a></li>
+            <li><a href="global.html#getUserById">getUserById</a></li>
+            <li><a href="global.html#getUserByUsername">getUserByUsername</a></li>
+            <li><a href="global.html#getUserTypeFromTypeId">getUserTypeFromTypeId</a></li>
+            <li><a href="global.html#home">home</a></li>
+            <li><a href="global.html#initialize">initialize</a></li>
+            <li><a href="global.html#itemResponse">itemResponse</a></li>
+            <li><a href="global.html#itemTypesResponse">itemTypesResponse</a></li>
+            <li><a href="global.html#listResponse">listResponse</a></li>
+            <li><a href="global.html#login">login</a></li>
+            <li><a href="global.html#loginSubmit">loginSubmit</a></li>
+            <li><a href="global.html#onlyLetters">onlyLetters</a></li>
+            <li><a href="global.html#refreshSession">refreshSession</a></li>
+            <li><a href="global.html#setCookie">setCookie</a></li>
+            <li><a href="global.html#signup">signup</a></li>
+            <li><a href="global.html#signupSubmit">signupSubmit</a></li>
+            <li><a href="global.html#usersResponse">usersResponse</a></li>
+            <li><a href="global.html#userTrack">userTrack</a></li>
+            <li><a href="global.html#verifyLogin">verifyLogin</a></li>
+        </ul>
+    </nav>
+
+    <br class="clear">
+
+    <footer>
+        Documentation generated by <a href="https://github.com/jsdoc/jsdoc">JSDoc 3.6.10</a> on Thu May 19 2022 23:48:59
+        GMT-0400 (Eastern Daylight Time)
+    </footer>
+
+    <script> prettyPrint(); </script>
+    <script src="scripts/linenumber.js"> </script>
 </body>
+
 </html>

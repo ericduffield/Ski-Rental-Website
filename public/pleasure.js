@@ -5,22 +5,23 @@ const cancelButton = document.querySelector(".cookie-consent-deny")
 const acceptButton = document.querySelector(".cookie-consent-allow");
 var click = 0;
 
+const logger = require('../logger');
 
 
 
 
-    // FORM emailJs
+// FORM emailJs
 
 
-    /***
-     * Made to send mails through a server 
-     * This makes it easier since it will have template to send mails
-     * 
-     */
-    (function () {
-        // https://dashboard.emailjs.com/admin/account
-        emailjs.init('erahkk0th3Z3BKcn9');
-    })();
+/***
+ * Made to send mails through a server 
+ * This makes it easier since it will have template to send mails
+ * 
+ */
+(function () {
+    // https://dashboard.emailjs.com/admin/account
+    emailjs.init('erahkk0th3Z3BKcn9');
+})();
 
 /**
  * Listens for the submit, and then sends a server request for it to be sent to the 
@@ -46,19 +47,19 @@ window.onload = function () {
             // these IDs from the previous steps
             emailjs.sendForm('service_mksrijc', 'template_y5kbr8g', this)
                 .then(function () {
-                    console.log('SUCCESS!');
+                    logger.info('SUCCESS!');
                     name.innerHTML = "";
                     fromName.innerHTML = "";
                     message.innerHTML = "";
                 },
                     function (error) {
-                        console.log('FAILED...', error);
+                        logger.error('FAILED...', error);
                     });
         }
 
     });
 }
-            
+
 
 /**
  * Set the parameter to the cookie name, the value, the number of days to expire

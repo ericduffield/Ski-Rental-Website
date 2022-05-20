@@ -2,6 +2,7 @@
 const app = require("../app");
 const supertest = require("supertest");
 testRequest = supertest.agent(app);
+const addTime = require("add-time");
 
 const dbName = "skiEquipment_db_test";
 const model = require('../models/skiEquipmentModelMysql');
@@ -73,6 +74,22 @@ const generateItemTypes = (usedIndex) => {
     }
 
     return itemTypes.slice(index, index + 1)[0];
+}
+
+const rentals = [
+    { userId: '1', startDate: '2022-06-01', startTime: '16:35', duration: '4', itemType: 'Skis' },
+    { userId: '1', startDate: '2022-06-11', startTime: '15:35', duration: '4', itemType: 'Boots' },
+    { userId: '1', startDate: '2022-06-02', startTime: '11:00', duration: '8', itemType: 'Poles' },
+    { userId: '1', startDate: '2022-06-07', startTime: '12:00', duration: '4', itemType: 'Skis' },
+]
+
+const generateRentals = (usedIndex) => {
+    let index = Math.floor((Math.random() * rentals.length));
+    while (index == usedIndex) {
+        index = Math.floor((Math.random() * rentals.length));
+    }
+
+    return rentals.slice(index, index + 1)[0];
 }
 
 //#endregion
@@ -189,6 +206,15 @@ test("checkIfUsernameIsTaken taken", async () => {
 
     //Assert
     expect(result).toBe(true);
+});
+
+test("verifyLogin success case", async () => {
+
+    //Act
+    await model.verifyLogin('Admin', 'P@ssw0rd');
+
+    //Assert
+    expect(true).toBe(true);
 });
 
 //#endregion
@@ -367,14 +393,6 @@ test("getAllItemTypes success case", async () => {
     let result2 = await model.getItemTypeByName(name2);
     expect(result[result2.id - 1].name).toBe(name2);
 });
-
-//#endregion
-
-//#region RENTALS
-
-//#endregion
-
-//#region LOGINS
 
 //#endregion
 
@@ -1576,11 +1594,6 @@ test("Default user login", async () => {
     });
 
     expect(testResponse.status).toBe(200);
-});
-
-test("Logout test", async () => {
-    let testResponse = await testRequest.post("/logout");
-    expect(testResponse.status).toBe(302);
 });
 
 test("Signup", async () => {

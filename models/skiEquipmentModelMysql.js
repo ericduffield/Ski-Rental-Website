@@ -25,8 +25,6 @@ async function initialize(dbname, reset) {
             database: dbname
         });
 
-
-
         // Get rid of foreign keys
         const noForeignKeys = 'SET foreign_key_checks = 0';
         await connection.execute(noForeignKeys)
@@ -434,7 +432,7 @@ async function addItem(name, description, itemCost, itemType) {
     const sqlQuery = 'INSERT INTO inventory (name, description, itemCost, itemType) VALUES (\"' + name + '\",\"' + description + '\",\"' + itemCost + '\",\"' + itemType + '\");';
     await connection.execute(sqlQuery)
         .catch((error) => {
-            console.error(error)
+            logger.error(error)
             throw new SystemError("Error adding item");
         });
 }
@@ -679,7 +677,7 @@ async function createRental(userId, startTime, endTime, Duration, itemType) {
     if (!validate.isValidInteger(Duration)) {
         throw new UserDataError("Invalid duration");
     }
-    if (!validate.isValidName(itemType)) {
+    if (!validate.isValidItemType(itemType)) {
         throw new UserDataError("Invalid item type");
     }
 
@@ -802,12 +800,12 @@ async function editRental(rentalId, userId, startTime, endTime, duration, itemTy
             logger.error(error)
             throw new SystemError("Error getting user");
         });
-        if (userResult[0].length == 0) {
-            throw new UserDataError("User does not exist");
-        }
-        else {
-            username = userResult[0][0].username;
-        }
+    if (userResult[0].length == 0) {
+        throw new UserDataError("User does not exist");
+    }
+    else {
+        username = userResult[0][0].username;
+    }
 
     // Get the rental via its isValidDate
 
@@ -895,8 +893,7 @@ async function getRentalById(rentalId) {
  * @param {*} userId 
  * @returns an array of all the fields of the rental
  */
-async function getRentalFromUserId(userId)
-{
+async function getRentalFromUserId(userId) {
     if (!validate.isValidInteger(userId)) {
         throw new UserDataError("Invalid user id");
     }
@@ -908,7 +905,7 @@ async function getRentalFromUserId(userId)
             throw new SystemError("Error getting rentals");
         }
         );
-    return result[0];    
+    return result[0];
 }
 
 /**
