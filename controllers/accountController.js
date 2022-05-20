@@ -33,14 +33,51 @@ router.get('/account', async function (request, response) {
     if (!await model.authenticateUser(request)) {
         response.render("login.hbs", { message: "Unauthorized Access - Please log in to an account to use this feature" });
     }
-    else {
+    else {        
         const session = await model.refreshSession(request, response);
         const expiresAt = new Date(session.expiresAt);
         response.cookie("sessionId", session.id, { expires: expiresAt });
         response.cookie("userId", session.userId, { expires: expiresAt });
         response.cookie("userType", session.userType, { expires: expiresAt });       
-        response.render("account.hbs", {loggedIn: true});
-       
+        
+        // Get the user fields from the id in the cookies
+        const user = await model.getUserById(session.userId);
+        const userType = await model.getUserTypeFromTypeId(user.userType);
+
+        const rentals = await model.getRentalFromUserId(user.id);
+
+        const pageData = {
+            loggedIn: false,
+            userFields: [
+                {name: "First Name", value: user.firstName},
+                {name: "Last Name", value: user.lastName},
+                {name: "Username", value: user.username},
+                {name: "User Type", value: userType},
+                {name: "Credit", value: user.credit}
+            ],
+            userRentals:[]
+        }
+
+        if(rentals != null){
+
+            for(let i = 0; i < rentals.length; i++){
+                const item = await model.getItemById(rentals[i].itemId);
+                const itemType = await model.getItemTypeById(item.itemType);
+                pageData.userRentals.push({rental: [
+                    {name: "Id", value: rentals[i].id},
+                    {name: "Start Time", value: rentals[i].startTime},
+                    {name: "End Time", value: rentals[i].endTime},
+                    {name: "duration", value: rentals[i].duration},
+                    {name: "Rental cost", value: item.itemCost * 0.2},
+                    {name: "Item Name", value: item.name},
+                    {name: "Item Cost", value: item.itemCost},
+                    {name: "Item Type", value: itemType.name}
+                ]});
+            }
+        }
+        pageData.loggedIn = true;
+
+        response.render("account.hbs", pageData);       
     }
 }
 );
@@ -144,7 +181,6 @@ async function signupSubmit(req, res) {
         res.render("signup.hbs", { message: err.message, username: req.body.username, firstName: req.body.firstName, lastName: req.body.lastName, password: req.body.password, conformPassword: req.body.confirmPassword });
     }
 }
-
 
 module.exports = {
     router,

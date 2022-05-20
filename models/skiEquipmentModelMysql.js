@@ -897,7 +897,7 @@ async function getRentalFromUserId(userId)
         throw new UserDataError("Invalid user id");
     }
 
-    const sqlQuery = 'SELECT * FROM rental WHERE user = ' + userId;
+    const sqlQuery = 'SELECT * FROM rentals WHERE userId = \'' + userId + '\'';
     const result = await connection.execute(sqlQuery)
         .catch((error) => {
             logger.error(error)

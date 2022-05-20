@@ -7,17 +7,26 @@
     <h1>Welcome to your Account</h1>
 </div>
 
-<div>
-    <div class="accountInfo">
-        
+{{!-- Display all the user fields --}}
+{{#each userField}}
+    <div class="accountContainer">
+        <h2>{{this.name}}</h2>
+        <p>{{this.value}}</p>
     </div>
-</div>
+{{/each}}
+
+{{!-- Display all the user's rentals --}}
+{{#each userRentals}}
+    <div class="accountContainer">
+        {{#each rental}}
+            <h2>{{this.name}}</h2>
+            <p>{{this.value}}</p>
+        {{/each}}
+    </div>
+{{/each}}
 
 <div class="logoutAccount">
     <form action="/logout" method="post">
         <button class="btn btn-primary buttonRent" name="foo" value="upvote">Logout</button>
     </form>
 </div>
-<script>
-    
-</script>
