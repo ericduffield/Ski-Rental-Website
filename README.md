@@ -127,6 +127,18 @@ In the [footer](#Footer), a Dark Mode / Light Mode button can be found that swit
 
 
 
+#### Errors 
+
+All errors on the site are graciously handled and success / error messages are displayed in the according window. If a user tries to access a page they are not authorized to access, they will be prompted to login.
+
+![Bad Login](./ImagesForReadMe/badlogin.PNG)
+
+If a user tries to access a page that does not exist, an error message will show, and they can then go to a correct page.
+
+![Error](./ImagesForReadMe/error.PNG)
+
+
+
 ## User
 
 #### User Header
