@@ -31,15 +31,6 @@ async function AdminAuth(request) {
  * These function load the views for the 4 main admin pages: list, items, itemTypes, and users
  */
 
-router.get('/admin', list);
-
-function list(req, res) {
-    if (!AdminAuth(req)) {
-        res.render("login.hbs", { message: "Unauthorized Access - Please log in to an account to use this feature" });
-    }
-    listResponse(res, "/images/hero.jpg", false, false);
-}
-
 router.get('/admin', async function (request, response) {
     const pageData = {
         image: "/images/hero.jpg",
@@ -55,36 +46,57 @@ router.get('/admin', async function (request, response) {
         response.cookie("sessionId", session.id, { expires: expiresAt });
         response.cookie("userId", session.userId, { expires: expiresAt });
         response.cookie("userType", session.userType, { expires: expiresAt });
-        response.render("adminRent.hbs", pageData);
+        listResponse(response, "/images/hero.jpg", false);
     }
 }
 );
 
 router.get('/items', items);
 
-function items(req, res) {
-    if (!AdminAuth(req)) {
-        res.render("login.hbs", { message: "Unauthorized Access - Please log in to an account to use this feature" });
+async function items(request, response) {
+    if (!await AdminAuth(request)) {
+        response.render("login.hbs", { message: "Unauthorized Access - Please log in to an account to use this feature" });
     }
-    itemResponse(res, "/images/hero.jpg", false, false);
+    else {
+        const session = await model.refreshSession(request, response);
+        const expiresAt = new Date(session.expiresAt);
+        response.cookie("sessionId", session.id, { expires: expiresAt });
+        response.cookie("userId", session.userId, { expires: expiresAt });
+        response.cookie("userType", session.userType, { expires: expiresAt });        
+        itemResponse(response, "/images/hero.jpg", false, false);
+    }
 }
 
 router.get('/itemtypes', itemTypes);
 
-function itemTypes(req, res) {
-    if (!AdminAuth(req)) {
-        res.render("login.hbs", { message: "Unauthorized Access - Please log in to an account to use this feature" });
+async function itemTypes(request, response) {
+    if (!await AdminAuth(request)) {
+        response.render("login.hbs", { message: "Unauthorized Access - Please log in to an account to use this feature" });
     }
-    itemTypesResponse(res, "/images/hero.jpg", false, false);
+    else {
+        const session = await model.refreshSession(request, response);
+        const expiresAt = new Date(session.expiresAt);
+        response.cookie("sessionId", session.id, { expires: expiresAt });
+        response.cookie("userId", session.userId, { expires: expiresAt });
+        response.cookie("userType", session.userType, { expires: expiresAt });        
+        itemTypesResponse(response, "/images/hero.jpg", false, false);
+    }
 }
 
 router.get('/users', users);
 
-function users(req, res) {
-    if (!AdminAuth(req)) {
-        res.render("login.hbs", { message: "Unauthorized Access - Please log in to an account to use this feature" });
+async function users(request, response) {
+    if (!await AdminAuth(request)) {
+        response.render("login.hbs", { message: "Unauthorized Access - Please log in to an account to use this feature" });
     }
-    usersResponse(res, "/images/hero.jpg", false, false);
+    else {
+        const session = await model.refreshSession(request, response);
+        const expiresAt = new Date(session.expiresAt);
+        response.cookie("sessionId", session.id, { expires: expiresAt });
+        response.cookie("userId", session.userId, { expires: expiresAt });
+        response.cookie("userType", session.userType, { expires: expiresAt });        
+        usersResponse(response, "/images/hero.jpg", false, false);
+    }
 }
 
 /**
@@ -92,11 +104,11 @@ function users(req, res) {
  * It displays all important information in the database so admins can see what they are working with.
  * It takes in an image url which will either be the default hero image or the alert image.
  * It takes in a message which will either be a success message or an error message.listResponseitems
- * @param {*} res response object
+ * @param {*} response response object
  * @param {*} imageUrl image url
  * @param {*} theMessage message to be displayed to screen
  */
-async function listResponse(res, imageUrl, theMessage) {
+async function listResponse(response, imageUrl, theMessage) {
     try {
         //Tries get ski equipment from the database and if successful, renders the listSkiEquipment with results
         let items = await model.getAllItems();
@@ -114,7 +126,7 @@ async function listResponse(res, imageUrl, theMessage) {
             allUsers: users,
             userTypes: ["Regular", "Admin"]
         }
-        res.render("list.hbs", pageData);
+        response.render("list.hbs", pageData);
     }
     catch (err) {
         logger.error(err.message);
@@ -126,7 +138,7 @@ async function listResponse(res, imageUrl, theMessage) {
             error: true,
             message: err.message,
         }
-        res.render("list.hbs", pageData);
+        response.render("list.hbs", pageData);
     }
 }
 
@@ -143,27 +155,27 @@ router.post('/addItem', addItem);
  * This function adds an item to the database.
  * If it is successfully added it renders the form again with a success message.
  * If it is not successful it renders the form with a specific error message that explains what went wrong.
- * @param {*} req request object
- * @param {*} res response object
+ * @param {*} request request object
+ * @param {*} response response object
  */
-async function addItem(req, res) {
+async function addItem(request, response) {
     try {
         //Tries to add ski equipment to the database and if successful, renders the form with success message
-        if (!validate.isValidInteger(req.body.quantity))
+        if (!validate.isValidInteger(request.body.quantity))
             throw new UserDataError("Quantity must be an integer");
 
-        console.log(req.body.itemType)
-        for (let i = 0; i < req.body.quantity; i++) {
-            await model.addItem(req.body.name, req.body.description, req.body.cost, req.body.itemType);
+        console.log(request.body.itemType)
+        for (let i = 0; i < request.body.quantity; i++) {
+            await model.addItem(request.body.name, request.body.description, request.body.cost, request.body.itemType);
         }
-        console.log("Successfully added " + req.body.name);
-        itemResponse(res, "/images/hero.jpg", "Successfully added ski equipment", false, false);
+        console.log("Successfully added " + request.body.name);
+        itemResponse(response, "/images/hero.jpg", "Successfully added ski equipment", false, false);
     }
     catch (err) {
         console.error(err.message);
         //Renders the form again with error message and alert image
-        res.status(err.status == 400 ? 400 : 500);
-        itemResponse(res, "/images/warning.webp", err.message, true);
+        response.status(err.status == 400 ? 400 : 500);
+        itemResponse(response, "/images/warning.webp", err.message, true);
     }
 }
 
@@ -174,22 +186,22 @@ router.post('/editItem', editItem);
  * This function edits an item in the database.
  * If it is successfully edited it renders the form again with a success message.
  * If it is not successful it renders the form with a specific error message that explains what went wrong.
- * @param {*} req request object
- * @param {*} res response object
+ * @param {*} request request object
+ * @param {*} response response object
  */
-async function editItem(req, res) {
+async function editItem(request, response) {
     try {
         //Tries to edit ski equipment in the database and if successful, renders the form with success message
-        await model.editItem(req.body.id, req.body.name, req.body.description, req.body.cost, req.body.itemType);
+        await model.editItem(request.body.id, request.body.name, request.body.description, request.body.cost, request.body.itemType);
 
-        console.log("Successfully edited " + req.body.name);
-        itemResponse(res, "/images/hero.jpg", "Successfully edited " + req.body.name, false, false);
+        console.log("Successfully edited " + request.body.name);
+        itemResponse(response, "/images/hero.jpg", "Successfully edited " + request.body.name, false, false);
     }
     catch (err) {
         console.error(err.message);
         //Renders the form again with error message and alert image
-        res.status(err.status == 400 ? 400 : 500);
-        itemResponse(res, "/images/warning.webp", err.message, true);
+        response.status(err.status == 400 ? 400 : 500);
+        itemResponse(response, "/images/warning.webp", err.message, true);
     }
 }
 
@@ -200,22 +212,22 @@ router.post('/deleteItem', deleteItem);
  * This function deleted an item from the database.
  * If it is successfully deleted it renders the form again with a success message.
  * If it is not successful it renders the form with a specific error message that explains what went wrong.
- * @param {*} req request object
- * @param {*} res response object
+ * @param {*} request request object
+ * @param {*} response response object
  */
-async function deleteItem(req, res) {
+async function deleteItem(request, response) {
     try {
         //Tries to delete ski equipment to the database and if successful, renders the form with success message
-        await model.deleteItem(req.body.id);
+        await model.deleteItem(request.body.id);
 
         console.log("Successfully deleted item");
-        itemResponse(res, "/images/hero.jpg", "Successfully deleted item", false, false);
+        itemResponse(response, "/images/hero.jpg", "Successfully deleted item", false, false);
     }
     catch (err) {
         console.error(err.message);
         //Renders the form again with error message and alert image
-        res.status(err.status == 400 ? 400 : 500);
-        itemResponse(res, "/images/warning.webp", err.message, true);
+        response.status(err.status == 400 ? 400 : 500);
+        itemResponse(response, "/images/warning.webp", err.message, true);
     }
 }
 
@@ -224,12 +236,12 @@ async function deleteItem(req, res) {
  * It has 3 forms: add, edit, delete
  * It takes in an image url which will either be the default hero image or the alert image.
  * It takes in a message which will either be a success message or an error message.
- * @param {*} res response object
+ * @param {*} response response object
  * @param {*} imageUrl image url
  * @param {*} theMessage message to be displayed to screen
  * @param {*} isError boolean to determine if an error has occurred
  */
-async function itemResponse(res, imageUrl, theMessage, isError) {
+async function itemResponse(response, imageUrl, theMessage, isError) {
     let itemTypes;
     try {
         itemTypes = await model.getAllItemTypes();
@@ -306,7 +318,7 @@ async function itemResponse(res, imageUrl, theMessage, isError) {
         }]
     };
 
-    res.render("form.hbs", pageData);
+    response.render("form.hbs", pageData);
 }
 
 
@@ -318,22 +330,22 @@ router.post('/addItemType', addItemType);
  * This function adds an item type to the database.
  * If it is successfully added it renders the form again with a success message.
  * If it is not successful it renders the form with a specific error message that explains what went wrong.
- * @param {*} req request object
- * @param {*} res response object
+ * @param {*} request request object
+ * @param {*} response response object
  */
-async function addItemType(req, res) {
+async function addItemType(request, response) {
     try {
         //Tries to add item type to the database and if successful, renders the form with success message
-        await model.addItemType(req.body.name);
+        await model.addItemType(request.body.name);
 
         console.log("Successfully added item type");
-        itemTypesResponse(res, "/images/hero.jpg", "Successfully added item type", false);
+        itemTypesResponse(response, "/images/hero.jpg", "Successfully added item type", false);
     }
     catch (err) {
         console.error(err.message);
         //Renders the form again with error message and alert image
-        res.status(err.status == 400 ? 400 : 500);
-        itemTypesResponse(res, "/images/warning.webp", err.message);
+        response.status(err.status == 400 ? 400 : 500);
+        itemTypesResponse(response, "/images/warning.webp", err.message);
     }
 }
 
@@ -344,22 +356,22 @@ router.post('/editItemType', editItemType);
  * This function edits an item type in the database.
  * If it is successfully edited it renders the form again with a success message.
  * If it is not successful it renders the form with a specific error message that explains what went wrong.
- * @param {*} req request object
- * @param {*} res response object
+ * @param {*} request request object
+ * @param {*} response response object
  */
-async function editItemType(req, res) {
+async function editItemType(request, response) {
     try {
         //Tries to edit item type in the database and if successful, renders the form with success message
-        await model.editItemType(req.body.id, req.body.name);
+        await model.editItemType(request.body.id, request.body.name);
 
         console.log("Successfully edited item type");
-        itemTypesResponse(res, "/images/hero.jpg", "Successfully edited item type", false);
+        itemTypesResponse(response, "/images/hero.jpg", "Successfully edited item type", false);
     }
     catch (err) {
         console.error(err.message);
         //Renders the form again with error message and alert image
-        res.status(err.status == 400 ? 400 : 500);
-        itemTypesResponse(res, "/images/warning.webp", err.message);
+        response.status(err.status == 400 ? 400 : 500);
+        itemTypesResponse(response, "/images/warning.webp", err.message);
     }
 }
 
@@ -369,22 +381,22 @@ router.post('/deleteItemType', deleteItemType);
  * This function deleted an item type from the database.
  * If it is successfully deleted it renders the form again with a success message.
  * If it is not successful it renders the form with a specific error message that explains what went wrong.
- * @param {*} req request object
- * @param {*} res response object
+ * @param {*} request request object
+ * @param {*} response response object
  */
-async function deleteItemType(req, res) {
+async function deleteItemType(request, response) {
     try {
         //Tries to delete item type from the database and if successful, renders the form with success message
-        await model.deleteItemType(req.body.id);
+        await model.deleteItemType(request.body.id);
 
         console.log("Successfully deleted item type");
-        itemTypesResponse(res, "/images/hero.jpg", "Successfully deleted item type", false);
+        itemTypesResponse(response, "/images/hero.jpg", "Successfully deleted item type", false);
     }
     catch (err) {
         console.error(err.message);
         //Renders the form again with error message and alert image
-        res.status(err.status == 400 ? 400 : 500);
-        itemTypesResponse(res, "/images/warning.webp", err.message);
+        response.status(err.status == 400 ? 400 : 500);
+        itemTypesResponse(response, "/images/warning.webp", err.message);
     }
 }
 
@@ -393,12 +405,12 @@ async function deleteItemType(req, res) {
  * It has 4 forms: add, edit, and delete.
  * It takes in an image url which will either be the default hero image or the alert image.
  * It takes in a message which will either be a success message or an error message.
- * @param {*} res response object
+ * @param {*} response response object
  * @param {*} imageUrl image url
  * @param {*} theMessage message to be displayed to screen
  * @param {*} isError boolean to determine if an error has occurred
  */
-function itemTypesResponse(res, imageUrl, theMessage, isError) {
+function itemTypesResponse(response, imageUrl, theMessage, isError) {
     const pageData = {
         image: imageUrl,
         admin: true,
@@ -437,7 +449,7 @@ function itemTypesResponse(res, imageUrl, theMessage, isError) {
         }]
     };
 
-    res.render("form.hbs", pageData);
+    response.render("form.hbs", pageData);
 }
 
 
@@ -448,22 +460,22 @@ router.post('/createUser', createUser);
  * This function creates a user in the database.
  * If it is successfully created it renders the form again with a success message.
  * If it is not successful it renders the form with a specific error message that explains what went wrong.
- * @param {*} req request object
- * @param {*} res response object
+ * @param {*} request request object
+ * @param {*} response response object
  */
-async function createUser(req, res) {
+async function createUser(request, response) {
     try {
         //Tries to created a user in the database and if successful, renders the form with success message
-        await model.createUser(parseInt(req.body.userType) + 1, req.body.username, req.body.password, req.body.firstName, req.body.lastName, req.body.credit);
+        await model.createUser(parseInt(request.body.userType) + 1, request.body.username, request.body.password, request.body.firstName, request.body.lastName, request.body.credit);
 
         console.log("Successfully created user");
-        usersResponse(res, "/images/hero.jpg", "Successfully created user", false);
+        usersResponse(response, "/images/hero.jpg", "Successfully created user", false);
     }
     catch (err) {
         console.error(err.message);
         //Renders the form again with error message and alert image
-        res.status(err.status == 400 ? 400 : 500);
-        usersResponse(res, "/images/warning.webp", err.message);
+        response.status(err.status == 400 ? 400 : 500);
+        usersResponse(response, "/images/warning.webp", err.message);
     }
 }
 
@@ -474,22 +486,22 @@ router.post('/editUser', editUser);
  * This function edits a user in the database.
  * If it is successfully edited it renders the form again with a success message.
  * If it is not successful it renders the form with a specific error message that explains what went wrong.
- * @param {*} req request object
- * @param {*} res response object
+ * @param {*} request request object
+ * @param {*} response response object
  */
-async function editUser(req, res) {
+async function editUser(request, response) {
     try {
         //Tries to edit user in the database and if successful, renders the form with success message
-        await model.editUser(req.body.id, req.body.userType, req.body.username, req.body.password, req.body.firstName, req.body.lastName, req.body.credit);
+        await model.editUser(request.body.id, request.body.userType, request.body.username, request.body.password, request.body.firstName, request.body.lastName, request.body.credit);
 
         console.log("Successfully edited user information");
-        usersResponse(res, "/images/hero.jpg", "Successfully edited user information", false);
+        usersResponse(response, "/images/hero.jpg", "Successfully edited user information", false);
     }
     catch (err) {
         console.error(err.message);
         //Renders the form again with error message and alert image
-        res.status(err.status == 400 ? 400 : 500);
-        usersResponse(res, "/images/warning.webp", err.message);
+        response.status(err.status == 400 ? 400 : 500);
+        usersResponse(response, "/images/warning.webp", err.message);
     }
 }
 
@@ -500,22 +512,22 @@ router.post('/deleteUser', deleteUser);
  * This function deleted a user from the database.
  * If it is successfully deleted it renders the form again with a success message.
  * If it is not successful it renders the form with a specific error message that explains what went wrong.
- * @param {*} req request object
- * @param {*} res response object
+ * @param {*} request request object
+ * @param {*} response response object
  */
-async function deleteUser(req, res) {
+async function deleteUser(request, response) {
     try {
         //Tries to delete user in the database and if successful, renders the form with success message
-        await model.deleteUser(req.body.id);
+        await model.deleteUser(request.body.id);
 
         console.log("Successfully deleted user");
-        usersResponse(res, "/images/hero.jpg", "Successfully deleted user", false);
+        usersResponse(response, "/images/hero.jpg", "Successfully deleted user", false);
     }
     catch (err) {
         console.error(err.message);
         //Renders the form again with error message and alert image
-        res.status(err.status == 400 ? 400 : 500);
-        usersResponse(res, "/images/warning.webp", err.message);
+        response.status(err.status == 400 ? 400 : 500);
+        usersResponse(response, "/images/warning.webp", err.message);
     }
 }
 
@@ -525,12 +537,12 @@ async function deleteUser(req, res) {
  * It has 3 forms: create, edit and delete.
  * It takes in an image url which will either be the default hero image or the alert image.
  * It takes in a message which will either be a success message or an error message.
- * @param {*} res response object
+ * @param {*} response response object
  * @param {*} imageUrl image url
  * @param {*} theMessage message to be displayed to screen
  * @param {*} isError boolean to determine if an error has occurred
  */
-function usersResponse(res, imageUrl, theMessage, isError) {
+function usersResponse(response, imageUrl, theMessage, isError) {
     const pageData = {
         image: imageUrl,
         admin: true,
@@ -627,7 +639,7 @@ function usersResponse(res, imageUrl, theMessage, isError) {
         }]
     };
 
-    res.render("form.hbs", pageData);
+    response.render("form.hbs", pageData);
 }
 
 //#endregion

@@ -95,12 +95,9 @@ router.post('/logout', async function (request, response) {
         response.clearCookie("sessionId");
         response.clearCookie("userId");
         response.clearCookie("userType");
-        response.clearCookie("user_track")
-        response.redirect("/login");
+        response.clearCookie("user_track")        
     }
-    else {
-        response.redirect("/");
-    }
+    response.redirect("/login");
 });
 
 

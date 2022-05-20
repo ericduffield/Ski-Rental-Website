@@ -7,27 +7,32 @@
     <h1>Welcome to your Account</h1>
 </div>
 
-<div class="accountInfo">
-    <div class="basicInfo">
+
+<h3>Your Info</h3>
+<div class="" id="MoveName">
+    <div>
         {{#each userFields}}
-            <div class="accountContainer">
-                <h3>{{this.name}}</h3>
-                <p class="basicEdits">{{this.value}}</p>
+            <div class="fields">
+                <p><b>{{this.name}}</b>: {{this.value}}</p>
             </div>
         {{/each}}
     </div>
 </div>
-    {{!-- Display all the user's rentals --}}
-    <div class="rentalIfo">
+    
+<h3>Rentals</h3>
+<div class="grid" id="MoveRentals">    
     {{#each userRentals}}
-        <div class="accountContainer">
+        <div>
             {{#each rental}}
-                <h2>{{this.name}}</h2>
-                <p>{{this.value}}</p>
+                <div class="fields">
+                    <p><b>{{this.name}}</b>: {{this.value}}</p>
+                </div>
             {{/each}}
         </div>
     {{/each}}
-    </div>
+</div>
+
+{{!-- Display all the user's rentals --}}
 
 <div class="logoutAccount">
     <form action="/logout" method="post">
