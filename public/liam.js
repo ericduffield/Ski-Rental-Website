@@ -172,5 +172,5 @@ window.onload = function () {
     checkFirstName();
     checkLastName();
     checkPassword();
-    checkConfirmPassword();
+    checkConfirmPassword();    
 }

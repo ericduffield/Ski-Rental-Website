@@ -7,15 +7,15 @@
     <h2>From our wide selection of items</h2>
 </div>
 
-<div class="rentContainer">
-    <div class="skiSplit">
-        {{#each items}}
+<div class="grid">
+    {{#each items}}
+        <div>
             <form action="{{formInput}}" method="post" role="form" enctype="application/x-www-form-urlencoded">
                 <h3>{{name}}</h3>
                 <img src="{{image}}" alt="ImageRental" height="200px" width="200px">
                 {{!-- <input type="datetime-local" id="datePicker" name="startTime" min="08:00" max="22:00">  --}}
-                <input type="date" id="datePicker" name="startDate" min="2022-05-19">
-                <input type="time" id="timePicker" name="startTime" min="08:00" max="22:00">
+                <input type="date" class="datePicker picker" name="startDate" min="2022-05-19">
+                <input type="time" class="timePicker picker" name="startTime" min="08:00" max="22:00">
                 <select name="duration" id="durationPicker">
                     <option value="4">4H</option>
                     <option value="8">8H</option>
@@ -23,24 +23,6 @@
                 <input type="hidden" name="itemType" value="{{itemType}}" >
                 <button type="submit" class="btn btn-primary" onclick="userTrack();">Rent</button>
             </form>
-            {{/each}}
-    </div>
-   <div class="sbSplit">
-    {{#each itemsSnow}}
-        <form action="{{formInput}}" method="post" role="form" enctype="application/x-www-form-urlencoded">
-            <h3>{{name}}</h3>
-            <img src="{{image}}" alt="ImageRental" height="200px" width="200px">
-            {{!-- <input type="datetime-local" id="datePicker" name="startTime" min="2022-05-17T08:00" max="2022-10-31T22:00">  --}}
-            <input type="date" id="datePicker" name="datePicker" min="2022-05-19">
-            <input type="time" id="timePicker" name="timePicker" min="08:00" max="22:00">
-            <select name="duration" id="durationPicker">
-                <option value="4">4H</option>
-                <option value="8">8H</option>
-            </select>
-            <input type="hidden" name="itemType" value="{{itemType}}" >
-            <button type="submit" class="btn btn-primary" onclick="userTrack();">Rent</button>
-        </form>
-        {{/each}}
-   </div>
-  
-</div>
+        </div>        
+    {{/each}}
+</div>  

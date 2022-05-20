@@ -65,12 +65,12 @@ router.get('/account', async function (request, response) {
                 const itemType = await model.getItemTypeById(item.itemType);
                 pageData.userRentals.push({rental: [
                     {name: "Id", value: rentals[i].id},
-                    {name: "Start Time", value: rentals[i].startTime},
-                    {name: "End Time", value: rentals[i].endTime},
-                    {name: "duration", value: rentals[i].duration},
-                    {name: "Rental cost", value: item.itemCost * 0.2},
+                    {name: "Start Time", value: rentals[i].startTime.substr(0,21)},
+                    {name: "End Time", value: rentals[i].endTime.substr(0,21)},
+                    {name: "Duration", value: rentals[i].duration + ' hours'},
+                    {name: "Rental cost", value: formatter.format(item.itemCost * 0.2)},
                     {name: "Item Name", value: item.name},
-                    {name: "Item Cost", value: item.itemCost},
+                    {name: "Item Cost", value: formatter.format(item.itemCost)},
                     {name: "Item Type", value: itemType.name}
                 ]});
             }
@@ -178,6 +178,12 @@ async function signupSubmit(req, res) {
         res.render("signup.hbs", { message: err.message, username: req.body.username, firstName: req.body.firstName, lastName: req.body.lastName, password: req.body.password, conformPassword: req.body.confirmPassword });
     }
 }
+
+// Create our number formatter.
+var formatter = new Intl.NumberFormat('en-CA', {
+    style: 'currency',
+    currency: 'CAD',
+});
 
 module.exports = {
     router,

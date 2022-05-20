@@ -52,7 +52,7 @@ async function home(request, response) {
 router.get('/rent', async function (request, response) {
     const pageData = {
         rent: true,
-        itemsSnow:
+        items:
             [
                 {
                     name: "Snowboard",
@@ -65,10 +65,7 @@ router.get('/rent', async function (request, response) {
                     formInput: "/rentSubmit",
                     image: "/images/snowbardBoots.png",
                     itemType: "Boots"
-                }
-            ],
-        items: [
-
+                },
             {
                 name: "Ski",
                 formInput: "/rentSubmit",
@@ -93,7 +90,6 @@ router.get('/rent', async function (request, response) {
                 image: "/images/poles.png",
                 itemType: "Poles"
             },
-
         ]
     };
 
@@ -120,7 +116,7 @@ router.get('/rent', async function (request, response) {
 router.post('/rentSubmit', async function (request, response) {
     const pageData = {
         rent: true,
-        itemsSnow:
+        items:
             [
                 {
                     name: "Snowboard",
@@ -133,10 +129,7 @@ router.post('/rentSubmit', async function (request, response) {
                     formInput: "/rentSubmit",
                     image: "/images/snowbardBoots.png",
                     itemType: "Boots"
-                }
-            ],
-        items: [
-
+                },
             {
                 name: "Ski",
                 formInput: "/rentSubmit",
@@ -161,7 +154,6 @@ router.post('/rentSubmit', async function (request, response) {
                 image: "/images/poles.png",
                 itemType: "Poles"
             },
-
         ]
     };
 
