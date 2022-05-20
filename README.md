@@ -6,15 +6,16 @@ Made by Liam
 
 ## Table Of Contents
 
-1. [**Shared**](#Shared)
-
+1. [**Setup**](#setup)
+   - [**Node Mailer**](#node-mailer)
+   - [**Add Time**](#add-time)
+2. [**Shared**](#Shared)
    - [**Header**](#Header)
    - [**Footer**](#Footer)
    - [**Login**](#Login)
    - [**Logout**](#Logout)
    - [**Personalization**](#Personalization)
-
-2. [**User**](#User)
+3. [**User**](#User)
 
    - [**User Header**](#User-Header)
 
@@ -31,8 +32,7 @@ Made by Liam
    - [**Account**](#Account)
 
    - [**Sign Up**](#Sign-Up)
-
-3. [**Admin**](#Admin)
+4. [**Admin**](#Admin)
 
    - [**Admin Header**](#Admin-Header)
    - [**Admin Footer**](#Admin-Footer)
@@ -42,6 +42,22 @@ Made by Liam
    - [**Users**](#Users)
 
 
+
+## Setup
+
+Here are all the npm packages we used:
+
+![Packages](./ImagesForReadMe/packages.PNG)
+
+Our of those, the ones we did not use in class include:
+
+#### Node Mailer
+
+This package allows User to send us an email from the footer
+
+#### Add Time
+
+This package allows two dates to be easily be added together in one command
 
 ## Shared
 
