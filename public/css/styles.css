@@ -1317,11 +1317,25 @@ h2{
 	margin-top: 50px;
 
 }
-
-.accountContainer{
+.accountInfo
+{
 	display: flex;
-	flex-direction: column;
+	flex-direction: row;
 	align-items: center;
 	justify-content: center;
-	background-color: var(--secondary);
+	margin: 50px;
+	width: 700px;
+}
+#MoveName
+{
+	padding: 1.2rem;
+    background-color: var(--primary);
+    border-radius: 1rem;
+    border: 1px solid black;
+    box-shadow: var(--box-shadow);
+    transition: all 300ms ease;
+}
+#MoveRentals
+{
+	margin-left: 600px;
 }
