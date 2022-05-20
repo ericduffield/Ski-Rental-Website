@@ -7,6 +7,8 @@ Made by Liam
 ## Table Of Contents
 
 1. [**Setup**](#setup)
+   - [**Docker**](#docker)
+   - [**Npm**](#npm)
    - [**Node Mailer**](#node-mailer)
    - [**Add Time**](#add-time)
 2. [**Shared**](#Shared)
@@ -44,6 +46,12 @@ Made by Liam
 
 
 ## Setup
+
+#### Docker
+
+The name of our db file is skiEquipment_db
+
+### Npm
 
 Here are all the npm packages we used:
 
