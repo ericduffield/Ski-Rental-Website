@@ -7,25 +7,34 @@
     <h1>Welcome to your Account</h1>
 </div>
 
-<div>
-    <div class="accountInfo">
-        
+{{!-- Display all the user fields --}}
+
+<div class="grid">
+    <h3>Your Info</h3>
+    <div>
+        {{#each userFields}}
+            <div class="fields">
+                <p><b>{{this.name}}</b>: {{this.value}}</p>
+            </div>
+        {{/each}}
     </div>
+    <h3>Rentals</h3>
+    {{#each userRentals}}
+        <div>
+            {{#each rental}}
+                <div class="fields">
+                    <p><b>{{this.name}}</b>: {{this.value}}</p>
+                </div>
+            {{/each}}
+        </div>
+    {{/each}}
 </div>
+
+{{!-- Display all the user's rentals --}}
+
 
 <div class="logoutAccount">
     <form action="/logout" method="post">
         <button class="btn btn-primary buttonRent" name="foo" value="upvote">Logout</button>
     </form>
 </div>
-<script>
-    const model = require("../models/skiEquipmentModelMysql")
-    // get the current cookie session.id
-    const sessionId = document.cookie.split("=")[1];
-    // get the current user's id
-    const userId = sessionId.split("%")[0];
-
-    let user = await model.getRentalFromUserId(userId);
-    console.log(user);
-    
-</script>
