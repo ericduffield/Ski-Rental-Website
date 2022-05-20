@@ -677,7 +677,7 @@ async function createRental(userId, startTime, endTime, Duration, itemType) {
     if (!validate.isValidInteger(Duration)) {
         throw new UserDataError("Invalid duration");
     }
-    if (!validate.isValidItemType(itemType)) {
+    if (!validate.isValidAlphanumeric(itemType)) {
         throw new UserDataError("Invalid item type");
     }
 

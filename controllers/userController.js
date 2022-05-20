@@ -189,35 +189,63 @@ router.post('/rentSubmit', async function (request, response) {
         try {
             // Create the rental
             await model.createRental(session.userId, startTime, endTime, duration, itemType);
-            logger.log("Successfully rented ski equipment");
+            logger.info("Successfully rented ski equipment");
 
-            // TODO, change this to account so that you can see ur rental
-            response.render("home.hbs", { message: "Successfully rented ski equipment" });
+            // Get the user fields from the id in the cookies
+            const user = await model.getUserById(session.userId);
+            const userType = await model.getUserTypeFromTypeId(user.userType);
+
+            const rentals = await model.getRentalFromUserId(user.id);
+
+            const pageData = {
+                loggedIn: false,
+                userFields: [
+                    { name: "First Name", value: user.firstName },
+                    { name: "Last Name", value: user.lastName },
+                    { name: "Username", value: user.username },
+                    { name: "User Type", value: userType },
+                    { name: "Credit", value: user.credit }
+                ],
+                userRentals: []
+            }
+
+            if (rentals != null) {
+
+                for (let i = 0; i < rentals.length; i++) {
+                    const item = await model.getItemById(rentals[i].itemId);
+                    const itemType = await model.getItemTypeById(item.itemType);
+                    pageData.userRentals.push({
+                        rental: [
+                            { name: "Id", value: rentals[i].id },
+                            { name: "Start Time", value: rentals[i].startTime.substr(0, 21) },
+                            { name: "End Time", value: rentals[i].endTime.substr(0, 21) },
+                            { name: "Duration", value: rentals[i].duration + ' hours' },
+                            { name: "Rental cost", value: formatter.format(item.itemCost * 0.2) },
+                            { name: "Item Name", value: item.name },
+                            { name: "Item Cost", value: formatter.format(item.itemCost) },
+                            { name: "Item Type", value: itemType.name }
+                        ]
+                    });
+                }
+            }
+            pageData.loggedIn = true;
+
+            response.render("account.hbs", pageData);
         }
         catch (err) {
             // If it didn't work, display error message and return to rental page
             logger.error(err.message);
-            res.status(err.status == 400 ? 400 : 500);
             response.render('rent.hbs', { message: err.message });
-        }
-        // Try to create the rental
-        try {
-            // Create the rental
-            await model.createRental(session.userId, startTime, endTime, duration, itemType);
-            logger.info("Successfully rented ski equipment");
-
-            // TODO, change this to account so that you can see ur rental
-            response.render("home.hbs", { message: "Successfully rented ski equipment" });
-        }
-        catch (err) {
-            // If it didnt work, display error message and return to rental page
-            logger.error(err.message);
-            pageData.message = err.message;
-            response.render('rent.hbs', pageData);
         }
     }
 }
 );
+
+// Create our number formatter.
+var formatter = new Intl.NumberFormat('en-CA', {
+    style: 'currency',
+    currency: 'CAD',
+});
 
 router.get('/about', about);
 
