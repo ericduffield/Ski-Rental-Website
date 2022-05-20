@@ -1,4 +1,8 @@
-window.addEventListener('load', function() {
+window.addEventListener('load', 
+/**
+ * Sets the default times in the rent page
+ */
+function() {
     var dates = document.querySelectorAll('.datePicker');
     // Loop over dates and change the value to right Now
     for (var i = 0; i < dates.length; i++) {
