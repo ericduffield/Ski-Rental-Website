@@ -19,25 +19,19 @@ Its features are as follows:
 
 ![Hero Image](./ImagesForReadMe/heroImage.PNG)
 
-2. Welcome Message
-
-   - Makes the user feel invited to the site
-
-![Welcome](./ImagesForReadMe/welcome.PNG)
-
-3. Rental examples
+2. Rental examples
 
    - Forces the user to see our rentals
 
 ![Home Page Rental](./ImagesForReadMe/homePage-Rental.PNG)
 
-4. Sneak Peak at the about us
+3. Sneak Peak at the about us
 
    - Makes our site feel more human
 
 ![Home Page About Us](./ImagesForReadMe/homePage-OurTeam.PNG)
 
-5. Locations
+4. Locations
 
    - Added for flare
 
