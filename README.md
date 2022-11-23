@@ -313,7 +313,7 @@ Gets and displays all of the following to the screen:
 
   - Item Type
 
-![List Items](./ImagesForReadMe/list-items.PNG)
+![List Items](./ImagesForReadMe/items.png)
 
 - Item Types
 
