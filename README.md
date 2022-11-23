@@ -1,47 +1,89 @@
-# Rental Ski Shop
+# Ski Rental Shop
 
-Eric, Liam & Pleasure
+Created by:
+- Eric Duffield
+- Liam Kopke
+- Pleasure Ghotra
 
-Made by Liam
 
-## Table Of Contents
 
-1. [**Setup**](#setup)
-   - [**Docker**](#docker)
-   - [**Npm**](#npm)
-   - [**Node Mailer**](#node-mailer)
-   - [**Add Time**](#add-time)
-2. [**Shared**](#Shared)
-   - [**Header**](#Header)
-   - [**Footer**](#Footer)
-   - [**Login**](#Login)
-   - [**Logout**](#Logout)
-   - [**Personalization**](#Personalization)
-3. [**User**](#User)
+## Home Page
 
-   - [**User Header**](#User-Header)
+Our home page is the core of our site. It prompts the user to rent or learn more about us. 
 
-   - [**User Footer**](#User-Footer)
+Its features are as follows:
 
-   - [**Home Page**](#Home-Page)
+1. Hero Image
 
-   - [**Rentals Page**](#Rentals-Page)
+   - Prompts the user to rent now
 
-   - [**About Us**](#About-Us)
+![Hero Image](./ImagesForReadMe/heroImage.PNG)
 
-   - [**Login**](#Login)
+2. Welcome Message
 
-   - [**Account**](#Account)
+   - Makes the user feel invited to the site
 
-   - [**Sign Up**](#Sign-Up)
-4. [**Admin**](#Admin)
+![Welcome](./ImagesForReadMe/welcome.PNG)
 
-   - [**Admin Header**](#Admin-Header)
-   - [**Admin Footer**](#Admin-Footer)
-   - [**List**](#List)
-   - [**Items**](#Items)
-   - [**Item Types**](#Item-Types)
-   - [**Users**](#Users)
+3. Rental examples
+
+   - Forces the user to see our rentals
+
+![Home Page Rental](./ImagesForReadMe/homePage-Rental.PNG)
+
+4. Sneak Peak at the about us
+
+   - Makes our site feel more human
+
+![Home Page About Us](./ImagesForReadMe/homePage-OurTeam.PNG)
+
+5. Locations
+
+   - Added for flare
+
+![Home Page - Locations](./ImagesForReadMe/homePage-Locations.PNG)
+
+
+
+## Rentals Page
+
+The page allows a user to rent an item from our inventory.
+
+In order to access this page, the user must be logged in from the [login](#Login) page. 
+
+Once inside, the user can expect to find two categories of items. Items related to skiing and items related to snowboarding. These two categories of items are split down the middle with the left pertaining to the former and the right the latter. 
+
+Once the user picks the item they wish to rent, they just have to fill out the form and select the rent button.
+
+The rental forms is as follows:
+
+- Date
+  - The user has to input a date
+  - This is limited so that the date cannot be smaller than current date
+- Time
+  - The user has to input a time
+  - Duration is picked from a dropdown
+    - 4 hours
+    - 8 hours
+  - The time is limited so that a rental can only occur within operating hours
+    - Depending on the duration of the rental, the maximum time changes to:
+      - 4 hours: 18:00
+      - 8 hours:  14:00
+    - 08:00 being opening time
+    - 22:00 being closing time
+
+- Submit
+
+  - If all of the fields are valid, then the site makes a request to the server.
+
+  - The model checks that all the fields are good.
+
+  - If all the fields are good, it checks if there is a matching item available at that time
+
+  - If an item is found, it creates the rental under that users id
+
+![Rentals](./ImagesForReadMe/rent.PNG)
+
 
 
 
@@ -66,6 +108,8 @@ This package allows User to send us an email from the footer
 #### Add Time
 
 This package allows two dates to be easily be added together in one command
+
+
 
 ## Shared
 
@@ -191,82 +235,9 @@ Only difference from main [footer](#Footer) is that the links are for the same a
 
 
 
-#### Home Page
-
-Our home page is the core of our site. It prompts the user to rent or learn more about us. 
-
-Its features are as follows:
-
-1. Hero Image
-
-   - Prompts the user to rent now
-
-![Hero Image](./ImagesForReadMe/heroImage.PNG)
-
-2. Welcome Message
-
-   - Makes the user feel invited to the site
-
-![Welcome](./ImagesForReadMe/welcome.PNG)
-
-3. Rental examples
-
-   - Forces the user to see our rentals
-
-![Home Page Rental](./ImagesForReadMe/homePage-Rental.PNG)
-
-4. Sneak Peak at the about us
-
-   - Makes our site feel more human
-
-![Home Page About Us](./ImagesForReadMe/homePage-OurTeam.PNG)
-
-5. Locations
-
-   - Added for flare
-
-![Home Page - Locations](./ImagesForReadMe/homePage-Locations.PNG)
 
 
 
-#### Rentals Page
-
-The page allows a user to rent an item from our inventory.
-
-In order to access this page, the user must be logged in from the [login](#Login) page. 
-
-Once inside, the user can expect to find two categories of items. Items related to skiing and items related to snowboarding. These two categories of items are split down the middle with the left pertaining to the former and the right the latter. 
-
-Once the user picks the item they wish to rent, they just have to fill out the form and select the rent button.
-
-The rental forms is as follows:
-
-- Date
-  - The user has to input a date
-  - This is limited so that the date cannot be smaller than current date
-- Time
-  - The user has to input a time
-  - Duration is picked from a dropdown
-    - 4 hours
-    - 8 hours
-  - The time is limited so that a rental can only occur within operating hours
-    - Depending on the duration of the rental, the maximum time changes to:
-      - 4 hours: 18:00
-      - 8 hours:  14:00
-    - 08:00 being opening time
-    - 22:00 being closing time
-
-- Submit
-
-  - If all of the fields are valid, then the site makes a request to the server.
-
-  - The model checks that all the fields are good.
-
-  - If all the fields are good, it checks if there is a matching item available at that time
-
-  - If an item is found, it creates the rental under that users id
-
-![Rentals](./ImagesForReadMe/rent.PNG)
 
 
 
